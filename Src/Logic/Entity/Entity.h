@@ -263,6 +263,25 @@ namespace Logic
 		void setOrientation(const Matrix3& orientation);
 
 		/**
+		Establece el viraje de la entidad. Avisa a los componentes
+		del cambio.
+
+		@param yaw Nuevo viraje.
+		*/
+		void setYaw(float yaw);
+
+		/**
+		Devuelve el viraje de la entidad.
+		<p>
+		La orientación es inicialmente leída del mapa como un simple
+		viraje (si no aparece, se colocará a 0), aunque, obviamente, puede
+		cambiar con el tiempo.
+
+		@return Viraje en el entorno.
+		*/
+		float getYaw() const { return Math::getYaw(_transform); }
+
+		/**
 		Devuelve la matriz de rotación de la entidad.
 		<p>
 		La orientación es inicialmente leída del mapa como un simple 

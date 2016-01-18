@@ -271,4 +271,18 @@ namespace Logic
 
 	} // getOrientation
 
+	//---------------------------------------------------------
+
+	void CEntity::setYaw(float yaw)
+	{
+		Math::setYaw(yaw, _transform);
+
+		// Avisamos a los componentes del cambio.
+		TMessage message;
+		message._type = Message::SET_TRANSFORM;
+		message._transform = _transform;
+		emitMessage(message);
+
+	} // setYaw
+
 } // namespace Logic
