@@ -1,0 +1,42 @@
+# POR EL MOMENTO IGNORAMOS TODAS LAS DEPENDENCIAS Y LOS ASSETS
+dependencies/
+Exes/media/
+
+# Carpetas donde se compilan Ogre y CEGUI
+dependencies/OgreDependencies/build
+dependencies/Ogre/build
+dependencies/CEGUI/build
+dependencies/CEGUI/dependencies/build
+dependencies/VisualLeakDetector/src/bin/Win32
+dependencies/VisualLeakDetector/src/obj
+
+# Archivos binarios, de cabecera y librerias que se copian a dependencies/
+dependencies/bin/Debug
+dependencies/bin/Release
+dependencies/lib/Debug
+dependencies/lib/Release
+dependencies/include
+
+# Archivos binarios que se copian a Exes/
+Exes/*.exe
+Exes/*.dll
+
+# Resto de ficheros que no queremos de Exes/
+Exes/*.ilk
+Exes/*.pdb
+Exes/Microsoft.DTfW.DHL.manifest
+Exes/ogre.cfg
+Exes/plugins_d.cfg
+Exes/tests_d.cfg
+Exes/vld.ini
+
+# Carpetas donde se compilan los subproyectos de Galeon
+Projects/*/Debug
+Projects/*/Release
+
+# Archivos auxiliares de Visual Studio
+*.sdf
+*.suo
+*.user
+*.log
+*.opensdf
