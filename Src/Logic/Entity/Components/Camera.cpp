@@ -45,8 +45,17 @@ namespace Logic
 		if(entityInfo->hasAttribute("targetDistance"))
 			_targetDistance = entityInfo->getFloatAttribute("targetDistance");
 
-		if(entityInfo->hasAttribute("targetHeight"))
-			_targetHeight = entityInfo->getFloatAttribute("targetHeight");
+		if(entityInfo->hasAttribute("fixed"))
+			_fixed = entityInfo->getBoolAttribute("fixed");
+
+		if (_fixed){
+
+			// Actualizar la posición de la cámara con la posición de la entidad.
+			_graphicsCamera->setCameraPosition(_entity->getPosition());
+
+			// La cámara apunta al 0, 0 , 0
+			_graphicsCamera->setTargetCameraPosition(Vector3::ZERO);
+		}
 
 		return true;
 
