@@ -27,6 +27,7 @@ namespace Ogre
 	class SceneManager;
 	class StaticGeometry;
 	class Light;
+	class ManualObject;
 }
 namespace Graphics 
 {
@@ -134,6 +135,11 @@ namespace Graphics
 		la escena.
 		*/
 		void removeStaticEntity(CStaticEntity* entity);
+
+		/**
+		Create a Manual Object
+		*/
+		Ogre::ManualObject* createManualObject();
 
 	protected:
 

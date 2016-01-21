@@ -28,6 +28,7 @@ de una escena.
 #include <OgreViewport.h>
 #include <OgreStaticGeometry.h>
 #include <OgreColourValue.h>
+#include <OgreManualObject.h>
 
 namespace Graphics 
 {
@@ -91,6 +92,13 @@ namespace Graphics
 		_staticEntities.remove(entity);
 
 	} // addStaticEntity
+
+	//--------------------------------------------------------
+
+	Ogre::ManualObject* CScene::createManualObject()
+	{
+		return _sceneMgr->createManualObject();
+	}
 
 	//--------------------------------------------------------
 
