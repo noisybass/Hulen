@@ -158,7 +158,10 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
-		void drawGuizmo(int size, Vector3 entityPosition);
+		/**
+		Draw a guizmo of the player entity.
+		*/
+		void drawGuizmo(int size);
 
 	protected:
 

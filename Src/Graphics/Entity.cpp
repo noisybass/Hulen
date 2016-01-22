@@ -215,7 +215,7 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	void CEntity::drawGuizmo(int size, Vector3 entityPosition){
+	void CEntity::drawGuizmo(int size){
 	
 		std::string guizmoName;
 
@@ -227,8 +227,8 @@ namespace Graphics
 
 		// We set the material and draw the line
 		xAxe->begin("Red", Ogre::RenderOperation::OT_LINE_LIST);
-		xAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
-		xAxe->position(entityPosition.x + size, entityPosition.y, entityPosition.z); // X Axis
+		xAxe->position(0, 0, 0); // Center
+		xAxe->position(size, 0, 0); // X Axis
 		xAxe->end();
 		xAxe->convertToMesh(guizmoName);
 
@@ -249,8 +249,8 @@ namespace Graphics
 
 		// We set the material and draw the line
 		yAxe->begin("Green", Ogre::RenderOperation::OT_LINE_LIST);
-		yAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
-		yAxe->position(entityPosition.x, entityPosition.y + size, entityPosition.z); // Y Axis
+		yAxe->position(0, 0, 0); // Center
+		yAxe->position(0, size, 0); // Y Axis
 		yAxe->end();
 		yAxe->convertToMesh(guizmoName);
 
@@ -272,8 +272,8 @@ namespace Graphics
 
 		// We set the material and draw the line
 		zAxe->begin("Blue", Ogre::RenderOperation::OT_LINE_LIST);
-		zAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
-		zAxe->position(entityPosition.x, entityPosition.y, entityPosition.z + size); // ZAxis
+		zAxe->position(0, 0, 0); // Center
+		zAxe->position(0, 0, size); // ZAxis
 		zAxe->end();
 		zAxe->convertToMesh(guizmoName);
 
