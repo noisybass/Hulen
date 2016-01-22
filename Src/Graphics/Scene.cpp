@@ -95,13 +95,6 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	Ogre::ManualObject* CScene::createManualObject()
-	{
-		return _sceneMgr->createManualObject();
-	}
-
-	//--------------------------------------------------------
-
 	void CScene::activate()
 	{
 		buildStaticGeometry();

@@ -48,14 +48,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CGraphics() : IComponent(), _graphicsEntity(0) 
-		{
-			_guizmo.exist = false;
-			_guizmo.size = 1;
-			_guizmo.XAxis = 0;
-			_guizmo.YAxis = 0;
-			_guizmo.ZAxis = 0;
-		}
+		CGraphics() : IComponent(), _graphicsEntity(0), _guizmo(false), _guizmoSize(5){}
 
 		/**
 		Destructor (virtual); Quita de la escena y destruye la entidad gráfica.
@@ -105,6 +98,9 @@ namespace Logic
 		*/
 		virtual Graphics::CEntity* createGraphicsEntity(const Map::CEntity *entityInfo);
 
+		/**
+		Dibuja un guizmo en la posicion del personaje para saber sus ejes a la hora de depurar.
+		*/
 		void drawGuizmo(int size);
 
 		/**
@@ -123,15 +119,15 @@ namespace Logic
 		*/
 		Graphics::CScene* _scene;
 
-		struct GuizmoInfo{
-			bool exist;
-			unsigned int size;
-			Graphics::CEntity* XAxis;
-			Graphics::CEntity* YAxis;
-			Graphics::CEntity* ZAxis;
-		};
-	
-		GuizmoInfo _guizmo;
+		/**
+		Indica si se quiere que se muestre el guizmo en la entidad.
+		*/
+		bool _guizmo;
+
+		/**
+		Tamaño de las lineas dibujadas del guizmo.
+		*/
+		unsigned int _guizmoSize;
 
 	}; // class CGraphics
 

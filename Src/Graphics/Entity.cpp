@@ -24,6 +24,9 @@ Contiene la implementación de la clase que representa una entidad gráfica.
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
+#include <OgreManualObject.h>
+#include <OgreMaterialManager.h>
+#include <OgreTechnique.h>
 
 namespace Graphics 
 {
@@ -120,6 +123,9 @@ namespace Graphics
 		{
 			_scene->getSceneMgr()->destroyEntity(_entity);
 			_entity = 0;
+			_guizmo.XAxis = nullptr;
+			_guizmo.YAxis = nullptr;
+			_guizmo.ZAxis = nullptr;
 		}
 
 	} // load
@@ -206,6 +212,82 @@ namespace Graphics
 		}
 
 	} // setScale
+
+	//--------------------------------------------------------
+
+	void CEntity::drawGuizmo(int size, Vector3 entityPosition){
+	
+		std::string guizmoName;
+
+		/**
+		Creating X Axe (RED)
+		*/
+		guizmoName = _entity->getName() + "X-Axe";
+		Ogre::ManualObject *xAxe = _scene->getSceneMgr()->createManualObject();
+
+		// We set the material and draw the line
+		xAxe->begin("Red", Ogre::RenderOperation::OT_LINE_LIST);
+		xAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
+		xAxe->position(entityPosition.x + size, entityPosition.y, entityPosition.z); // X Axis
+		xAxe->end();
+		xAxe->convertToMesh(guizmoName);
+
+		// Create a child Node for the Guizmo, thus we don't have to move the guizmo.
+		_guizmo.XAxis = new CEntity(guizmoName, guizmoName);
+		_guizmo.XAxis->_entity = _scene->getSceneMgr()->createEntity(guizmoName, guizmoName);
+		_guizmo.XAxis->_entityNode = _entityNode->createChildSceneNode(guizmoName);
+		_guizmo.XAxis->_entityNode->attachObject(_guizmo.XAxis->_entity);
+		_guizmo.XAxis->_loaded = true;
+		_scene->addEntity(_guizmo.XAxis);
+		_scene->_dynamicEntities.push_back(_guizmo.XAxis);
+
+		/**
+		Creating Y Axe (GREEN)
+		*/
+		guizmoName = _entity->getName() + "Y-Axe";
+		Ogre::ManualObject *yAxe = _scene->getSceneMgr()->createManualObject();
+
+		// We set the material and draw the line
+		yAxe->begin("Green", Ogre::RenderOperation::OT_LINE_LIST);
+		yAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
+		yAxe->position(entityPosition.x, entityPosition.y + size, entityPosition.z); // Y Axis
+		yAxe->end();
+		yAxe->convertToMesh(guizmoName);
+
+		// Create a child Node for the Guizmo, thus we don't have to move the guizmo.
+		_guizmo.YAxis = new CEntity(guizmoName, guizmoName);
+		_guizmo.YAxis->_entity = _scene->getSceneMgr()->createEntity(guizmoName, guizmoName);
+		_guizmo.YAxis->_entityNode = _entityNode->createChildSceneNode(guizmoName);
+		_guizmo.YAxis->_entityNode->attachObject(_guizmo.YAxis->_entity);
+		_guizmo.YAxis->_loaded = true;
+		_scene->addEntity(_guizmo.YAxis);
+		_scene->_dynamicEntities.push_back(_guizmo.YAxis);
+		
+
+		/**
+		Creating Z Axe (BLUE)
+		*/
+		guizmoName = _entity->getName() + "Z-Axe";
+		Ogre::ManualObject *zAxe = _scene->getSceneMgr()->createManualObject();
+
+		// We set the material and draw the line
+		zAxe->begin("Blue", Ogre::RenderOperation::OT_LINE_LIST);
+		zAxe->position(entityPosition.x, entityPosition.y, entityPosition.z); // Center
+		zAxe->position(entityPosition.x, entityPosition.y, entityPosition.z + size); // ZAxis
+		zAxe->end();
+		zAxe->convertToMesh(guizmoName);
+
+		// Create a child Node for the Guizmo, thus we don't have to move the guizmo.
+		_guizmo.ZAxis = new CEntity(guizmoName, guizmoName);
+		_guizmo.ZAxis->_entity = _scene->getSceneMgr()->createEntity(guizmoName, guizmoName);
+		_guizmo.ZAxis->_entityNode = _entityNode->createChildSceneNode(guizmoName);
+		_guizmo.ZAxis->_entityNode->attachObject(_guizmo.ZAxis->_entity);
+		_guizmo.ZAxis->_loaded = true;
+		_scene->addEntity(_guizmo.ZAxis);
+		_scene->_dynamicEntities.push_back(_guizmo.ZAxis);
+		
+	
+	} // drawGuizmo
 
 
 } // namespace Graphics

@@ -158,6 +158,8 @@ namespace Graphics
 		*/
 		Ogre::Entity* getEntity() {return _entity;}
 
+		void drawGuizmo(int size, Vector3 entityPosition);
+
 	protected:
 
 		// CScene es la única que puede añadir o eliminar entidades de una 
@@ -242,6 +244,18 @@ namespace Graphics
 		Indica si la entidad ha sido cargada en el motor gráfico.
 		*/
 		bool _loaded;
+
+		/**
+		Estructura en la que guardamos los parametros que necesita un Guizmo.
+		*/
+		struct GuizmoInfo{
+			GuizmoInfo() : XAxis(nullptr), YAxis(nullptr), ZAxis(nullptr) {}
+			CEntity* XAxis;
+			CEntity* YAxis;
+			CEntity* ZAxis;
+		};
+
+		GuizmoInfo _guizmo;
 
 	}; // class CEntity
 

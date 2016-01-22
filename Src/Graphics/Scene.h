@@ -136,11 +136,6 @@ namespace Graphics
 		*/
 		void removeStaticEntity(CStaticEntity* entity);
 
-		/**
-		Create a Manual Object
-		*/
-		Ogre::ManualObject* createManualObject();
-
 	protected:
 
 		/**
