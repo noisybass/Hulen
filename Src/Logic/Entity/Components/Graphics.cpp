@@ -59,7 +59,7 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("guizmo")){
 			_guizmo= entityInfo->getBoolAttribute("guizmo");
-			_graphicsEntity->drawGuizmo(10);
+			_graphicsEntity->drawGuizmo(_guizmoSize);
 		}
 
 		return true;
