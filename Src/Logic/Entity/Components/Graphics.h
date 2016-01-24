@@ -107,6 +107,11 @@ namespace Logic
 		Atributo con el nombre del modelo gráfico de la entidad.
 		*/
 		std::string _model;
+
+		/**
+		Atributo con la escala del modelo gráfico de la entidad.
+		*/
+		Vector3 _scale;
 		
 		/**
 		Entidad gráfica.
