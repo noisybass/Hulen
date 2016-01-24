@@ -34,6 +34,7 @@ namespace Graphics
 	class CCamera;
 	class CEntity;
 	class CStaticEntity;
+	class CLight;
 }
 
 namespace Graphics 
@@ -114,6 +115,8 @@ namespace Graphics
 		*/
 		bool addStaticEntity(CStaticEntity* entity);
 
+		void addLight(CLight* light);
+
 		/**
 		Elimina una entidad gráfica de la escena. 
 		<p>
@@ -134,6 +137,8 @@ namespace Graphics
 		la escena.
 		*/
 		void removeStaticEntity(CStaticEntity* entity);
+
+		void removeLight(CLight* light);
 
 	protected:
 
@@ -190,6 +195,7 @@ namespace Graphics
 		*/
 		friend class CEntity;
 		friend class CCamera;
+		friend class CLight;
 
 		/**
 		Devuelve el gestor de la escena de Ogre
@@ -261,6 +267,11 @@ namespace Graphics
 		typedef std::list<CEntity*> TEntityList;
 
 		/**
+		Tipo para la lista de luces
+		*/
+		typedef std::list<CLight*> TLightList;
+
+		/**
 		Lista de entidades estáticas.
 		*/
 		TStaticEntityList _staticEntities;
@@ -269,6 +280,11 @@ namespace Graphics
 		Lista de entidades dinámicas.
 		*/
 		TEntityList _dynamicEntities;
+
+		/**
+		Lista de luces.
+		*/
+		TLightList _lights;
 		
 		/**
 		Geometría estática de la escena.

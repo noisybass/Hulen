@@ -18,6 +18,7 @@ de una escena.
 #include "Camera.h"
 #include "Server.h"
 #include "StaticEntity.h"
+#include "Light.h"
 #include "BaseSubsystems/Server.h"
 
 #include <assert.h>
@@ -31,8 +32,8 @@ de una escena.
 
 namespace Graphics 
 {
-	CScene::CScene(const std::string& name) : _viewport(0), 
-			_staticGeometry(0), _directionalLight(0)
+	CScene::CScene(const std::string& name) : _viewport(nullptr), 
+			_staticGeometry(nullptr), _directionalLight(nullptr)
 	{
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
 		_sceneMgr = _root->createSceneManager(Ogre::ST_INTERIOR, name);
@@ -76,6 +77,15 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	void CScene::addLight(CLight* light)
+	{
+		light->attachToScene(this);
+		_lights.push_back(light);
+
+	} // addStaticEntity
+
+	//--------------------------------------------------------
+
 	void CScene::removeEntity(CEntity* entity)
 	{
 		entity->deattachFromScene();
@@ -94,6 +104,15 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	void CScene::removeLight(CLight* light)
+	{
+		light->detachFromScene();
+		_lights.remove(light);
+
+	} // addStaticEntity
+
+	//--------------------------------------------------------
+
 	void CScene::activate()
 	{
 		buildStaticGeometry();
@@ -106,13 +125,13 @@ namespace Graphics
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
-		_directionalLight = _sceneMgr->createLight("directional light");
+		/*_directionalLight = _sceneMgr->createLight("directional light");
 		_directionalLight->setDiffuseColour(.5f,.5f,.5f);
 		_directionalLight->setSpecularColour(.5f,.5f,.5f);
 		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
 		_directionalLight->setDirection(0, -150, 0);
 		_directionalLight->setType(Ogre::Light::LT_POINT);
-		_directionalLight->setPosition(0, 500, 0);
+		_directionalLight->setPosition(0, 500, 0);*/
 
 	} // activate
 
