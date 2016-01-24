@@ -41,9 +41,9 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CAvatarController() : IComponent(), _walking(false), _walkingBack(false), 
-			_strafingLeft(false), _strafingRight(false), _speed(0.05f) {}
-		
+		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), 
+							  _speed(0.05f) {}
+	
 		/**
 		Inicialización del componente, utilizando la información extraída de
 		la entidad leída del mapa (Maps::CEntity). Toma del mapa el atributo
@@ -110,56 +110,29 @@ namespace Logic
 		/**
 		Provoca que la entidad avance.
 		*/
-		void walk();
+		void walkRight();
 
 		/**
 		Provoca que la entidad retroceda.
 		*/
-		void walkBack();
+		void walkLeft();
 
 		/**
 		Provoca que la entidad cese el avance.
 		*/
 		void stopWalk();
 
-		/**
-		Provoca que la entidad se desplace lateralmente a la izquierda.
-		*/
-		void strafeLeft();
-
-		/**
-		Provoca que la entidad se desplace lateralmente a la derecha.
-		*/
-		void strafeRight();
-
-		/**
-		Provoca que la entidad cese el desplazamiento lateral.
-		*/
-		void stopStrafe();
-
 	protected:
 
 		/**
 		Atributo para saber si la entidad está avanzando.
 		*/
-		bool _walking;
+		bool _walkingRight;
 
 		/**
 		Atributo para saber si la entidad está retrocediendo.
 		*/
-		bool _walkingBack;
-
-		/**
-		Atributo para saber si la entidad está moviendose lateralmente
-		a la izquierda.
-		*/
-		bool _strafingLeft;
-
-		/**
-		Atributo para saber si la entidad está moviendose lateralmente
-		a la derecha.
-		*/
-		bool _strafingRight;
+		bool _walkingLeft;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.

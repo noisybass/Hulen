@@ -64,32 +64,27 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::CONTROL:
-			if(!message._string.compare("walk"))
-				walk();
-			else if(!message._string.compare("walkBack"))
-				walkBack();
-			else if(!message._string.compare("stopWalk"))
+			
+			if(!message._string.compare("walkLeft"))
+				walkLeft();
+			else if(!message._string.compare("walkRight"))
+				walkRight();
+			else if (!message._string.compare("stopWalk"))
 				stopWalk();
-			else if(!message._string.compare("strafeLeft"))
-				strafeLeft();
-			else if(!message._string.compare("strafeRight"))
-				strafeRight();
-			else if(!message._string.compare("stopStrafe"))
-				stopStrafe();
 		}
 
 	} // process
 	
 	//---------------------------------------------------------
 
-	void CAvatarController::walk() 
+	void CAvatarController::walkLeft() 
 	{
-		_walking = true;
+		_walkingLeft = true;
 
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "Walk";
+		message._string = "WalkLeft";
 		message._bool = true;
 		_entity->emitMessage(message,this);
 
@@ -97,14 +92,14 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CAvatarController::walkBack() 
+	void CAvatarController::walkRight() 
 	{
-		_walkingBack = true;
+		_walkingRight = true;
 
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "WalkBack";
+		message._string = "WalkRight";
 		message._bool = true;
 		_entity->emitMessage(message,this);
 
@@ -114,66 +109,14 @@ namespace Logic
 
 	void CAvatarController::stopWalk() 
 	{
-		_walking = _walkingBack = false;
+		_walkingLeft = _walkingRight = false;
 
-		// Cambiamos la animación si no seguimos desplazándonos
-		// lateralmente
-		if(!(_strafingLeft || _strafingRight))
-		{
-			TMessage message;
-			message._type = Message::SET_ANIMATION;
-			message._string = "Idle";
-			message._bool = true;
-			_entity->emitMessage(message,this);
-		}
-
-	} // stopWalk
-	
-	//---------------------------------------------------------
-
-	void CAvatarController::strafeLeft() 
-	{
-		_strafingLeft = true;
-
-		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "StrafeLeft";
+		message._string = "Idle";
 		message._bool = true;
 		_entity->emitMessage(message,this);
-
-	} // walk
-	
-	//---------------------------------------------------------
-
-	void CAvatarController::strafeRight() 
-	{
-		_strafingRight = true;
-
-		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message._string = "StrafeRight";
-		message._bool = true;
-		_entity->emitMessage(message,this);
-
-	} // walkBack
-	
-	//---------------------------------------------------------
-
-	void CAvatarController::stopStrafe() 
-	{
-		_strafingLeft = _strafingRight = false;
-
-		// Cambiamos la animación si no seguimos andando
-		if(!(_walking || _walkingBack))
-		{
-			TMessage message;
-			message._type = Message::SET_ANIMATION;
-			message._string = "Idle";
-			message._bool = true;
-			_entity->emitMessage(message,this);
-		}
+		
 
 	} // stopWalk
 	
@@ -187,26 +130,16 @@ namespace Logic
 		// Calculamos si hay vectores de dirección de avance y strafe,
 		// hayamos la dirección de la suma y escalamos según la
 		// velocidad y el tiempo transcurrido.
-		if(_walking || _walkingBack || _strafingLeft || _strafingRight)
+		if(_walkingLeft || _walkingRight)
 		{
 			Vector3 direction(Vector3::ZERO);
 			Vector3 directionStrafe(Vector3::ZERO);
 
-			if (_walkingBack)
-				int kk = 1;
-
-			if(_walking || _walkingBack)
-			{
-				direction = Math::getDirection(_entity->getYaw());
-				if(_walkingBack)
-					direction *= -1;
-			}
-
-			if(_strafingLeft || _strafingRight)
+			if(_walkingLeft || _walkingRight)
 			{
 				directionStrafe = 
 						Math::getDirection(_entity->getYaw() + Math::PI/2);
-				if(_strafingRight)
+				if(_walkingRight)
 					directionStrafe *= -1;
 			}
 
@@ -219,9 +152,6 @@ namespace Logic
 			message._type = Message::AVATAR_WALK;
 			message._vector3 = direction;
 			_entity->emitMessage(message);
-
-			//Vector3 newPosition = _entity->getPosition() + direction;
-			//_entity->setPosition(newPosition);
 		}
 
 	} // tick
