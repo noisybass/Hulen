@@ -126,6 +126,11 @@ namespace Logic
 		bool _fixed;
 
 		/**
+		Indica el aspect ratio que posee la cámara.
+		*/
+		float _ratio;
+
+		/**
 		Distancia del punto al que mirará la cámara respecto a la entidad 
 		objetivo. Es distancia sobre el plano XZ, la altura tiene su propio 
 		atributo.

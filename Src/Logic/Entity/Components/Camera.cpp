@@ -48,6 +48,19 @@ namespace Logic
 		if(entityInfo->hasAttribute("fixed"))
 			_fixed = entityInfo->getBoolAttribute("fixed");
 
+		if (entityInfo->hasAttribute("ratio")){
+			std::string auxRatio = entityInfo->getStringAttribute("ratio");
+
+			if (auxRatio == "16_9")
+				_ratio = 16.0f / 9.0f;
+			else if (auxRatio == "4_3")
+				_ratio = 4.0f / 3.0f;
+			else
+				_ratio = 4.0f / 3.0f;
+
+			_graphicsCamera->setAspectRatio(_ratio);
+		}
+
 		if (_fixed){
 
 			// Actualizar la posición de la cámara con la posición de la entidad.

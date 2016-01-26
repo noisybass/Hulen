@@ -92,6 +92,10 @@ namespace Graphics
 		return _targetNode->getPosition();
 	}
 
+	const float &CCamera::getAspectRatio(){
+		return _camera->getAspectRatio();
+	}
+
 	//--------------------------------------------------------
 
 	const Quaternion &CCamera::getCameraOrientation() 
@@ -113,5 +117,9 @@ namespace Graphics
 		_targetNode->setPosition(newPosition);
 	}
 
+	void CCamera::setAspectRatio(float ratio)
+	{
+		_camera->setAspectRatio(ratio);
+	}
 
 } // namespace Graphics

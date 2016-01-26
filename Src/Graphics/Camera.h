@@ -76,6 +76,13 @@ namespace Graphics
 		const Vector3 &getTargetCameraPosition();
 
 		/**
+		Devuelve el aspect ratio de la cámara.
+
+		@return Referencia al aspect ratio de la cámara.
+		*/
+		const float &getAspectRatio();
+
+		/**
 		Devuelve la orientación de la cámara.
 
 		@return Referencia al quaternion del nodo que contiene la cámara de Ogre.
@@ -96,6 +103,13 @@ namespace Graphics
 		@param newPosition Nueva posición para el _targetNode.
 		*/
 		void setTargetCameraPosition(const Vector3 &newPosition);
+
+		/**
+		Cambia el aspect ratio de la cámara. El aspect ratio (si se le pasa algo inválido a la función) por defecto es 16/9.
+
+		@param ratio el nuevo ratio de la cámara.
+		*/
+		void setAspectRatio(float ratio);
 
 	protected:
 		
