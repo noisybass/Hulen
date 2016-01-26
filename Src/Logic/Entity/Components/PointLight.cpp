@@ -44,6 +44,14 @@ namespace Logic
 		if (entityInfo->hasAttribute("light_position"))
 			_light->setPosition(entityInfo->getVector3Attribute("light_position"));
 
+		if (entityInfo->hasAttribute("flare_material") &&
+			entityInfo->hasAttribute("flare_colour")){
+			colour = entityInfo->getVector3Attribute("specular_colour");
+			_light->setFlare(Ogre::ColourValue(colour.x, colour.y, colour.z), entityInfo->getStringAttribute("flare_material"));
+		
+		}
+			
+
 		return true;
 	} // spawn
 
