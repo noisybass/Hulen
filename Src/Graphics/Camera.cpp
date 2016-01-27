@@ -96,6 +96,10 @@ namespace Graphics
 		return _camera->getAspectRatio();
 	}
 
+	const float &CCamera::getFOV(){
+		return _camera->getFOVy().valueDegrees();
+	}
+
 	//--------------------------------------------------------
 
 	const Quaternion &CCamera::getCameraOrientation() 
@@ -120,6 +124,10 @@ namespace Graphics
 	void CCamera::setAspectRatio(float ratio)
 	{
 		_camera->setAspectRatio(ratio);
+	}
+
+	void CCamera::setFOV(float degree){
+		_camera->setFOVy((Ogre::Radian)Ogre::Math::AngleUnitsToRadians(degree));
 	}
 
 } // namespace Graphics

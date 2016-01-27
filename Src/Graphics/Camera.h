@@ -83,6 +83,13 @@ namespace Graphics
 		const float &getAspectRatio();
 
 		/**
+		Devuelve el campo que abarca el FOV en grados.
+
+		@return Referencia al FOV de la cámara.
+		*/
+		const float &getFOV();
+
+		/**
 		Devuelve la orientación de la cámara.
 
 		@return Referencia al quaternion del nodo que contiene la cámara de Ogre.
@@ -110,6 +117,13 @@ namespace Graphics
 		@param ratio el nuevo ratio de la cámara.
 		*/
 		void setAspectRatio(float ratio);
+
+		/**
+		Cambia el Field of View (FOV) que abarca la cámara.
+
+		@param degree el nuevo FOV de la cámara en grados.
+		*/
+		void setFOV(float degree);
 
 	protected:
 		

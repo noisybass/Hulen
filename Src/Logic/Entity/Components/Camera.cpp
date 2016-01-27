@@ -51,15 +51,21 @@ namespace Logic
 		if (entityInfo->hasAttribute("ratio")){
 			std::string auxRatio = entityInfo->getStringAttribute("ratio");
 
-			if (auxRatio == "16_9")
-				_ratio = 16.0f / 9.0f;
-			else if (auxRatio == "4_3")
-				_ratio = 4.0f / 3.0f;
-			else
-				_ratio = 4.0f / 3.0f;
+			//Ratio por defecto
+			float ratio = 4.0f / 3.0f;
 
-			_graphicsCamera->setAspectRatio(_ratio);
+			if (auxRatio == "169")
+				ratio = 16.0f / 9.0f;
+			else if (auxRatio == "43")
+				ratio = 4.0f / 3.0f;
+
+			_graphicsCamera->setAspectRatio(ratio);
+
+			
 		}
+
+		if (entityInfo->hasAttribute("fov"))
+			_graphicsCamera->setFOV(entityInfo->getFloatAttribute("fov"));
 
 		if (_fixed){
 
