@@ -33,37 +33,38 @@ namespace Logic
 
 		Vector3 colour;
 
-		if (entityInfo->hasAttribute("diffuse_colour"))
+		if (entityInfo->hasAttribute("diffuse_colour")){
 			colour = entityInfo->getVector3Attribute("diffuse_colour");
-		_light->setDiffuseColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
-
-		if (entityInfo->hasAttribute("specular_colour"))
+			_light->setDiffuseColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
+		}
+			
+		if (entityInfo->hasAttribute("specular_colour")){
 			colour = entityInfo->getVector3Attribute("specular_colour");
-		_light->setSpecularColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
-
-		if (entityInfo->hasAttribute("light_position"))
+			_light->setSpecularColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
+		}
+		
+		if (entityInfo->hasAttribute("light_position")){
 			_light->setPosition(entityInfo->getVector3Attribute("light_position"));
+		}
 
 		if (entityInfo->hasAttribute("flare_material") &&
 			entityInfo->hasAttribute("flare_colour")){
-			colour = entityInfo->getVector3Attribute("specular_colour");
+			colour = entityInfo->getVector3Attribute("flare_colour");
 			_light->setFlare(Ogre::ColourValue(colour.x, colour.y, colour.z), entityInfo->getStringAttribute("flare_material"));
-		
 		}
-			
 
 		return true;
 	} // spawn
 
 	bool CPointLight::accept(const TMessage &message)
 	{
-		return false;
+		return message._type == Message::MOUSE_POSITION;
 
 	} // accept
 
 	void CPointLight::process(const TMessage &message)
 	{
-
+		_light->updatePosition(message._vector3);
 	} // process
 
 } // namespace Logic

@@ -187,6 +187,12 @@ namespace Logic
 		bool isPlayer() { return _isPlayer; }
 
 		/**
+		Devuelve true si la luz que se controla por medio del 
+		raton se esta utilizando. 
+		*/
+		bool isLight() { return _isLight; }
+
+		/**
 		Devuelve el mapa donde está la entidad.
 
 		@return Puntero al mapa que contiene la entidad.
@@ -352,6 +358,12 @@ namespace Logic
 		es false a no ser que se lea otra cosa de los atributos.
 		*/
 		bool _isPlayer;
+
+		/**
+		Atributo que indica si la entidad es la luz que movemos con el raton.
+		por defecto es false.
+		*/
+		bool _isLight;
 
 	}; // class CEntity
 

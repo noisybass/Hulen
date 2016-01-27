@@ -62,6 +62,7 @@ namespace Graphics
 	//--------------------------------------------------------
 
 	void CLight::setFlare(const Ogre::ColourValue colour, const std::string materialName){
+
 		_billboardSetFlare = _scene->getSceneMgr()->createBillboardSet(1);
 		_billboardFlare = _billboardSetFlare->createBillboard(Ogre::Vector3::ZERO, colour);
 		_billboardSetFlare->setMaterialName(materialName);

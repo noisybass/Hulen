@@ -22,12 +22,13 @@ de juego. Es una colección de componentes.
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
+#include "GUI/LightController.h"
 
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
 				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
-				_isPlayer(false), _activated(false)
+				_isPlayer(false), _activated(false), _isLight(false)
 	{
 
 	} // CEntity
@@ -49,6 +50,11 @@ namespace Logic
 		// Leemos las propiedades comunes
 		_map = map;
 		_type = entityInfo->getType();
+		if (entityInfo->hasAttribute("isPlayer"))
+			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
+
+		if (entityInfo->hasAttribute("isLight"))
+			_isLight = entityInfo->getBoolAttribute("isLight");
 
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
@@ -65,9 +71,6 @@ namespace Logic
 			float yaw = Math::fromDegreesToRadians(entityInfo->getFloatAttribute("orientation"));
 			Math::yaw(yaw,_transform);
 		}
-
-		if(entityInfo->hasAttribute("isPlayer"))
-			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
 		
 
 		// Inicializamos los componentes
@@ -93,6 +96,10 @@ namespace Logic
 		{
 			CServer::getSingletonPtr()->setPlayer(this);
 			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
+		}
+
+		if (isLight()){
+			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(this);
 		}
 
 		// Activamos los componentes

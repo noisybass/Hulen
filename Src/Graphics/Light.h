@@ -39,6 +39,8 @@ namespace Graphics
 		*/
 		void setFlare(const Ogre::ColourValue colour, const std::string materialName);
 
+		
+
 	protected:
 
 		friend class CScene;
