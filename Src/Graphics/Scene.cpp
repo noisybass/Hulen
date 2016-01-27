@@ -29,6 +29,7 @@ de una escena.
 #include <OgreViewport.h>
 #include <OgreStaticGeometry.h>
 #include <OgreColourValue.h>
+#include <OgreManualObject.h>
 
 namespace Graphics 
 {

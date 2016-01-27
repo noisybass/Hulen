@@ -64,8 +64,7 @@ bool CPhysicController::spawn(CEntity* entity, CMap *map, const Map::CEntity *en
 
 bool CPhysicController::accept(const TMessage &message)
 {
-	return message._type == Message::AVATAR_WALK /*|| 
-		   message._type == Message::SET_TRANSFORM*/;
+	return message._type == Message::AVATAR_WALK ;
 } 
 
 //---------------------------------------------------------
@@ -80,11 +79,6 @@ void CPhysicController::process(const TMessage &message)
 		// en el mismo ciclo sólo tendremos en cuenta el último.
 		_movement = message._vector3;
 		break;
-		/*
-	case Message::SET_TRANSFORM:
-		_server->setControllerPosition(_controller, message._transform.getTrans());
-		break;
-		*/
 	}
 
 } 

@@ -64,17 +64,11 @@ namespace GUI {
 			m._type = Logic::Message::CONTROL;
 			switch(key.keyId)
 			{
-			case GUI::Key::W:
-				m._string = "walk";
-				break;
-			case GUI::Key::S:
-				m._string = "walkBack";
-				break;
 			case GUI::Key::A:
-				m._string = "strafeLeft";
+				m._string = "walkLeft";
 				break;
 			case GUI::Key::D:
-				m._string = "strafeRight";
+				m._string = "walkRight";
 				break;
 			default:
 				return false;
@@ -96,14 +90,10 @@ namespace GUI {
 			m._type = Logic::Message::CONTROL;
 			switch(key.keyId)
 			{
-			case GUI::Key::W:
-			case GUI::Key::S:
-				m._string = "stopWalk";
-				break;
 
 			case GUI::Key::A:
 			case GUI::Key::D:
-				m._string = "stopStrafe";
+				m._string = "stopWalk";
 				break;
 
 			default:

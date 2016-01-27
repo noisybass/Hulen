@@ -44,7 +44,7 @@ namespace Logic
 	{
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
-		
+
 		_scene = _entity->getMap()->getScene();
 
 		if(entityInfo->hasAttribute("model"))
@@ -53,6 +53,14 @@ namespace Logic
 		_graphicsEntity = createGraphicsEntity(entityInfo);
 		if(!_graphicsEntity)
 			return false;
+
+		if (entityInfo->hasAttribute("guizmoSize"))
+			_guizmoSize = entityInfo->getIntAttribute("guizmoSize");
+
+		if (entityInfo->hasAttribute("guizmo")){
+			_guizmo= entityInfo->getBoolAttribute("guizmo");
+			_graphicsEntity->drawGuizmo(_guizmoSize);
+		}
 
 		return true;
 
@@ -65,6 +73,9 @@ namespace Logic
 		bool isStatic = false;
 		if(entityInfo->hasAttribute("static"))
 			isStatic = entityInfo->getBoolAttribute("static");
+
+		if (entityInfo->hasAttribute("scale"))
+			_scale = entityInfo->getVector3Attribute("scale");
 
 		if(isStatic)
 		{
@@ -80,11 +91,13 @@ namespace Logic
 		}
 
 		_graphicsEntity->setTransform(_entity->getTransform());
+
+		_graphicsEntity->setScale(_scale);
 		
 		return _graphicsEntity;
 
 	} // createGraphicsEntity
-	
+
 	//---------------------------------------------------------
 
 	bool CGraphics::accept(const TMessage &message)
