@@ -120,7 +120,7 @@ namespace Logic
 		float _height;
 
 		/**
-		Indica si la camara debe seguir al target o no.
+		Indica si la camara debe seguir al target o no. 
 		Esto implica que la posición del target no debe actualizarse en cada tick.
 		*/
 		bool _fixed;
