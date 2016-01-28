@@ -163,6 +163,12 @@ namespace Graphics
 		*/
 		void drawGuizmo(int size);
 
+		/**
+		Establece un material a la entidad.
+		*/
+		void setMaterial(std::string material);
+
+
 	protected:
 
 		// CScene es la única que puede añadir o eliminar entidades de una 

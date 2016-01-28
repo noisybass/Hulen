@@ -130,6 +130,10 @@ namespace Logic
 			CServer::getSingletonPtr()->setPlayer(0);
 		}
 
+		if (isLight()){
+			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(nullptr);
+		}
+
 
 		TComponentList::const_iterator it;
 

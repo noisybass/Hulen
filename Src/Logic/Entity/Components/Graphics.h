@@ -109,6 +109,11 @@ namespace Logic
 		std::string _model;
 
 		/**
+		Aributo que indica el nombre del material utilizado para la entidad.
+		*/
+		std::string _material;
+		
+		/**
 		Atributo con la escala del modelo gráfico de la entidad.
 		*/
 		Vector3 _scale;

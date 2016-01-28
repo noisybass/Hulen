@@ -84,7 +84,9 @@ namespace Logic
 
 	bool CCamera::activate()
 	{
-		_target = CServer::getSingletonPtr()->getPlayer();
+		// Lo comento para que la camara no se centre en el player.
+		//_target = CServer::getSingletonPtr()->getPlayer();
+		_target = nullptr;
 
 		return true;
 

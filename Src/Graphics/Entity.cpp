@@ -298,5 +298,11 @@ namespace Graphics
 	
 	} // drawGuizmo
 
+	//--------------------------------------------------------
+
+	void CEntity::setMaterial(std::string material){
+		_entity->setMaterialName(material);
+	}
+
 
 } // namespace Graphics

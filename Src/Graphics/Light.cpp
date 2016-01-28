@@ -28,6 +28,7 @@ namespace Graphics
 		
 		_light = _scene->getSceneMgr()->createLight(_name);
 		_light->setType(_type);
+		_light->setAttenuation(1100, 1.0, 0.007, 0.0002);
 
 		_node = _scene->getSceneMgr()->getRootSceneNode()->createChildSceneNode();
 		_node->attachObject(_light);
@@ -66,6 +67,7 @@ namespace Graphics
 		_billboardSetFlare = _scene->getSceneMgr()->createBillboardSet(1);
 		_billboardFlare = _billboardSetFlare->createBillboard(Ogre::Vector3::ZERO, colour);
 		_billboardSetFlare->setMaterialName(materialName);
+		_billboardSetFlare->setRenderQueueGroup(55);
 		_node->attachObject(_billboardSetFlare);
 	}
 

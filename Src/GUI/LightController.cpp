@@ -67,9 +67,9 @@ namespace GUI {
 		{
 			Logic::TMessage m;
 			m._type = Logic::Message::MOUSE_POSITION;
-			m._vector3 = Vector3(-mouseState.movX , 
-								  mouseState.movY , 
-								  0);
+			m._vector3 = Vector3(mouseState.movX , 
+								 mouseState.movY , 
+								 0);
 			_controlledLight->emitMessage(m);
 			return true;
 		}

@@ -103,6 +103,9 @@ namespace Application {
 		// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
+
+		// Desactivamos la luz
+		GUI::CServer::getSingletonPtr()->getLightController()->deactivate();
 		
 		// Desactivamos el mapa de la partida.
 		Logic::CServer::getSingletonPtr()->deactivateMap();

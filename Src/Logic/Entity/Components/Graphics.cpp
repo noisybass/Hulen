@@ -54,6 +54,11 @@ namespace Logic
 		if(!_graphicsEntity)
 			return false;
 
+		if (entityInfo->hasAttribute("material")){
+			_material = entityInfo->getStringAttribute("material");
+			_graphicsEntity->setMaterial(_material);
+		}
+
 		if (entityInfo->hasAttribute("guizmoSize"))
 			_guizmoSize = entityInfo->getIntAttribute("guizmoSize");
 
