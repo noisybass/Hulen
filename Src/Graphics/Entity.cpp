@@ -31,7 +31,7 @@ Contiene la implementación de la clase que representa una entidad gráfica.
 namespace Graphics 
 {
 	CEntity::CEntity(const std::string &name, const std::string &mesh)
-		: _entity(0), _entityNode(0), _scene(0), _loaded(false)
+		: _entity(0), _entityNode(0), _scene(0), _loaded(false), _guizmo()
 	{
 		_name = name;
 		_mesh = mesh;
@@ -123,8 +123,17 @@ namespace Graphics
 		{
 			_scene->getSceneMgr()->destroyEntity(_entity);
 			_entity = 0;
+		}
+		if (_guizmo.XAxis){
+			Ogre::deletePtr(_guizmo.XAxis);
 			_guizmo.XAxis = nullptr;
+		}
+		if (_guizmo.YAxis){
+			Ogre::deletePtr(_guizmo.YAxis);
 			_guizmo.YAxis = nullptr;
+		}
+		if (_guizmo.ZAxis){
+			Ogre::deletePtr(_guizmo.ZAxis);
 			_guizmo.ZAxis = nullptr;
 		}
 
