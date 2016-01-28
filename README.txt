@@ -1,3 +1,8 @@
+POR LA PARTE DE LA LOGICA:
+--------------------------
+
+-> Las entidades ya no tienen un id unico, ni el mapa. Estos campos los tiene ahora el game object
+
 POR LA PARTE DE LA CARGA:
 -------------------------
 

@@ -128,14 +128,14 @@ namespace Map
 
 		@return Tipo de la entidad.
 		*/
-		const std::string &getBlueprint() const {return _blueprint;}
+		const std::string &getBlueprint() const { return _blueprint; }
 
 		/**
 		Establece el tipo de la entidad.
 
 		@param type Tipo de la entidad.
 		*/
-		void setBlueprint(const std::string &blueprint) {_blueprint = blueprint;}
+		void setBlueprint(const std::string &blueprint) { _blueprint = blueprint; }
 
 		/**
 		Devuelve un string con el nombre de la entidad.

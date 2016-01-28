@@ -78,7 +78,7 @@ namespace Logic
 		
 		@param entityID Identificador único de la entidad.
 		*/
-		CEntity(TEntityID entityID);
+		CEntity();
 
 		/**
 		Destructor de la clase. Es un método protegido pues para
@@ -101,7 +101,7 @@ namespace Logic
 		fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		bool spawn(CMap *map, const Map::CEntity *entity);
+		bool spawn(const Map::CEntity *entity);
 
 	public:
 
@@ -169,13 +169,6 @@ namespace Logic
 		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
 
 		/**
-		Devuelve el identificador único de la entidad.
-
-		@return Identificador.
-		*/
-		Logic::TEntityID getEntityID() const { return _entityID; }
-
-		/**
 		Método que indica si la entidad es o no el jugador.
 		Seguro que hay formas mejores desde el punto de vista de
 		diseño de hacerlo, pero esta es la más rápida: la entidad 
@@ -187,20 +180,6 @@ namespace Logic
 		bool isPlayer() { return _isPlayer; }
 
 		/**
-		Devuelve el mapa donde está la entidad.
-
-		@return Puntero al mapa que contiene la entidad.
-		*/
-		CMap *getMap() { return _map; }
-
-		/**
-		Devuelve el mapa donde está la entidad.
-
-		@return Puntero al mapa que contiene la entidad.
-		*/
-		const CMap *getMap() const { return _map; }
-
-		/**
 		Devuelve el nombre de la entidad.
 
 		@return Nombre de la entidad.
@@ -208,10 +187,10 @@ namespace Logic
 		const std::string &getName() const { return _name; }
 
 		/**
-		Devuelve el tipo de la entidad. Este atributo es leido de
+		Devuelve el blueprint de la entidad. Este atributo es leido de
 		la entidad del mapa en spawn().
 
-		@return Tipo de la entidad.
+		@return Blueprint de la entidad.
 		*/
 		const std::string &getBlueprint() const { return _blueprint; }
 
@@ -302,17 +281,6 @@ namespace Logic
 	protected:
 
 		/**
-		Clase amiga que puede modificar los atributos (en concreto se 
-		usa para modificar el mapa.
-		*/
-		friend class CMap;
-
-		/**
-		Identificador único de la entidad.
-		*/
-		Logic::TEntityID _entityID;
-
-		/**
 		Tipo para la lista de componetes.
 		*/
 		typedef std::list<IComponent*> TComponentList;
@@ -336,11 +304,6 @@ namespace Logic
 		Nombre de la entidad.
 		*/
 		std::string _name;
-
-		/**
-		Mapa lógico donde está la entidad.
-		*/
-		Logic::CMap *_map;
 
 		/**
 		Matriz de transformación de la entidad. Contiene posición y orientación.

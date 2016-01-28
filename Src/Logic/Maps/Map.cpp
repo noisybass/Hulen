@@ -12,9 +12,11 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 #include "Map.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic\Entity\GameObject.h"
 #include "EntityFactory.h"
 
 #include "Map/MapParser.h"
+#include "Map/MapEntity.h"
 
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
@@ -53,10 +55,26 @@ namespace Logic {
 
 		// Creamos todas las entidades lógicas.
 		for(; it != end; it++)
-		{
-			// La propia factoría se encarga de añadir la entidad al mapa.
-			CEntity *entity = entityFactory->createEntity((*it),map);
-			assert(entity && "No se pudo crear una entidad del mapa");
+		{	
+			assert((*it)->hasAttribute("type") && "Falta el atributo type");
+
+			// Obtenemos el tipo
+			std::string type = (*it)->getStringAttribute("type");
+			std::cout << type << std::endl;
+
+			if (!type.compare("Body") || !type.compare("Shadow"))
+			{
+				
+				// La propia factoría se encarga de añadir la entidad a su GameObject
+				CEntity* entity = entityFactory->createEntity((*it), map);
+				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+			}
+			else if (type.compare("GameObject"))
+			{
+				// La propia factoría se encarga de añadir el GameObject al mapa
+				CGameObject* gameObject = entityFactory->createGameObject((*it), map);
+				assert(gameObject && "No se pudo crear un game object del mapa")
+			}
 		}
 
 		return map;

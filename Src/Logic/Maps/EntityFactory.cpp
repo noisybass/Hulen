@@ -196,28 +196,55 @@ namespace Logic
 	//---------------------------------------------------------
 
 
-	Logic::CEntity *CEntityFactory::createEntity(
-								const Map::CEntity *entityInfo,
-								Logic::CMap *map)
+	Logic::CEntity *CEntityFactory::createEntity(const Map::CEntity *entityInfo, Logic::CMap *map)
 	{
-		CEntity *ret = assembleEntity(entityInfo->getBlueprint());
+		CEntity* ret = assembleEntity(entityInfo->getBlueprint());
 
 		if (!ret)
 			return 0;
 
-		// Añadimos la nueva entidad en el mapa antes de inicializarla.
-		map->addEntity(ret);
+		// Buscamos el game object al que vamos a asociar la entidad
+		std::string name = entityInfo->getStringAttribute("game_object");
+		CGameObject* gameObject = map->getGameObjectByName(name);
+
+		// Añadimos la entidad a su game object
+		if (entityInfo->getStringAttribute("type").compare("Body"))
+			gameObject->setBody(ret);
+		else
+			gameObject->setShadow(ret);
 
 		// Y lo inicializamos
-		if (ret->spawn(map, entityInfo))
+		if (ret->spawn(entityInfo))
 			return ret;
-		else {
-			map->removeEntity(ret);
+		else
+		{
 			delete ret;
 			return 0;
 		}
 
 	} // createEntity
+
+	Logic::CGameObject *CEntityFactory::createGameObject(const Map::CEntity *entityInfo, Logic::CMap *map)
+	{
+		CGameObject* ret = assembleGameObject(entityInfo->getBlueprint());
+
+		if (!ret)
+			return 0;
+
+		// Añadimos el game object al mapa antes de inicializarlo.
+		map->addGameObject(ret);
+
+		// Y lo inicializamos
+		if (ret->spawn(map, entityInfo))
+			return ret;
+		else
+		{
+			map->removeGameObject(ret);
+			delete ret;
+			return 0;
+		}
+
+	} // createGameObject
 	
 	//---------------------------------------------------------
 
