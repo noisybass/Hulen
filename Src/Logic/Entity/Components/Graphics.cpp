@@ -99,8 +99,6 @@ namespace Logic
 		}
 
 		_graphicsEntity->setTransform(_entity->getTransform());
-
-		_graphicsEntity->setScale(_scale);
 		
 		return _graphicsEntity;
 
