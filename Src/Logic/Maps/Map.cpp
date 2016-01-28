@@ -180,20 +180,20 @@ namespace Logic {
 	{
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
-		TEntityMap::const_iterator it, end;
-		it = _entityMap.begin();
-		end = _entityMap.end();
+		TGameObjectMap::const_iterator it, end;
+		it = _gameObjectMap.begin();
+		end = _gameObjectMap.end();
 
 		// Eliminamos todas las entidades. La factoría se encarga de
 		// desactivarlas y sacarlas previamente del mapa.
 		while(it != end)
 		{
-			CEntity* entity = (*it).second;
+			CGameObject* gameObject = (*it).second;
 			it++;
-			entityFactory->deleteEntity(entity);
+			entityFactory->deleteGameObject(gameObject);
 		}
 
-		_entityMap.clear();
+		_gameObjectMap.clear();
 
 	} // removeEntity
 

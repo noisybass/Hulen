@@ -26,7 +26,7 @@ de juego. Es una colección de componentes.
 namespace Logic 
 {
 	CEntity::CEntity() 
-		: _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
+		: _gameObject(nullptr), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
 				_isPlayer(false), _activated(false)
 	{
 
@@ -37,15 +37,17 @@ namespace Logic
 	CEntity::~CEntity()
 	{
 		destroyAllComponents();
+		_gameObject = nullptr;
 
 	} // ~CEntity
 	
 	//---------------------------------------------------------
 
-	bool CEntity::spawn(CMap *map, const Map::CEntity *entityInfo)
+	bool CEntity::spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
 	{
 		// Leemos las propiedades comunes
 		_blueprint = entityInfo->getBlueprint();
+		_gameObject = gameObject;
 
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
@@ -281,5 +283,10 @@ namespace Logic
 		emitMessage(message);
 
 	} // setYaw
+
+	CGameObject* CEntity::getGameObject() const
+	{
+		return _gameObject;
+	}
 
 } // namespace Logic

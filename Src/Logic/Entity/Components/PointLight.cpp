@@ -26,7 +26,7 @@ namespace Logic
 		if (!IComponent::spawn(entity, map, entityInfo))
 			return false;
 
-		_scene = _entity->getMap()->getScene();
+		_scene = _entity->getGameObject()->getMap()->getScene();
 
 		_light = new Graphics::CPointLight(_entity->getName());
 		_scene->addLight(_light);

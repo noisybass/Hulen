@@ -2,6 +2,8 @@
 #define LOGIC_GAME_OBJECT_H
 
 #include "Logic\Entity\Entity.h"
+#include "Logic\Entity\Component.h"
+#include "Logic\Maps\Map.h"
 
 namespace Logic
 {
@@ -16,9 +18,19 @@ namespace Logic
 
 		bool spawn(CMap *map, const Map::CEntity *entityInfo);
 
+		CEntity* getBody() const;
+
+		CEntity* getShadow() const;
+
 		void setBody(CEntity* body);
 
 		void setShadow(CEntity* shadow);
+
+		bool activate();
+
+		void deactivate();
+
+		bool isActivated();
 
 		void tick(unsigned int msecs);
 
@@ -35,21 +47,21 @@ namespace Logic
 
 		@return Identificador.
 		*/
-		Logic::TEntityID getGameObjectID() const { return _gameObjectID; }
+		Logic::TEntityID getGameObjectID() const;
 
 		/**
 		Devuelve el mapa donde está el game object.
 
 		@return Puntero al mapa que contiene el game object.
 		*/
-		CMap *getMap() { return _map; }
+		CMap *getMap();
 
 		/**
 		Devuelve el nombre del game object.
 
 		@return Nombre del game object.
 		*/
-		const std::string &getName() const { return _name; }
+		const std::string &getName() const;
 
 		/**
 		Devuelve el blueprint del game object. Este atributo es leido de
@@ -57,7 +69,7 @@ namespace Logic
 
 		@return Blueprint del game object.
 		*/
-		const std::string &getBlueprint() const { return _blueprint; }
+		const std::string &getBlueprint() const;
 
 	protected:
 
@@ -69,6 +81,8 @@ namespace Logic
 
 		CEntity* _body;
 		CEntity* _shadow;
+
+		bool _activated;
 
 		/**
 		Identificador único del game object.

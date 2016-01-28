@@ -45,7 +45,7 @@ namespace Logic
 		if(!IComponent::spawn(entity,map,entityInfo))
 			return false;
 		
-		_scene = _entity->getMap()->getScene();
+		_scene = _entity->getGameObject()->getMap()->getScene();
 
 		if(entityInfo->hasAttribute("model"))
 			_model = entityInfo->getStringAttribute("model");

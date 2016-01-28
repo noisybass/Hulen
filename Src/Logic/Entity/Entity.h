@@ -18,6 +18,8 @@ de juego. Es una colección de componentes.
 
 #include "Logic/Maps/EntityID.h"
 
+#include "GameObject.h"
+
 // Mensaje
 #include "Message.h"
 
@@ -101,7 +103,7 @@ namespace Logic
 		fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		bool spawn(CMap *map, const Map::CEntity *entityInfo);
+		bool spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
 
 	public:
 
@@ -276,9 +278,13 @@ namespace Logic
 
 		@return true si la entidad está activa.
 		*/
-		bool isActivated() {return _activated;}
+		bool isActivated() { return _activated; }
+
+		CGameObject* getGameObject() const;
 
 	protected:
+
+		CGameObject* _gameObject;
 
 		/**
 		Tipo para la lista de componetes.

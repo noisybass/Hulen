@@ -214,7 +214,7 @@ namespace Logic
 			gameObject->setShadow(ret);
 
 		// Y lo inicializamos
-		if (ret->spawn(entityInfo))
+		if (ret->spawn(gameObject, map, entityInfo))
 			return ret;
 		else
 		{

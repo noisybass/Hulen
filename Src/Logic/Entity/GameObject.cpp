@@ -50,6 +50,38 @@ namespace Logic
 
 	} // setShadow
 
+	CEntity* CGameObject::getBody() const
+	{
+		return _body;
+
+	} // getBody
+
+	CEntity* CGameObject::getShadow() const
+	{
+		return _shadow;
+
+	} // getShadow
+
+	bool CGameObject::activate()
+	{
+		_activated = true;
+		_body->activate();
+
+	} // activate
+
+	void CGameObject::deactivate()
+	{
+		_activated = false;
+		_body->deactivate();
+
+	} // deactivate
+
+	bool CGameObject::isActivated()
+	{
+		return _activated;
+
+	} // isActivated
+
 	void CGameObject::tick(unsigned int msecs)
 	{
 		TComponentList::const_iterator it;
@@ -108,7 +140,7 @@ namespace Logic
 
 	} // destroyAllComponents
 
-	bool CGameObject::emitMessage(const TMessage &message, IComponent* emitter = 0)
+	bool CGameObject::emitMessage(const TMessage &message, IComponent* emitter)
 	{
 		TComponentList::const_iterator it;
 		// Para saber si alguien quiso el mensaje.

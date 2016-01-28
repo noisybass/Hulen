@@ -41,8 +41,10 @@ namespace Logic
 	bool CSwitchTrigger::activate()
 	{
 		// Obtenemos la entidad objetivo a lanzar.
-		if(_targetName.length())
-			_target = _entity->getMap()->getEntityByName(_targetName);
+		// DUDA
+		if (_targetName.length())
+			_target = _entity->getGameObject()->getMap()->getGameObjectByName(_targetName)->getBody();
+			//_target = _entity->getMap()->getEntityByName(_targetName);
 
 		return true;
 
