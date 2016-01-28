@@ -18,6 +18,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 namespace Logic 
 {
 	class CEntity;
+	class CGameObject;
 }
 
 namespace Graphics 
@@ -61,7 +62,7 @@ namespace Logic
 
 		@param name Nombre que se le da a este mapa.
 		*/
-		CMap (const std::string &name);
+		CMap(const std::string &name);
 
 		/**
 		Destructor.
@@ -99,7 +100,7 @@ namespace Logic
 
 		@param entity Entidad a añadir.
 		*/
-		void addEntity(CEntity *entity);
+		void addGameObject(CGameObject *gameObject);
 
 		/**
 		Elimina una entidad del mapa. Si la entidad no estaba incluida
@@ -111,13 +112,13 @@ namespace Logic
 
 		@param entity Entidad a eliminar.
 		*/
-		void removeEntity(CEntity *entity);
+		void removeGameObject(CGameObject *gameObject);
 
 		/**
 		Elimina y destruye todas las entidades del mapa dejando la lista 
 		de entidades vacía.
 		*/
-		void destroyAllEntities();
+		void destroyAllGameObjects();
 
 		/**
 		Recupera una entidad del mapa a partir de su ID.
@@ -125,7 +126,7 @@ namespace Logic
 		@param entityID ID de la entidad a recuperar.
 		@return Entidad con el ID pedido, NULL si no se encuentra.
 		*/
-		CEntity *getEntityByID(TEntityID entityID);
+		CGameObject* getGameObjectByID(TEntityID gameObjectID);
 
 		/**
 		Recupera una entidad del mapa a partir de su nombre.
@@ -137,7 +138,7 @@ namespace Logic
 		Si no se especifica se empieza desde el principio.
 		@return Entidad con el nombre pedido, NULL si no se encuentra.
 		*/
-		CEntity *getEntityByName(const std::string &name, CEntity *start = 0);
+		CGameObject* getGameObjectByName(const std::string &name, CGameObject *start = 0);
 
 		/**
 		Recupera una entidad del mapa a partir de su tipo.
@@ -149,7 +150,7 @@ namespace Logic
 		Si no se especifica se empieza desde el principio.
 		@return Entidad con el nombre pedido, NULL si no se encuentra.
 		*/
-		CEntity *getEntityByBlueprint(const std::string &blueprint, CEntity *start = 0);
+		CGameObject* getGameObjectByBlueprint(const std::string &blueprint, CGameObject *start = 0);
 
 		/**
 		Devuelve la escena gráfica correspondiente a este mapa.
@@ -163,12 +164,12 @@ namespace Logic
 		/**
 		Tipo tabla de entidades de mapa.
 		*/
-		typedef std::map<TEntityID,CEntity*> TEntityMap;
+		typedef std::map<TEntityID,CGameObject*> TGameObjectMap;
 
 		/**
 		tabla con las entidades del mapa localizadas por su ID.
 		*/
-		TEntityMap _entityMap;
+		TGameObjectMap _gameObjectMap;
 
 		/**
 		Nombre del mapa.

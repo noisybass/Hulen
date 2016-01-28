@@ -101,7 +101,7 @@ namespace Logic
 		fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		bool spawn(const Map::CEntity *entity);
+		bool spawn(CMap *map, const Map::CEntity *entityInfo);
 
 	public:
 

@@ -73,7 +73,7 @@ namespace Logic {
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
 				CGameObject* gameObject = entityFactory->createGameObject((*it), map);
-				assert(gameObject && "No se pudo crear un game object del mapa")
+				assert(gameObject && "No se pudo crear un game object del mapa");
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace Logic {
 
 	CMap::~CMap()
 	{
-		destroyAllEntities();
+		destroyAllGameObjects();
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::getSingletonPtr()->removeScene(_scene);
 
@@ -106,9 +106,9 @@ namespace Logic {
 	{
 		Graphics::CServer::getSingletonPtr()->setScene(_scene);
 
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
-		it = _entityMap.begin();
+		TGameObjectMap::const_iterator it, end;
+		end = _gameObjectMap.end();
+		it = _gameObjectMap.begin();
 
 		bool correct = true;
 
@@ -124,9 +124,9 @@ namespace Logic {
 
 	void CMap::deactivate()
 	{
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
-		it = _entityMap.begin();
+		TGameObjectMap::const_iterator it, end;
+		end = _gameObjectMap.end();
+		it = _gameObjectMap.begin();
 
 		// Desactivamos todas las entidades activas registradas en el mapa.
 		for(; it != end; it++)
@@ -141,44 +141,42 @@ namespace Logic {
 
 	void CMap::tick(unsigned int msecs) 
 	{
-		TEntityMap::const_iterator it;
+		TGameObjectMap::const_iterator it;
 
-		for( it = _entityMap.begin(); it != _entityMap.end(); ++it )
+		for (it = _gameObjectMap.begin(); it != _gameObjectMap.end(); ++it)
 			(*it).second->tick(msecs);
 
 	} // tick
 
 	//--------------------------------------------------------
 
-	typedef std::pair<TEntityID,CEntity*> TEntityPair;
-
-	void CMap::addEntity(CEntity *entity)
+	void CMap::addGameObject(CGameObject* gameObject)
 	{
-		if(_entityMap.count(entity->getEntityID()) == 0)
+		if (_gameObjectMap.count(gameObject->getGameObjectID()) == 0)
 		{
-			TEntityPair elem(entity->getEntityID(),entity);
-			_entityMap.insert(elem);
+			std::pair<TEntityID, CGameObject*> elem(gameObject->getGameObjectID(), gameObject);
+			_gameObjectMap.insert(elem);
 		}
 
 	} // addEntity
 
 	//--------------------------------------------------------
 
-	void CMap::removeEntity(CEntity *entity)
+	void CMap::removeGameObject(CGameObject *gameObject)
 	{
-		if(_entityMap.count(entity->getEntityID()) != 0)
+		if (_gameObjectMap.count(gameObject->getGameObjectID()) != 0)
 		{
-			if(entity->isActivated())
-				entity->deactivate();
-			entity->_map = 0;
-			_entityMap.erase(entity->getEntityID());
+			if (gameObject->isActivated())
+				gameObject->deactivate();
+			gameObject->_map = nullptr;
+			_gameObjectMap.erase(gameObject->getGameObjectID());
 		}
 
 	} // removeEntity
 
 	//--------------------------------------------------------
 
-	void CMap::destroyAllEntities()
+	void CMap::destroyAllGameObjects()
 	{
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
@@ -201,33 +199,33 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	CEntity* CMap::getEntityByID(TEntityID entityID)
+	CGameObject* CMap::getGameObjectByID(TEntityID gameObjectID)
 	{
-		if(_entityMap.count(entityID) == 0)
+		if (_gameObjectMap.count(gameObjectID) == 0)
 			return 0;
-		return (*_entityMap.find(entityID)).second;
+		return (*_gameObjectMap.find(gameObjectID)).second;
 
 	} // getEntityByID
 
 	//--------------------------------------------------------
 
-	CEntity* CMap::getEntityByName(const std::string &name, CEntity *start)
+	CGameObject* CMap::getGameObjectByName(const std::string &name, CGameObject *start)
 	{
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
+		TGameObjectMap::const_iterator it, end;
+		end = _gameObjectMap.end();
 
 		// Si se definió entidad desde la que comenzar la búsqueda 
 		// cogemos su posición y empezamos desde la siguiente.
 		if (start)
 		{
-			it = _entityMap.find(start->getEntityID());
+			it = _gameObjectMap.find(start->getGameObjectID());
 			// si la entidad no existe devolvemos NULL.
 			if(it == end)
 				return 0;
 			it++;
 		}
 		else
-			it = _entityMap.begin();
+			it = _gameObjectMap.begin();
 
 		for(; it != end; it++)
 		{
@@ -242,23 +240,23 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	CEntity* CMap::getEntityByBlueprint(const std::string &blueprint, CEntity *start)
+	CGameObject* CMap::getGameObjectByBlueprint(const std::string &blueprint, CGameObject *start)
 	{
-		TEntityMap::const_iterator it, end;
-		end = _entityMap.end();
+		TGameObjectMap::const_iterator it, end;
+		end = _gameObjectMap.end();
 
 		// Si se definió entidad desde la que comenzar la búsqueda 
 		// cogemos su posición y empezamos desde la siguiente.
 		if (start)
 		{
-			it = _entityMap.find(start->getEntityID());
+			it = _gameObjectMap.find(start->getGameObjectID());
 			// si la entidad no existe devolvemos NULL.
 			if(it == end)
 				return 0;
 			it++;
 		}
 		else
-			it = _entityMap.begin();
+			it = _gameObjectMap.begin();
 
 		for(; it != end; it++)
 		{
