@@ -4,6 +4,7 @@
 
 #include <OgreSceneManager.h>
 #include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
 
 namespace Graphics
 {
@@ -28,7 +29,6 @@ namespace Graphics
 		
 		_light = _scene->getSceneMgr()->createLight(_name);
 		_light->setType(_type);
-		_light->setAttenuation(1100, 1.0, 0.007, 0.0002);
 
 		_node = _scene->getSceneMgr()->getRootSceneNode()->createChildSceneNode();
 		_node->attachObject(_light);
@@ -62,13 +62,24 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
-	void CLight::setFlare(const Ogre::ColourValue colour, const std::string materialName){
+	void CLight::setFlare(const Ogre::ColourValue colour, const std::string materialName, const unsigned int flareSize){
 
 		_billboardSetFlare = _scene->getSceneMgr()->createBillboardSet(1);
 		_billboardFlare = _billboardSetFlare->createBillboard(Ogre::Vector3::ZERO, colour);
+		_billboardFlare->setDimensions(flareSize, flareSize);
 		_billboardSetFlare->setMaterialName(materialName);
+		// Creo que esto no hace mucha falta, pero lo dejo porsi
 		_billboardSetFlare->setRenderQueueGroup(55);
 		_node->attachObject(_billboardSetFlare);
-	}
+	} // setFlare
+
+	//--------------------------------------------------------
+
+	void CLight::setAttenuation(const float range,
+								const float constant,
+								const float linear,
+								const float quadratic){
+		_light->setAttenuation(range, constant, linear, quadratic);
+	} // setAttenuation
 
 } // namespace Graphics

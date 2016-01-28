@@ -26,6 +26,6 @@ namespace Graphics
 		_node->setPosition( nodePos.x + position.x,
 							nodePos.y - position.y,
 							nodePos.z);
-	}
+	} //update position
 
 } // namespace Graphics
