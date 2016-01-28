@@ -200,7 +200,7 @@ namespace Logic
 								const Map::CEntity *entityInfo,
 								Logic::CMap *map)
 	{
-		CEntity *ret = assembleEntity(entityInfo->getType());
+		CEntity *ret = assembleEntity(entityInfo->getBlueprint());
 
 		if (!ret)
 			return 0;

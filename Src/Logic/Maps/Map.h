@@ -149,7 +149,7 @@ namespace Logic
 		Si no se especifica se empieza desde el principio.
 		@return Entidad con el nombre pedido, NULL si no se encuentra.
 		*/
-		CEntity *getEntityByType(const std::string &type, CEntity *start = 0);
+		CEntity *getEntityByBlueprint(const std::string &blueprint, CEntity *start = 0);
 
 		/**
 		Devuelve la escena gráfica correspondiente a este mapa.

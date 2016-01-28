@@ -45,7 +45,7 @@ namespace Map
 		/** 
 		Constructor de la clase.
 		*/
-		CEntity(const std::string &name) : _type(""), _name(name) {}
+		CEntity(const std::string &name) : _blueprint(""), _name(name) {}
 
 		/**
 		Destructor.
@@ -128,14 +128,14 @@ namespace Map
 
 		@return Tipo de la entidad.
 		*/
-		const std::string &getType() const {return _type;}
+		const std::string &getBlueprint() const {return _blueprint;}
 
 		/**
 		Establece el tipo de la entidad.
 
 		@param type Tipo de la entidad.
 		*/
-		void setType(const std::string &type) {_type = type;}
+		void setBlueprint(const std::string &blueprint) {_blueprint = blueprint;}
 
 		/**
 		Devuelve un string con el nombre de la entidad.
@@ -164,9 +164,9 @@ namespace Map
 		TAttrList _attributes;
 
 		/**
-		Tipo de la entidad.
+		Blueprint que usa la entidad.
 		*/
-		std::string _type;
+		std::string _blueprint;
 
 		/**
 		Nombre de la entidad.

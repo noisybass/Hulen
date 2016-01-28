@@ -213,7 +213,7 @@ namespace Logic
 
 		@return Tipo de la entidad.
 		*/
-		const std::string &getType() const { return _type; }
+		const std::string &getBlueprint() const { return _blueprint; }
 
 		/**
 		Establece la matriz de transformación de la entidad. Avisa a los 
@@ -330,7 +330,7 @@ namespace Logic
 		/**
 		Tipo de la entidad declarado en el archivo blueprints.
 		*/
-		std::string _type;
+		std::string _blueprint;
 
 		/**
 		Nombre de la entidad.

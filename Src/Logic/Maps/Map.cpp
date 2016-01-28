@@ -224,7 +224,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	CEntity* CMap::getEntityByType(const std::string &type, CEntity *start)
+	CEntity* CMap::getEntityByBlueprint(const std::string &blueprint, CEntity *start)
 	{
 		TEntityMap::const_iterator it, end;
 		end = _entityMap.end();
@@ -245,7 +245,7 @@ namespace Logic {
 		for(; it != end; it++)
 		{
 			// si hay coincidencia de nombres devolvemos la entidad.
-			if (!(*it).second->getType().compare(type))
+			if (!(*it).second->getBlueprint().compare(blueprint))
 				return (*it).second;
 		}
 		// si no se encontró la entidad devolvemos NULL.

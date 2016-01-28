@@ -528,7 +528,7 @@ namespace Map {
 #line 131 "Parser.yy"
     {
 		#ifdef _DEBUG
-			assert(_mapParser._entityInProgress->getType().compare("") && "No se ha establecido tipo a la entidad");
+			assert(_mapParser._entityInProgress->getBlueprint().compare("") && "No se ha establecido tipo a la entidad");
 			Map::CMapParser::TEntityList::const_iterator it, end;
 			it = _mapParser._entityList.begin();
 			end = _mapParser._entityList.end();
@@ -561,8 +561,8 @@ namespace Map {
 #line 150 "Parser.yy"
     {
 			assert((yysemantic_stack_[(3) - (1)].string)->compare("name") && "El atributo \"name\" no se puede definir.");
-			if(!(yysemantic_stack_[(3) - (1)].string)->compare("type"))
-				_mapParser._entityInProgress->setType((yysemantic_stack_[(3) - (3)].string)->c_str());
+			if(!(yysemantic_stack_[(3) - (1)].string)->compare("blueprint"))
+				_mapParser._entityInProgress->setBlueprint((yysemantic_stack_[(3) - (3)].string)->c_str());
 			else
 				_mapParser._entityInProgress->setAttribute((yysemantic_stack_[(3) - (1)].string)->c_str(),(yysemantic_stack_[(3) - (3)].string)->c_str());
 			delete (yysemantic_stack_[(3) - (1)].string);

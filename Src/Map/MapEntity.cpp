@@ -31,7 +31,7 @@ namespace Map {
 		// Casos especiales
 		if(!attr.compare("name"))
 			return true;
-		if(!attr.compare("type"))
+		if(!attr.compare("blueprint"))
 			return true;
 		if(_attributes.count(attr))
 			return true;
@@ -46,8 +46,8 @@ namespace Map {
 		// Casos especiales
 		if(!attr.compare("name"))
 			return _name;
-		if(!attr.compare("type"))
-			return _type;
+		if(!attr.compare("blueprint"))
+			return _blueprint;
 		return (*_attributes.find(attr)).second;
 
 	} // getStringAttribute

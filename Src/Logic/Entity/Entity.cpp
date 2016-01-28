@@ -26,7 +26,7 @@ de juego. Es una colección de componentes.
 namespace Logic 
 {
 	CEntity::CEntity(TEntityID entityID) : _entityID(entityID), 
-				_map(0), _type(""), _name(""), _transform(Matrix4::IDENTITY),
+				_map(0), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
 				_isPlayer(false), _activated(false)
 	{
 
@@ -48,7 +48,7 @@ namespace Logic
 	{
 		// Leemos las propiedades comunes
 		_map = map;
-		_type = entityInfo->getType();
+		_blueprint = entityInfo->getBlueprint();
 
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
