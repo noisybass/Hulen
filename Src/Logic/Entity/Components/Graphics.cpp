@@ -66,9 +66,6 @@ namespace Logic
 		if(entityInfo->hasAttribute("static"))
 			isStatic = entityInfo->getBoolAttribute("static");
 
-		if (entityInfo->hasAttribute("scale"))
-			_scale = entityInfo->getVector3Attribute("scale");
-
 		if(isStatic)
 		{
 			_graphicsEntity = new Graphics::CStaticEntity(_entity->getName(),_model);
@@ -82,9 +79,15 @@ namespace Logic
 				return 0;
 		}
 
-		_graphicsEntity->setTransform(_entity->getTransform());
+		//Importante: La escala debe ser ajustada después de que se haya creada la entidad gráfica y se haya añadido a la escena gráfica.
+		//Sino, al escalar dara un fallo de que no existe el nodo correspondiente en Ogre (la entidad gráfica no está creada).
 
-		_graphicsEntity->setScale(_scale);
+		if (entityInfo->hasAttribute("scale")){
+			_scale = entityInfo->getVector3Attribute("scale");
+			_graphicsEntity->setScale(_scale);
+		}
+
+		_graphicsEntity->setTransform(_entity->getTransform());
 		
 		return _graphicsEntity;
 
