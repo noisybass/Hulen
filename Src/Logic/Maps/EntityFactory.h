@@ -16,6 +16,7 @@ del juego.
 #include <map>
 #include <string>
 #include <list>
+#include <vector>
 
 #include "EntityID.h"
 
@@ -137,6 +138,10 @@ namespace Logic
 		void deleteEntity(CEntity *entity);
 
 		/**
+		*/
+		void deleteGameObject(CGameObject* gameObject);
+
+		/**
 		Solicita la destrucción retrasada de la entidad que se pasa como 
 		parámetro.
 		<p>
@@ -162,13 +167,21 @@ namespace Logic
 		sino que se confía en que el mapa que aún contiene el objeto
 		eliminará esa entidad.
 		*/
-		void deferredDeleteEntity(CEntity *entity);
+		void deferredDeleteEntity(CEntity* entity);
+
+		/**
+		*/
+		void deferredDeleteGameObject(CGameObject* gameObject);
 
 		/**
 		Método invocado por el bucle del juego para que la factoría
 		elimine todos los objetos pendientes de ser borrados.
 		*/
-		void deleteDefferedEntities();
+		void deleteDeferredEntities();
+
+		/**
+		*/
+		void deleteDeferredGameObjects();
 
 		/**
 		Estructura que define una entidad blueprint.
@@ -231,17 +244,25 @@ namespace Logic
 		@param type Tipo de la entidad que se quiere crear.
 		@return La entidad creada o NULL si no se pudo crear.
 		*/
-		CEntity *assembleEntity(const std::string &type);
+		CEntity* assembleEntity(const std::string& blueprint);
 
 		/**
-		Tipo lista de CEntity donde guardaremos los pendientes de borrar.
 		*/
-		typedef std::list<Logic::CEntity*> TEntityList;
+		CGameObject* assembleGameObject(const std::string& blueprint);
 
 		/**
-		Lista de objetos pendientes de borrar.
+		Tipo de las listas donde guardaremos las entidades y los game objects
+		pendientes de borrar.
 		*/
-		TEntityList _pendingEntities;
+		typedef std::vector<Logic::CEntity*> TEntityVector;
+		typedef std::vector<Logic::CGameObject*> TGameObjectVector;
+
+
+		/**
+		Listas de entidades y game objects pendientes de borrar.
+		*/
+		TEntityVector _pendingEntities;
+		TGameObjectVector _pendingGameObjects;
 
 		/**
 		Tipo tabla para almacenar entidades blueprint por nombre.

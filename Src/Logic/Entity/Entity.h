@@ -18,8 +18,6 @@ de juego. Es una colección de componentes.
 
 #include "Logic/Maps/EntityID.h"
 
-#include "GameObject.h"
-
 // Mensaje
 #include "Message.h"
 
@@ -37,6 +35,7 @@ namespace Logic
 	class CMap;
 	class IComponent;
 	class CEntityFactory;
+	class CGameObject;
 }
 
 // Declaración de la clase

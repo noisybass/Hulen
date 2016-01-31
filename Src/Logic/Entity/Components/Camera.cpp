@@ -15,6 +15,7 @@ de una escena.
 
 #include "Logic/Server.h"
 #include "Logic/Entity/Entity.h"
+#include "Logic\Entity\GameObject.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 

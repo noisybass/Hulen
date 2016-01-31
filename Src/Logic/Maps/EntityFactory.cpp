@@ -12,6 +12,7 @@ del juego.
 #include "EntityFactory.h"
 #include "ComponentFactory.h"
 #include "Logic/Entity/Entity.h"
+#include "Logic\Entity\GameObject.h"
 #include "Map.h"
 
 #include "Map/MapEntity.h"
@@ -158,15 +159,15 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	Logic::CEntity *CEntityFactory::assembleEntity(const std::string &type) 
+	Logic::CEntity *CEntityFactory::assembleEntity(const std::string& blueprint) 
 	{
 		TBluePrintMap::const_iterator it;
 
-		it = _bluePrints.find(type);
-		// si el tipo se encuentra registrado.
+		it = _bluePrints.find(blueprint);
+		// si el blueprint se encuentra registrado.
 		if (it != _bluePrints.end()) 
 		{
-			CEntity* ent = new CEntity(EntityID::NextID());
+			CEntity* ent = new CEntity();
 			std::list<std::string>::const_iterator itc;
 			// Añadimos todos sus componentes.
 			IComponent* comp;
@@ -192,6 +193,41 @@ namespace Logic
 		return 0;
 
 	} // assembleEntity
+
+	CGameObject* CEntityFactory::assembleGameObject(const std::string& blueprint)
+	{
+		TBluePrintMap::const_iterator it;
+
+		it = _bluePrints.find(blueprint);
+		// si el blueprint se encuentra registrado.
+		if (it != _bluePrints.end())
+		{
+			CGameObject* gameObject = new CGameObject(EntityID::NextID());
+			std::list<std::string>::const_iterator itc;
+			// Añadimos todos sus componentes.
+			IComponent* comp;
+			for (itc = (*it).second.components.begin();
+				itc != (*it).second.components.end(); itc++)
+			{
+				if (CComponentFactory::getSingletonPtr()->has((*itc)))
+				{
+					comp = CComponentFactory::getSingletonPtr()->create((*itc));
+				}
+				else
+				{
+					assert(!"Nombre erroneo de un componente, Mira a ver si están todos bien escritos en el fichero de blueprints");
+					delete gameObject;
+					return 0;
+				}
+				if (comp)
+					gameObject->addComponent(comp);
+			}
+
+			return gameObject;
+		}
+		return 0;
+
+	} // assembleGameObject
 	
 	//---------------------------------------------------------
 
@@ -251,12 +287,20 @@ namespace Logic
 	void CEntityFactory::deleteEntity(Logic::CEntity *entity)
 	{
 		assert(entity);
-		// Si la entidad estaba activada se desactiva al sacarla
-		// del mapa.
-		entity->getMap()->removeEntity(entity);
+		
 		delete entity;
 
 	} // deleteEntity
+
+	void CEntityFactory::deleteGameObject(CGameObject* gameObject)
+	{
+		assert(gameObject);
+
+		// Si el game object estaba activo se desactiva al sacarlo
+		// del mapa.
+		gameObject->getMap()->removeGameObject(gameObject);
+		delete gameObject;
+	} // deleteGameObject
 	
 	//---------------------------------------------------------
 
@@ -266,24 +310,44 @@ namespace Logic
 		_pendingEntities.push_back(entity);
 
 	} // deferredDeleteEntity
+
+	void CEntityFactory::deferredDeleteGameObject(CGameObject* gameObject)
+	{
+		assert(gameObject);
+		_pendingGameObjects.push_back(gameObject);
+
+	} // deferredDeleteGameObject
 	
 	//---------------------------------------------------------
 
-	void CEntityFactory::deleteDefferedEntities()
+	void CEntityFactory::deleteDeferredEntities()
 	{
-		TEntityList::const_iterator it(_pendingEntities.begin());
-		TEntityList::const_iterator end(_pendingEntities.end());
+		TEntityVector::const_iterator it(_pendingEntities.begin());
 
-		while(it != end)
+		for (it = _pendingEntities.begin(); it != _pendingEntities.end(); ++it)
 		{
 			CEntity *entity = *it;
-			it++;
 			deleteEntity(entity);
 		}
 
 		if (!_pendingEntities.empty())
 			_pendingEntities.clear();
 
-	} // deleteDefferedObjects
+	} // deleteDeferredEntities
+
+	void CEntityFactory::deleteDeferredGameObjects()
+	{
+		TGameObjectVector::const_iterator it(_pendingGameObjects.begin());
+
+		for (it = _pendingGameObjects.begin(); it != _pendingGameObjects.end(); ++it)
+		{
+			CGameObject* gameObject = *it;
+			deleteGameObject(gameObject);
+		}
+
+		if (!_pendingGameObjects.empty())
+			_pendingGameObjects.clear();
+
+	} // deleteDeferredGameObjects
 
 } // namespace Logic
