@@ -69,7 +69,7 @@ namespace Logic {
 				CEntity* entity = entityFactory->createEntity((*it), map);
 				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
 			}
-			else if (type.compare("GameObject"))
+			else if (!type.compare("GameObject"))
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
 				CGameObject* gameObject = entityFactory->createGameObject((*it), map);

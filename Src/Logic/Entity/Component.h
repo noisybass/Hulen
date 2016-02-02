@@ -25,6 +25,7 @@ namespace Logic
 {
 	class CMap;
 	class CEntity;
+	class CGameObject;
 }
 
 //declaración de la clase
@@ -85,7 +86,7 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		IComponent() : _entity(0) {}
+		IComponent();
 
 		/**
 		Destructor (virtual); en la clase base no hace nada.
@@ -106,6 +107,8 @@ namespace Logic
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
 		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+
+		virtual bool spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Método que activa el componente; invocado cuando se activa
@@ -145,7 +148,9 @@ namespace Logic
 
 		@return La entidad a la que pertenece el componente.
 		*/
-		CEntity *getEntity() const { return _entity; }
+		CEntity* getEntity() const;
+
+		CGameObject* getGameObject() const;
 
 	protected:
 
@@ -153,19 +158,24 @@ namespace Logic
 		clase amiga que puede establecerse como poseedor del componente.
 		*/
 		friend class CEntity;
+		friend class CGameObject;
 
 		/**
 		Método que establece la entidad a la que pertenece el componente.
 
 		@param entity Entidad a la que pertenece el componente.
 		*/
-		void setEntity(CEntity *entity) { _entity = entity; }
+		void setEntity(CEntity* entity);
+
+		void setGameObject(CGameObject* gameObject);
 
 		/**
 		Entidad que contiene al componente. Para reenviar el mensaje a 
 		los otros componentes
 		*/
 		CEntity *_entity;
+
+		CGameObject* _gameObject;
 
 	}; // class IComponent
 

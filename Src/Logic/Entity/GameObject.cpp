@@ -23,6 +23,7 @@ namespace Logic
 	{
 		// Leemos las propiedades comunes
 		_blueprint = entityInfo->getBlueprint();
+		_map = map;
 
 		if (entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
@@ -66,6 +67,7 @@ namespace Logic
 	{
 		_activated = true;
 		_body->activate();
+		return true;
 
 	} // activate
 
@@ -100,7 +102,7 @@ namespace Logic
 	void CGameObject::addComponent(IComponent* component)
 	{
 		_components.push_back(component);
-		component->setEntity(this);
+		component->setGameObject(this);
 
 	} // addComponent
 
