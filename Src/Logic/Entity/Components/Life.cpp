@@ -47,24 +47,24 @@ namespace Logic
 
 	void CLife::process(const TMessage &message)
 	{
-		switch(message._type)
-		{
-		case Message::DAMAGED:
-			{
-				// Disminuir la vida de la entidad
-				_life -= message._float;
-				printf("Herido\n");
+		//switch(message._type)
+		//{
+		//case Message::DAMAGED:
+		//	{
+		//		// Disminuir la vida de la entidad
+		//		_life -= message._float;
+		//		printf("Herido\n");
 
-				// Si han matado al jugador salir de la partida
-				if ((_life <= 0) && (_entity->isPlayer())) {
-					Application::CBaseApplication::getSingletonPtr()->setState("menu");
-				}
-				// @todo Poner la animación de herido.
-				// @todo Si la vida es menor que 0 poner animación de morir.
+		//		// Si han matado al jugador salir de la partida
+		//		if ((_life <= 0) && (_entity->isPlayer())) {
+		//			Application::CBaseApplication::getSingletonPtr()->setState("menu");
+		//		}
+		//		// @todo Poner la animación de herido.
+		//		// @todo Si la vida es menor que 0 poner animación de morir.
 
-			}
-			break;
-		}
+		//	}
+		//	break;
+		//}
 
 	} // process
 

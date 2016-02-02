@@ -16,18 +16,15 @@ de juego. Es una colección de componentes.
 // Componentes
 #include "Component.h"
 
-#include "Logic/Server.h"
+
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
-
-#include "GUI/Server.h"
-#include "GUI/PlayerController.h"
 
 namespace Logic 
 {
 	CEntity::CEntity() 
 		: _gameObject(nullptr), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
-				_isPlayer(false), _activated(false)
+				 _activated(false)
 	{
 
 	} // CEntity
@@ -65,10 +62,6 @@ namespace Logic
 			Math::yaw(yaw,_transform);
 		}
 
-		if(entityInfo->hasAttribute("isPlayer"))
-			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
-		
-
 		// Inicializamos los componentes
 		TComponentList::const_iterator it;
 
@@ -84,15 +77,7 @@ namespace Logic
 	//---------------------------------------------------------
 
 	bool CEntity::activate() 
-	{
-		// Si somos jugador, se lo decimos al servidor
-		// y nos registramos para que nos informen
-		// de los movimientos que debemos realizar
-		if (isPlayer())
-		{
-			CServer::getSingletonPtr()->setPlayer(this);
-			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
-		}
+	{	
 
 		// Activamos los componentes
 		TComponentList::const_iterator it;
@@ -113,16 +98,6 @@ namespace Logic
 
 	void CEntity::deactivate() 
 	{
-		// Si éramos el jugador, le decimos al servidor que ya no hay.
-		// y evitamos que se nos siga informando de los movimientos que 
-		// debemos realizar
-		if (isPlayer())
-		{
-			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(0);
-			CServer::getSingletonPtr()->setPlayer(0);
-		}
-
-
 		TComponentList::const_iterator it;
 
 		// Desactivamos los componentes
@@ -190,7 +165,7 @@ namespace Logic
 			_components.pop_back();
 			delete c;
 		}
-
+		
 	} // destroyAllComponents
 
 	//---------------------------------------------------------

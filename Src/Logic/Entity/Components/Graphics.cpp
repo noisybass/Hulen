@@ -34,7 +34,7 @@ namespace Logic
 		{
 			_scene->removeEntity(_graphicsEntity);
 			delete _graphicsEntity;
-			_graphicsEntity = 0;
+			_graphicsEntity = nullptr;
 		}
 
 	} // ~CGraphics

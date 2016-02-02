@@ -14,7 +14,7 @@ mover al jugador.
 #include "PlayerController.h"
 #include "InputManager.h"
 
-#include "Logic/Entity/Entity.h"
+#include "Logic/Entity/GameObject.h"
 #include "Logic/Entity/Message.h"
 
 #include <cassert>
@@ -23,7 +23,7 @@ mover al jugador.
 
 namespace GUI {
 
-	CPlayerController::CPlayerController() : _controlledAvatar(0)
+	CPlayerController::CPlayerController() : _controlledAvatar(nullptr)
 	{
 
 	} // CPlayerController

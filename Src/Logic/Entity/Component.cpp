@@ -24,6 +24,14 @@ namespace Logic
 
 	} // IComponent
 
+	//IComponent::~IComponent()
+	//{
+	//	~CCommunicationPort();
+	//	_entity = nullptr;
+	//	_gameObject = nullptr;
+
+	//} // ~IComponent
+
 	bool IComponent::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
 	{
 		_entity = entity;

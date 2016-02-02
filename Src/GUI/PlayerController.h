@@ -18,7 +18,7 @@ mover al jugador.
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
 {
-	class CEntity;
+	class CGameObject;
 }
 
 // Declaración de la clase
@@ -61,7 +61,7 @@ namespace GUI
 		movimiento en función de las teclas pulsadas y el movimiento del 
 		ratón.
 		*/
-		void setControlledAvatar(Logic::CEntity *controlledAvatar) 
+		void setControlledAvatar(Logic::CGameObject* controlledAvatar) 
 										{_controlledAvatar = controlledAvatar;} 
 
 		/**
@@ -137,7 +137,7 @@ namespace GUI
 		Entidad jugador al que enviaremos acciones de movimiento en
 		función de las teclas pulsadas y el movimiento del ratón.
 		*/
-		Logic::CEntity *_controlledAvatar;
+		Logic::CGameObject *_controlledAvatar;
 
 	}; // class CPlayerController
 

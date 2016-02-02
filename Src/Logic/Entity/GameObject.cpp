@@ -2,13 +2,18 @@
 
 #include "Component.h"
 
+#include "Logic/Server.h"
+
 #include "Map/MapEntity.h"
+
+#include "GUI/Server.h"
+#include "GUI/PlayerController.h"
 
 namespace Logic
 {
 	CGameObject::CGameObject(TEntityID gameObjectID)
 		: _gameObjectID(gameObjectID), _body(nullptr), _shadow(nullptr), 
-		_map(nullptr), _blueprint(""), _name("")
+		_map(nullptr), _blueprint(""), _name(""), _isPlayer(false)
 	{
 
 	} // CGameObject
@@ -27,6 +32,9 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
+
+		if (entityInfo->hasAttribute("isPlayer"))
+			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
 
 		// Inicializamos los componentes
 		TComponentList::const_iterator it;
@@ -65,16 +73,60 @@ namespace Logic
 
 	bool CGameObject::activate()
 	{
+		// Si somos jugador, se lo decimos al servidor
+		// y nos registramos para que nos informen
+		// de los movimientos que debemos realizar
+		if (isPlayer())
+		{
+			CServer::getSingletonPtr()->setPlayer(_body);
+			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
+		}
+
+		// Solo si se activan todos los componentes y las entidades de cuerpo
+		// y sombra nos consideraremos activados
 		_activated = true;
-		_body->activate();
-		return true;
+
+		// Activamos los componentes
+		TComponentList::const_iterator it;
+
+		for (it = _components.begin(); it != _components.end(); ++it)
+			_activated = (*it)->activate() && _activated;
+
+		_activated = true;
+		if (_body)
+			_activated = _body->activate() && _activated;
+
+		if (_shadow)
+			_activated = _shadow->activate() && _activated;
+
+		return _activated;
 
 	} // activate
 
 	void CGameObject::deactivate()
 	{
+		// Si éramos el jugador, le decimos al servidor que ya no hay.
+		// y evitamos que se nos siga informando de los movimientos que 
+		// debemos realizar
+		if (isPlayer())
+		{
+			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(nullptr);
+			CServer::getSingletonPtr()->setPlayer(nullptr);
+		}
+
 		_activated = false;
-		_body->deactivate();
+
+		TComponentList::const_iterator it;
+
+		// Desactivamos los componentes
+		for (it = _components.begin(); it != _components.end(); ++it)
+			(*it)->deactivate();
+
+		if (_body)
+			_body->deactivate();
+
+		if (_shadow)
+			_shadow->deactivate();
 
 	} // deactivate
 

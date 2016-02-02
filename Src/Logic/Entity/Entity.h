@@ -67,7 +67,8 @@ namespace Logic
 	protected:
 
 		/**
-		Clase amiga que crea y destruye objetos de la clase.
+		La factoria de entidades se encarga de crear las entidades
+		pero cada game object es el responsable de eliminar sus entidades
 		*/
 		friend class CEntityFactory;
 
@@ -168,17 +169,6 @@ namespace Logic
 		@return true si al menos un componente aceptó el mensaje
 		*/
 		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
-
-		/**
-		Método que indica si la entidad es o no el jugador.
-		Seguro que hay formas mejores desde el punto de vista de
-		diseño de hacerlo, pero esta es la más rápida: la entidad 
-		con la descripción de la entidad tiene esta descripción que
-		establece en el spawn().
-		
-		@return true si la entidad es el jugador.
-		*/
-		bool isPlayer() { return _isPlayer; }
 
 		/**
 		Devuelve el nombre de la entidad.
@@ -314,12 +304,6 @@ namespace Logic
 		Matriz de transformación de la entidad. Contiene posición y orientación.
 		*/
 		Matrix4 _transform;
-
-		/**
-		Atributo que indica si la entidad es el jugador; por defecto
-		es false a no ser que se lea otra cosa de los atributos.
-		*/
-		bool _isPlayer;
 
 	}; // class CEntity
 

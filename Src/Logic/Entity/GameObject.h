@@ -43,6 +43,17 @@ namespace Logic
 		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
 
 		/**
+		Método que indica si el game object es o no el jugador.
+		Seguro que hay formas mejores desde el punto de vista de
+		diseño de hacerlo, pero esta es la más rápida: la entidad
+		con la descripción de la entidad tiene esta descripción que
+		establece en el spawn().
+
+		@return true si la entidad es el jugador.
+		*/
+		bool isPlayer() { return _isPlayer; }
+
+		/**
 		Devuelve el identificador único del game object.
 
 		@return Identificador.
@@ -113,6 +124,12 @@ namespace Logic
 		Mapa lógico donde está el game object.
 		*/
 		Logic::CMap *_map;
+
+		/**
+		Atributo que indica si lael game object es el jugador; por defecto
+		es false a no ser que se lea otra cosa de los atributos.
+		*/
+		bool _isPlayer;
 
 	}; // class CGameObject
 

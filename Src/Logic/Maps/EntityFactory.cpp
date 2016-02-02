@@ -303,6 +303,13 @@ namespace Logic
 		// Si el game object estaba activo se desactiva al sacarlo
 		// del mapa.
 		gameObject->getMap()->removeGameObject(gameObject);
+
+		if (gameObject->getBody())
+			deleteEntity(gameObject->getBody());
+
+		if (gameObject->getShadow())
+			deleteEntity(gameObject->getShadow());
+
 		delete gameObject;
 	} // deleteGameObject
 	
