@@ -55,6 +55,19 @@ namespace Logic
 		if(!_graphicsEntity)
 			return false;
 
+		if (entityInfo->hasAttribute("material")){
+			_material = entityInfo->getStringAttribute("material");
+			_graphicsEntity->setMaterial(_material);
+		}
+
+		if (entityInfo->hasAttribute("guizmoSize"))
+			_guizmoSize = entityInfo->getIntAttribute("guizmoSize");
+
+		if (entityInfo->hasAttribute("guizmo")){
+			_guizmo= entityInfo->getBoolAttribute("guizmo");
+			_graphicsEntity->drawGuizmo(_guizmoSize);
+		}
+
 		return true;
 
 	} // spawn
@@ -66,6 +79,9 @@ namespace Logic
 		bool isStatic = false;
 		if(entityInfo->hasAttribute("static"))
 			isStatic = entityInfo->getBoolAttribute("static");
+
+		if (entityInfo->hasAttribute("scale"))
+			_scale = entityInfo->getVector3Attribute("scale");
 
 		if(isStatic)
 		{
@@ -80,12 +96,20 @@ namespace Logic
 				return 0;
 		}
 
+		//Importante: La escala debe ser ajustada después de que se haya creada la entidad gráfica y se haya añadido a la escena gráfica.
+		//Sino, al escalar dara un fallo de que no existe el nodo correspondiente en Ogre (la entidad gráfica no está creada).
+
+		if (entityInfo->hasAttribute("scale")){
+			_scale = entityInfo->getVector3Attribute("scale");
+			_graphicsEntity->setScale(_scale);
+		}
+
 		_graphicsEntity->setTransform(_entity->getTransform());
 		
 		return _graphicsEntity;
 
 	} // createGraphicsEntity
-	
+
 	//---------------------------------------------------------
 
 	bool CGraphics::accept(const TMessage &message)

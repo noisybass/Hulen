@@ -38,7 +38,8 @@ namespace Logic
 			TOUCHED,
 			UNTOUCHED,
 			SWITCH,
-			DAMAGED
+			DAMAGED,
+			MOUSE_POSITION
 		};
 	}
 

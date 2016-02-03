@@ -34,6 +34,20 @@ namespace Graphics
 		*/
 		void setSpecularColour(const Ogre::ColourValue &colour);
 
+		/**
+		A point light's attenuation defines how bright it is with respect to its distance from objects.
+		*/
+		void setAttenuation(const float range,
+							const float constant,
+							const float linear,
+							const float quadratic);
+		/**
+		The Light will have a flare around it if you call this method.
+		*/
+		void setFlare(const Ogre::ColourValue colour, const std::string materialName, const unsigned int flareSize);
+
+		
+
 	protected:
 
 		friend class CScene;
@@ -71,6 +85,16 @@ namespace Graphics
 		
 		*/
 		CScene* _scene;
+
+
+		/**
+		Flare stuff
+		*/
+		Ogre::Billboard* _billboardFlare;
+
+		Ogre::BillboardSet* _billboardSetFlare;
+
+		Ogre::SceneNode* _node;
 
 	}; // class CLight
 

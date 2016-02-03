@@ -60,7 +60,6 @@ namespace Logic {
 
 			// Obtenemos el tipo
 			std::string type = (*it)->getStringAttribute("type");
-			std::cout << type << std::endl;
 
 			if (!type.compare("Body") || !type.compare("Shadow"))
 			{

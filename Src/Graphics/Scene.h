@@ -27,6 +27,7 @@ namespace Ogre
 	class SceneManager;
 	class StaticGeometry;
 	class Light;
+	class ManualObject;
 }
 namespace Graphics 
 {

@@ -34,29 +34,60 @@ namespace Logic
 
 		Vector3 colour;
 
-		if (entityInfo->hasAttribute("diffuse_colour"))
+		if (entityInfo->hasAttribute("diffuse_colour")){
 			colour = entityInfo->getVector3Attribute("diffuse_colour");
-		_light->setDiffuseColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
-
-		if (entityInfo->hasAttribute("specular_colour"))
+			_light->setDiffuseColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
+		}
+			
+		if (entityInfo->hasAttribute("specular_colour")){
 			colour = entityInfo->getVector3Attribute("specular_colour");
-		_light->setSpecularColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
-
-		if (entityInfo->hasAttribute("light_position"))
+			_light->setSpecularColour(Ogre::ColourValue(colour.x, colour.y, colour.z));
+		}
+		
+		if (entityInfo->hasAttribute("light_position")){
 			_light->setPosition(entityInfo->getVector3Attribute("light_position"));
+		}
+
+		/**
+		Attenuation settings
+		see this website for more info: http://www.ogre3d.org/tikiwiki/-Point+Light+Attenuation
+		*/
+		if (entityInfo->hasAttribute("light_attenuation_range") &&
+			entityInfo->hasAttribute("light_attenuation_constant") &&
+			entityInfo->hasAttribute("light_attenuation_linear") &&
+			entityInfo->hasAttribute("light_attenuation_quadratic")){
+			_light->setAttenuation( entityInfo->getFloatAttribute("light_attenuation_range"),
+									entityInfo->getFloatAttribute("light_attenuation_constant"), 
+									entityInfo->getFloatAttribute("light_attenuation_linear"), 
+									entityInfo->getFloatAttribute("light_attenuation_quadratic"));
+		
+		}
+
+		/**
+		Flare settings
+		*/
+
+		if (entityInfo->hasAttribute("flare_material") &&
+			entityInfo->hasAttribute("flare_colour") &&
+			entityInfo->hasAttribute("flare_size")){
+			colour = entityInfo->getVector3Attribute("flare_colour");
+			_light->setFlare(Ogre::ColourValue(colour.x, colour.y, colour.z), 
+							entityInfo->getStringAttribute("flare_material"),
+							entityInfo->getIntAttribute("flare_size"));
+		}
 
 		return true;
 	} // spawn
 
 	bool CPointLight::accept(const TMessage &message)
 	{
-		return false;
+		return message._type == Message::MOUSE_POSITION;
 
 	} // accept
 
 	void CPointLight::process(const TMessage &message)
 	{
-
+		_light->updatePosition(message._vector3);
 	} // process
 
 } // namespace Logic

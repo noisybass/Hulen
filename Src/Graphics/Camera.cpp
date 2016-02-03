@@ -36,9 +36,9 @@ namespace Graphics
 		// Creamos la estructura de nodos de la cámara. Los nodos cuelgan
 		// de la raiz, son globales.
 		_cameraNode = _scene->getSceneMgr()->getRootSceneNode()->
-					createChildSceneNode(name + "_camera_node");
+			createChildSceneNode(name + "_camera_node");
 		_targetNode = scene->getSceneMgr()->getRootSceneNode()->
-					createChildSceneNode(name + "_target_node");
+			createChildSceneNode(name + "_target_node");
 
 		// Hacemos que el nodo de la cámara siempre esté mirando al nodo
 		// objetivo.
@@ -52,8 +52,17 @@ namespace Graphics
 		// Deberían poder configurarse.
 		_camera->setNearClipDistance(5);
 		_camera->setFarClipDistance(500);
+
+		//TO DO: La cámara que necesitamos NO es ortográfica, es con perspectiva. 
+		// Si se implementa el poder tener una camara ortográfica, quedaría mejor parametrizado y cargandolo desde el map.txt.
+		//_camera->setProjectionType(Ogre::ProjectionType::PT_ORTHOGRAPHIC);
+		//_camera->setOrthoWindow(13, 13);
+
+		//TO DO: Ajustar el FOV y el AspectRatio de la cámara.
+		//_camera->setFOVy(Ogre::Radian(60.0f));
+
 		// Finalmente adjuntamos la cámara a su nodo.
-		_cameraNode->attachObject (_camera);
+		_cameraNode->attachObject(_camera);
 
 	} // CCamera
 
@@ -83,6 +92,14 @@ namespace Graphics
 		return _targetNode->getPosition();
 	}
 
+	const float &CCamera::getAspectRatio(){
+		return _camera->getAspectRatio();
+	}
+
+	const float &CCamera::getFOV(){
+		return _camera->getFOVy().valueDegrees();
+	}
+
 	//--------------------------------------------------------
 
 	const Quaternion &CCamera::getCameraOrientation() 
@@ -104,5 +121,13 @@ namespace Graphics
 		_targetNode->setPosition(newPosition);
 	}
 
+	void CCamera::setAspectRatio(float ratio)
+	{
+		_camera->setAspectRatio(ratio);
+	}
+
+	void CCamera::setFOV(float degree){
+		_camera->setFOVy((Ogre::Radian)Ogre::Math::AngleUnitsToRadians(degree));
+	}
 
 } // namespace Graphics

@@ -234,7 +234,7 @@ namespace Logic
 
 	Logic::CEntity *CEntityFactory::createEntity(const Map::CEntity *entityInfo, Logic::CMap *map)
 	{
-		std::cout << "Creando entidad " << entityInfo->getName() << std::endl;
+		//std::cout << "Creando entidad " << entityInfo->getName() << std::endl;
 
 		CEntity* ret = assembleEntity(entityInfo->getBlueprint());
 
@@ -264,7 +264,7 @@ namespace Logic
 
 	Logic::CGameObject *CEntityFactory::createGameObject(const Map::CEntity *entityInfo, Logic::CMap *map)
 	{
-		std::cout << "Creando game object " << entityInfo->getName() << std::endl;
+		//std::cout << "Creando game object " << entityInfo->getName() << std::endl;
 
 		CGameObject* ret = assembleGameObject(entityInfo->getBlueprint());
 

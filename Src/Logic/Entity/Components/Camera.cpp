@@ -46,8 +46,36 @@ namespace Logic
 		if(entityInfo->hasAttribute("targetDistance"))
 			_targetDistance = entityInfo->getFloatAttribute("targetDistance");
 
-		if(entityInfo->hasAttribute("targetHeight"))
-			_targetHeight = entityInfo->getFloatAttribute("targetHeight");
+		if(entityInfo->hasAttribute("fixed"))
+			_fixed = entityInfo->getBoolAttribute("fixed");
+
+		if (entityInfo->hasAttribute("ratio")){
+			std::string auxRatio = entityInfo->getStringAttribute("ratio");
+
+			//Ratio por defecto
+			float ratio = 4.0f / 3.0f;
+
+			if (auxRatio == "169")
+				ratio = 16.0f / 9.0f;
+			else if (auxRatio == "43")
+				ratio = 4.0f / 3.0f;
+
+			_graphicsCamera->setAspectRatio(ratio);
+
+			
+		}
+
+		if (entityInfo->hasAttribute("fov"))
+			_graphicsCamera->setFOV(entityInfo->getFloatAttribute("fov"));
+
+		if (_fixed){
+
+			// Actualizar la posición de la cámara con la posición de la entidad.
+			_graphicsCamera->setCameraPosition(_entity->getPosition());
+
+			// La cámara apunta al 0, 0 , 0
+			_graphicsCamera->setTargetCameraPosition(Vector3::ZERO);
+		}
 
 		return true;
 
@@ -57,7 +85,9 @@ namespace Logic
 
 	bool CCamera::activate()
 	{
-		_target = CServer::getSingletonPtr()->getPlayer();
+		// Lo comento para que la camara no se centre en el player.
+		//_target = CServer::getSingletonPtr()->getPlayer();
+		_target = nullptr;
 
 		return true;
 

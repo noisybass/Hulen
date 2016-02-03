@@ -8,12 +8,13 @@
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
+#include "GUI/LightController.h"
 
 namespace Logic
 {
 	CGameObject::CGameObject(TEntityID gameObjectID)
 		: _gameObjectID(gameObjectID), _body(nullptr), _shadow(nullptr), 
-		_map(nullptr), _blueprint(""), _name(""), _isPlayer(false)
+		_map(nullptr), _blueprint(""), _name(""), _isPlayer(false), _isLight(false)
 	{
 
 	} // CGameObject
@@ -35,6 +36,9 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("isPlayer"))
 			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
+
+		if (entityInfo->hasAttribute("isLight"))
+			_isLight = entityInfo->getBoolAttribute("isLight");
 
 		// Inicializamos los componentes
 		TComponentList::const_iterator it;
@@ -82,6 +86,10 @@ namespace Logic
 			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
 		}
 
+		if (isLight()){
+			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(this);
+		}
+
 		// Solo si se activan todos los componentes y las entidades de cuerpo
 		// y sombra nos consideraremos activados
 		_activated = true;
@@ -112,6 +120,10 @@ namespace Logic
 		{
 			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(nullptr);
 			CServer::getSingletonPtr()->setPlayer(nullptr);
+		}
+
+		if (isLight()){
+			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(nullptr);
 		}
 
 		_activated = false;

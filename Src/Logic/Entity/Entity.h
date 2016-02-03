@@ -169,7 +169,7 @@ namespace Logic
 		@return true si al menos un componente aceptó el mensaje
 		*/
 		bool emitMessage(const TMessage &message, IComponent* emitter = 0);
-
+		
 		/**
 		Devuelve el nombre de la entidad.
 

@@ -44,7 +44,7 @@ namespace Logic
 	{
 		// Leemos las propiedades comunes
 		_blueprint = entityInfo->getBlueprint();
-		_gameObject = gameObject;
+		_gameObject = gameObject;	
 
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
@@ -78,6 +78,8 @@ namespace Logic
 
 	bool CEntity::activate() 
 	{	
+
+		
 
 		// Activamos los componentes
 		TComponentList::const_iterator it;

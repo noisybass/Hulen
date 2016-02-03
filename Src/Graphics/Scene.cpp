@@ -29,6 +29,7 @@ de una escena.
 #include <OgreViewport.h>
 #include <OgreStaticGeometry.h>
 #include <OgreColourValue.h>
+#include <OgreManualObject.h>
 
 namespace Graphics 
 {
@@ -121,7 +122,8 @@ namespace Graphics
 						->addViewport(_camera->getCamera());
 		_viewport->setBackgroundColour(Ogre::ColourValue::Black);
 
-		_sceneMgr->setAmbientLight(Ogre::ColourValue(.9f,.9f,.9f));
+		// No hay luz ambiental.
+		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.9f,.9f,.9f));
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.

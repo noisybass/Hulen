@@ -22,6 +22,7 @@ Contiene la implementación del estado de juego.
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
+#include "GUI/LightController.h"
 
 #include "Physics/Server.h"
 
@@ -81,6 +82,9 @@ namespace Application {
 		// Queremos que el GUI maneje al jugador.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->activate();
 
+		// Queremos que el GUI maneje a la luz.
+		GUI::CServer::getSingletonPtr()->getLightController()->activate();
+
 		// Activamos la ventana que nos muestra el tiempo transcurrido.
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
 		_timeWindow->setVisible(true);
@@ -99,6 +103,9 @@ namespace Application {
 		// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador.
 		GUI::CServer::getSingletonPtr()->getPlayerController()->deactivate();
+
+		// Desactivamos la luz
+		GUI::CServer::getSingletonPtr()->getLightController()->deactivate();
 		
 		// Desactivamos el mapa de la partida.
 		Logic::CServer::getSingletonPtr()->deactivateMap();
