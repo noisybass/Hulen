@@ -32,6 +32,12 @@ namespace Logic
 			return 0;
 
 		_animatedGraphicsEntity->setTransform(_entity->getTransform());
+
+		if (entityInfo->hasAttribute("scale"))
+		{
+			_scale = entityInfo->getVector3Attribute("scale");
+			_animatedGraphicsEntity->setScale(_scale);
+		}
 		
 		if(entityInfo->hasAttribute("defaultAnimation"))
 		{

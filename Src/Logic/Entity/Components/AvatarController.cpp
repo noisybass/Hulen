@@ -84,7 +84,7 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "WalkLeft";
+		message._string = "Walk";
 		message._bool = true;
 		_entity->emitMessage(message,this);
 
@@ -99,7 +99,7 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "WalkRight";
+		message._string = "WalkBack";
 		message._bool = true;
 		_entity->emitMessage(message,this);
 
