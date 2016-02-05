@@ -60,7 +60,7 @@ namespace Logic
 		/**
 		Método que activa el componente; invocado cuando se activa
 		el mapa donde está la entidad a la que pertenece el componente.
-		<p>
+		
 		Si el componente pertenece a la entidad del jugador, el componente
 		se registra así mismo en el controlador del GUI para que las ordenes 
 		se reciban a partir de los eventos de teclado y ratón.
@@ -74,7 +74,7 @@ namespace Logic
 		desactiva el mapa donde está la entidad a la que pertenece el
 		componente. Se invocará siempre, independientemente de si estamos
 		activados o no.
-		<p>
+		
 		Si el componente pertenece a la entidad del jugador, el componente
 		se deregistra así mismo en el controlador del GUI para dejar de
 		recibir las ordenes dadas a partir de los eventos de teclado y ratón.
@@ -83,7 +83,7 @@ namespace Logic
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.
-		<p>
+		
 		Se encarga de mover la entidad en cada vuelta de ciclo cuando es
 		necesario (cuando está andando o desplazándose lateralmente).
 

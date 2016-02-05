@@ -46,7 +46,10 @@ namespace Graphics
 		*/
 		void setFlare(const Ogre::ColourValue colour, const std::string materialName, const unsigned int flareSize);
 
-		
+		/**
+
+		*/
+		void setVisible(bool visible);
 
 	protected:
 

@@ -82,4 +82,13 @@ namespace Graphics
 		_light->setAttenuation(range, constant, linear, quadratic);
 	} // setAttenuation
 
+	//--------------------------------------------------------
+
+	void CLight::setVisible(bool visible)
+	{
+		_light->setVisible(visible);
+		_billboardSetFlare->setVisible(visible);
+
+	} // setVisible
+
 } // namespace Graphics

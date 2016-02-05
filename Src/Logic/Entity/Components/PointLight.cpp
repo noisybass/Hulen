@@ -81,13 +81,23 @@ namespace Logic
 
 	bool CPointLight::accept(const TMessage &message)
 	{
-		return message._type == Message::MOUSE_POSITION;
+		return message._type == Message::LIGHT_SET_POSITION ||
+			message._type == Message::LIGHT_SET_VISIBLE;
 
 	} // accept
 
 	void CPointLight::process(const TMessage &message)
 	{
-		_light->updatePosition(message._vector3);
+		switch (message._type)
+		{
+			case Message::LIGHT_SET_POSITION:
+				_light->setPosition(message._vector3);
+				break;
+			case Message::LIGHT_SET_VISIBLE:
+				_light->setVisible(message._bool);
+				break;
+		}
+		
 	} // process
 
 } // namespace Logic

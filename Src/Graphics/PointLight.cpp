@@ -17,15 +17,4 @@ namespace Graphics
 
 	} // setPosition
 
-	/**
-	Por ahora se utiliza para actualizar la posicion de la luz cuando
-	movemos el raton.
-	*/
-	void CPointLight::updatePosition(const Ogre::Vector3& position){
-		Ogre::Vector3 nodePos = _node->getPosition();
-		_node->setPosition( nodePos.x + position.x,
-							nodePos.y - position.y,
-							nodePos.z);
-	} //update position
-
 } // namespace Graphics

@@ -66,10 +66,11 @@ namespace GUI {
 		if(_controlledLight)
 		{
 			Logic::TMessage m;
-			m._type = Logic::Message::MOUSE_POSITION;
+			m._type = Logic::Message::KASAI_MOVE;
 			m._vector3 = Vector3(mouseState.movX , 
 								 mouseState.movY , 
 								 0);
+
 			_controlledLight->emitMessage(m);
 			return true;
 		}
@@ -81,6 +82,19 @@ namespace GUI {
 		
 	bool CLightController::mousePressed(const CMouseState &mouseState)
 	{
+		if (_controlledLight)
+		{
+			Logic::TMessage m;
+			switch (mouseState.button)
+			{
+			case GUI::Button::LEFT:
+				m._type = Logic::Message::KASAI_SET_VISIBLE;
+				break;
+			}
+
+			_controlledLight->emitMessage(m);
+			return true;
+		}
 		return false;
 
 	} // mousePressed
