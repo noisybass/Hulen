@@ -125,6 +125,10 @@ namespace Graphics
 		*/
 		void setFOV(float degree);
 
+		/**
+		*/
+		Vector3 screenToWorld(float screenX, float screenY) const;
+
 	protected:
 		
 		/**

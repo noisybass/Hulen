@@ -151,6 +151,12 @@ namespace Application {
 		case GUI::Key::ESCAPE:
 			_app->setState("menu");
 			break;
+		case GUI::Key::R:
+			deactivate();
+			release();
+			init();
+			activate();
+			break;
 		default:
 			return false;
 		}

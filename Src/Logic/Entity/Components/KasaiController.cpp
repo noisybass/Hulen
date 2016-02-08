@@ -1,6 +1,7 @@
 #include "KasaiController.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic/Entity/GameObject.h"
 #include "Map/MapEntity.h"
 
 namespace Logic
@@ -49,7 +50,9 @@ namespace Logic
 	bool CKasaiController::accept(const TMessage &message)
 	{
 		return message._type == Message::KASAI_MOVE ||
-			message._type == Message::KASAI_SET_VISIBLE;
+			message._type == Message::KASAI_SET_VISIBLE ||
+			message._type == Message::TOUCHED ||
+			message._type == Message::UNTOUCHED;
 	} // accept
 
 	//---------------------------------------------------------
@@ -72,6 +75,20 @@ namespace Logic
 			m._bool = _isVisible;
 			
 			_entity->emitMessage(m);
+			break;
+		case Message::TOUCHED:
+			if (message._entity->getGameObject()->isPlayer())
+			{
+				m._type = Message::PLAYER_ENTER_LIGHT;
+				message._entity->emitMessage(m);
+			}
+			break;
+		case Message::UNTOUCHED:
+			if (message._entity->getGameObject()->isPlayer())
+			{
+				m._type = Message::PLAYER_OUT_LIGHT;
+				message._entity->emitMessage(m);
+			}
 			break;
 		}
 	} // process

@@ -53,7 +53,9 @@ namespace Logic
 
 	bool CAvatarController::accept(const TMessage &message)
 	{
-		return message._type == Message::CONTROL;
+		return message._type == Message::CONTROL || 
+			message._type == Message::PLAYER_ENTER_LIGHT ||
+			message._type == Message::PLAYER_OUT_LIGHT;
 
 	} // accept
 	
@@ -64,13 +66,20 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::CONTROL:
-			
 			if(!message._string.compare("walkLeft"))
 				walkLeft();
 			else if(!message._string.compare("walkRight"))
 				walkRight();
 			else if (!message._string.compare("stopWalk"))
 				stopWalk();
+			break;
+		case Message::PLAYER_ENTER_LIGHT:
+			_onLight = true;
+			std::cout << "Jugador dentro de la luz" << std::endl;
+			break;
+		case Message::PLAYER_OUT_LIGHT:
+			_onLight = false;
+			std::cout << "Jugador fuera de la luz" << std::endl;
 		}
 
 	} // process

@@ -71,6 +71,7 @@ namespace Graphics
 		// Creo que esto no hace mucha falta, pero lo dejo porsi
 		_billboardSetFlare->setRenderQueueGroup(55);
 		_node->attachObject(_billboardSetFlare);
+
 	} // setFlare
 
 	//--------------------------------------------------------
@@ -80,6 +81,7 @@ namespace Graphics
 								const float linear,
 								const float quadratic){
 		_light->setAttenuation(range, constant, linear, quadratic);
+
 	} // setAttenuation
 
 	//--------------------------------------------------------

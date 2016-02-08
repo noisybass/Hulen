@@ -24,6 +24,7 @@ Contiene la implementación de la clase que maneja la cámara.
 #include <OgreCamera.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
+#include <OgreRay.h>
 
 namespace Graphics 
 {
@@ -128,6 +129,17 @@ namespace Graphics
 
 	void CCamera::setFOV(float degree){
 		_camera->setFOVy((Ogre::Radian)Ogre::Math::AngleUnitsToRadians(degree));
+	}
+
+	Vector3 CCamera::screenToWorld(float screenX, float screenY) const
+	{
+		float x = screenX / _camera->getViewport()->getActualWidth();
+		float y = screenY / _camera->getViewport()->getActualHeight();
+
+		Ogre::Ray ray = _camera->getCameraToViewportRay(x, y);
+		Vector3 pos = ray.getPoint(30.0);
+
+		return pos;
 	}
 
 } // namespace Graphics

@@ -4,6 +4,14 @@
 #include "Logic/Entity/GameObject.h"
 #include "Logic/Entity/Message.h"
 
+#include "Graphics\Server.h"
+#include "Graphics\Scene.h"
+#include "Graphics\Camera.h"
+
+#include <OgreRenderWindow.h>
+#include <OgreRay.h>
+#include <OgrePlane.h>
+
 #include <cassert>
 
 #define TURN_FACTOR 0.001f
@@ -67,10 +75,13 @@ namespace GUI {
 		{
 			Logic::TMessage m;
 			m._type = Logic::Message::KASAI_MOVE;
-			m._vector3 = Vector3(mouseState.movX , 
-								 mouseState.movY , 
-								 0);
 
+			Graphics::CCamera* camera = Graphics::CServer::getSingletonPtr()->getActiveScene()->getCamera();
+			
+			Vector3 pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
+			m._vector3 = Vector3(pos.x, pos.y, 0);
+			//std::cout << "(" << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
+			
 			_controlledLight->emitMessage(m);
 			return true;
 		}
