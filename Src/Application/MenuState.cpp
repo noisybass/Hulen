@@ -109,7 +109,7 @@ namespace Application {
 			_app->exitRequest();
 			break;
 		case GUI::Key::RETURN:
-			_app->setState("game");
+			_app->pushState("game");
 			break;
 		default:
 			return false;
@@ -147,7 +147,7 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
-		_app->setState("game");
+		_app->pushState("game");
 		return true;
 
 	} // startReleased

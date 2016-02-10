@@ -149,7 +149,7 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->setState("menu");
+			_app->popState();
 			break;
 		case GUI::Key::R:
 			deactivate();
