@@ -28,7 +28,6 @@ namespace Application {
 	CBaseApplication::CBaseApplication() : 
 		_initialized(false),
 		_currentState(nullptr),
-		//_nextState(0),
 		_exit(false),
 		_clock(0)
 	{
@@ -75,14 +74,6 @@ namespace Application {
 	
 	void CBaseApplication::releaseAllStates()
 	{
-		/*CApplicationState* currentState = _states.top();
-		// Desactivamos el estado actual
-		if (currentState)
-		{
-			currentState->deactivate();
-			currentState = 0;
-		}*/
-
 		// Desactivamos todos los estados que hay en la pila
 		while (!_states.empty()){
 			CApplicationState* currentState = _states.top();
@@ -126,25 +117,6 @@ namespace Application {
 		return newState->init();
 
 	} // addState
-
-	//--------------------------------------------------------
-
-	/*bool CBaseApplication::setState(const std::string &name) 
-	{
-		// Buscamos el estado.
-		TStateTable::const_iterator it;
-
-		it = _stateTable.find(name);
-
-		// Si no hay ningún estado con ese nombre, no hacemos nada
-		if (it == _stateTable.end())
-			return false;
-
-		_nextState = it->second;
-
-		return true;
-
-	} // setState*/
 
 	//--------------------------------------------------------
 
@@ -207,9 +179,6 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
-			/*if (!_currentState ||
-					(_nextState && (_currentState != _nextState)))
-				changeState();*/
 			if (!_currentState ||
 				_currentState != _states.top())
 				changeState();
@@ -233,14 +202,7 @@ namespace Application {
 
 	void CBaseApplication::changeState() 
 	{
-		/*// Avisamos al estado actual que le vamos a eliminar
-		if (_currentState)
-			_currentState->deactivate();
-
-		assert(_nextState);
-		_nextState->activate();
-		_currentState = _nextState;*/
-
+		// Establecemos el estado actual como la cima de pila.
 		_currentState = _states.top();
 
 	} // changeState

@@ -147,7 +147,7 @@ namespace Application
 						CApplicationState *newState);
 
 		/**
-		Establece el estado de la aplicación, a partir de su nombre. La 
+		Inserta un estado en la aplicación a partir de su nombre.La 
 		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
 		vuelta del bucle principal de la aplicación.
 
@@ -155,15 +155,12 @@ namespace Application
 		@return Devuelve cierto si el estado solicitado existe. Si el
 		estado no existe, <em>no</em> hay un cambio efectivo del estado.
 		*/
-		//bool setState(const std::string &name);
-
-		/**
-		Inserta un estado en la aplicación a partir de su nombre.
-		*/
 		bool pushState(const std::string &name);
 
 		/**
-		Elimina de la pila el estado que esta en la cima.
+		Elimina de la pila el estado que esta en la cima.La 
+		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
+		vuelta del bucle principal de la aplicación.
 		*/
 		bool popState();
 
@@ -285,13 +282,6 @@ namespace Application
 		Puntero al estado actual
 		*/
 		CApplicationState *_currentState;
-
-		/**
-		Puntero al estado objetivo. Alguien externo a la apliación
-		ha solicitado un cambio de estado que aún no se ha hecho
-		efectivo.
-		*/
-		//CApplicationState *_nextState;
 
 		/**
 		Indica si la aplicación terminará al final de la vuelta
