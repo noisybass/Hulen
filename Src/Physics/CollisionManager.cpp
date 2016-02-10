@@ -69,7 +69,7 @@ void CCollisionManager::onContact(const PxContactPairHeader &pairHeader, const P
 void CCollisionManager::onTrigger(PxTriggerPair *pairs, PxU32 count)
 {
 	// Recorrer el array de colisiones
-	for (unsigned int i=0; i<count; i++) {
+	for (PxU32 i = 0; i < count; ++i) {
 		
 		// Ignoramos los pares en los que alguna de las shapes (del trigger o de la otra entidad) ha sido borrada
 		if (pairs[i].flags & (PxTriggerPairFlag::eDELETED_SHAPE_TRIGGER | PxTriggerPairFlag::eDELETED_SHAPE_OTHER))

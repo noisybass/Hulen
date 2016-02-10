@@ -66,8 +66,17 @@ namespace Logic
 		case Message::KASAI_MOVE:
 			m._type = Message::LIGHT_SET_POSITION;
 			m._vector3 = message._vector3;
-
 			_entity->emitMessage(m);
+
+			m._type = Message::KINEMATIC_MOVE;
+			m._vector3 = message._vector3 - _entity->getPosition();
+			
+			// Si nadie captura el mensaje significa que no hay componente físico,
+			// así que movemos la entidad nosotros
+			if (!_entity->emitMessage(m)) 
+			{
+				_entity->setPosition(message._vector3);
+			}
 			break;
 		case Message::KASAI_SET_VISIBLE:
 			_isVisible = !_isVisible;
@@ -77,14 +86,14 @@ namespace Logic
 			_entity->emitMessage(m);
 			break;
 		case Message::TOUCHED:
-			if (message._entity->getGameObject()->isPlayer())
+			if (message._entity->getGameObject()->isPlayer() && message._entity->getType() == Entity::TEntityType::BODY)
 			{
 				m._type = Message::PLAYER_ENTER_LIGHT;
 				message._entity->emitMessage(m);
 			}
 			break;
 		case Message::UNTOUCHED:
-			if (message._entity->getGameObject()->isPlayer())
+			if (message._entity->getGameObject()->isPlayer() && message._entity->getType() == Entity::TEntityType::BODY)
 			{
 				m._type = Message::PLAYER_OUT_LIGHT;
 				message._entity->emitMessage(m);

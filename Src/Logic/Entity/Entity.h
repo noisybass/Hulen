@@ -41,6 +41,15 @@ namespace Logic
 // Declaración de la clase
 namespace Logic 
 {
+
+	namespace Entity
+	{
+		enum TEntityType
+		{
+			BODY,
+			SHADOW
+		};
+	}
 	/**
 	Clase que representa una entidad en el entorno virtual. Las entidades
 	son meros contenedores de componentes, y su funcionamiento depende
@@ -271,9 +280,19 @@ namespace Logic
 
 		CGameObject* getGameObject() const;
 
+		Entity::TEntityType getType() const;
+
 	protected:
 
+		/**
+		Game object al que pertenece la entidad.
+		*/
 		CGameObject* _gameObject;
+
+		/**
+		Tipo de la entidad. BODY o SHADOW.
+		*/
+		Entity::TEntityType _type;
 
 		/**
 		Tipo para la lista de componetes.

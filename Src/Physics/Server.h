@@ -185,6 +185,8 @@ namespace Physics {
 		physx::PxRigidStatic* createStaticBox(const Vector3 &position, const Vector3 &dimensions, 
 			                                  bool trigger, int group, const Logic::IPhysics *component); 
 
+
+
 		/**
 		Crea una caja dinámica en la escena.
 
@@ -202,6 +204,22 @@ namespace Physics {
 		physx::PxRigidDynamic* createDynamicBox(const Vector3 &position, const Vector3 &dimensions, 
 			                                    float mass, bool kinematic, bool trigger, int group, 
 												const Logic::IPhysics *component); 
+		/**
+		Crea una esfera dinámica en la escena.
+
+		@param position Posición de la esfera en coordenadas lógicas (el origen de coordenadas
+		está en el centro de la cara inferior del cubo).
+		@param radius Radio de la esfera
+		@param mass Masa distribuida uniformemente en el volumen de la entidad.
+		@param kinematic Indica si la entidad es cinemática.
+		@param trigger Indica si la entidad física representa un trigger.
+		@param group Grupo de colisión.
+		@param component Componente lógico asociado a la entidad física.
+		@return actor físico creado
+		*/
+		/*physx::PxRigidDynamic* createDynamicSphere(const Vector3 &position, float radius,
+			float mass, bool kinematic, bool trigger, int group,
+			const Logic::IPhysics *component);*/
 
 		/**
 		Crea una entidad física en la escena a partir de un fichero RepX exportado con el 
@@ -252,6 +270,11 @@ namespace Physics {
 		Indica si un actor dinámico es cinemático.
 		 */
 		bool isKinematic(const physx::PxRigidDynamic *actor);
+
+		/**
+		Indica si un actor dinámico es un trigger.
+		*/
+		bool isTrigger(const physx::PxRigidDynamic *actor);
 		
 
 		//----------------------------------
@@ -299,7 +322,6 @@ namespace Physics {
 		@param posición del controller en coordenadas lógicas.
 		*/
 		void CServer::setControllerPosition(physx::PxCapsuleController *controller, const Vector3 &position);
-
 		
 		//----------------------------------
 		// Consultas 

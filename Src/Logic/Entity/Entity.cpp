@@ -46,6 +46,11 @@ namespace Logic
 		_blueprint = entityInfo->getBlueprint();
 		_gameObject = gameObject;	
 
+		if (!entityInfo->getStringAttribute("type").compare("Body"))
+			_type = Entity::TEntityType::BODY;
+		else
+			_type = Entity::TEntityType::SHADOW;
+
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
 
@@ -264,6 +269,13 @@ namespace Logic
 	CGameObject* CEntity::getGameObject() const
 	{
 		return _gameObject;
-	}
+
+	} // getGameObject
+
+	Entity::TEntityType CEntity::getType() const
+	{
+		return _type;
+
+	} // getType
 
 } // namespace Logic

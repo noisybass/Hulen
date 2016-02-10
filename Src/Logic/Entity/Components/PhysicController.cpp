@@ -143,7 +143,8 @@ PxCapsuleController* CPhysicController::createController(const Map::CEntity *ent
 
 void CPhysicController::onTrigger(IPhysics *otherComponent, bool enter)
 {
-
+	std::cout << "sgagadgadga" << std::endl;
+	return;
 }
 
 //---------------------------------------------------------
@@ -152,12 +153,14 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 {
 	// Si chocamos contra una entidad estática no hacemos nada
 	PxRigidDynamic* actor = hit.shape->getActor()->isRigidDynamic();
+
 	if(!actor)
 		return;
 
 	// Si chocamos contra una entidad cinemática no hacemos nada
 	if (_server->isKinematic(actor))
 		return;
+	
 	
 	// Aplicar una fuerza a la entidad en la dirección del movimiento
 	actor->addForce(hit.dir * hit.length * 1000.0f);
