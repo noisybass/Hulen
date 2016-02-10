@@ -23,6 +23,7 @@ de todo el juego.
 #include <map>
 #include <string>
 #include <cassert>
+#include <stack>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Application 
@@ -154,14 +155,24 @@ namespace Application
 		@return Devuelve cierto si el estado solicitado existe. Si el
 		estado no existe, <em>no</em> hay un cambio efectivo del estado.
 		*/
-		bool setState(const std::string &name);
+		//bool setState(const std::string &name);
+
+		/**
+		Inserta un estado en la aplicación a partir de su nombre.
+		*/
+		bool pushState(const std::string &name);
+
+		/**
+		Elimina de la pila el estado que esta en la cima.
+		*/
+		bool popState();
 
 		/**
 		Devuelve el estado actual de la aplicación.
 
 		@return Estado actual de la aplicación.
 		*/
-		CApplicationState *getState() {return _currentState;}
+		CApplicationState *getState() { return _currentState; }
 
 		/**
 		Devuelve el tiempo de la aplicación.
@@ -263,7 +274,12 @@ namespace Application
 		/**
 		Tabla hash con todos los estados de la aplicación
 		*/
-		TStateTable _states;
+		TStateTable _stateTable;
+
+		/**
+		Pila en la que se irán apilando los estados de la aplicación.
+		*/
+		std::stack<CApplicationState*> _states;
 
 		/**
 		Puntero al estado actual
@@ -275,7 +291,7 @@ namespace Application
 		ha solicitado un cambio de estado que aún no se ha hecho
 		efectivo.
 		*/
-		CApplicationState *_nextState;
+		//CApplicationState *_nextState;
 
 		/**
 		Indica si la aplicación terminará al final de la vuelta

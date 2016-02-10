@@ -54,7 +54,7 @@ namespace Application {
 		if(!addState("exit", new CExitState(this)))
 			return false;
 
-		if(!setState("menu"))
+		if(!pushState("menu"))
 			return false;
 
 
