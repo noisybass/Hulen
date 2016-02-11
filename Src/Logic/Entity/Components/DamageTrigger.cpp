@@ -53,10 +53,11 @@ namespace Logic
 			{
 				TMessage m;
 				m._type = Message::DAMAGED;
-				m._float = _damage;
-				message._entity->emitMessage(m);
+				m.setArg<float>(std::string("damage"), _damage);
 
-				std::cout << message._entity->getName()<< std::endl;
+				message.getArg<CEntity*>("entity")->emitMessage(m);
+
+				std::cout << message.getArg<CEntity*>("entity")->getName() << std::endl;
 			}
 			break;
 		}

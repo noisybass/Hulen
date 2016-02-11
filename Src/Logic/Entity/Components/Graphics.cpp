@@ -125,7 +125,7 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
-			_graphicsEntity->setTransform(message._transform);
+			_graphicsEntity->setTransform(message.getArg<Matrix4>("transform"));
 		}
 
 	} // process

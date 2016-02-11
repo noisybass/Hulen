@@ -73,10 +73,11 @@ namespace Logic
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
 			_animatedGraphicsEntity->stopAllAnimations();
-			_animatedGraphicsEntity->setAnimation(message._string,message._bool);
+			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
+				message.getArg<bool>("loop"));
 			break;
 		case Message::STOP_ANIMATION:
-			_animatedGraphicsEntity->stopAnimation(message._string);
+			_animatedGraphicsEntity->stopAnimation(message.getArg<std::string>("animation"));
 			break;
 		}
 

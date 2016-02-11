@@ -184,7 +184,7 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
-			_transform = message._transform;
+			_transform = message.getArg<Matrix4>("transform");
 		}
 
 		TComponentList::const_iterator it;
@@ -209,7 +209,8 @@ namespace Logic
 		// Avisamos a los componentes del cambio.
 		TMessage message;
 		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
+		message.setArg<Matrix4>(std::string("transform"), _transform);
+
 		emitMessage(message);
 
 	} // setTransform
@@ -223,7 +224,8 @@ namespace Logic
 		// Avisamos a los componentes del cambio.
 		TMessage message;
 		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
+		message.setArg<Matrix4>(std::string("transform"), _transform);
+
 		emitMessage(message,invoker);
 
 	} // setPosition
@@ -237,7 +239,8 @@ namespace Logic
 		// Avisamos a los componentes del cambio.
 		TMessage message;
 		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
+		message.setArg<Matrix4>(std::string("transform"), _transform);
+
 		emitMessage(message);
 
 	} // setOrientation
@@ -261,7 +264,8 @@ namespace Logic
 		// Avisamos a los componentes del cambio.
 		TMessage message;
 		message._type = Message::SET_TRANSFORM;
-		message._transform = _transform;
+		message.setArg<Matrix4>(std::string("transform"), _transform);
+
 		emitMessage(message);
 
 	} // setYaw

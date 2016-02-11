@@ -71,8 +71,8 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::SWITCH:
-			assert((message._int >= 0) && (message._int <= 1));
-			_targetPosition = _position[message._int];
+			assert((message.getArg<int>("switch") >= 0) && (message.getArg<int>("switch") <= 1));
+			_targetPosition = _position[message.getArg<int>("switch")];
 			break;
 		}
 
@@ -114,7 +114,8 @@ namespace Logic
 		// Notificamos el movimiento que deseamos realizar
 		TMessage m;
 		m._type = Message::KINEMATIC_MOVE;
-		m._vector3 = displ;
+		m.setArg<Vector3>(std::string("movement"), displ);
+
 		bool accepted = _entity->emitMessage(m);
 
 		// Si nadie captura el mensaje significa que no hay componente físico,

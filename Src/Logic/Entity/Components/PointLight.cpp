@@ -91,10 +91,10 @@ namespace Logic
 		switch (message._type)
 		{
 			case Message::LIGHT_SET_POSITION:
-				_light->setPosition(message._vector3);
+				_light->setPosition(message.getArg<Vector3>("newPosition"));
 				break;
 			case Message::LIGHT_SET_VISIBLE:
-				_light->setVisible(message._bool);
+				_light->setVisible(message.getArg<bool>("visibility"));
 				break;
 		}
 		

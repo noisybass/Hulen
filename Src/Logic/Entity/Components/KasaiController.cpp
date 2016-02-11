@@ -61,42 +61,46 @@ namespace Logic
 	void CKasaiController::process(const TMessage &message)
 	{
 		TMessage m;
+		Vector3 newPosition;
 		switch (message._type)
 		{
 		case Message::KASAI_MOVE:
 			m._type = Message::LIGHT_SET_POSITION;
-			m._vector3 = message._vector3;
+			newPosition = message.getArg<Vector3>("newPosition");
+			m.setArg<Vector3>(std::string("newPosition"), newPosition);
 			_entity->emitMessage(m);
 
 			m._type = Message::KINEMATIC_MOVE;
-			m._vector3 = message._vector3 - _entity->getPosition();
+			m.setArg<Vector3>(std::string("movement"), newPosition - _entity->getPosition());
 			
 			// Si nadie captura el mensaje significa que no hay componente físico,
 			// así que movemos la entidad nosotros
 			if (!_entity->emitMessage(m)) 
 			{
-				_entity->setPosition(message._vector3);
+				_entity->setPosition(newPosition);
 			}
 			break;
 		case Message::KASAI_SET_VISIBLE:
 			_isVisible = !_isVisible;
 			m._type = Message::LIGHT_SET_VISIBLE;
-			m._bool = _isVisible;
+			m.setArg<bool>(std::string("visibility"), _isVisible);
 			
 			_entity->emitMessage(m);
 			break;
 		case Message::TOUCHED:
-			if (message._entity->getGameObject()->isPlayer() && message._entity->getType() == Entity::TEntityType::BODY)
+			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer() 
+				&& message.getArg<CEntity*>("entity")->getType() == Entity::TEntityType::BODY)
 			{
 				m._type = Message::PLAYER_ENTER_LIGHT;
-				message._entity->emitMessage(m);
+				message.getArg<CEntity*>("entity")->emitMessage(m);
 			}
 			break;
 		case Message::UNTOUCHED:
-			if (message._entity->getGameObject()->isPlayer() && message._entity->getType() == Entity::TEntityType::BODY)
+			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer() 
+				&& message.getArg<CEntity*>("entity")->getType() == Entity::TEntityType::BODY)
 			{
 				m._type = Message::PLAYER_OUT_LIGHT;
-				message._entity->emitMessage(m);
+				message.getArg<CEntity*>("entity")->emitMessage(m);
 			}
 			break;
 		}

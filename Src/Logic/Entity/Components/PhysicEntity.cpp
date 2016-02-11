@@ -77,7 +77,7 @@ void CPhysicEntity::process(const TMessage &message)
 	case Message::KINEMATIC_MOVE:
 		// Acumulamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick.
-		_movement += message._vector3;
+		_movement += message.getArg<Vector3>("movement");
 		break;
 	}
 }
@@ -230,7 +230,7 @@ void CPhysicEntity::onTrigger(IPhysics *otherComponent, bool enter)
 	} else {
 		msg._type = Message::UNTOUCHED;
 	}
-	msg._entity = otherComponent->getEntity();
+	msg.setArg<CEntity*>(std::string("entity"), otherComponent->getEntity());
 
 	_entity->emitMessage(msg);
 }

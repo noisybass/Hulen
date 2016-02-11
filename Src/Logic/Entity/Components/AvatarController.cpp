@@ -63,14 +63,18 @@ namespace Logic
 
 	void CAvatarController::process(const TMessage &message)
 	{
+		std::string arg;
+
 		switch(message._type)
 		{
 		case Message::CONTROL:
-			if(!message._string.compare("walkLeft"))
+			arg = message.getArg<std::string>("control");
+
+			if (!arg.compare("walkLeft"))
 				walkLeft();
-			else if(!message._string.compare("walkRight"))
+			else if (!arg.compare("walkRight"))
 				walkRight();
-			else if (!message._string.compare("stopWalk"))
+			else if (!arg.compare("stopWalk"))
 				stopWalk();
 			break;
 		case Message::PLAYER_ENTER_LIGHT:
@@ -93,8 +97,9 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "Walk";
-		message._bool = true;
+		message.setArg<std::string>(std::string("animation"), std::string("Walk"));
+		message.setArg<bool>(std::string("loop"), true);
+
 		_entity->emitMessage(message,this);
 
 	} // walk
@@ -108,8 +113,9 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "WalkBack";
-		message._bool = true;
+		message.setArg<std::string>(std::string("animation"), std::string("WalkBack"));
+		message.setArg<bool>(std::string("loop"), true);
+
 		_entity->emitMessage(message,this);
 
 	} // walkBack
@@ -122,8 +128,9 @@ namespace Logic
 
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message._string = "Idle";
-		message._bool = true;
+		message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+		message.setArg<bool>(std::string("loop"), true);
+
 		_entity->emitMessage(message,this);
 		
 
@@ -159,7 +166,8 @@ namespace Logic
 			// Enviar un mensaje para que el componente físico mueva el personaje
 			TMessage message;
 			message._type = Message::AVATAR_WALK;
-			message._vector3 = direction;
+			message.setArg<Vector3>(std::string("direction"), direction);
+
 			_entity->emitMessage(message);
 		}
 

@@ -79,7 +79,7 @@ namespace GUI {
 			Graphics::CCamera* camera = Graphics::CServer::getSingletonPtr()->getActiveScene()->getCamera();
 			
 			Vector3 pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
-			m._vector3 = Vector3(pos.x, pos.y, 0);
+			m.setArg<Vector3>(std::string("newPosition"), Vector3(pos.x, pos.y, 0));
 			//std::cout << "(" << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
 			
 			_controlledLight->emitMessage(m);

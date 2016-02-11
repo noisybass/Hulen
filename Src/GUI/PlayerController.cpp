@@ -65,10 +65,10 @@ namespace GUI {
 			switch(key.keyId)
 			{
 			case GUI::Key::A:
-				m._string = "walkLeft";
+				m.setArg<std::string>(std::string("control"), std::string("walkLeft"));
 				break;
 			case GUI::Key::D:
-				m._string = "walkRight";
+				m.setArg<std::string>(std::string("control"), std::string("walkRight"));
 				break;
 			default:
 				return false;
@@ -93,7 +93,7 @@ namespace GUI {
 
 			case GUI::Key::A:
 			case GUI::Key::D:
-				m._string = "stopWalk";
+				m.setArg<std::string>(std::string("control"), std::string("stopWalk"));
 				break;
 
 			default:
@@ -110,15 +110,6 @@ namespace GUI {
 	
 	bool CPlayerController::mouseMoved(const CMouseState &mouseState)
 	{
-		if(_controlledAvatar)
-		{
-			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
-			m._string = "turn";
-			m._float = -(float)mouseState.movX * TURN_FACTOR;
-			_controlledAvatar->emitMessage(m);
-			return true;
-		}
 		return false;
 
 	} // mouseMoved

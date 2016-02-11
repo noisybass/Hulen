@@ -77,8 +77,7 @@ void CPhysicController::process(const TMessage &message)
 		// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick. De esa forma, si recibimos varios mensajes AVATAR_WALK
 		// en el mismo ciclo sólo tendremos en cuenta el último.
-		_movement = message._vector3;
-		break;
+		_movement = message.getArg<Vector3>("direction"); break;
 	}
 
 } 
@@ -143,8 +142,7 @@ PxCapsuleController* CPhysicController::createController(const Map::CEntity *ent
 
 void CPhysicController::onTrigger(IPhysics *otherComponent, bool enter)
 {
-	std::cout << "sgagadgadga" << std::endl;
-	return;
+
 }
 
 //---------------------------------------------------------

@@ -81,9 +81,9 @@ namespace Logic
 				TMessage m;
 				m._type = Message::SWITCH;
 				if (message._type == Message::TOUCHED) {
-					m._int = 1;
+					m.setArg<int>(std::string("switch"), 1);
 				} else {
-					m._int = 0;
+					m.setArg<int>(std::string("switch"), 0);
 				}
 				_target->emitMessage(m);
 			}

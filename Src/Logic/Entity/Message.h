@@ -1,16 +1,12 @@
-/**
-@file Message.h
-
-Contiene el tipo de datos de un mensaje.
-
-@see Logic::TMessage
-
-@author David Llansó García
-*/
-#ifndef __Logic_Message_H
-#define __Logic_Message_H
+#ifndef LOGIC_MESSAGE_H
+#define LOGIC_MESSAGE_H
 
 #include <string>
+#include <unordered_map>
+
+#include <boost/variant/variant.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/get.hpp>
 
 #include "BaseSubsystems/Math.h"
 
@@ -28,7 +24,6 @@ namespace Logic
 	{
 		enum TMessageType
 		{
-			UNASSIGNED = 0xFFFFFFFF,
 			SET_TRANSFORM,
 			SET_ANIMATION,
 			STOP_ANIMATION,
@@ -46,77 +41,68 @@ namespace Logic
 			PLAYER_ENTER_LIGHT,
 			PLAYER_OUT_LIGHT
 		};
+
+		/**
+		Tipo del argumento de un mensaje
+		*/
+		typedef boost::variant<Matrix4, int, float, bool, std::string, Vector3, CEntity*> TMessageArg;
 	}
 
-	/**
-	Tipo copia para los mensajes. Por simplicidad.
-	*/
-	typedef Message::TMessageType TMessageType;
 
 	/**
-	Contiene el tipo de datos de un mensaje. Tiene una serie de
-	atributos genéricos que se interpretarán en función del tipo 
-	de mensaje.
-	<p>
-	@remarks <b>¡¡ESTO NO ES ESCALABLE!!</b> En tu proyecto esto 
-	debería ser cambiado.
-	Lo suyo sería tener una clase CMesage base y luego clases que
-	especializasen a ésta con los atributos necesarios para el 
-	mensaje concreto en vez de tener una serie de atributos
-	genéricos como es esta estructura que deben de ser interpretados
-	externamente en función del tipo de mensaje.
-	
-    @ingroup logicGroup
-    @ingroup entityGroup
+	Contiene el tipo de datos de un mensaje. Cada mensaje cuenta
+	con un mapa de argumentos, que se diferencian con un id unico,
+	de tipo string. De esta manera cada mensaje puede tener tantos
+	argumentos como sea necesario, y cada uno puede estar identificado
+	con un nombre que sea intuitivo.
 
-	@author David Llansó García
-	@date Julio, 2010
-    @ingroup grupoEntidad
+	Cada argumento esta representado por una union de los distintos
+	tipos que podremos necesitar dependiendo del tipo de mensaje.
+	Una union es un tipo especial de clase que puede contener datos
+	solo para uno de sus miembros a la vez.
+	Para esto nos hemos decantado por usar la clase Boost.Variant
+	(Para mas info http://www.boost.org/doc/libs/1_59_0/doc/html/variant.html)
+
+	@ingroup logicGroup
+	@ingroup entityGroup
+
+	@author
+	@date
+	@ingroup grupoEntidad
 	*/
 	typedef struct
 	{
 		/**
 		Tipo del mensaje.
 		*/
-		TMessageType _type;
+		Message::TMessageType _type;
 
 		/**
-		Atributo para almacenar una matriz de transformación.
+		Mapa con los argumentos del mensaje
+		Cada argumento esta identificado por un nombre unico.
+		Por ejemplo, si estamos ante el caso de un mensaje de tipo
+		SET_ANIMATION, en la funcion process correspondiente llamaremos a
+		Graphics::AnimatedEntity::setAnimation(const std::string& anim, bool loop),
+		por lo que necesitaremos dos argumentos, y, para mantener la consistencia
+		y que los nombres sean intuitivos, llamaremos a nuestros argumentos
+		"animation" y "loop"
 		*/
-		Matrix4 _transform;
-		
-		/**
-		Atributo para almacenar un valor int.
-		*/
-		int _int;
+		std::unordered_map<std::string, Message::TMessageArg> _args;
 
-		/**
-		Atributo para almacenar un valor float.
-		*/
-		float _float;
-		
-		/**
-		Atributo para almacenar un valor booleano.
-		*/
-		bool _bool;
-		
-		/**
-		Atributo para almacenar un string.
-		*/
-		std::string _string;
+		template<typename T>
+		T getArg(const std::string& id) const
+		{
+			return boost::get<T>(_args.at(id));
+		}
 
-		/**
-		Atributo para almacenar un vector.
-		*/
-		Vector3 _vector3;
+		template<typename T>
+		void setArg(const std::string& id, const T& value)
+		{
+			_args.emplace(std::make_pair(id, value));
+		}
 
-		/**
-		Atributo para almacenar una entidad.
-		*/
-		CEntity *_entity;
-
-	} TMessage; 
+	} TMessage;
 
 } // namespace Logic
 
-#endif // __Logic_Message_H
+#endif // LOGIC_MESSAGE_H
