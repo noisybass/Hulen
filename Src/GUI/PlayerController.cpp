@@ -87,13 +87,17 @@ namespace GUI {
 		if(_controlledAvatar)
 		{
 			Logic::TMessage m;
-			m._type = Logic::Message::CONTROL;
 			switch(key.keyId)
 			{
 
 			case GUI::Key::A:
 			case GUI::Key::D:
+				m._type = Logic::Message::CONTROL;
 				m.setArg<std::string>(std::string("control"), std::string("stopWalk"));
+				break;
+
+			case GUI::Key::E:
+				m._type = Logic::Message::PLAYER_CHANGE_STATE;
 				break;
 
 			default:
@@ -118,6 +122,19 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
+		/*if (_controlledAvatar)
+		{
+			Logic::TMessage message;
+			switch (mouseState.button)
+			{
+			case GUI::Button::RIGHT:
+				message._type = Logic::Message::PLAYER_CHANGE_STATE;
+				break;
+			}
+
+			_controlledAvatar->emitMessage(message);
+			return true;
+		}*/
 		return false;
 
 	} // mousePressed

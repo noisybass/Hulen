@@ -88,19 +88,17 @@ namespace Logic
 			_entity->emitMessage(m);
 			break;
 		case Message::TOUCHED:
-			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer() 
-				&& message.getArg<CEntity*>("entity")->getType() == Entity::TEntityType::BODY)
+			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
 			{
 				m._type = Message::PLAYER_ENTER_LIGHT;
-				message.getArg<CEntity*>("entity")->emitMessage(m);
+				message.getArg<CEntity*>("entity")->getGameObject()->emitMessage(m);
 			}
 			break;
 		case Message::UNTOUCHED:
-			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer() 
-				&& message.getArg<CEntity*>("entity")->getType() == Entity::TEntityType::BODY)
+			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
 			{
 				m._type = Message::PLAYER_OUT_LIGHT;
-				message.getArg<CEntity*>("entity")->emitMessage(m);
+				message.getArg<CEntity*>("entity")->getGameObject()->emitMessage(m);
 			}
 			break;
 		}

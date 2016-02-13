@@ -17,6 +17,7 @@ el mundo físico usando character controllers.
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 #include "Physics/Server.h"
+#include "Physics/Conversions.h"
 
 #include <PxPhysicsAPI.h>
 
@@ -64,20 +65,39 @@ bool CPhysicController::spawn(CEntity* entity, CMap *map, const Map::CEntity *en
 
 bool CPhysicController::accept(const TMessage &message)
 {
-	return message._type == Message::AVATAR_WALK ;
+	return message._type == Message::AVATAR_WALK ||
+		message._type == Message::SEND_STATE ||
+		message._type == Message::RECEIVE_PHYSIC_STATE;
 } 
 
 //---------------------------------------------------------
 
 void CPhysicController::process(const TMessage &message)
 {
+	TMessage m;
 	switch(message._type)
 	{
 	case Message::AVATAR_WALK:
 		// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick. De esa forma, si recibimos varios mensajes AVATAR_WALK
 		// en el mismo ciclo sólo tendremos en cuenta el último.
-		_movement = message.getArg<Vector3>("direction"); break;
+		_movement = message.getArg<Vector3>("direction");
+		break;
+	case Message::SEND_STATE:
+		std::cout << "Mandando estado..." << std::endl;
+		m._type = Message::RECEIVE_PHYSIC_STATE;
+		m.setArg<Vector3>("movement", _movement);
+		m.setArg<bool>("falling", _falling);
+		m.setArg<Vector3>("controllerPosition", Physics::PxExtendedVec3ToVector3(_controller->getPosition()));
+
+		message.getArg<CEntity*>("receiver")->emitMessage(m);
+		break;
+	case Message::RECEIVE_PHYSIC_STATE:
+		std::cout << "Recibiendo estado..." << std::endl;
+		_movement = message.getArg<Vector3>("movement");
+		_falling = message.getArg<bool>("falling");
+		_controller->setPosition(Physics::Vector3ToPxExtendedVec3(message.getArg<Vector3>("controllerPosition")));
+		break;
 	}
 
 } 

@@ -42,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), 
-							  _speed(0.05f), _onLight(false) {}
+							  _speed(0.05f) {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -139,10 +139,7 @@ namespace Logic
 		*/
 		float _speed;
 
-		/**
-		Atributo que indica si el jugador esta iluminado 
-		*/
-		bool _onLight;
+		
 
 	}; // class CAvatarController
 

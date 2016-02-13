@@ -7,6 +7,15 @@
 
 namespace Logic
 {
+	namespace GameObject
+	{
+		enum TState
+		{
+			BODY,
+			SHADOW,
+			BOTH
+		};
+	}
 
 	class CGameObject
 	{
@@ -96,6 +105,8 @@ namespace Logic
 		*/
 		friend class CMap;
 
+		friend class CPlayerManager;
+
 		CEntity* _body;
 		CEntity* _shadow;
 
@@ -142,6 +153,12 @@ namespace Logic
 		por defecto es false.
 		*/
 		bool _isLight;
+
+		/**
+		Atributo que indica el estado en el que se encuentra el game object.
+		Puede ser BODY, SHADOW o BOTH
+		*/
+		GameObject::TState _state;
 
 	}; // class CGameObject
 

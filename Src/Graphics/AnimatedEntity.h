@@ -128,6 +128,10 @@ namespace Graphics
 		void removeObserver(CAnimatedEntityListener *observer)
 							{if(_observer = observer) _observer = 0;}
 
+		std::string getCurrentAnimationName() const;
+
+		bool getCurrentAnimationLoop() const;
+
 	protected:
 
 		/**

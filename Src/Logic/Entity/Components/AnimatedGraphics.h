@@ -52,6 +52,30 @@ namespace Logic
 				_defaultAnimation("") {}
 
 		/**
+		Método que activa el componente; invocado cuando se activa
+		el mapa donde está la entidad a la que pertenece el componente.
+
+		Si el componente pertenece a la entidad del jugador, el componente
+		se registra así mismo en el controlador del GUI para que las ordenes
+		se reciban a partir de los eventos de teclado y ratón.
+
+		@return true si todo ha ido correctamente.
+		*/
+		virtual bool activate();
+
+		/**
+		Método que desactiva el componente; invocado cuando se
+		desactiva el mapa donde está la entidad a la que pertenece el
+		componente. Se invocará siempre, independientemente de si estamos
+		activados o no.
+
+		Si el componente pertenece a la entidad del jugador, el componente
+		se deregistra así mismo en el controlador del GUI para dejar de
+		recibir las ordenes dadas a partir de los eventos de teclado y ratón.
+		*/
+		virtual void deactivate();
+
+		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
 		SET_ANIMATION y STOP_ANIMATION.
 

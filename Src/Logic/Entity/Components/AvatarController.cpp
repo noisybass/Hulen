@@ -53,9 +53,9 @@ namespace Logic
 
 	bool CAvatarController::accept(const TMessage &message)
 	{
-		return message._type == Message::CONTROL || 
-			message._type == Message::PLAYER_ENTER_LIGHT ||
-			message._type == Message::PLAYER_OUT_LIGHT;
+		return message._type == Message::CONTROL ||
+			message._type == Message::SEND_STATE ||
+			message._type == Message::RECEIVE_AVATAR_STATE;
 
 	} // accept
 	
@@ -65,6 +65,7 @@ namespace Logic
 	{
 		std::string arg;
 
+		TMessage m;
 		switch(message._type)
 		{
 		case Message::CONTROL:
@@ -77,13 +78,22 @@ namespace Logic
 			else if (!arg.compare("stopWalk"))
 				stopWalk();
 			break;
-		case Message::PLAYER_ENTER_LIGHT:
-			_onLight = true;
-			std::cout << "Jugador dentro de la luz" << std::endl;
+		case Message::SEND_STATE:
+			std::cout << "Mandando estado..." << std::endl;
+			m._type = Message::RECEIVE_AVATAR_STATE;
+			m.setArg<bool>("walkingRight", _walkingRight);
+			m.setArg<bool>("walkingLeft", _walkingLeft);
+			m.setArg<float>("speed", _speed);
+
+			message.getArg<CEntity*>("receiver")->emitMessage(m);
 			break;
-		case Message::PLAYER_OUT_LIGHT:
-			_onLight = false;
-			std::cout << "Jugador fuera de la luz" << std::endl;
+		case Message::RECEIVE_AVATAR_STATE:
+			std::cout << "Recibiendo estado..." << std::endl;
+			_walkingRight = message.getArg<bool>("walkingRight");
+			_walkingLeft = message.getArg<bool>("walkingLeft");
+			_speed = message.getArg<float>("speed");
+			
+			break;
 		}
 
 	} // process

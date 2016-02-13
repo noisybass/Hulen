@@ -24,7 +24,7 @@ namespace Logic
 {
 	CEntity::CEntity() 
 		: _gameObject(nullptr), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
-				 _activated(false)
+		_activated(false), _changeState(false)
 	{
 
 	} // CEntity
@@ -45,11 +45,6 @@ namespace Logic
 		// Leemos las propiedades comunes
 		_blueprint = entityInfo->getBlueprint();
 		_gameObject = gameObject;	
-
-		if (!entityInfo->getStringAttribute("type").compare("Body"))
-			_type = Entity::TEntityType::BODY;
-		else
-			_type = Entity::TEntityType::SHADOW;
 
 		if(entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
@@ -83,9 +78,6 @@ namespace Logic
 
 	bool CEntity::activate() 
 	{	
-
-		
-
 		// Activamos los componentes
 		TComponentList::const_iterator it;
 
@@ -123,6 +115,12 @@ namespace Logic
 
 		for( it = _components.begin(); it != _components.end(); ++it )
 			(*it)->tick(msecs);
+
+		if (_changeState)
+		{
+			_changeState = false;
+			deactivate();
+		}
 
 	} // tick
 
@@ -181,10 +179,22 @@ namespace Logic
 	{
 		// Interceptamos los mensajes que además de al resto de los
 		// componentes, interesan a la propia entidad.
+		TMessage m;
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
 			_transform = message.getArg<Matrix4>("transform");
+			break;
+		case Message::SEND_STATE:
+			m._type = Message::RECEIVE_ENTITY_STATE;
+			m.setArg<Matrix4>("transform", _transform);
+
+			message.getArg<CEntity*>("receiver")->emitMessage(m);
+			_changeState = true;
+			break;
+		case Message::RECEIVE_ENTITY_STATE:
+			setTransform(message.getArg<Matrix4>("transform"));
+			break;
 		}
 
 		TComponentList::const_iterator it;
@@ -275,11 +285,5 @@ namespace Logic
 		return _gameObject;
 
 	} // getGameObject
-
-	Entity::TEntityType CEntity::getType() const
-	{
-		return _type;
-
-	} // getType
 
 } // namespace Logic

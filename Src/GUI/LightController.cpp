@@ -98,12 +98,13 @@ namespace GUI {
 			Logic::TMessage m;
 			switch (mouseState.button)
 			{
-			case GUI::Button::LEFT:
-				m._type = Logic::Message::KASAI_SET_VISIBLE;
-				break;
+				case GUI::Button::LEFT:
+					m._type = Logic::Message::KASAI_SET_VISIBLE;
+					break;
 			}
 
 			_controlledLight->emitMessage(m);
+			// Si queremos que tambien el PlayerController escuche este evento tendríamos que devolver false
 			return true;
 		}
 		return false;

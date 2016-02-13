@@ -89,5 +89,17 @@ namespace Graphics
 
 	} // tick
 
+	std::string CAnimatedEntity::getCurrentAnimationName() const
+	{
+		return _currentAnimation->getAnimationName();
+
+	} // getCurrentAnimationName
+
+
+	bool CAnimatedEntity::getCurrentAnimationLoop() const
+	{
+		return _currentAnimation->getLoop();
+
+	} // getCurrentAnimationLopp
 
 } // namespace Graphics

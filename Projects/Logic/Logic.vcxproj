@@ -88,6 +88,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerManager.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PointLight.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RayPerception.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerManager.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PointLight.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RayPerception.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />

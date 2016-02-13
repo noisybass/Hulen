@@ -49,14 +49,33 @@ namespace Logic
 		return _animatedGraphicsEntity;
 
 	} // createGraphicsEntity
+
+	//---------------------------------------------------------
 	
+	bool CAnimatedGraphics::activate()
+	{
+		_graphicsEntity->setVisible(true);
+		return true;
+
+	} // activate
+
+	//---------------------------------------------------------
+
+	void CAnimatedGraphics::deactivate()
+	{
+		_graphicsEntity->setVisible(false);
+
+	} // deactivate
+
 	//---------------------------------------------------------
 
 	bool CAnimatedGraphics::accept(const TMessage &message)
 	{
 		return CGraphics::accept(message) ||
 			   message._type == Message::SET_ANIMATION ||
-			   message._type == Message::STOP_ANIMATION;
+			   message._type == Message::STOP_ANIMATION ||
+			   message._type == Message::SEND_STATE ||
+			   message._type == Message::RECEIVE_ANIMATION_STATE;
 
 	} // accept
 	
@@ -66,6 +85,7 @@ namespace Logic
 	{
 		CGraphics::process(message);
 
+		TMessage m;
 		switch(message._type)
 		{
 		case Message::SET_ANIMATION:
@@ -78,6 +98,20 @@ namespace Logic
 			break;
 		case Message::STOP_ANIMATION:
 			_animatedGraphicsEntity->stopAnimation(message.getArg<std::string>("animation"));
+			break;
+		case Message::SEND_STATE:
+			std::cout << "Mandando estado..." << std::endl;
+			m._type = Message::RECEIVE_ANIMATION_STATE;
+			m.setArg<std::string>(std::string("animation"), _animatedGraphicsEntity->getCurrentAnimationName());
+			m.setArg<bool>(std::string("loop"), _animatedGraphicsEntity->getCurrentAnimationLoop());
+
+			message.getArg<CEntity*>("receiver")->emitMessage(m);
+			break;
+		case Message::RECEIVE_ANIMATION_STATE:
+			std::cout << "Recibiendo estado..." << std::endl;
+			_animatedGraphicsEntity->stopAllAnimations();
+			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
+				message.getArg<bool>("loop"));
 			break;
 		}
 

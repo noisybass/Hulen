@@ -10,6 +10,8 @@
 #include "GUI/PlayerController.h"
 #include "GUI/LightController.h"
 
+#include <cassert>
+
 namespace Logic
 {
 	CGameObject::CGameObject(TEntityID gameObjectID)
@@ -39,6 +41,18 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("isLight"))
 			_isLight = entityInfo->getBoolAttribute("isLight");
+
+		if (entityInfo->hasAttribute("state"))
+		{
+			std::string strState = entityInfo->getStringAttribute("state");
+			if (!strState.compare("Body"))
+				_state = GameObject::TState::BODY;
+			else if (!strState.compare("Shadow"))
+				_state = GameObject::TState::SHADOW;
+			else if (!strState.compare("Both"))
+				_state = GameObject::TState::BOTH;
+		}
+
 
 		// Inicializamos los componentes
 		TComponentList::const_iterator it;
@@ -100,12 +114,24 @@ namespace Logic
 		for (it = _components.begin(); it != _components.end(); ++it)
 			_activated = (*it)->activate() && _activated;
 
-		_activated = true;
-		if (_body)
+		// Activamos el cuerpo y la sombra
+		switch (_state)
+		{
+		case GameObject::TState::BODY:
 			_activated = _body->activate() && _activated;
-
-		if (_shadow)
+			if (_shadow)
+				_shadow->deactivate();
+			break;
+		case GameObject::TState::SHADOW:
 			_activated = _shadow->activate() && _activated;
+			if (_body)
+				_body->deactivate();
+			break;
+		case GameObject::TState::BOTH:
+			_activated = _body->activate() && _activated;
+			_activated = _shadow->activate() && _activated;
+			break;
+		}
 
 		return _activated;
 
@@ -134,11 +160,19 @@ namespace Logic
 		for (it = _components.begin(); it != _components.end(); ++it)
 			(*it)->deactivate();
 
-		if (_body)
+		switch (_state)
+		{
+		case GameObject::TState::BODY:
 			_body->deactivate();
-
-		if (_shadow)
+			break;
+		case GameObject::TState::SHADOW:
 			_shadow->deactivate();
+			break;
+		case GameObject::TState::BOTH:
+			_body->deactivate();
+			_shadow->deactivate();
+			break;
+		}
 
 	} // deactivate
 
@@ -208,6 +242,7 @@ namespace Logic
 
 	bool CGameObject::emitMessage(const TMessage &message, IComponent* emitter)
 	{
+		// Mandamos un mensaje a todos los componentes
 		TComponentList::const_iterator it;
 		// Para saber si alguien quiso el mensaje.
 		bool anyReceiver = false;
@@ -218,6 +253,7 @@ namespace Logic
 				anyReceiver = (*it)->set(message) || anyReceiver;
 		}
 
+		// Y también al cuerpo y a la sombra, siempre que estén activos
 		if (_body && _body->isActivated())
 			anyReceiver = _body->emitMessage(message) || anyReceiver;
 
