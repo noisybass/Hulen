@@ -75,6 +75,7 @@ bool CPhysicController::accept(const TMessage &message)
 void CPhysicController::process(const TMessage &message)
 {
 	TMessage m;
+	Vector3 receiverPosition, senderPosition;
 	switch(message._type)
 	{
 	case Message::AVATAR_WALK:
@@ -88,7 +89,9 @@ void CPhysicController::process(const TMessage &message)
 		m._type = Message::RECEIVE_PHYSIC_STATE;
 		m.setArg<Vector3>("movement", _movement);
 		m.setArg<bool>("falling", _falling);
-		m.setArg<Vector3>("controllerPosition", Physics::PxExtendedVec3ToVector3(_controller->getPosition()));
+		receiverPosition = message.getArg<CEntity*>("receiver")->getPosition();
+		senderPosition = Physics::PxExtendedVec3ToVector3(_controller->getPosition());
+		m.setArg<Vector3>("controllerPosition", Vector3(senderPosition.x, senderPosition.y, receiverPosition.z));
 
 		message.getArg<CEntity*>("receiver")->emitMessage(m);
 		break;

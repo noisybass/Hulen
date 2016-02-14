@@ -180,6 +180,7 @@ namespace Logic
 		// Interceptamos los mensajes que además de al resto de los
 		// componentes, interesan a la propia entidad.
 		TMessage m;
+		Vector3 receiverPosition, senderPosition;
 		switch(message._type)
 		{
 		case Message::SET_TRANSFORM:
@@ -187,13 +188,15 @@ namespace Logic
 			break;
 		case Message::SEND_STATE:
 			m._type = Message::RECEIVE_ENTITY_STATE;
-			m.setArg<Matrix4>("transform", _transform);
+			receiverPosition = message.getArg<CEntity*>("receiver")->getPosition();
+			senderPosition = getPosition();
+			m.setArg<Vector3>("entityPosition", Vector3(senderPosition.x, senderPosition.y, receiverPosition.z));
 
 			message.getArg<CEntity*>("receiver")->emitMessage(m);
 			_changeState = true;
 			break;
 		case Message::RECEIVE_ENTITY_STATE:
-			setTransform(message.getArg<Matrix4>("transform"));
+			setPosition(message.getArg<Vector3>("entityPosition"));
 			break;
 		}
 
