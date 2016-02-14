@@ -123,7 +123,7 @@ namespace Graphics
 		_viewport->setBackgroundColour(Ogre::ColourValue::Black);
 
 		// No hay luz ambiental.
-		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.9f,.9f,.9f));
+		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.005f,.005f,.005f));
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
