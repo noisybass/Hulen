@@ -393,51 +393,52 @@ PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3
 	return actor;
 }
 
-//PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radius,
-//	float mass, bool kinematic, bool trigger, int group,
-//	const Logic::IPhysics *component)
-//{
-//	assert(_scene);
-//
-//	// Nota: PhysX coloca el sistema de coordenadas local en el centro de la caja, mientras
-//	// que la lógica asume que el origen del sistema de coordenadas está en el centro de la 
-//	// cara inferior. Para unificar necesitamos realizar una traslación en el eje Y.
-//	// Afortunadamente, el descriptor que se usa para crear el actor permite definir esta 
-//	// transformación local, por lo que la conversión entre sistemas de coordenadas es transparente. 
-//
-//	// Crear un cubo dinámico
-//	PxTransform pose(Vector3ToPxVec3(position));
-//	PxSphereGeometry geom(PxReal(radius));
-//	PxMaterial *material = _defaultMaterial;
-//	float density = mass / (4.0/3.0 * Math::PI * radius * radius * radius);
-//	PxTransform localPose(PxVec3(0, position.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
-//
-//	// Crear cubo dinámico o cinemático
-//	PxRigidDynamic *actor;
-//	if (kinematic)
-//		actor = PxCreateKinematic(*_physics, pose, geom, *material, density, localPose);
-//	else
-//		actor = PxCreateDynamic(*_physics, pose, geom, *material, density, localPose);
-//
-//	// Transformarlo en trigger si es necesario
-//	if (trigger) {
-//		PxShape *shape;
-//		actor->getShapes(&shape, 1, 0);
-//		shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
-//		shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
-//	}
-//
-//	// Anotar el componente lógico asociado a la entidad física
-//	actor->userData = (void *)component;
-//
-//	// Establecer el grupo de colisión
-//	PxSetGroup(*actor, group);
-//
-//	// Añadir el actor a la escena
-//	_scene->addActor(*actor);
-//
-//	return actor;
-//}
+PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radius,
+	float mass, bool kinematic, bool trigger, int group,
+	const Logic::IPhysics *component)
+{
+	assert(_scene);
+
+	// Nota: PhysX coloca el sistema de coordenadas local en el centro de la caja, mientras
+	// que la lógica asume que el origen del sistema de coordenadas está en el centro de la 
+	// cara inferior. Para unificar necesitamos realizar una traslación en el eje Y.
+	// Afortunadamente, el descriptor que se usa para crear el actor permite definir esta 
+	// transformación local, por lo que la conversión entre sistemas de coordenadas es transparente. 
+
+	// Crear un cubo dinámico
+	PxTransform pose(Vector3ToPxVec3(position));
+	PxSphereGeometry geom(FloatToPxReal(radius));
+	PxMaterial *material = _defaultMaterial;
+	float density = mass / (4.0/3.0 * Math::PI * radius * radius * radius);
+	//PxTransform localPose(PxVec3(0, position.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
+
+	// Crear cubo dinámico o cinemático
+	PxRigidDynamic *actor;
+	if (kinematic)
+		actor = PxCreateKinematic(*_physics, pose, geom, *material, density);
+	else
+		actor = PxCreateDynamic(*_physics, pose, geom, *material, density);
+
+	// Transformarlo en trigger si es necesario
+	if (trigger) {
+		PxShape *shape;
+		actor->getShapes(&shape, 1, 0);
+		shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+		shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, false);
+		shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+	}
+
+	// Anotar el componente lógico asociado a la entidad física
+	actor->userData = (void *)component;
+
+	// Establecer el grupo de colisión
+	PxSetGroup(*actor, group);
+
+	// Añadir el actor a la escena
+	_scene->addActor(*actor);
+
+	return actor;
+}
 
 //--------------------------------------------------------
 

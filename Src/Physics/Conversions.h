@@ -74,6 +74,11 @@ namespace Physics {
 		return physx::PxTransform(pm);
 	}
 
+	inline physx::PxReal FloatToPxReal(const float f)
+	{
+		return physx::PxReal(f);
+	}
+
 }; // namespace Physics
 
 #endif // __PHYSICS_CONVERSIONS_H_

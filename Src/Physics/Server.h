@@ -217,9 +217,9 @@ namespace Physics {
 		@param component Componente lógico asociado a la entidad física.
 		@return actor físico creado
 		*/
-		/*physx::PxRigidDynamic* createDynamicSphere(const Vector3 &position, float radius,
+		physx::PxRigidDynamic* createDynamicSphere(const Vector3 &position, float radius,
 			float mass, bool kinematic, bool trigger, int group,
-			const Logic::IPhysics *component);*/
+			const Logic::IPhysics *component);
 
 		/**
 		Crea una entidad física en la escena a partir de un fichero RepX exportado con el 

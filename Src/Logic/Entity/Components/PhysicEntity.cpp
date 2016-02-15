@@ -159,7 +159,7 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 	// Leer la forma (shape)
 	assert(entityInfo->hasAttribute("physic_shape"));
 	const std::string physicShape = entityInfo->getStringAttribute("physic_shape");
-	assert(physicShape == "box");
+	assert(physicShape == "box" || physicShape == "sphere");
 
 	// Leer si es un trigger (por defecto no)
 	bool trigger = false;
@@ -198,6 +198,15 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 			
 			// Crear una caja dinámica
 			return _server->createDynamicBox(position, physicDimensions, mass, kinematic, trigger, group, this);
+		}
+		else if (physicShape == "sphere")
+		{
+			// Leer el radio de la esfera
+			assert(entityInfo->hasAttribute("physic_radius"));
+			const float physicRadius = entityInfo->getFloatAttribute("physic_radius");
+
+			// Crear una esfera dinámica
+			return _server->createDynamicSphere(position, physicRadius, mass, kinematic, trigger, group, this);
 		}
 	}
 
