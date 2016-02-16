@@ -19,6 +19,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "ExitState.h"
 #include "MenuState.h"
 #include "GameState.h"
+#include "Logic\Events\Event.h"
 
 
 namespace Application {
@@ -48,7 +49,12 @@ namespace Application {
 		if(!addState("menu", new CMenuState(this)))
 			return false;
 		
-		if(!addState("game", new CGameState(this)))
+		CGameState *gameState = new CGameState(this);
+
+		Logic::CEventSystem <CGameState, void (CGameState::*) (std::string)> 
+			name (gameState, &Application::CGameState::playerListener);
+
+		if(!addState("game", gameState))
 			return false;
 
 		if(!addState("exit", new CExitState(this)))

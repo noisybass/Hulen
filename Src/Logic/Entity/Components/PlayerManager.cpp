@@ -2,8 +2,6 @@
 
 #include "Application/GameState.h"
 #include "Logic/Entity/GameObject.h"
-#include "Logic/Entity/PlayerEvent.h"
-#include <boost/signals2/signal.hpp>
 namespace Logic
 {
 	IMP_FACTORY(CPlayerManager);
@@ -41,14 +39,7 @@ namespace Logic
 			break;
 		case Message::PLAYER_DEATH:
 			std::cout << "Jugador muerto" << std::endl;
-			boost::signals2::signal < void() > signal;
 			
-			signal.connect(&Application::CGameState::playerListener);
-	
-			
-			signal();
-
-			//Logic::CPlayerEvent::getInstance()->fireEvent(/*"Die"*/);
 
 			break;
 		}

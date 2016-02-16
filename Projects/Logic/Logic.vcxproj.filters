@@ -29,6 +29,9 @@
     <Filter Include="Entity\Components\Header Files">
       <UniqueIdentifier>{40d43982-4d6f-4a4a-b427-ce5753f432e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{a0d8460e-11ba-4370-aee7-11ded23d735a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp">
@@ -186,8 +189,11 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerManager.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\PlayerEvent.h">
-      <Filter>Entity\Header Files</Filter>
+    <ClInclude Include="..\..\Src\Logic\Events\Event.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Events\EventManager.h">
+      <Filter>Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

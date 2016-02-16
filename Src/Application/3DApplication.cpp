@@ -24,7 +24,6 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "GUI/Server.h"
 #include "Logic/Server.h"
 #include "Logic/Maps/ComponentFactory.h"
-#include "Logic\Entity\PlayerEvent.h"
 #include "Physics/Server.h"
 
 #include <cassert>
@@ -84,9 +83,6 @@ namespace Application {
 
 		// Creamos el reloj basado en Ogre.
 		_clock = new COgreClock();
-
-		// Creamos los eventos del player.
-		//Logic::CPlayerEvent();
 		
 		return true;
 
