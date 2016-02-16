@@ -2,6 +2,7 @@
 
 #include "Application/GameState.h"
 #include "Logic/Entity/GameObject.h"
+#include "Logic/Events/Event.h"
 namespace Logic
 {
 	IMP_FACTORY(CPlayerManager);
@@ -39,8 +40,12 @@ namespace Logic
 			break;
 		case Message::PLAYER_DEATH:
 			std::cout << "Jugador muerto" << std::endl;
-			
+			std::string string = "Die";
+			//Logic::CEventSystem::getInstance<CGameState, void (CGameState::*) (std::string&)>()->fireEvent();
 
+			Logic::CEventSystem<Application::CGameState, void (Application::CGameState::*) (std::string&)>::
+				getInstance<Application::CGameState, void (Application::CGameState::*) (std::string&)>()
+				->fireEvent(string);
 			break;
 		}
 

@@ -69,6 +69,8 @@ namespace Application {
 
 		CApplicationState::release();
 
+		dieEvent.clearEvents();
+
 	} // release
 
 	//--------------------------------------------------------
@@ -90,7 +92,6 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
-
 
 
 	} // activate
@@ -195,13 +196,10 @@ namespace Application {
 	//--------------------------------------------------------
 
 	void CGameState::playerListener(std::string &action){
-		//if (action == "Die"){
+		if (action == "Die"){
 			std::cout << "He muerto" << std::endl;
-			deactivate();
-			release();
-			init();
-			activate();
-		//}
+			_app->popState();
+		}
 
 	}
 

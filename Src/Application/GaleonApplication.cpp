@@ -48,13 +48,8 @@ namespace Application {
 		// destruirlos.
 		if(!addState("menu", new CMenuState(this)))
 			return false;
-		
-		CGameState *gameState = new CGameState(this);
 
-		Logic::CEventSystem <CGameState, void (CGameState::*) (std::string)> 
-			name (gameState, &Application::CGameState::playerListener);
-
-		if(!addState("game", gameState))
+		if (!addState("game", new CGameState(this)))
 			return false;
 
 		if(!addState("exit", new CExitState(this)))
