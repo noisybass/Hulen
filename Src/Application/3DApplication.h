@@ -85,6 +85,8 @@ namespace Application
 		*/
 		virtual void tick(unsigned int msecs);
 
+
+
 	}; // class 3DApplication
 
 } // namespace Application

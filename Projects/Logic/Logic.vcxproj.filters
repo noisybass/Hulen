@@ -186,5 +186,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerManager.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\PlayerEvent.h">
+      <Filter>Entity\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

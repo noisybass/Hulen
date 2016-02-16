@@ -100,6 +100,10 @@ namespace GUI {
 				m._type = Logic::Message::PLAYER_CHANGE_STATE;
 				break;
 
+			case GUI::Key::T:
+				m._type = Logic::Message::PLAYER_DEATH;
+				break;
+
 			default:
 				return false;
 			}

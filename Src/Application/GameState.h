@@ -18,6 +18,8 @@ Contiene la declaración del estado de juego.
 #define __Application_GameState_H
 
 #include "ApplicationState.h"
+#include "Logic\Entity\PlayerEvent.h"
+#include <boost/signals2/signal.hpp>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Application 
@@ -172,6 +174,8 @@ namespace Application
 		el gestor no llamará a otros listeners. 
 		*/
 		virtual bool mouseReleased(const GUI::CMouseState &mouseState);
+
+		void playerListener(/*std::string &action*/);
 
 	protected:
 

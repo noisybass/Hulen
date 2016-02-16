@@ -19,6 +19,8 @@ Contiene la implementación del estado de juego.
 #include "Logic/Server.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Logic/Maps/Map.h"
+#include "Logic\Entity\PlayerEvent.h"
+#include <boost/signals2/signal.hpp>
 
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
@@ -89,6 +91,9 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
+
+		//Logic::CPlayerEvent::getInstance()->addListener(&Application::CGameState::playerListener);
+
 
 	} // activate
 
@@ -188,5 +193,18 @@ namespace Application {
 		return false;
 
 	} // mouseReleased
+
+	//--------------------------------------------------------
+
+	void CGameState::playerListener(/*std::string &action*/){
+		//if (action == "Die"){
+			std::cout << "He muerto" << std::endl;
+			deactivate();
+			release();
+			init();
+			activate();
+		//}
+
+	}
 
 } // namespace Application

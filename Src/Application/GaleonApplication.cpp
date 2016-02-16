@@ -57,7 +57,6 @@ namespace Application {
 		if(!pushState("menu"))
 			return false;
 
-
 		return true;
 
 	} // init
