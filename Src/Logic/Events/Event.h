@@ -74,10 +74,11 @@ namespace Logic{
 
 		Siendo DieClass el tipo de la clase que se subscribe al evento (En este caso nuestro CGameState)
 		y la función que se ejecutara cuando se dispare el evento.
-		Despues de esto lo inicializamos en el constructor de la siguiente manera:
-			<Code> dieEvent(this, &Application::CGameState::playerListener) </Code>
 
-		2 - Una vez hecho esto lo unico que nos queda es que cuando el player muera, 
+		2 - Despues de esto lo inicializamos en el metodo init de CGameState:
+			<Code> dieEvent.initEvent(this, &Application::CGameState::playerListener); </Code>
+
+		3 - Una vez hecho esto lo unico que nos queda es que cuando el player muera, 
 		avisemos al CGameState de este evento, para ello, en nuestro caso lo realizamos 
 		en la clase PlayerManager de la siguiente manera:
 			<Code> Logic::CEventSystem<Logic::Events::DieClass, Logic::Events::DieFunction>::
@@ -92,6 +93,10 @@ namespace Logic{
 	class CEventSystem {
 	public:
 
+		/**
+		Constructor por defecto.
+		*/
+		CEventSystem() = default;
 
 		/**
 		Constructor de la clase en el cual crearemos un evento con la referencia a la clase y 
@@ -110,7 +115,7 @@ namespace Logic{
 		Son dos instancias diferentes ya que los tipos de los dos eventos son diferentes.
 		*/
 		template <typename classType, typename functionType>
-		CEventSystem(classType& _class, functionType _fun){
+		void initEvent(classType& _class, functionType _fun){
 			assert(!_eventSystemInstance && "No puedes crear el mismo evento dos veces");
 
 			_instance = _class;

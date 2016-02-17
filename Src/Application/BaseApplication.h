@@ -165,6 +165,11 @@ namespace Application
 		bool popState();
 
 		/**
+		Recarga el estado actual
+		*/
+		void reloadState();
+
+		/**
 		Devuelve el estado actual de la aplicación.
 
 		@return Estado actual de la aplicación.
@@ -294,6 +299,11 @@ namespace Application
 		inició la aplicación.
 		*/
 		IClock *_clock;
+
+		/**
+		Indica si queremos recargar el estado actual o no.
+		*/
+		bool _reloadState;
 
 	}; // class BaseApplication
 

@@ -52,6 +52,9 @@ namespace Application {
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
 		_timeWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Time.layout");
 
+		// Inicializamos el evento
+		dieEvent.initEvent(this, &Application::CGameState::playerListener);
+
 		return true;
 
 	} // init
@@ -69,6 +72,7 @@ namespace Application {
 
 		CApplicationState::release();
 
+		// Liberamos el evento
 		dieEvent.clearEvents();
 
 	} // release
@@ -156,10 +160,7 @@ namespace Application {
 			_app->popState();
 			break;
 		case GUI::Key::R:
-			deactivate();
-			release();
-			init();
-			activate();
+			_app->reloadState();
 			break;
 		default:
 			return false;
@@ -198,7 +199,7 @@ namespace Application {
 	void CGameState::playerListener(std::string &action){
 		if (action == "Die"){
 			std::cout << "He muerto" << std::endl;
-			_app->popState();
+			_app->reloadState();
 		}
 
 	}

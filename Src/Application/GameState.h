@@ -70,7 +70,7 @@ namespace Application
 		Constructor de la clase 
 		*/
 		CGameState(CBaseApplication *app) : CApplicationState(app), 
-			_scene(0), _time(0), dieEvent(this, &Application::CGameState::playerListener) {}
+			_scene(0), _time(0) {}
 
 		/** 
 		Destructor 
@@ -174,6 +174,9 @@ namespace Application
 		*/
 		virtual bool mouseReleased(const GUI::CMouseState &mouseState);
 
+		/**
+		Metodo que utilizaremos para escuchar los eventos de muerte del player
+		*/
 		void playerListener(std::string &action);
 
 	protected:

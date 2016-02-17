@@ -25,11 +25,12 @@ namespace Application {
 
 	CBaseApplication *CBaseApplication::_instance = 0;
 
-	CBaseApplication::CBaseApplication() : 
+	CBaseApplication::CBaseApplication() :
 		_initialized(false),
 		_currentState(nullptr),
 		_exit(false),
-		_clock(0)
+		_clock(0),
+		_reloadState(false)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
 
@@ -165,6 +166,12 @@ namespace Application {
 
 	//--------------------------------------------------------
 
+	void CBaseApplication::reloadState(){
+		_reloadState = true;
+	}
+
+	//--------------------------------------------------------
+
 	void CBaseApplication::run() 
 	{
 		assert(_clock && "Asegurate de haber creado un reloj en el init de la clase de tu aplicacion!");
@@ -179,6 +186,15 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
+			// Recargamos el estado actual
+			if (_reloadState){
+				_currentState->deactivate();
+				_currentState->release();
+				_currentState->init();
+				_currentState->activate();
+				_reloadState = false;
+			}
+
 			if (!_currentState ||
 				_currentState != _states.top())
 				changeState();
