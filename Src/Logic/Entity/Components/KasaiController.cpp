@@ -23,6 +23,9 @@ namespace Logic
 		if (!IComponent::spawn(entity, map, entityInfo))
 			return false;
 
+		assert(entityInfo->hasAttribute("player") && "Hay que especificar el atributo player");
+		_playerName = entityInfo->getStringAttribute("player");
+
 		if (entityInfo->hasAttribute("is_visible"))
 			_isVisible = entityInfo->getBoolAttribute("is_visible");
 
@@ -34,6 +37,8 @@ namespace Logic
 
 	bool CKasaiController::activate()
 	{
+		_player = _entity->getGameObject()->getMap()->getGameObjectByName(_playerName);
+
 		return true;
 
 	} // activate
@@ -82,23 +87,33 @@ namespace Logic
 			break;
 		case Message::KASAI_SET_VISIBLE:
 			_isVisible = !_isVisible;
+			if (!_isVisible)
+			{
+				m._type = Message::PLAYER_OUT_LIGHT;
+				_player->emitMessage(m);
+			}
 			m._type = Message::LIGHT_SET_VISIBLE;
 			m.setArg<bool>(std::string("visibility"), _isVisible);
-			
 			_entity->emitMessage(m);
 			break;
 		case Message::TOUCHED:
-			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
+			if (_isVisible)
 			{
-				m._type = Message::PLAYER_ENTER_LIGHT;
-				message.getArg<CEntity*>("entity")->getGameObject()->emitMessage(m);
+				if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
+				{
+					m._type = Message::PLAYER_ENTER_LIGHT;
+					_player->emitMessage(m);
+				}
 			}
 			break;
 		case Message::UNTOUCHED:
-			if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
+			if (_isVisible)
 			{
-				m._type = Message::PLAYER_OUT_LIGHT;
-				message.getArg<CEntity*>("entity")->getGameObject()->emitMessage(m);
+				if (message.getArg<CEntity*>("entity")->getGameObject()->isPlayer())
+				{
+					m._type = Message::PLAYER_OUT_LIGHT;
+					_player->emitMessage(m);
+				}
 			}
 			break;
 		}

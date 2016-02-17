@@ -32,6 +32,8 @@ namespace Logic
 			break;
 		case Message::PLAYER_OUT_LIGHT:
 			_onLight = false;
+			if (_gameObject->_state == GameObject::SHADOW)
+				changeState();
 			std::cout << "Jugador fuera de la luz" << std::endl;
 			break;
 		case Message::PLAYER_CHANGE_STATE:

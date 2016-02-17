@@ -71,6 +71,16 @@ namespace Logic
 		*/
 		bool _isVisible;
 
+		/**
+		Nombre del player.
+		*/
+		std::string _playerName;
+
+		/**
+		Referencia al player.
+		*/
+		CGameObject* _player;
+
 	}; // class CKasaiController
 
 	REG_FACTORY(CKasaiController);
