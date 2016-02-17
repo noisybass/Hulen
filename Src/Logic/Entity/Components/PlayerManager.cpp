@@ -41,11 +41,11 @@ namespace Logic
 		case Message::PLAYER_DEATH:
 			std::cout << "Jugador muerto" << std::endl;
 			std::string string = "Die";
-			//Logic::CEventSystem::getInstance<CGameState, void (CGameState::*) (std::string&)>()->fireEvent();
 
-			Logic::CEventSystem<Application::CGameState, void (Application::CGameState::*) (std::string&)>::
-				getInstance<Application::CGameState, void (Application::CGameState::*) (std::string&)>()
-				->fireEvent(string);
+			Logic::CEventSystem<Logic::Events::DieClass, Logic::Events::DieFunction>::
+				    getInstance<Logic::Events::DieClass, Logic::Events::DieFunction>()
+				    ->fireEvent(string);
+
 			break;
 		}
 

@@ -193,7 +193,10 @@ namespace Application
 		*/
 		unsigned int _time;
 
-		Logic::CEventSystem <Application::CGameState, void (Application::CGameState::*) (std::string&)> dieEvent;
+		/**
+		Evento de muerte del jugador.
+		*/
+		Logic::CEventSystem <Logic::Events::DieClass, Logic::Events::DieFunction> dieEvent;
 
 	}; // CGameState
 

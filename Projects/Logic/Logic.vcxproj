@@ -121,7 +121,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GameObject.h" />
     <ClInclude Include="..\..\Src\Logic\Events\Event.h" />
-    <ClInclude Include="..\..\Src\Logic\Events\EventManager.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\Documentation.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\EntityFactory.h" />
