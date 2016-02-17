@@ -7,8 +7,8 @@ namespace Logic
 {
 	IMP_FACTORY(CPlayerManager);
 
-	CPlayerManager::CPlayerManager() 
-		: IComponent(), _onLight(false) 
+	CPlayerManager::CPlayerManager()
+		: IComponent(), _onLight(false), _deathTimeElapsed(0)
 	{
 
 	} // CPlayerManager
@@ -29,6 +29,10 @@ namespace Logic
 		case Message::PLAYER_ENTER_LIGHT:
 			_onLight = true;
 			std::cout << "Jugador dentro de la luz" << std::endl;
+
+			// Reseteamos el tiempo
+			_deathTimeElapsed = 0;
+			std::cout << "Resetar tiempo de morir" << std::endl;
 			break;
 		case Message::PLAYER_OUT_LIGHT:
 			_onLight = false;
@@ -85,6 +89,17 @@ namespace Logic
 	{
 		// Llamar al método de la clase padre (IMPORTANTE).
 		IComponent::tick(msecs);
+
+		// Si no estamos en la luz, empezamos a morirnos
+		if (!_onLight && _gameObject->_playerCanDie){
+			_deathTimeElapsed += msecs;
+			std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
+			if (_deathTimeElapsed >= _gameObject->_playerDeathTime){
+				Logic::TMessage m;
+				m._type = Logic::Message::PLAYER_DEATH;
+				_gameObject->emitMessage(m);
+			}
+		}
 
 		//switch (_gameObject->_state)
 		//{

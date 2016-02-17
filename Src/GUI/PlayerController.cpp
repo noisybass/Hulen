@@ -70,6 +70,9 @@ namespace GUI {
 			case GUI::Key::D:
 				m.setArg<std::string>(std::string("control"), std::string("walkRight"));
 				break;
+			case GUI::Key::T:
+				m._type = Logic::Message::PLAYER_DEATH;
+				break;
 			default:
 				return false;
 			}
@@ -98,10 +101,6 @@ namespace GUI {
 
 			case GUI::Key::E:
 				m._type = Logic::Message::PLAYER_CHANGE_STATE;
-				break;
-
-			case GUI::Key::T:
-				m._type = Logic::Message::PLAYER_DEATH;
 				break;
 
 			default:

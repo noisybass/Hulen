@@ -31,6 +31,13 @@ namespace Logic
 
 		void changeState();
 
+	private:
+
+		/**
+		El tiempo que le queda para que el jugador muera.
+		*/
+		float _deathTimeElapsed;
+
 	}; // class CPlayerManager
 
 	REG_FACTORY(CPlayerManager);
