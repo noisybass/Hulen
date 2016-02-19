@@ -14,7 +14,7 @@ Contiene la implementación de la clase base de los componentes.
 
 #include <cassert>
 
-//#include "Entity.h"
+#include "Entity.h"
 
 namespace Logic 
 {

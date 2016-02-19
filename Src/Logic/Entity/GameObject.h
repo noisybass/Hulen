@@ -97,6 +97,12 @@ namespace Logic
 		*/
 		const std::string &getBlueprint() const;
 
+		/**
+		Devuelve el nombre del material por defecto para una entidad, ya 
+		sea de luz, o de sombra.
+		*/
+		const std::string& getDefaultMaterial(const std::string type) const;
+
 	protected:
 
 		/**
@@ -171,6 +177,16 @@ namespace Logic
 		Puede ser BODY, SHADOW o BOTH
 		*/
 		GameObject::TState _state;
+
+		/**
+		Nombre del material por defecto para las sombras.
+		*/
+		std::string _defaultShadowMaterial;
+
+		/**
+		Nombre del material por defecto para el cuerpo.
+		*/
+		std::string _defaultBodyMaterial;
 
 	}; // class CGameObject
 

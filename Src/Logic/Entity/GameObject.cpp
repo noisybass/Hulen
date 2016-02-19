@@ -15,9 +15,10 @@
 namespace Logic
 {
 	CGameObject::CGameObject(TEntityID gameObjectID)
-		: _gameObjectID(gameObjectID), _body(nullptr), _shadow(nullptr), 
+		: _gameObjectID(gameObjectID), _body(nullptr), _shadow(nullptr),
 		_map(nullptr), _blueprint(""), _name(""), _isPlayer(false), _isLight(false),
-		_playerDeathTime(3), _playerCanDie(false)
+		_playerDeathTime(3), _playerCanDie(false), _defaultBodyMaterial("Blue"),
+		_defaultShadowMaterial("Green")
 	{
 
 	} // CGameObject
@@ -97,6 +98,7 @@ namespace Logic
 		return _shadow;
 
 	} // getShadow
+
 
 	bool CGameObject::activate()
 	{
@@ -295,5 +297,22 @@ namespace Logic
 		return _blueprint; 
 
 	} // getBlueprint
+
+	 
+	const std::string& CGameObject::getDefaultMaterial(const std::string type) const
+	{
+
+		if (type == "Body"){
+			return _defaultBodyMaterial;
+		}
+		else if (type == "Shadow"){
+			return _defaultShadowMaterial;
+		}
+		// Todavia no sabemos que material ponerle a ambos
+		else {
+			return "";
+		}
+
+	}
 
 } // namespace Logic

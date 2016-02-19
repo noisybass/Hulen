@@ -14,7 +14,7 @@ gráfica de la entidad.
 #include "Graphics.h"
 
 #include "Logic/Entity/Entity.h"
-#include "Logic\Entity\GameObject.h"
+#include "Logic/Entity/GameObject.h"
 #include "Logic/Maps/Map.h"
 #include "Map/MapEntity.h"
 
@@ -47,6 +47,7 @@ namespace Logic
 			return false;
 		
 		_scene = _entity->getGameObject()->getMap()->getScene();
+		_gameObject = _entity->getGameObject();
 
 		if(entityInfo->hasAttribute("model"))
 			_model = entityInfo->getStringAttribute("model");
@@ -59,6 +60,12 @@ namespace Logic
 			_material = entityInfo->getStringAttribute("material");
 			_graphicsEntity->setMaterial(_material);
 		}
+		// Si existe un _gameobject le ponemos el material por defecto
+		else if (_gameObject){
+			_material = _gameObject->getDefaultMaterial(entityInfo->getStringAttribute("type"));
+			_graphicsEntity->setMaterial(_material);
+		}
+		
 
 		if (entityInfo->hasAttribute("guizmoSize"))
 			_guizmoSize = entityInfo->getIntAttribute("guizmoSize");

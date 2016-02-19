@@ -18,6 +18,7 @@ gráfica de una entidad estática.
 #include "Map/MapEntity.h"
 
 #include "Graphics/Scene.h"
+#include "Logic/Entity/GameObject.h"
 
 namespace Logic 
 {
