@@ -18,7 +18,6 @@ de una escena.
 #define __Graphics_Scene_H
 
 #include <list>
-#include "Logic\Entity\Message.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -147,8 +146,6 @@ namespace Graphics
 		que se encuentre, a encendida o apagada.
 		*/
 		bool changeAmbientalLightState();
-
-		void sendMessagesToStaticEntities(Logic::TMessage);
 
 	protected:
 

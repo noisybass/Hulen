@@ -53,18 +53,21 @@ namespace GUI {
 	{
 		switch (key.keyId){
 		case GUI::Key::L:
+
 			Logic::TMessage m;
-			// SI hay luz ambiental, dejamos las entidades con sus materiales.
-			if (_controlledScene->changeAmbientalLightState()){
-				m._type = Logic::Message::AMBIENT_LIGHT_SET_REAL_MATERIAL;
-			}
-			// Si no hay luz ambiental, ponemos todos las entidades de un 
-			// material normal
-			else{
+			// Si hay luz ambiental, ponemos a las entidades materiales de debug.
+			if (_controlledScene->getScene()->changeAmbientalLightState()){
 				m._type = Logic::Message::AMBIENT_LIGHT_SET_FOR_DEBUG;
 				// Le pasamos el nombre del material que queremos poner.
 				m.setArg<std::string>(std::string("ambient_light_set_for_debug"), std::string("Red"));
 			}
+			// Si no hay luz ambiental, dejamos todos las entidades con 
+			// sus materiales originales
+			else{
+				m._type = Logic::Message::AMBIENT_LIGHT_SET_REAL_MATERIAL;
+			}
+
+			_controlledScene->sendMessageToGameObjects(m);
 
 			break;
 		}

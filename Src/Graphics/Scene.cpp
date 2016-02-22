@@ -31,9 +31,6 @@ de una escena.
 #include <OgreColourValue.h>
 #include <OgreManualObject.h>
 
-#include "GUI\Server.h"
-#include "GUI\SceneController.h"
-
 #include "Logic\Entity\Entity.h"
 
 
@@ -131,7 +128,7 @@ namespace Graphics
 		}
 		// Viceversa
 		else{
-			_sceneMgr->setAmbientLight(Ogre::ColourValue(0.2f, 0.2f, 0.2f));
+			_sceneMgr->setAmbientLight(Ogre::ColourValue(0.1f, 0.1f, 0.1f));
 			_isAmbientalLight = true;
 		}
 
@@ -150,8 +147,7 @@ namespace Graphics
 
 		// No hay luz ambiental.
 		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.005f,.005f,.005f));
-		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(this);
-		GUI::CServer::getSingletonPtr()->getSceneController()->activate();
+		
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
@@ -164,15 +160,6 @@ namespace Graphics
 		_directionalLight->setPosition(0, 500, 0);*/
 
 	} // activate
-
-	//--------------------------------------------------------
-
-	void CScene::sendMessagesToStaticEntities(Logic::TMessage m){
-		/*TStaticEntityList::const_iterator it = _staticEntities.begin();
-		TStaticEntityList::const_iterator end = _staticEntities.end();
-		for (; it != end; it++)
-			(*it)->*/
-	}
 
 	//--------------------------------------------------------
 
@@ -190,8 +177,6 @@ namespace Graphics
 			_viewport = 0;
 		}
 
-		GUI::CServer::getSingletonPtr()->getSceneController()->deactivate();
-		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(nullptr);
 
 	} // deactivate
 	

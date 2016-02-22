@@ -13,6 +13,7 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 
 #include <map>
 #include "EntityID.h"
+#include "Logic\Entity\Message.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
@@ -158,6 +159,12 @@ namespace Logic
 		@return Escena con las entidades gráficas.
 		*/
 		Graphics::CScene *getScene() {return _scene;}
+
+		/**
+		Envia un mensaje a todas los gameobjects existentes.
+		*/
+		void sendMessageToGameObjects(Logic::TMessage m);
+
 
 	private:
 

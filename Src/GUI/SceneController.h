@@ -2,7 +2,7 @@
 #define __GUI_SceneController_H
 
 #include "InputManager.h"
-#include "Graphics\Scene.h"
+#include "Logic\Maps\Map.h"
 
 namespace GUI
 {
@@ -30,7 +30,7 @@ namespace GUI
 		movimiento en función de las teclas pulsadas y el movimiento del 
 		ratón.
 		*/
-		void setControlledScene(Graphics::CScene* controlledScene) 
+		void setControlledScene(Logic::CMap* controlledScene)
 										{_controlledScene = controlledScene;} 
 
 		/**
@@ -106,7 +106,7 @@ namespace GUI
 		Luz a la que enviaremos acciones de movimiento en
 		función de las teclas pulsadas y el movimiento del ratón.
 		*/
-		Graphics::CScene *_controlledScene;
+		Logic::CMap* _controlledScene;
 
 	}; // class CSceneController
 
