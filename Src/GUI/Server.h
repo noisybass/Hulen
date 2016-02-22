@@ -24,6 +24,7 @@ namespace GUI
 {
 	class CPlayerController;
 	class CLightController;
+	class CSceneController;
 }
 
 namespace CEGUI
@@ -88,6 +89,15 @@ namespace GUI
 		@return Instancia de la clase GUI que controla a la luz.
 		*/
 		CLightController *getLightController() { return _lightController;}
+
+		/**
+		Devuelve la instancia de la clase GUI que se encarga de procesar los
+		eventos de entrada para controlar la escena por si se desea configurar
+		externemante.
+
+		@return Instancia de la clase GUI que controla la escena.
+		*/
+		CSceneController *getSceneController() { return _sceneController; }
 
 		/***************************************************************
 		Métodos de CKeyboardListener
@@ -181,6 +191,11 @@ namespace GUI
 		Clase GUI que se encarga de controlar a la luz.
 		*/
 		CLightController* _lightController;
+
+		/**
+		Clase GUI que se encarga de controlar la escena.
+		*/
+		CSceneController* _sceneController;
 
 		/**
 		Sistema de la interfaz gráfica de usuario CEGUI.

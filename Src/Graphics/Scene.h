@@ -18,6 +18,7 @@ de una escena.
 #define __Graphics_Scene_H
 
 #include <list>
+#include "Logic\Entity\Message.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
@@ -140,6 +141,14 @@ namespace Graphics
 		void removeStaticEntity(CStaticEntity* entity);
 
 		void removeLight(CLight* light);
+
+		/**
+		cambia la luz ambiental de un estado a otro dependiendo en el
+		que se encuentre, a encendida o apagada.
+		*/
+		bool changeAmbientalLightState();
+
+		void sendMessagesToStaticEntities(Logic::TMessage);
 
 	protected:
 
@@ -291,6 +300,11 @@ namespace Graphics
 		Geometría estática de la escena.
 		*/
 		Ogre::StaticGeometry *_staticGeometry;
+
+		/**
+		Hay luz ambiental o no.
+		*/
+		bool _isAmbientalLight;
 
 	}; // class CScene
 

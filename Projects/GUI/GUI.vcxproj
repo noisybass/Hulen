@@ -78,6 +78,7 @@
     <ClCompile Include="..\..\Src\GUI\InputManager.cpp" />
     <ClCompile Include="..\..\Src\GUI\LightController.cpp" />
     <ClCompile Include="..\..\Src\GUI\PlayerController.cpp" />
+    <ClCompile Include="..\..\Src\GUI\SceneController.cpp" />
     <ClCompile Include="..\..\Src\GUI\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,7 @@
     <ClInclude Include="..\..\Src\GUI\InputManager.h" />
     <ClInclude Include="..\..\Src\GUI\LightController.h" />
     <ClInclude Include="..\..\Src\GUI\PlayerController.h" />
+    <ClInclude Include="..\..\Src\GUI\SceneController.h" />
     <ClInclude Include="..\..\Src\GUI\Server.h" />
   </ItemGroup>
   <ItemGroup>

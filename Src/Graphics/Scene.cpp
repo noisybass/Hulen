@@ -31,10 +31,18 @@ de una escena.
 #include <OgreColourValue.h>
 #include <OgreManualObject.h>
 
+#include "GUI\Server.h"
+#include "GUI\SceneController.h"
+
+#include "Logic\Entity\Entity.h"
+
+
+
 namespace Graphics 
 {
 	CScene::CScene(const std::string& name) : _viewport(nullptr), 
-			_staticGeometry(nullptr), _directionalLight(nullptr)
+			_staticGeometry(nullptr), _directionalLight(nullptr),
+			_isAmbientalLight(false)
 	{
 		_root = BaseSubsystems::CServer::getSingletonPtr()->getOgreRoot();
 		_sceneMgr = _root->createSceneManager(Ogre::ST_INTERIOR, name);
@@ -114,6 +122,24 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	bool CScene::changeAmbientalLightState(){
+	
+		// Si hay luz ambiental, la quitamos
+		if (_isAmbientalLight){
+			_sceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
+			_isAmbientalLight = false;
+		}
+		// Viceversa
+		else{
+			_sceneMgr->setAmbientLight(Ogre::ColourValue(0.2f, 0.2f, 0.2f));
+			_isAmbientalLight = true;
+		}
+
+		return _isAmbientalLight;
+	}
+
+	//--------------------------------------------------------
+
 	void CScene::activate()
 	{
 		buildStaticGeometry();
@@ -124,6 +150,8 @@ namespace Graphics
 
 		// No hay luz ambiental.
 		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.005f,.005f,.005f));
+		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(this);
+		GUI::CServer::getSingletonPtr()->getSceneController()->activate();
 
 		// Además de la luz ambiente creamos una luz direccional que 
 		// hace que se vean mejor los volúmenes de las entidades.
@@ -136,6 +164,15 @@ namespace Graphics
 		_directionalLight->setPosition(0, 500, 0);*/
 
 	} // activate
+
+	//--------------------------------------------------------
+
+	void CScene::sendMessagesToStaticEntities(Logic::TMessage m){
+		/*TStaticEntityList::const_iterator it = _staticEntities.begin();
+		TStaticEntityList::const_iterator end = _staticEntities.end();
+		for (; it != end; it++)
+			(*it)->*/
+	}
 
 	//--------------------------------------------------------
 
@@ -152,6 +189,9 @@ namespace Graphics
 					removeViewport(_viewport->getZOrder());
 			_viewport = 0;
 		}
+
+		GUI::CServer::getSingletonPtr()->getSceneController()->deactivate();
+		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(nullptr);
 
 	} // deactivate
 	

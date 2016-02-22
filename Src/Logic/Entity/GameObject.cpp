@@ -113,6 +113,7 @@ namespace Logic
 
 		if (isLight()){
 			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(this);
+			
 		}
 
 		// Solo si se activan todos los componentes y las entidades de cuerpo
