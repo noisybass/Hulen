@@ -305,7 +305,7 @@ PxRigidStatic* CServer::createPlane(const Vector3 &point, const Vector3 &normal,
 
 //--------------------------------------------------------
 
-PxRigidStatic* CServer::createStaticBox(const Vector3 &position, const Vector3 &dimensions, bool trigger, 
+PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimensions, bool trigger, 
 	                                    int group, const IPhysics *component)
 {
 	assert(_scene);
@@ -317,10 +317,20 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, const Vector3 &
 	// transformación local, por lo que la conversión entre sistemas de coordenadas es transparente. 
 	
 	// Crear un cubo estático
+
+	//Reajuste de las escalas de physx
+	dimensions.x /= 2;
+	dimensions.y /= 2;
+	dimensions.z /= 2;
+	
+
 	PxTransform pose(Vector3ToPxVec3(position));
 	PxBoxGeometry geom(Vector3ToPxVec3(dimensions));
 	PxMaterial *material = _defaultMaterial;
-	PxTransform localPose(PxVec3(0, dimensions.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
+	PxTransform localPose(PxVec3(0, 0, 0));
+
+	//PxTransfom localPose(PxVec3(0, dimensions.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
+
 	PxRigidStatic *actor = PxCreateStatic(*_physics, pose, geom, *material, localPose);
 	
 	// Transformarlo en trigger si es necesario

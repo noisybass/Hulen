@@ -176,7 +176,7 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 		if (physicShape == "box") {
 			// Leer las dimensiones de la caja
 			assert(entityInfo->hasAttribute("physic_dimensions"));
-			const Vector3 physicDimensions = entityInfo->getVector3Attribute("physic_dimensions");
+			Vector3 physicDimensions = entityInfo->getVector3Attribute("physic_dimensions");
 			
 			// Crear una caja estática
 			return _server->createStaticBox(position, physicDimensions, trigger, group, this);

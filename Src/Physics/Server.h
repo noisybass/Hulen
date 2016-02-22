@@ -176,13 +176,14 @@ namespace Physics {
 		@param position Posición de la caja en coordenadas lógicas (el origen de coordenadas 
 		       está en el centro de la cara inferior del cubo).
 		@param dimensions Dimensiones de la caja divididas entre 2. Es decir, los lados de 
-		       la caja medirán dimensions*2.
+		       la caja medirán dimensions*2. Este valor indica la distancia entre el centro de la caja y el punto donde
+			   intersecciona la perpendicular a un lado pasando por el centro. 
 		@param trigger Indica si la entidad física representa un trigger.
 		@param group Grupo de colisión.
 		@param component Componente lógico asociado a la entidad física.
 		@return actor físico creado
 		*/
-		physx::PxRigidStatic* createStaticBox(const Vector3 &position, const Vector3 &dimensions, 
+		physx::PxRigidStatic* createStaticBox(const Vector3 &position, Vector3 &dimensions, 
 			                                  bool trigger, int group, const Logic::IPhysics *component); 
 
 
