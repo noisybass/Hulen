@@ -121,7 +121,9 @@ namespace Logic
 
 	bool CGraphics::accept(const TMessage &message)
 	{
-		return message._type == Message::SET_TRANSFORM;
+		return message._type == Message::SET_TRANSFORM ||
+			   message._type == Message::AMBIENT_LIGHT_SET_FOR_DEBUG ||
+			   message._type == Message::AMBIENT_LIGHT_SET_REAL_MATERIAL;
 
 	} // accept
 	
@@ -133,6 +135,17 @@ namespace Logic
 		{
 		case Message::SET_TRANSFORM:
 			_graphicsEntity->setTransform(message.getArg<Matrix4>("transform"));
+			break;
+		case Message::AMBIENT_LIGHT_SET_FOR_DEBUG:
+			if (_model == "Cube.mesh"){
+				_graphicsEntity->setMaterial(message.getArg<std::string>("ambient_light_set_for_debug"));
+			}
+			break;
+		case Message::AMBIENT_LIGHT_SET_REAL_MATERIAL:
+			if (_model == "Cube.mesh"){
+				_graphicsEntity->setMaterial(_material);
+			}
+			break;
 		}
 
 	} // process

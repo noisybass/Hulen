@@ -57,11 +57,8 @@ namespace Application {
 		if (!BaseSubsystems::CServer::Init())
 			return false;
 
-		// Inicializamos el servidor gráfico.
-		if (!Graphics::CServer::Init())
-			return false;
-
 		// Inicializamos el gestor de entrada de periféricos.
+		// OJO: Lanzar este siempre antes del GUI::CServer
 		if (!GUI::CInputManager::Init())
 			return false;
 		// Nos registramos como oyentes de los eventos del teclado.
@@ -70,7 +67,12 @@ namespace Application {
 		GUI::CInputManager::getSingletonPtr()->addMouseListener(this);
 
 		// Inicializamos el servidor de interfaz con el usuario.
+		// OJO: Lanzar este siempre antes del graphics.
 		if (!GUI::CServer::Init())
+			return false;
+
+		// Inicializamos el servidor gráfico.
+		if (!Graphics::CServer::Init())
 			return false;
 
 		// Inicialización del servidor de física.

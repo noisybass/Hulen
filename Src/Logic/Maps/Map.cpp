@@ -21,6 +21,9 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 #include "Graphics/Server.h"
 #include "Graphics/Scene.h"
 
+#include "GUI\Server.h"
+#include "GUI\SceneController.h"
+
 #include <cassert>
 
 // HACK. Debería leerse de algún fichero de configuración
@@ -115,6 +118,9 @@ namespace Logic {
 		for(; it != end; it++)
 			correct = (*it).second->activate() && correct;
 
+		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(this);
+		GUI::CServer::getSingletonPtr()->getSceneController()->activate();
+
 		return correct;
 
 	} // getEntity
@@ -133,6 +139,9 @@ namespace Logic {
 				(*it).second->deactivate();
 
 		Graphics::CServer::getSingletonPtr()->setScene(0);
+
+		GUI::CServer::getSingletonPtr()->getSceneController()->deactivate();
+		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(nullptr);
 
 	} // getEntity
 
@@ -236,6 +245,15 @@ namespace Logic {
 		return 0;
 
 	} // getEntityByName
+
+	//--------------------------------------------------------
+
+	void CMap::sendMessageToGameObjects(TMessage m){
+		TGameObjectMap::const_iterator it;
+
+		for (it = _gameObjectMap.begin(); it != _gameObjectMap.end(); ++it)
+			(*it).second->emitMessage(m);
+	}
 
 	//--------------------------------------------------------
 

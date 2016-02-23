@@ -141,6 +141,12 @@ namespace Graphics
 
 		void removeLight(CLight* light);
 
+		/**
+		cambia la luz ambiental de un estado a otro dependiendo en el
+		que se encuentre, a encendida o apagada.
+		*/
+		bool changeAmbientalLightState();
+
 	protected:
 
 		/**
@@ -291,6 +297,11 @@ namespace Graphics
 		Geometría estática de la escena.
 		*/
 		Ogre::StaticGeometry *_staticGeometry;
+
+		/**
+		Hay luz ambiental o no.
+		*/
+		bool _isAmbientalLight;
 
 	}; // class CScene
 
