@@ -18,7 +18,7 @@ namespace GUI {
 
 	CSceneController::CSceneController() : _controlledScene(nullptr)
 	{
-
+		
 	} // CPlayerController
 
 	//--------------------------------------------------------
@@ -53,8 +53,12 @@ namespace GUI {
 	{
 		switch (key.keyId){
 		case GUI::Key::L:
+			
 
-			Logic::TMessage m;
+			// Utilizar lo comentado si queremos cambiar los materiales de 
+			// las entidades a la hora de debugear.
+
+			/*Logic::TMessage m;
 			// Si hay luz ambiental, ponemos a las entidades materiales de debug.
 			if (_controlledScene->getScene()->changeAmbientalLightState()){
 				m._type = Logic::Message::AMBIENT_LIGHT_SET_FOR_DEBUG;
@@ -67,7 +71,9 @@ namespace GUI {
 				m._type = Logic::Message::AMBIENT_LIGHT_SET_REAL_MATERIAL;
 			}
 
-			_controlledScene->sendMessageToGameObjects(m);
+			_controlledScene->sendMessageToGameObjects(m);*/
+
+			_controlledScene->getScene()->changeAmbientalLightState();
 
 			break;
 		}
