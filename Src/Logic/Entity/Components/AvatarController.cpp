@@ -75,8 +75,10 @@ namespace Logic
 				walkLeft();
 			else if (!arg.compare("walkRight"))
 				walkRight();
-			else if (!arg.compare("stopWalk"))
-				stopWalk();
+			else if (!arg.compare("stopWalkingRight"))
+				stopWalkingRight();
+			else if (!arg.compare("stopWalkingLeft"))
+				stopWalkingLeft();
 			break;
 		case Message::SEND_STATE:
 			std::cout << "Mandando estado..." << std::endl;
@@ -132,19 +134,39 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CAvatarController::stopWalk() 
+	void CAvatarController::stopWalkingRight() 
 	{
-		_walkingLeft = _walkingRight = false;
+		_walkingRight = false;
 
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("Idle"));
-		message.setArg<bool>(std::string("loop"), true);
+		// Si tampoco estamos moviendonos hacia la izquierda cambiamos la animacion
+		if (!_walkingLeft)
+		{
+			TMessage message;
+			message._type = Message::SET_ANIMATION;
+			message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+			message.setArg<bool>(std::string("loop"), true);
 
-		_entity->emitMessage(message,this);
-		
+			_entity->emitMessage(message, this);
+		}
+	} // stopWalkingRight
 
-	} // stopWalk
+	//---------------------------------------------------------
+
+	void CAvatarController::stopWalkingLeft()
+	{
+		_walkingLeft = false;
+
+		// Si tampoco estamos moviendonos hacia la derecha cambiamos la animacion
+		if (!_walkingRight)
+		{
+			TMessage message;
+			message._type = Message::SET_ANIMATION;
+			message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+			message.setArg<bool>(std::string("loop"), true);
+
+			_entity->emitMessage(message, this);
+		}
+	} // stopWalkingLeft
 	
 	//---------------------------------------------------------
 
@@ -152,34 +174,24 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		// Si nos estamos desplazando calculamos la próxima posición
-		// Calculamos si hay vectores de dirección de avance y strafe,
-		// hayamos la dirección de la suma y escalamos según la
-		// velocidad y el tiempo transcurrido.
 		if(_walkingLeft || _walkingRight)
 		{
-			Vector3 direction(Vector3::ZERO);
-			Vector3 directionStrafe(Vector3::ZERO);
 
-			if(_walkingLeft || _walkingRight)
-			{
-				directionStrafe = 
-						Math::getDirection(_entity->getYaw() + Math::PI/2);
-				if(_walkingRight)
-					directionStrafe *= -1;
-			}
-
-			direction += directionStrafe;
-			direction.normalise();
-			direction *= msecs * _speed;
+			Vector3 movement;
+			if (_walkingRight)  movement = Vector3(1, 0, 0);
+			else if (_walkingLeft)   movement = Vector3(-1, 0, 0);
+			
+			movement *= msecs * _speed;
 
 			// Enviar un mensaje para que el componente físico mueva el personaje
 			TMessage message;
 			message._type = Message::AVATAR_WALK;
-			message.setArg<Vector3>(std::string("direction"), direction);
+			message.setArg<Vector3>(std::string("movement"), movement);
 
 			_entity->emitMessage(message);
 		}
+
+		
 
 	} // tick
 

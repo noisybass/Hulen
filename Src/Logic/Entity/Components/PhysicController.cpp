@@ -82,7 +82,7 @@ void CPhysicController::process(const TMessage &message)
 		// Anotamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick. De esa forma, si recibimos varios mensajes AVATAR_WALK
 		// en el mismo ciclo sólo tendremos en cuenta el último.
-		_movement = message.getArg<Vector3>("direction");
+		_movement = message.getArg<Vector3>("movement");
 		break;
 	case Message::SEND_STATE:
 		std::cout << "Mandando estado..." << std::endl;
