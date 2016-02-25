@@ -356,6 +356,15 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimens
 
 //--------------------------------------------------------
 
+PxRigidStatic* CServer::createStaticPyramid(const Vector3 &position, Vector3 &dimensions, bool trigger,
+											int group, const IPhysics *component)
+{
+
+	return nullptr;
+}
+
+//--------------------------------------------------------
+
 PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3 &dimensions, 
 	                                      float mass, bool kinematic, bool trigger, int group, 
 										  const IPhysics *component)
@@ -452,7 +461,7 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 
 //--------------------------------------------------------
 
-PxRigidActor* CServer::createFromFile(const std::string &file, int group, const IPhysics *component)
+PxRigidActor* CServer::createFromFile(const std::string &file, int group, const IPhysics *component, const Vector3& position)
 {
 	assert(_scene);
 
@@ -468,11 +477,21 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	_scene->addCollection(*collection); 
 	
 	// Buscar una entidad de tipo PxRigidActor. Asumimos que hay exactamente 1 en el fichero.
-	PxRigidActor *actor = NULL;
+	PxRigidDynamic *actor = NULL;
 	for (unsigned int i=0; (i<collection->getNbObjects()) && !actor; i++) {
-		actor = collection->getObject(i).is<PxRigidActor>();		
+		actor = collection->getObject(i).is<PxRigidDynamic>();
 	}
 	assert(actor);
+
+	// Decimos que el actor es kinematico, ya que de esta manera podemos
+	// controlar su movimiento de manera directa.
+	// OJO: No interaccionan con actores estáticos.
+	actor->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
+	PxTransform transform(Vector3ToPxVec3(position));
+	transform.rotateInv(PxVec3(90, 0, 0));
+
+	// Creamos la transformacion con la posicion del objeto
+	actor->setKinematicTarget(transform);
 	
 	// Anotar el componente lógico asociado a la entidad física
 	actor->userData = (void *) component;
