@@ -45,7 +45,7 @@ namespace Logic
 		Inicialización del componente usando la descripción de la entidad que hay en 
 		el fichero de mapa.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Método que se invoca para activar el componente.

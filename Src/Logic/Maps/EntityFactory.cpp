@@ -185,7 +185,7 @@ namespace Logic
 					return 0;
 				}
 				if(comp)
-					ent->addComponent(comp);
+					ent->addComponent((*itc), comp);
 			}
 
 			return ent;
@@ -220,7 +220,7 @@ namespace Logic
 					return 0;
 				}
 				if (comp)
-					gameObject->addComponent(comp);
+					gameObject->addComponent((*itc), comp);
 			}
 
 			return gameObject;

@@ -23,9 +23,9 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CLife::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool CLife::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
+		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
 		if(entityInfo->hasAttribute("life"))

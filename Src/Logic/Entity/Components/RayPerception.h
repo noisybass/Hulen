@@ -49,7 +49,7 @@ namespace Logic
 		/**
 		Inicializa el componente usando los atributos definidos en el fichero de mapa.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		En cada tick lanza un rayo en la dirección que mira la entidad para comprobar

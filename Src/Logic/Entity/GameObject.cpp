@@ -65,12 +65,12 @@ namespace Logic
 
 
 		// Inicializamos los componentes
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		bool correct = true;
 
 		for (it = _components.begin(); it != _components.end() && correct; ++it)
-			correct = (*it)->spawn(this, map, entityInfo) && correct;
+			correct =it->second->spawn(it->first, this, map, entityInfo) && correct;
 
 		return correct;
 
@@ -121,10 +121,10 @@ namespace Logic
 		_activated = true;
 
 		// Activamos los componentes
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		for (it = _components.begin(); it != _components.end(); ++it)
-			_activated = (*it)->activate() && _activated;
+			_activated = it->second->activate() && _activated;
 
 		// Activamos el cuerpo y la sombra
 		switch (_state)
@@ -166,11 +166,11 @@ namespace Logic
 
 		_activated = false;
 
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		// Desactivamos los componentes
 		for (it = _components.begin(); it != _components.end(); ++it)
-			(*it)->deactivate();
+			it->second->deactivate();
 
 		switch (_state)
 		{
@@ -196,10 +196,10 @@ namespace Logic
 
 	void CGameObject::tick(unsigned int msecs)
 	{
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		for (it = _components.begin(); it != _components.end(); ++it)
-			(*it)->tick(msecs);
+			it->second->tick(msecs);
 
 		if (_body && _body->isActivated())
 			_body->tick(msecs);
@@ -209,60 +209,55 @@ namespace Logic
 
 	} // tick
 
-	void CGameObject::addComponent(IComponent* component)
+	void CGameObject::addComponent(const std::string& name, IComponent* component)
 	{
-		_components.push_back(component);
+		_components.emplace(name, component);
 		component->setGameObject(this);
 
 	} // addComponent
 
-	bool CGameObject::removeComponent(IComponent* component)
+	bool CGameObject::removeComponent(const std::string& name)
 	{
-		TComponentList::const_iterator it = _components.begin();
+		TComponentMap::const_iterator it = _components.find(name);
+		IComponent* c;
 
-		bool removed = false;
-		// Buscamos el componente hasta el final, por si aparecía
-		// más de una vez... (no tendría mucho sentido, pero por si
-		// acaso).
-		while (it != _components.end())
+		if (it != _components.end())
 		{
-			if (*it == component)
-			{
-				it = _components.erase(it);
-				removed = true;
-			}
-			else
-				++it;
+			c = it->second;
+			_components.erase(name);
+			delete c;
+
+			return true;
 		}
-		if (removed)
-			component->setEntity(0);
-		return removed;
+
+		return false;
 
 	} // removeComponent
 
 	void CGameObject::destroyAllComponents()
 	{
 		IComponent* c;
-		while (!_components.empty())
+		for (auto it = _components.begin(); it != _components.end(); ++it)
 		{
-			c = _components.back();
-			_components.pop_back();
+			c = it->second;
 			delete c;
 		}
+
+		_components.clear();
 
 	} // destroyAllComponents
 
 	bool CGameObject::emitMessage(const TMessage &message, IComponent* emitter)
 	{
 		// Mandamos un mensaje a todos los componentes
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 		// Para saber si alguien quiso el mensaje.
 		bool anyReceiver = false;
 		for (it = _components.begin(); it != _components.end(); ++it)
 		{
 			// Al emisor no se le envia el mensaje.
-			if (emitter != (*it))
-				anyReceiver = (*it)->set(message) || anyReceiver;
+			if (emitter != it->second)
+				anyReceiver = it->second->set(message) || anyReceiver;
 		}
 
 		// Y también al cuerpo y a la sombra, siempre que estén activos

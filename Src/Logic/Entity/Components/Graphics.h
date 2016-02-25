@@ -67,7 +67,7 @@ namespace Logic
 			fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos

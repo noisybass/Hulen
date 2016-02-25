@@ -24,9 +24,9 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CSwitchTrigger::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool CSwitchTrigger::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
+		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
 		assert(entityInfo->hasAttribute("target") && "Hay que especificar el atributo target");

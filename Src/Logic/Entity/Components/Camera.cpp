@@ -28,9 +28,9 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CCamera::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool CCamera::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
+		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
 		_graphicsCamera = _entity->getGameObject()->getMap()->getScene()->getCamera();

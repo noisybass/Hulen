@@ -106,9 +106,9 @@ namespace Logic
 			fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
-		virtual bool spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Método que activa el componente; invocado cuando se activa
@@ -153,6 +153,8 @@ namespace Logic
 		CGameObject* getGameObject() const;
 
 	protected:
+
+		std::string _name;
 
 		/**
 		clase amiga que puede establecerse como poseedor del componente.

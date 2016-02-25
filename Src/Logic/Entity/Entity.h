@@ -22,6 +22,7 @@ de juego. Es una colección de componentes.
 #include "Message.h"
 
 #include <list>
+#include <map>
 #include <string>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
@@ -140,7 +141,7 @@ namespace Logic
 
 		@param component Componente a añadir.
 		*/
-		void addComponent(IComponent* component);
+		void addComponent(const std::string& name, IComponent* component);
 
 		/**
 		Método que quita un componente de la lista.
@@ -153,7 +154,7 @@ namespace Logic
 		@return true si se borró el componente (false si el componente
 		no estaba en el objeto).
 		*/
-		bool removeComponent(IComponent* component);
+		bool removeComponent(const std::string& name);
 		
 		/**
 		Método que destruye todos los componentes de una entidad.
@@ -281,12 +282,12 @@ namespace Logic
 		/**
 		Tipo para la lista de componetes.
 		*/
-		typedef std::list<IComponent*> TComponentList;
+		typedef std::map<std::string, IComponent*> TComponentMap;
 
 		/**
 		Lista de los componentes de la entidad.
 		*/
-		TComponentList _components;
+		TComponentMap _components;
 
 		/**
 		Indica si la entidad está activa.

@@ -32,15 +32,17 @@ namespace Logic
 
 	//} // ~IComponent
 
-	bool IComponent::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool IComponent::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
+		_name = name;
 		_entity = entity;
 		return true;
 
 	} // spawn
 
-	bool IComponent::spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
+	bool IComponent::spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
 	{
+		_name = name;
 		_gameObject = gameObject;
 		return true;
 	}

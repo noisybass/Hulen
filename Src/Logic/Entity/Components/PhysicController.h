@@ -67,7 +67,7 @@ namespace Logic
 		/**
 		Inicializa el componente usando los atributos definidos en el fichero de mapa.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Este componente sólo acepta mensajes de tipo AVATAR_WALK.
