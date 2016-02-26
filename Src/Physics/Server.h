@@ -186,8 +186,6 @@ namespace Physics {
 		physx::PxRigidStatic* createStaticBox(const Vector3 &position, Vector3 &dimensions, 
 			                                  bool trigger, int group, const Logic::IPhysics *component); 
 
-
-
 		/**
 		Crea una caja dinámica en la escena.
 
@@ -233,7 +231,8 @@ namespace Physics {
 		@return actor físico creado
 		*/
 		physx::PxRigidActor* createFromFile(const std::string &file, int group, 
-			                                const Logic::IPhysics *component);
+			                                const Logic::IPhysics *component,
+											const Vector3& position);
 
 		/**
 		Elimina una entidad física de la escena y libera los recursos que tenga asociados.

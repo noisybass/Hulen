@@ -159,7 +159,7 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 	// Leer la forma (shape)
 	assert(entityInfo->hasAttribute("physic_shape"));
 	const std::string physicShape = entityInfo->getStringAttribute("physic_shape");
-	assert(physicShape == "box" || physicShape == "sphere");
+	assert(physicShape == "box" || physicShape == "sphere" || physicShape == "pyramid");
 
 	// Leer si es un trigger (por defecto no)
 	bool trigger = false;
@@ -180,6 +180,13 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 			
 			// Crear una caja estática
 			return _server->createStaticBox(position, physicDimensions, trigger, group, this);
+		}
+
+		else if (physicShape == "pyramid"){
+			// Leer las dimensiones de la piramide
+			assert(entityInfo->hasAttribute("physic_dimensions"));
+			Vector3 physicDimensions = entityInfo->getVector3Attribute("physic_dimensions");
+		
 		}
 
 	} else {
@@ -225,7 +232,7 @@ PxRigidActor* CPhysicEntity::createFromFile(const Map::CEntity *entityInfo)
 		group = entityInfo->getIntAttribute("physic_group");
 
 	// Crear el actor a partir del fichero RepX
-	return _server->createFromFile(file, group, this);
+	return _server->createFromFile(file, group, this, _entity->getPosition());
 }
 
 

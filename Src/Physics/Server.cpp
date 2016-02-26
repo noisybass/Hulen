@@ -452,7 +452,7 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 
 //--------------------------------------------------------
 
-PxRigidActor* CServer::createFromFile(const std::string &file, int group, const IPhysics *component)
+PxRigidActor* CServer::createFromFile(const std::string &file, int group, const IPhysics *component, const Vector3& position)
 {
 	assert(_scene);
 
@@ -465,14 +465,31 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	collection = PxSerialization::createCollectionFromXml(data, *_cooking, *registry);
 	
 	// Añadir entidades físicas a la escena
-	_scene->addCollection(*collection); 
+	//_scene->addCollection(*collection); 
 	
 	// Buscar una entidad de tipo PxRigidActor. Asumimos que hay exactamente 1 en el fichero.
-	PxRigidActor *actor = NULL;
+	PxRigidDynamic *actor = NULL;
 	for (unsigned int i=0; (i<collection->getNbObjects()) && !actor; i++) {
-		actor = collection->getObject(i).is<PxRigidActor>();		
+		actor = collection->getObject(i).is<PxRigidDynamic>();
 	}
 	assert(actor);
+
+	// Añadimos el actor a la escena
+	_scene->addActor(*actor);
+
+	// Decimos que el actor es kinematico, ya que de esta manera podemos
+	// controlar su movimiento de manera directa.
+	// OJO: No interaccionan con actores estáticos.
+	actor->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
+	
+	// Obtenemos la transformacion del actor.
+	PxTransform transform = actor->getGlobalPose();
+	// Mosificamos su posicion
+	transform.p = Vector3ToPxVec3(position);
+	// Modificamos su rotacion 90 grados para que quede bien
+	transform.q = PxQuat(-0.707106829, 0, 0, 0.707106829);
+	// Posicionamos al actor con su nueva posicion y su nueva rotacion.
+	actor->setKinematicTarget(transform);
 	
 	// Anotar el componente lógico asociado a la entidad física
 	actor->userData = (void *) component;
