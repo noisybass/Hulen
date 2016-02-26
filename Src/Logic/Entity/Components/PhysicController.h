@@ -107,6 +107,9 @@ namespace Logic
 		*/
 		void onControllerHit (const physx::PxControllersHit &hit);
 
+		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
+		bool _falling;
+
 	private:
 
 		/**
@@ -124,8 +127,6 @@ namespace Logic
 		// Vector de desplazamiento recibido en el último mensaje de tipo AVATAR_WALK. 
 		Vector3 _movement;
 
-		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
-		bool _falling;
 
 	}; // class CPhysicController
 

@@ -272,6 +272,8 @@ namespace Logic
 
 		CGameObject* getGameObject() const;
 
+		IComponent* getComponent(const std::string& name);
+
 	protected:
 
 		/**

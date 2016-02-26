@@ -16,6 +16,8 @@ de la entidad.
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "PhysicController.h"
+
 
 namespace Logic 
 {
@@ -191,7 +193,8 @@ namespace Logic
 			_entity->emitMessage(message);
 		}
 
-		
+		//CPhysicController* controller = (CPhysicController*)(_entity->getComponent("CPhysicController"));
+
 
 	} // tick
 
