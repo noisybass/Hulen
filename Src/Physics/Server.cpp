@@ -356,15 +356,6 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimens
 
 //--------------------------------------------------------
 
-PxRigidStatic* CServer::createStaticPyramid(const Vector3 &position, Vector3 &dimensions, bool trigger,
-											int group, const IPhysics *component)
-{
-
-	return nullptr;
-}
-
-//--------------------------------------------------------
-
 PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3 &dimensions, 
 	                                      float mass, bool kinematic, bool trigger, int group, 
 										  const IPhysics *component)
@@ -487,10 +478,14 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	// controlar su movimiento de manera directa.
 	// OJO: No interaccionan con actores estáticos.
 	actor->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
-	PxTransform transform(Vector3ToPxVec3(position));
-	transform.rotateInv(PxVec3(90, 0, 0));
-
-	// Creamos la transformacion con la posicion del objeto
+	
+	// Obtenemos la transformacion del actor.
+	PxTransform transform = actor->getGlobalPose();
+	// Mosificamos su posicion
+	transform.p = Vector3ToPxVec3(position);
+	// Modificamos su rotacion 90 grados para que quede bien
+	transform.q = PxQuat(-0.707106829, 0, 0, 0.707106829);
+	// Posicionamos al actor con su nueva posicion y su nueva rotacion.
 	actor->setKinematicTarget(transform);
 	
 	// Anotar el componente lógico asociado a la entidad física

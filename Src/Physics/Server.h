@@ -186,12 +186,6 @@ namespace Physics {
 		physx::PxRigidStatic* createStaticBox(const Vector3 &position, Vector3 &dimensions, 
 			                                  bool trigger, int group, const Logic::IPhysics *component); 
 
-
-		physx::PxRigidStatic* createStaticPyramid(const Vector3 &position, Vector3 &dimensions,
-											  bool trigger, int group, const Logic::IPhysics *component);
-
-
-
 		/**
 		Crea una caja dinámica en la escena.
 
