@@ -15,6 +15,7 @@ el mundo físico usando character controllers.
 #include "PhysicController.h"
 
 #include "Logic/Entity/Entity.h"
+#include "Logic/Entity/Components/AvatarController.h"
 #include "Map/MapEntity.h"
 #include "Physics/Server.h"
 #include "Physics/Conversions.h"
@@ -118,9 +119,7 @@ void CPhysicController::tick(unsigned int msecs)
 
 	// Si estamos cayendo modificar el vector de desplazamiento para simular el 
 	// efecto de la gravedad. Lo hacemos de manera sencilla y pero poco realista.
-	if (_falling) {
-		_movement += Vector3(0,-1,0);
-	}
+	//_movement += msecs * Vector3(0.0f, -1.0f, 0.0f);
 
 	// Intentamos mover el controller a la posición recibida en el último mensaje 
 	// de tipo AVATAR_WALK. 
@@ -128,6 +127,12 @@ void CPhysicController::tick(unsigned int msecs)
 
 	// Actualizamos el flag que indica si estamos cayendo
 	_falling =  !(flags & PxControllerFlag::eCOLLISION_DOWN);
+
+	if (flags & PxControllerFlag::eCOLLISION_UP)
+	{
+		CAvatarController* controller = (CAvatarController*)(_entity->getComponent("CAvatarController"));
+		controller->_jump = false;
+	}
 
 	// Ponemos el movimiento a cero
 	_movement = Vector3::ZERO;
@@ -181,7 +186,7 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	// Si chocamos contra una entidad cinemática no hacemos nada
 	if (_server->isKinematic(actor))
 		return;
-	
+
 	
 	// Aplicar una fuerza a la entidad en la dirección del movimiento
 	actor->addForce(hit.dir * hit.length * 1000.0f);
@@ -193,8 +198,6 @@ void CPhysicController::onControllerHit (const PxControllersHit &hit)
 {
 
 }
-
-//---------------------------------------------------------
 
 
 

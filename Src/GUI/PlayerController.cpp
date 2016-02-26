@@ -73,6 +73,9 @@ namespace GUI {
 			case GUI::Key::T:
 				m._type = Logic::Message::PLAYER_DEATH;
 				break;
+			case GUI::Key::SPACE:
+				m.setArg<std::string>(std::string("control"), std::string("jump"));
+				break;
 			default:
 				return false;
 			}

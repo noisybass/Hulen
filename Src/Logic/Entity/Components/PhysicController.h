@@ -107,11 +107,11 @@ namespace Logic
 		*/
 		void onControllerHit (const physx::PxControllersHit &hit);
 
-		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
-		bool _falling;
+		
 
 	private:
 
+		friend class CAvatarController;
 		/**
 		Crea el character controller de PhysX que representa la entidad física a partir de la
 		información del mapa.
@@ -126,6 +126,9 @@ namespace Logic
 
 		// Vector de desplazamiento recibido en el último mensaje de tipo AVATAR_WALK. 
 		Vector3 _movement;
+
+		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
+		bool _falling;
 
 
 	}; // class CPhysicController
