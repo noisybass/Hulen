@@ -1,0 +1,106 @@
+material QueryArea
+{
+	technique
+	{
+		pass
+		{
+			
+		 lighting off
+		 depth_write off
+		 depth_check off
+		 colour_write off
+		}
+	}
+}
+
+material QueryVisible
+{
+	technique
+	{
+		pass
+		{
+			
+		 lighting off
+		 depth_write off
+		 depth_check on
+		 colour_write off
+		}
+	}
+}
+
+material Flare
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend add
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture flare.png
+			}
+		}
+	}
+}
+material Flare2
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend add
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture flaretrail.png
+			}
+		}
+	}
+}
+material Flare3
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture flare_alpha.dds
+			}
+		}
+	}
+}
+material FlarePointSprite
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend add
+			depth_write off
+			diffuse vertexcolour
+
+			point_sprites on
+			point_size 2
+			point_size_attenuation on
+
+			texture_unit
+			{
+				texture flare.png
+			}
+		}
+	}
+}
