@@ -92,10 +92,12 @@ void CCollisionManager::onTrigger(PxTriggerPair *pairs, PxU32 count)
 		// Obtener el componente lógico asociado a la otra entidad física
 		IPhysics *otherComponent = (IPhysics *) pairs[i].otherShape->getActor()->userData;
 		assert(otherComponent);
-
+		
 		// Notificar a ambos componentes la colisión
 		triggerComponent->onTrigger(otherComponent, enter);
 		otherComponent->onTrigger(triggerComponent, enter);
+		
+		
 	}	
 }
 

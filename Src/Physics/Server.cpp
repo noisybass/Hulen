@@ -465,7 +465,7 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	collection = PxSerialization::createCollectionFromXml(data, *_cooking, *registry);
 	
 	// Añadir entidades físicas a la escena
-	_scene->addCollection(*collection); 
+	//_scene->addCollection(*collection); 
 	
 	// Buscar una entidad de tipo PxRigidActor. Asumimos que hay exactamente 1 en el fichero.
 	PxRigidDynamic *actor = NULL;
@@ -473,6 +473,9 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 		actor = collection->getObject(i).is<PxRigidDynamic>();
 	}
 	assert(actor);
+
+	// Añadimos el actor a la escena
+	_scene->addActor(*actor);
 
 	// Decimos que el actor es kinematico, ya que de esta manera podemos
 	// controlar su movimiento de manera directa.
