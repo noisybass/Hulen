@@ -118,9 +118,14 @@ namespace Logic
 		void walkLeft();
 
 		/**
-		Provoca que la entidad cese el avance.
+		Provoca que la entidad cese el avance hacia la derecha.
 		*/
-		void stopWalk();
+		void stopWalkingRight();
+
+		/**
+		Provoca que la entidad cese el avance hacia la izquierda.
+		*/
+		void stopWalkingLeft();
 
 	protected:
 
