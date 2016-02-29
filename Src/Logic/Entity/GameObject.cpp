@@ -107,7 +107,7 @@ namespace Logic
 		// de los movimientos que debemos realizar
 		if (isPlayer())
 		{
-			CServer::getSingletonPtr()->setPlayer(_body);
+			CServer::getSingletonPtr()->setPlayer(this);
 			GUI::CServer::getSingletonPtr()->getPlayerController()->setControlledAvatar(this);
 		}
 

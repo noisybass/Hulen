@@ -18,7 +18,7 @@ la gestión de la lógica del juego.
 namespace Logic 
 {
 	class CMap;
-	class CEntity;
+	class CGameObject;
 }
 
 /**
@@ -101,14 +101,14 @@ namespace Logic
 
 		@return Entidad del jugador.
 		*/
-		CEntity *getPlayer() {return _player;}
+		CGameObject *getPlayer() {return _player;}
 
 		/**
 		Establece la entidad del jugador.
 
 		@param player Entidad del jugador.
 		*/
-		void setPlayer(CEntity *player) {_player = player;}
+		void setPlayer(CGameObject *player) {_player = player;}
 
 		/**
 		Carga un nuevo nivel a partir del nombre del mapa que se
@@ -160,7 +160,7 @@ namespace Logic
 		/**
 		Entidad del jugador.
 		*/
-		CEntity *_player;
+		CGameObject *_player;
 
 	private:
 		/**

@@ -236,6 +236,8 @@ void CServer::createScene ()
 	_scene = _physics->createScene(sceneDesc);
 	assert(_scene && "Error en PxPhysics::createScene");
 
+	//_scene->setFlag(physx::PxSceneFlag::)
+
 	// Crear PxControllerManager. Es necesario para crear character controllers
 	_controllerManager = PxCreateControllerManager(*_scene);
 }

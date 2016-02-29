@@ -16,7 +16,9 @@ Contiene la implementación del gestor de colisiones.
 
 #include <PxRigidActor.h>
 #include <PxShape.h> 
-#include <PxSimulationEventCallback.h> 
+#include <PxSimulationEventCallback.h>
+
+#include <iostream>
 
 using namespace Physics;
 using namespace Logic;
@@ -61,7 +63,7 @@ void CCollisionManager::onSleep(PxActor **actors, PxU32 count)
 
 void CCollisionManager::onContact(const PxContactPairHeader &pairHeader, const PxContactPair *pairs, PxU32 nbPairs) 
 {
-	// Por ahora ignoramos estos mensajes	
+	// Por ahora ignoramos estos mensajes
 }
 
 //--------------------------------------------------
@@ -129,7 +131,7 @@ void CCollisionManager::onControllerHit(const PxControllersHit &hit)
 
 void CCollisionManager::onObstacleHit(const PxControllerObstacleHit &hit)
 {
-	// Por ahora ignoramos estos mensajes	
+	// Por ahora ignoramos estos mensajes
 }
 
 //--------------------------------------------------

@@ -136,6 +136,9 @@ namespace Logic
 		// Actor que representa la entidad física en PhysX
 		physx::PxRigidActor *_actor;
 
+		// Indica que representa la entidad física, por ejemplo los pinchos.
+		std::string _whoAmI;
+
 		// Vector de deplazamiento recibido en el último mensaje de tipo KINEMATIC_MOVE. Sirve
 		// para mover entidades físicas cinemáticas.
 		Vector3 _movement;

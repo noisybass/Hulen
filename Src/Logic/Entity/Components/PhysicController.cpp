@@ -175,12 +175,23 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	// Si chocamos contra una entidad estática no hacemos nada
 	PxRigidDynamic* actor = hit.shape->getActor()->isRigidDynamic();
 
+
+
 	if(!actor)
 		return;
 
-	// Si chocamos contra una entidad cinemática no hacemos nada
-	if (_server->isKinematic(actor))
+	// Si chocamos contra una entidad cinemática mandamos
+	// un mensaje a la entidad contra la que nos hemos
+	// chocado
+	if (_server->isKinematic(actor)){
+		IPhysics *otherComponent = (IPhysics *)actor->userData;
+
+		TMessage msg;
+		msg._type = Message::SHAPE_HIT;
+		otherComponent->getEntity()->emitMessage(msg);
 		return;
+	}
+		
 	
 	
 	// Aplicar una fuerza a la entidad en la dirección del movimiento

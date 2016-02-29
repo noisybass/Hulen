@@ -14,7 +14,10 @@ para representar character controllers.
 */
 
 #include "PhysicEntity.h"
+#include "Logic/Entity/Component.h"
+#include "Logic/Entity/GameObject.h"
 #include "Logic/Entity/Entity.h"
+#include "Logic/Server.h"
 #include "Map/MapEntity.h"
 #include "Physics/Server.h"
 
@@ -33,7 +36,7 @@ IMP_FACTORY(CPhysicEntity);
 
 CPhysicEntity::CPhysicEntity() : IPhysics(), _actor(NULL), _movement(0,0,0)
 {
-	_server = CServer::getSingletonPtr();
+	_server = Physics::CServer::getSingletonPtr();
 }
 
 //---------------------------------------------------------
@@ -56,6 +59,11 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 	if(!IComponent::spawn(entity,map,entityInfo))
 		return false;
 
+	// Lo utilizo para poder distinguir a la hora de recibir mensajes
+	// que tipo de entidad es.
+	if (entityInfo->hasAttribute("blueprint"))
+		_whoAmI = entityInfo->getStringAttribute("blueprint");
+
 	// Crear el objeto físico asociado al componente
 	_actor = createActor(entityInfo);
 
@@ -66,7 +74,8 @@ bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entity
 
 bool CPhysicEntity::accept(const TMessage &message)
 {
-	return message._type == Message::KINEMATIC_MOVE;
+	return message._type == Message::KINEMATIC_MOVE ||
+		message._type == Message::SHAPE_HIT;
 }
 
 //---------------------------------------------------------
@@ -78,6 +87,15 @@ void CPhysicEntity::process(const TMessage &message)
 		// Acumulamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick.
 		_movement += message.getArg<Vector3>("movement");
+		break;
+	case Message::SHAPE_HIT:
+		if (_whoAmI == "Spike"){
+
+			TMessage msg;
+			msg._type = Message::PLAYER_DEATH;
+			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
+		
+		}
 		break;
 	}
 }
@@ -159,7 +177,7 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 	// Leer la forma (shape)
 	assert(entityInfo->hasAttribute("physic_shape"));
 	const std::string physicShape = entityInfo->getStringAttribute("physic_shape");
-	assert(physicShape == "box" || physicShape == "sphere" || physicShape == "pyramid");
+	assert(physicShape == "box" || physicShape == "sphere");
 
 	// Leer si es un trigger (por defecto no)
 	bool trigger = false;
@@ -180,13 +198,6 @@ PxRigidActor* CPhysicEntity::createRigid(const Map::CEntity *entityInfo)
 			
 			// Crear una caja estática
 			return _server->createStaticBox(position, physicDimensions, trigger, group, this);
-		}
-
-		else if (physicShape == "pyramid"){
-			// Leer las dimensiones de la piramide
-			assert(entityInfo->hasAttribute("physic_dimensions"));
-			Vector3 physicDimensions = entityInfo->getVector3Attribute("physic_dimensions");
-		
 		}
 
 	} else {
@@ -250,4 +261,3 @@ void CPhysicEntity::onTrigger(IPhysics *otherComponent, bool enter)
 
 	_entity->emitMessage(msg);
 }
-
