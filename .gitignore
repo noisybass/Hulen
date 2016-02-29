@@ -1,6 +1,5 @@
-# POR EL MOMENTO IGNORAMOS TODAS LAS DEPENDENCIAS Y LOS ASSETS
+# POR EL MOMENTO IGNORAMOS TODAS LAS DEPENDENCIAS
 dependencies/
-Exes/media/
 
 # Carpetas donde se compilan Ogre y CEGUI
 dependencies/OgreDependencies/build

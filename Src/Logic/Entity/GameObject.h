@@ -5,6 +5,8 @@
 #include "Logic\Entity\Component.h"
 #include "Logic\Maps\Map.h"
 
+#include <unordered_map>
+
 namespace Logic
 {
 	namespace GameObject
@@ -43,9 +45,9 @@ namespace Logic
 
 		void tick(unsigned int msecs);
 
-		void addComponent(IComponent* component);
+		void addComponent(const std::string& name, IComponent* component);
 
-		bool removeComponent(IComponent* component);
+		bool removeComponent(const std::string& name);
 
 		void destroyAllComponents();
 
@@ -126,12 +128,12 @@ namespace Logic
 		/**
 		Tipo para la lista de componetes.
 		*/
-		typedef std::list<IComponent*> TComponentList;
+		typedef std::map<std::string, IComponent*> TComponentMap;
 
 		/**
 		Lista de los componentes del game object.
 		*/
-		TComponentList _components;
+		TComponentMap _components;
 
 		/**
 		Tipo del game object declarado en el archivo blueprints.

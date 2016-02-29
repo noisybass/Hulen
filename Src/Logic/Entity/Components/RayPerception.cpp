@@ -36,10 +36,10 @@ CRayPerception::~CRayPerception()
 
 //---------------------------------------------------------
 
-bool CRayPerception::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+bool CRayPerception::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 {
 	// Invocar al método de la clase padre
-	if(!IComponent::spawn(entity,map,entityInfo))
+	if(!IComponent::spawn(name, entity,map,entityInfo))
 		return false;
 
 	// Leer distancia máxima a la que se perciben las entidades (por defecto 10)

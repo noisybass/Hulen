@@ -32,9 +32,9 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	bool CSwitchPosition::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool CSwitchPosition::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
+		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
 		if(entityInfo->hasAttribute("speed"))

@@ -45,7 +45,7 @@ namespace Logic
 
 		~CPointLight();
 
-		bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
 		bool accept(const TMessage &message) override;
 

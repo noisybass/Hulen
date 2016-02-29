@@ -41,7 +41,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), 
+		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
 							  _speed(0.05f) {}
 	
 		/**
@@ -55,7 +55,7 @@ namespace Logic
 			fichero de disco.
 		@return Cierto si la inicialización ha sido satisfactoria.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Método que activa el componente; invocado cuando se activa
@@ -127,24 +127,49 @@ namespace Logic
 		*/
 		void stopWalkingLeft();
 
+		/**
+		Provoca que la entidad salte, siempre que este tocando el suelo.
+		*/
+		void jump();
+
 	protected:
 
+		friend class CPhysicController;
+
 		/**
-		Atributo para saber si la entidad está avanzando.
+		Atributo para saber si la entidad está avanzando hacia la derecha.
 		*/
 		bool _walkingRight;
 
 		/**
-		Atributo para saber si la entidad está retrocediendo.
+		Atributo para saber si la entidad está avanzando hacia la izquierda.
 		*/
 		bool _walkingLeft;
+
+		/**
+		Atributo para saber si la entidad esta saltando.
+		*/
+		bool _jump;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.
 		*/
 		float _speed;
 
-		
+		/**
+		Atributo que indica la magnitud de la velocidad de salto de la entidad.
+		*/
+		float _jumpSpeed;
+
+		/**
+		Gravedad
+		*/
+		float _gravity;
+
+		float _jumpHeight;
+
+	private: 
+		float _currentHeight = 0.0f;
 
 	}; // class CAvatarController
 

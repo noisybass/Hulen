@@ -67,7 +67,7 @@ namespace Logic
 		/**
 		Inicializa el componente usando los atributos definidos en el fichero de mapa.
 		*/
-		virtual bool spawn(CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
 		Este componente sólo acepta mensajes de tipo AVATAR_WALK.
@@ -107,8 +107,11 @@ namespace Logic
 		*/
 		void onControllerHit (const physx::PxControllersHit &hit);
 
+		
+
 	private:
 
+		friend class CAvatarController;
 		/**
 		Crea el character controller de PhysX que representa la entidad física a partir de la
 		información del mapa.
@@ -126,6 +129,7 @@ namespace Logic
 
 		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
 		bool _falling;
+
 
 	}; // class CPhysicController
 

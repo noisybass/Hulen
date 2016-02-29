@@ -16,6 +16,8 @@ de la entidad.
 #include "Logic/Entity/Entity.h"
 #include "Map/MapEntity.h"
 
+#include "PhysicController.h"
+
 
 namespace Logic 
 {
@@ -23,13 +25,22 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CAvatarController::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+	bool CAvatarController::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if(!IComponent::spawn(entity,map,entityInfo))
+		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 		
 		if(entityInfo->hasAttribute("speed"))
 			_speed = entityInfo->getFloatAttribute("speed");
+
+		if (entityInfo->hasAttribute("jump_speed"))
+			_jumpSpeed = entityInfo->getFloatAttribute("jump_speed");
+
+		if (entityInfo->hasAttribute("jump_height"))
+			_jumpHeight = entityInfo->getFloatAttribute("jump_height");
+
+		if (entityInfo->hasAttribute("gravity"))
+			_gravity = entityInfo->getFloatAttribute("gravity");
 
 		return true;
 
@@ -79,6 +90,8 @@ namespace Logic
 				stopWalkingRight();
 			else if (!arg.compare("stopWalkingLeft"))
 				stopWalkingLeft();
+			else if (!arg.compare("jump"))
+				jump();
 			break;
 		case Message::SEND_STATE:
 			std::cout << "Mandando estado..." << std::endl;
@@ -167,31 +180,75 @@ namespace Logic
 			_entity->emitMessage(message, this);
 		}
 	} // stopWalkingLeft
+
+	//---------------------------------------------------------
+
+	void CAvatarController::jump()
+	{
+		CPhysicController* controller = (CPhysicController*)(_entity->getComponent("CPhysicController"));
+		if (!controller->_falling)
+			_jump = true;
+	}
 	
 	//---------------------------------------------------------
 
 	void CAvatarController::tick(unsigned int msecs)
 	{
+		//IComponent::tick(msecs);
+
+		//Vector3 movement(Vector3::ZERO);
+
+		//if(_walkingLeft || _walkingRight || _jump)
+		//{
+		//	if (_walkingRight)  movement = Vector3(1, 0, 0) * _speed;
+		//	else if (_walkingLeft)   movement = Vector3(-1, 0, 0) * _speed;
+
+		//	if (_jump)
+		//	{
+		//		//CPhysicController* controller = (CPhysicController*)(_entity->getComponent("CPhysicController"));
+		//		movement.y = _jumpSpeed;
+		//		_jump = false;
+
+		//		std::cout << "Jumping" << std::endl;
+		//	}
+
+		//	movement *= msecs;
+
+		//	// Enviar un mensaje para que el componente físico mueva el personaje
+		//	TMessage message;
+		//	message._type = Message::AVATAR_WALK;
+		//	message.setArg<Vector3>(std::string("movement"), movement);
+
+		//	_entity->emitMessage(message);
+		//}
+
 		IComponent::tick(msecs);
 
-		if(_walkingLeft || _walkingRight)
+		Vector3 movement(Vector3::ZERO);
+
+		if (_walkingRight)  movement += Vector3(1, 0, 0) * _speed * msecs;
+		else if (_walkingLeft)   movement += Vector3(-1, 0, 0) * _speed * msecs;
+
+		if (_jump)
 		{
+			movement += Vector3(0, 1, 0) * _jumpSpeed * msecs;
+			_currentHeight += _jumpSpeed * msecs;
+			if (_currentHeight >= _jumpHeight)
+			{
+				_jump = false;
+				_currentHeight = 0;
+			}
 
-			Vector3 movement;
-			if (_walkingRight)  movement = Vector3(1, 0, 0);
-			else if (_walkingLeft)   movement = Vector3(-1, 0, 0);
-			
-			movement *= msecs * _speed;
-
-			// Enviar un mensaje para que el componente físico mueva el personaje
-			TMessage message;
-			message._type = Message::AVATAR_WALK;
-			message.setArg<Vector3>(std::string("movement"), movement);
-
-			_entity->emitMessage(message);
 		}
 
-		
+		// Acción de la gravedad
+		movement += msecs * Vector3(0.0f, -_gravity, 0.0f);
+
+		TMessage message;
+		message._type = Message::AVATAR_WALK;
+		message.setArg<Vector3>(std::string("movement"), movement);
+
+		_entity->emitMessage(message);
 
 	} // tick
 

@@ -53,10 +53,10 @@ CPhysicEntity::~CPhysicEntity()
 
 ////---------------------------------------------------------
 
-bool CPhysicEntity::spawn(CEntity *entity, CMap *map, const Map::CEntity *entityInfo) 
+bool CPhysicEntity::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 {
 	// Invocar al método de la clase padre
-	if(!IComponent::spawn(entity,map,entityInfo))
+	if(!IComponent::spawn(name, entity,map,entityInfo))
 		return false;
 
 	// Lo utilizo para poder distinguir a la hora de recibir mensajes

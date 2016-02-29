@@ -64,12 +64,12 @@ namespace Logic
 		}
 
 		// Inicializamos los componentes
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		bool correct = true;
 
 		for( it = _components.begin(); it != _components.end() && correct; ++it )
-			correct = (*it)->spawn(this, map, entityInfo) && correct;
+			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
 
 		return correct;
 
@@ -80,14 +80,14 @@ namespace Logic
 	bool CEntity::activate() 
 	{	
 		// Activamos los componentes
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		// Solo si se activan todos los componentes correctamente nos
 		// consideraremos activados.
 		_activated = true;
 
 		for( it = _components.begin(); it != _components.end(); ++it )
-			_activated = (*it)->activate() && _activated;
+			_activated = it->second->activate() && _activated;
 
 
 		return _activated;
@@ -98,11 +98,11 @@ namespace Logic
 
 	void CEntity::deactivate() 
 	{
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		// Desactivamos los componentes
 		for( it = _components.begin(); it != _components.end(); ++it )
-			(*it)->deactivate();
+			it->second->deactivate();
 
 		_activated = false;
 
@@ -112,10 +112,10 @@ namespace Logic
 
 	void CEntity::tick(unsigned int msecs) 
 	{
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 
 		for( it = _components.begin(); it != _components.end(); ++it )
-			(*it)->tick(msecs);
+			it->second->tick(msecs);
 
 		if (_changeState)
 		{
@@ -127,36 +127,30 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::addComponent(IComponent* component)
+	void CEntity::addComponent(const std::string& name, IComponent* component)
 	{
-		_components.push_back(component);
+		_components.emplace(name, component);
 		component->setEntity(this);
 
 	} // addComponent
 
 	//---------------------------------------------------------
 
-	bool CEntity::removeComponent(IComponent* component)
+	bool CEntity::removeComponent(const std::string& name)
 	{
-		TComponentList::const_iterator it = _components.begin();
+		TComponentMap::const_iterator it = _components.find(name);
+		IComponent* c;
 
-		bool removed = false;
-		// Buscamos el componente hasta el final, por si aparecía
-		// más de una vez... (no tendría mucho sentido, pero por si
-		// acaso).
-		while (it != _components.end()) 
+		if (it != _components.end())
 		{
-			if (*it == component)
-			{
-				it = _components.erase(it);
-				removed = true;
-			}
-			else
-				++it;
+			c = it->second;
+			_components.erase(name);
+			delete c;
+
+			return true;
 		}
-		if (removed)
-			component->setEntity(0);
-		return removed;
+
+		return false;
 
 	} // removeComponent
 
@@ -165,12 +159,13 @@ namespace Logic
 	void CEntity::destroyAllComponents()
 	{
 		IComponent* c;
-		while(!_components.empty())
+		for (auto it = _components.begin(); it != _components.end(); ++it)
 		{
-			c = _components.back();
-			_components.pop_back();
+			c = it->second;
 			delete c;
 		}
+			
+		_components.clear();
 		
 	} // destroyAllComponents
 
@@ -201,14 +196,14 @@ namespace Logic
 			break;
 		}
 
-		TComponentList::const_iterator it;
+		TComponentMap::const_iterator it;
 		// Para saber si alguien quiso el mensaje.
 		bool anyReceiver = false;
 		for( it = _components.begin(); it != _components.end(); ++it )
 		{
 			// Al emisor no se le envia el mensaje.
-			if( emitter != (*it) )
-				anyReceiver = (*it)->set(message) || anyReceiver;
+			if( emitter != it->second )
+				anyReceiver = it->second->set(message) || anyReceiver;
 		}
 		return anyReceiver;
 
@@ -284,10 +279,24 @@ namespace Logic
 
 	} // setYaw
 
+	//---------------------------------------------------------
+
 	CGameObject* CEntity::getGameObject() const
 	{
 		return _gameObject;
 
 	} // getGameObject
+
+	//---------------------------------------------------------
+
+	IComponent* CEntity::getComponent(const std::string& name)
+	{
+		TComponentMap::const_iterator it = _components.find(name);
+
+		if (it != _components.end())
+			return it->second;
+
+		return nullptr;
+	}
 
 } // namespace Logic

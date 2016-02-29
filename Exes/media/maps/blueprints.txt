@@ -1,0 +1,8 @@
+World CGraphics CPhysicEntity
+Background CGraphics
+Player_GO CPlayerManager
+Player CAvatarController CAnimatedGraphics CPhysicController
+Camera CCamera
+Kasai CKasaiController CPointLight CPhysicEntity
+Spike CGraphics CPhysicEntity
+Empty
