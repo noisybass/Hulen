@@ -1,5 +1,5 @@
-Map = { 
-
+Map_GO = {
+	
 	Player_GO = {
 		type = "GameObject",
 		blueprint = "Player_GO",
@@ -8,6 +8,59 @@ Map = {
 		playerDeathTime = 3,
 		playerCanDie = false,
 	},
+
+	Kasai_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		isLight = true,
+		state = "Body",
+	},
+
+	Camera_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+	
+	World0_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World1_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World2_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World3_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World4_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	Spike_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+}
+
+Map = {
 
 	Player_Body = {
 		type = "Body",
@@ -47,13 +100,6 @@ Map = {
 		speed = 0.01,
 	},
 
-	Kasai_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		isLight = true,
-		state = "Body",
-	},
-
 	Kasai = {
 		type = "Body",
 		blueprint = "Kasai",
@@ -79,12 +125,6 @@ Map = {
 		physic_group = 1,
 	},
 
-	Camera_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	Camera = {
 		type = "Body",
 		blueprint = "Camera",
@@ -93,12 +133,6 @@ Map = {
 		fixed = true,
 		ratio = 169,
 		fov = 60,
-	},
-
-	World0_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World0 = {
@@ -117,12 +151,6 @@ Map = {
 		material = "rocky",
 	},
 
-	World1_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	World1 = {
 		type = "Body",
 		blueprint = "World",
@@ -137,12 +165,6 @@ Map = {
 		physic_height = 1,
 		physic_group = 1,
 		material = "rocky",
-	},
-
-	World2_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World2 = {
@@ -161,12 +183,6 @@ Map = {
 		material = "rocky",
 	},
 
-	World3_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	World3 = {
 		type = "Body",
 		blueprint = "World",
@@ -183,12 +199,6 @@ Map = {
 		material = "rocky",
 	},
 
-	World4_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	World4 = {
 		type = "Body",
 		blueprint = "Background",
@@ -196,12 +206,6 @@ Map = {
 		position = {0, 0, -3.5},
 		model = "Plane.mesh",
 		material = "rocky",
-	},
-
-	Spike_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	Spike = {

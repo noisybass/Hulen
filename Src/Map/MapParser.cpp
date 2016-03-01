@@ -17,6 +17,61 @@ Contiene la implementación de la clase que encapsula el parseo de mapas.
 #include "MapParser.h"
 #include "scanner.h"
 
+#include "BaseSubsystems\ScriptManager.h"
+
+extern "C"
+{
+#include <lua.h>
+}
+
+
+namespace
+{
+
+	int lua_beginMapEntity(lua_State* l)
+	{
+		Map::CMapParser::getSingletonPtr()->_entityInProgress = new Map::CEntity(lua_tostring(l, -1));
+
+		return 0;
+	}
+
+	int lua_addEntityAttrib(lua_State* l)
+	{
+		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->_entityInProgress;
+		std::string key = lua_tostring(l, -2);
+
+		if (key == "type")
+		{
+			e->setType(lua_tostring(l, -1));
+		}
+		else if (key == "blueprint"){
+			e->setBlueprint(lua_tostring(l, -1));
+		}
+		else
+		{
+			if (lua_isboolean(l, -1))
+			{
+				e->setAttribute(lua_tostring(l, -2), lua_toboolean(l, -1)? "true" : "false");
+			}
+			else
+			{
+				e->setAttribute(lua_tostring(l, -2), lua_tostring(l, -1));
+			}
+		}
+
+		return 0;
+	}
+
+	int lua_endMapEntity(lua_State* l)
+	{
+		Map::CMapParser::getSingletonPtr()->_entityList.push_back(Map::CMapParser::getSingletonPtr()->_entityInProgress);
+
+		Map::CMapParser::getSingletonPtr()->_entityInProgress = 0;
+
+		return 0;
+	}
+}
+
 namespace Map {
 
 	CMapParser* CMapParser::_instance = 0;
@@ -28,6 +83,14 @@ namespace Map {
 							  _entityInProgress(0)
 	{
 		_instance = this;
+
+		// Configuramos la parte de LUA
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
+
+		sm->loadScript("media/lua/MapParser.lua");
+		sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
+		sm->registerFunction(lua_endMapEntity, "EndMapEntity");
+		sm->registerFunction(lua_addEntityAttrib, "AddEntityAttrib");
 
 	} // CMapParser
 
@@ -83,9 +146,17 @@ namespace Map {
 
 	bool CMapParser::parseFile(const std::string &filename)
 	{
-		std::ifstream in(filename.c_str());
+		/*std::ifstream in(filename.c_str());
 		if (!in.good()) return false;
-		return parseStream(in, filename);
+		return parseStream(in, filename);*/
+
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
+
+		std::string orden = "loadMap(\"" + filename + "\")";
+		sm->executeScript(orden.c_str());
+
+		return true;
+
 	} // parseFile
 
 	//--------------------------------------------------------

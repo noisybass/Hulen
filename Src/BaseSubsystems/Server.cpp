@@ -45,6 +45,9 @@ usados. La mayoría de ellos son parte de Ogre.
 #include <falagard/CEGUIFalWidgetLookManager.h>
 #include <CEGUIScheme.h>*/
 
+// ScriptManager
+#include "BaseSubsystems/ScriptManager.h"
+
 // Para cerrar la aplicación si se cierra la ventana
 #include "Application/BaseApplication.h"
 
@@ -151,7 +154,8 @@ namespace BaseSubsystems
 
 	bool CServer::open()
 	{
-		if( !initOgre() ||
+		if (!initScriptManager() ||
+			!initOgre() ||
 			!initOIS() ||
 			!initCEGUI() )
 		{
@@ -169,6 +173,8 @@ namespace BaseSubsystems
 		releaseCEGUI();
 
 		releaseOIS();
+
+		releaseScriptManager();
 		
 		releaseOgre();
 		
@@ -209,6 +215,18 @@ namespace BaseSubsystems
 		return true;
 
 	} // initOgre
+
+	//--------------------------------------------------------
+
+	bool CServer::initScriptManager() {
+		if (!ScriptManager::CScriptManager::Init())
+			return false;
+#ifndef NON_EXCLUSIVE_MODE_IN_WINDOW_MODE
+		ScriptManager::CScriptManager::GetSingleton()
+			.executeScript("MOUSE_EXCLUSIVE = true");
+#endif
+		return true;
+	} // initScriptManager
 
 	//--------------------------------------------------------
 
@@ -347,6 +365,12 @@ namespace BaseSubsystems
 		}
 
 	} // releaseOgre
+
+	//--------------------------------------------------------
+
+	void CServer::releaseScriptManager() {
+		ScriptManager::CScriptManager::GetPtrSingleton()->Release();
+	} // releaseScriptManager
 
 	//--------------------------------------------------------
 

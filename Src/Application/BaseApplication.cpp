@@ -19,6 +19,8 @@ de todo el juego.
 #include "ApplicationState.h"
 #include "Clock.h"
 
+#include "Map\MapParser.h"
+
 #include <assert.h>
 
 namespace Application {
@@ -188,6 +190,8 @@ namespace Application {
 		{
 			// Recargamos el estado actual
 			if (_reloadState){
+
+				Map::CMapParser::getSingletonPtr()->releaseEntityList();
 				_currentState->deactivate();
 				_currentState->release();
 				_currentState->init();
