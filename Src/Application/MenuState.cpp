@@ -17,6 +17,7 @@ Contiene la implementación del estado de menú.
 #include "MenuState.h"
 
 #include "GUI/Server.h"
+#include "Sounds\Server.h"
 
 #include <CEGUI/CEGUI.h>
 
@@ -68,6 +69,12 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
+		// Sonido en el menu principal
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
+		soundServer->loadChannel("TemaPrincipal", "CanalMenu", false);
+		soundServer->setVolume("CanalMenu", 0.3);
+
 	} // activate
 
 	//--------------------------------------------------------
@@ -78,6 +85,9 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
+
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->stop("CanalMenu");
 		
 		CApplicationState::deactivate();
 
