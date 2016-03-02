@@ -35,11 +35,12 @@ namespace Sounds{
 		// Liberamos fmod
 		FMOD_RESULT result = _fmod_system->release();
 		assert(result == FMOD_OK && "FMOD no se ha liberado correctamente");
+		_fmod_system = nullptr;
+		_fmod_lowLevel_system = nullptr;
 
 		// Liberamos las estructuras de datos
 		delete _sounds;
 		delete _channels;
-
 		_sounds = nullptr;
 		_channels = nullptr;
 
@@ -79,11 +80,14 @@ namespace Sounds{
 
 	bool CServer::loadSound(std::string name, std::string fileSound)
 	{
+
+		assert(_sounds->find(name) == _sounds->end() && "No se puede cargar el mismo sonido 2 veces");
+
 		std::string file = _soundPath + fileSound;
 		FMOD::Sound* sound;
 
 		FMOD_RESULT result = _fmod_lowLevel_system->createSound(file.c_str(), FMOD_DEFAULT, 0, &sound);
-		
+
 		_sounds->insert({ name, sound });
 
 		return result == FMOD_OK;
@@ -91,6 +95,9 @@ namespace Sounds{
 
 	bool CServer::loadChannel(std::string soundName, std::string channelName, bool sleep)
 	{
+
+		assert(_channels->find(channelName) == _channels->end() && "No se puede cargar dos canales con el mismo nombre");
+
 		FMOD::Channel* channel;
 		
 		FMOD::Sound* sound = _sounds->at(soundName);
