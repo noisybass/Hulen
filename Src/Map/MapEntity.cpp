@@ -33,6 +33,8 @@ namespace Map {
 			return true;
 		if(!attr.compare("blueprint"))
 			return true;
+		if (!attr.compare("type"))
+			return true;
 		if(_attributes.count(attr))
 			return true;
 		return false;
@@ -48,6 +50,8 @@ namespace Map {
 			return _name;
 		if(!attr.compare("blueprint"))
 			return _blueprint;
+		if (!attr.compare("type"))
+			return _type;
 		return (*_attributes.find(attr)).second;
 
 	} // getStringAttribute

@@ -138,6 +138,20 @@ namespace Map
 		void setBlueprint(const std::string &blueprint) { _blueprint = blueprint; }
 
 		/**
+		Devuelve un string con el tipo de la entidad.
+
+		@return Tipo de la entidad.
+		*/
+		const std::string &getType() const { return _type; }
+
+		/**
+		Establece el tipo de la entidad.
+
+		@param type Tipo de la entidad.
+		*/
+		void setType(const std::string &type) { _type = type; }
+
+		/**
 		Devuelve un string con el nombre de la entidad.
 
 		@return Nombre de la entidad.
@@ -167,6 +181,11 @@ namespace Map
 		Blueprint que usa la entidad.
 		*/
 		std::string _blueprint;
+
+		/**
+		Tipo de la entidad.
+		*/
+		std::string _type;
 
 		/**
 		Nombre de la entidad.

@@ -1,5 +1,5 @@
-Map = { 
-
+Map_GO = {
+	
 	Player_GO = {
 		type = "GameObject",
 		blueprint = "Player_GO",
@@ -8,6 +8,59 @@ Map = {
 		playerDeathTime = 3,
 		playerCanDie = false,
 	},
+
+	Kasai_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		isLight = true,
+		state = "Body",
+	},
+
+	Camera_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+	
+	World0_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World1_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World2_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World3_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	World4_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	Spike_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+}
+
+Map = {
 
 	Player_Body = {
 		type = "Body",
@@ -45,13 +98,9 @@ Map = {
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 0.01,
-	},
-
-	Kasai_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		isLight = true,
-		state = "Body",
+		jump_speed = 0.04,
+		jump_height = 12.0,
+		gravity = 0.015,
 	},
 
 	Kasai = {
@@ -79,12 +128,6 @@ Map = {
 		physic_group = 1,
 	},
 
-	Camera_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	Camera = {
 		type = "Body",
 		blueprint = "Camera",
@@ -95,32 +138,20 @@ Map = {
 		fov = 60,
 	},
 
-	World0_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 	World0 = {
 		type = "Body",
 		blueprint = "World",
 		game_object = "World0_GO",
 		position = {30, 0, 0},
-		scale = {0.1, 3.5, 0.5},
+		scale = {0.1, 3.5, 1},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 0.1, 35, 5 },
+		physic_dimensions = { 0.1, 35, 10 },
 		physic_height = 1,
 		physic_group = 1,
 		material = "rocky",
-	},
-
-	World1_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World1 = {
@@ -128,21 +159,15 @@ Map = {
 		blueprint = "World",
 		game_object = "World1_GO",
 		position = {0, -17, 0},
-		scale = {6, 0.1, 0.5},
+		scale = {6, 0.1, 1},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 65, 0.1, 5 },
+		physic_dimensions = { 65, 0.1, 10 },
 		physic_height = 1,
 		physic_group = 1,
 		material = "rocky",
-	},
-
-	World2_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World2 = {
@@ -150,21 +175,15 @@ Map = {
 		blueprint = "World",
 		game_object = "World2_GO",
 		position = {0, 17, 0},
-		scale = {6, 0.1, 0.5},
+		scale = {6, 0.1, 1},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 65, 0.1, 5 },
+		physic_dimensions = { 65, 0.1, 10 },
 		physic_height = 1,
 		physic_group = 1,
 		material = "rocky",
-	},
-
-	World3_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World3 = {
@@ -172,21 +191,15 @@ Map = {
 		blueprint = "World",
 		game_object = "World3_GO",
 		position = {-30, 0, 0},
-		scale = {0.1, 3.5, 0.5},
+		scale = {0.1, 3.5, 1},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
-		physic_dimensions = { 0.1, 35, 5 },
+		physic_dimensions = { 0.1, 35, 10 },
 		physic_height = 1,
 		physic_group = 1,
 		material = "rocky",
-	},
-
-	World4_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	World4 = {
@@ -196,12 +209,6 @@ Map = {
 		position = {0, 0, -3.5},
 		model = "Plane.mesh",
 		material = "rocky",
-	},
-
-	Spike_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
 	},
 
 	Spike = {

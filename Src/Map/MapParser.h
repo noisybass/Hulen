@@ -205,6 +205,17 @@ Map = {
 		*/
 		void releaseEntityList();
 
+		/**
+		Entidad temporal que se encuentra en medio de su parseo. Es usado
+		por la clase CParser para ir generando la lista de entidades.
+		*/
+		Map::CEntity *_entityInProgress;
+
+		/**
+		Lista de entidades parseada.
+		*/
+		TEntityList _entityList;
+
 	private:
 		/**
 		Única instancia de la clase.
@@ -248,16 +259,7 @@ Map = {
 		*/
 		CScanner* _lexer;
 
-		/**
-		Entidad temporal que se encuentra en medio de su parseo. Es usado
-		por la clase CParser para ir generando la lista de entidades.
-		*/
-		Map::CEntity *_entityInProgress;
-
-		/**
-		Lista de entidades parseada.
-		*/
-		TEntityList _entityList;
+		
 	};
 
 } // namespace Map

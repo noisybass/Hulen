@@ -223,6 +223,13 @@ namespace BaseSubsystems
 		bool initOgre();
 
 		/**
+		Inicialización de LUA.
+
+		@return true si todo fue correctamente.
+		*/
+		bool initScriptManager();
+
+		/**
 		Inicialización de OIS.
 
 		@return true si todo fue correctamente.
@@ -242,7 +249,12 @@ namespace BaseSubsystems
 		void releaseOgre();
 
 		/**
-		Liberación de Ogre.
+		Liberación de Lua
+		*/
+		void releaseScriptManager();
+
+		/**
+		Liberación de OIS.
 		*/
 		void releaseOIS();
 
