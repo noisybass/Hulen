@@ -4,5 +4,5 @@ Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController
 Camera CCamera
 Kasai CKasaiController CPointLight CPhysicEntity
-Spike CGraphics CPhysicEntity
+Spike CGraphics CPhysicEntity CSpike
 Empty
