@@ -27,7 +27,7 @@ namespace Sounds{
 
 		assert(_sounds->find(name) == _sounds->end() && "No se puede cargar el mismo sonido 2 veces");
 
-		std::string file = Sounds::CServer::getSingletonPtr()->_soundPath + fileSound;
+		std::string file = CServer::getSoundsPath() + fileSound;
 		FMOD::Sound* sound;
 
 		FMOD_RESULT result = _fmod_lowLevel_system->createSound(file.c_str(), FMOD_DEFAULT, 0, &sound);

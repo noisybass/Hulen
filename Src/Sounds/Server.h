@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include "Sounds\Sound.h"
 #include "Sounds\Channel.h"
+#include "Sounds\Bank.h"
+#include "Sounds\Event.h"
 
 namespace Sounds{
 
@@ -34,6 +36,11 @@ namespace Sounds{
 		static void Release();
 
 		/**
+		Devuelve la ruta donde se encuentran los archivos de audio
+		*/
+		static std::string const getSoundsPath() { return _soundPath; }
+
+		/**
 		Actualiza la musica.
 
 		@param secs Millisegundos transcurridos desde la última actualización.
@@ -58,6 +65,10 @@ namespace Sounds{
 		*/
 		CChannel* getChannelsPtr() { return _channels; }
 
+		CBank* getBanksPtr(){ return _banks; }
+
+		CEvent* getEventsPtr() { return _events; }
+
 	private:
 
 		/**
@@ -73,20 +84,24 @@ namespace Sounds{
 		// Instancia única de la clase.
 		static CServer *_instance;
 
+		// Ruta de donde se encuentran los ficheros de audio.
+		static std::string _soundPath;
+
 		// Instancia de Studio System
-		FMOD::Studio::System* _fmod_system;
+		FMOD::Studio::System* _fmod_studio_system;
 
 		// Instancia de low level
 		FMOD::System* _fmod_lowLevel_system;
 
-		// Ruta de donde se encuentran los ficheros de audio.
-		std::string _soundPath;
-
 		friend class Sounds::CSound;
 		friend class Sounds::CChannel;
+		friend class Sounds::CBank;
+		friend class Sounds::CEvent;
 
 		Sounds::CSound* _sounds;
 		Sounds::CChannel* _channels;
+		Sounds::CBank* _banks;
+		Sounds::CEvent* _events;
 
 	};
 

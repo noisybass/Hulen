@@ -48,10 +48,15 @@ namespace Application {
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
 
 		// Sonido en el menu principal
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
 		soundServer->getChannelsPtr()->loadChannel("TemaPrincipal", "CanalMenu");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
+		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);*/
+
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getBanksPtr()->loadBank("Banco1", "Vehicles.bank");
+		soundServer->getEventsPtr()->getEvent("Evento1", "event:/Vehicles/Basic Engine");
+
 	
 		return true;
 
@@ -62,8 +67,8 @@ namespace Application {
 	void CMenuState::release() 
 	{
 
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->stop("CanalMenu");
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getChannelsPtr()->stop("CanalMenu");*/
 
 		CApplicationState::release();
 
@@ -81,8 +86,8 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);*/
 		
 
 	} // activate
@@ -96,8 +101,8 @@ namespace Application {
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
 
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);*/
 		
 		CApplicationState::deactivate();
 

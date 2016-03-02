@@ -11,12 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Sounds\Bank.cpp" />
     <ClCompile Include="..\..\Src\Sounds\Channel.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\Event.cpp" />
     <ClCompile Include="..\..\Src\Sounds\Server.cpp" />
     <ClCompile Include="..\..\Src\Sounds\Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Sounds\Bank.h" />
     <ClInclude Include="..\..\Src\Sounds\Channel.h" />
+    <ClInclude Include="..\..\Src\Sounds\Event.h" />
     <ClInclude Include="..\..\Src\Sounds\Server.h" />
     <ClInclude Include="..\..\Src\Sounds\Sound.h" />
   </ItemGroup>

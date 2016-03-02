@@ -38,6 +38,12 @@ namespace Sounds{
 		*/
 		bool loadSound(std::string name, std::string fileSound);
 
+		/**
+		Nos devuelve el sonido si ha sido previamente cargado.
+
+		@params name Nombre del sonido a cargar.
+		@return el sonido
+		*/
 		FMOD::Sound* getSound(std::string name);
 	
 	private:
