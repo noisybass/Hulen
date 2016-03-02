@@ -18,6 +18,8 @@ Contiene la implementación del estado de menú.
 
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
+#include "Sounds\Sound.h"
+#include "Sounds\Channel.h"
 
 #include <CEGUI/CEGUI.h>
 
@@ -47,9 +49,9 @@ namespace Application {
 
 		// Sonido en el menu principal
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
-		soundServer->loadChannel("TemaPrincipal", "CanalMenu");
-		soundServer->setVolume("CanalMenu", 0.3);
+		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
+		soundServer->getChannelsPtr()->loadChannel("TemaPrincipal", "CanalMenu");
+		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
 	
 		return true;
 
@@ -61,7 +63,7 @@ namespace Application {
 	{
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->stop("CanalMenu");
+		soundServer->getChannelsPtr()->stop("CanalMenu");
 
 		CApplicationState::release();
 
@@ -80,7 +82,7 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->setPaused("CanalMenu", false);
+		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
 		
 
 	} // activate
@@ -95,7 +97,7 @@ namespace Application {
 		_menuWindow->setVisible(false);
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->setPaused("CanalMenu", true);
+		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
 		
 		CApplicationState::deactivate();
 

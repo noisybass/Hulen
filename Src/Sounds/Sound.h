@@ -37,6 +37,8 @@ namespace Sounds{
 		@return Valor booleano indicando si todo fue bien
 		*/
 		bool loadSound(std::string name, std::string fileSound);
+
+		FMOD::Sound* getSound(std::string name);
 	
 	private:
 

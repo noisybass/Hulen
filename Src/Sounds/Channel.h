@@ -2,6 +2,7 @@
 #define SOUNDS_CHANNEL_H
 
 #include <unordered_map>
+#include "fmod\lowlevel\fmod.hpp"
 
 namespace Sounds{
 

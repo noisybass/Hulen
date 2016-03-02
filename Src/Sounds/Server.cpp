@@ -10,6 +10,8 @@ namespace Sounds{
 	CServer::CServer() : _fmod_system(nullptr), _soundPath("media/sounds/")
 	{
 
+		_instance = this;
+
 		// Creamos el objeto del Studio System
 		FMOD_RESULT result = FMOD::Studio::System::create(&_fmod_system);
 
@@ -24,9 +26,9 @@ namespace Sounds{
 		// Obtenemos el sistema de bajo nivel
 		_fmod_system->getLowLevelSystem(&_fmod_lowLevel_system);
 
-		// Inicializamos las estructuras de datos
-		_sounds = new tSounds();
-		_channels = new tChannels();
+		// Inicializamos el manejador de sonidos y de canales
+		_sounds = new Sounds::CSound();
+		_channels = new Sounds::CChannel();
 
 	}
 
@@ -54,7 +56,7 @@ namespace Sounds{
 		assert(!_instance && "Segunda inicialización de Sounds::CServer no permitida!");
 
 		if (!_instance){
-			_instance = new CServer();
+			new CServer();
 		}
 		return true;
 	}
@@ -76,76 +78,6 @@ namespace Sounds{
 		_fmod_system->update();
 
 		return true;
-	}
-
-	bool CServer::loadSound(std::string name, std::string fileSound)
-	{
-
-		assert(_sounds->find(name) == _sounds->end() && "No se puede cargar el mismo sonido 2 veces");
-
-		std::string file = _soundPath + fileSound;
-		FMOD::Sound* sound;
-
-		FMOD_RESULT result = _fmod_lowLevel_system->createSound(file.c_str(), FMOD_DEFAULT, 0, &sound);
-
-		_sounds->insert({ name, sound });
-
-		return result == FMOD_OK;
-	}
-
-	bool CServer::loadChannel(std::string soundName, std::string channelName, bool sleep)
-	{
-
-		assert(_channels->find(channelName) == _channels->end() && "No se puede cargar dos canales con el mismo nombre");
-
-		FMOD::Channel* channel;
-		
-		FMOD::Sound* sound = _sounds->at(soundName);
-
-		assert(sound && "No existe el sonido para crear el canal");
-
-		FMOD_RESULT result = _fmod_lowLevel_system->playSound(sound, 0, sleep, &channel);
-
-		_channels->insert({ channelName, channel });
-
-		return result == FMOD_OK;
-	}
-
-	bool CServer::setVolume(std::string channelName, float volume)
-	{
-		FMOD::Channel* channel = _channels->at(channelName);
-
-		assert(channel && "No existe el canal para poder ajustar el volumen");
-
-		FMOD_RESULT result = channel->setVolume(volume);
-
-		return result == FMOD_OK;
-	}
-
-	bool CServer::stop(std::string channelName)
-	{
-		FMOD::Channel* channel = _channels->at(channelName);
-
-		assert(channel && "No existe el canal para poder eliminarlo");
-
-		FMOD_RESULT result = channel->stop();
-
-		if (result == FMOD_OK){
-			_channels->erase(channelName);
-		}
-
-		return result == FMOD_OK;
-	}
-
-	bool CServer::setPaused(std::string channelName, bool paused)
-	{
-		FMOD::Channel* channel = _channels->at(channelName);
-
-		assert(channel && "No existe el canal para poder cambiar el estado del canal");
-
-		FMOD_RESULT result = channel->setPaused(paused);
-
-		return result == FMOD_OK;
 	}
 
 };

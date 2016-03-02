@@ -10,11 +10,16 @@ namespace Sounds{
 	{
 		// Obtenemos el sistema de bajo nivel
 		_fmod_lowLevel_system = Sounds::CServer::getSingletonPtr()->_fmod_lowLevel_system;
+
+		// Inicializamos la estuctura de datos
+		_sounds = new tSounds();
 	}
 
 	CSound::~CSound()
 	{
 		_fmod_lowLevel_system = nullptr;
+
+		delete _sounds;
 	}
 
 	bool CSound::loadSound(std::string name, std::string fileSound)
@@ -30,6 +35,15 @@ namespace Sounds{
 		_sounds->insert({ name, sound });
 
 		return result == FMOD_OK;
+	}
+
+	FMOD::Sound* CSound::getSound(std::string name)
+	{
+		FMOD::Sound* sound = _sounds->at(name);
+
+		assert(sound && "No existe el sonido para crear el canal");
+
+		return sound;
 	}
 
 };
