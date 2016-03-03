@@ -6,6 +6,14 @@
 
 namespace Sounds{
 
+	/**
+	Para poder reproducir un sonido, tenemos que crearnos un canal para 
+	poder reproducir este. Además de reproducir el sonido, los canales 
+	pueden alterar atributos de estos, como por ejemplo alterar el pitch
+	el volumen, la posición (si nuestro sonido es 3D) etc...
+
+	@see Sounds::CSound para crear un sonido.
+	*/
 	class CChannel{
 
 	public:

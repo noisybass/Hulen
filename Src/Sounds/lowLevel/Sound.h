@@ -6,6 +6,12 @@
 
 namespace Sounds{
 
+	/**
+	Esta clase controla todos los sonidos que se han cargado en fmod.
+	Estos sonidos pueden ser utilizados varias veces al crear diferentes canales.
+
+	@see Sounds::CChannel para crear un canal.
+	*/
 	class CSound{
 
 	public:
@@ -31,12 +37,20 @@ namespace Sounds{
 		de diferenciar el tipo de archivo que es (mp3, wav, ogg etc..).
 
 		OJO!! Por defecto fmod intentará cargar y descomprimir el sonido entero en 
-		memoria! usar el siguiente metodo "##Introducir metodo" para abrirlo
-		y reproducirlo en tiempo real.
+		memoria! usar "streaming = true" para abrirlo y reproducirlo en tiempo real.
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool loadSound(std::string name, std::string fileSound);
+		bool loadSound(std::string name, std::string fileSound, bool streaming = false);
+
+		/**
+		Descarga el sonido que hemos cargado previamente.
+
+		@params name nombre del sonido que queremos descargar
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool unloadSound(std::string name);
 
 		/**
 		Nos devuelve el sonido si ha sido previamente cargado.

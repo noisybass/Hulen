@@ -19,6 +19,27 @@
 
 namespace Sounds{
 
+	/**
+	Servidor que controla todo lo relacionado con los sonidos en 
+	la aplicación. Para ello utilizamos la libreria FMOD que nos 
+	falicita mucho el trabajo.
+
+	A la hora de trabajar con FMOD tenemos dos maneras de interactuar:
+
+		* FMOD Studio: Esta parte de la libreria se encarga de crear los 
+		sonidos previamente diseñados desde la aplicación de escritorio
+		de fmod. La información nos llegara a partir de bancos (ficheros
+		.bank). Los bancos además contienen más información además de lo 
+		que son los sonidos, esto se trata de los eventos, con los eventos
+		podremos simular alteraciones o cambios de musica dependiendo de lo 
+		que pase en nuestro juego. Basicamente es una manera facil para
+		que los programadores y los diseñadores de sonido se comuniquen.
+	
+		* FMOD Low Level: Básicamente es cargar archivos de audio directamente
+		desde código (mp3, ogg, wav etc...). De esta manera el programador se encarga
+		de todo y no hace falta para nada el uso de la aplicacion de escritorio
+		para poder cargar audio y reproducirlo. 
+	*/
 	class CServer{
 
 	public:
@@ -73,10 +94,26 @@ namespace Sounds{
 		*/
 		CChannel* getChannelsPtr() { return _channels; }
 
+		/**
+		Devuelve la instancia del manejador de bancos,
+		que contiene los metadatos de los eventos y los sonidos utilizados.
+
+		@return Puntero al manejador de bancos.
+		*/
 		CBank* getBanksPtr(){ return _banks; }
 
+		/**
+		Devuelve la instancia del manejador de descriptores de evento.
+
+		@return Puntero al manejador de descriptores de evento.
+		*/
 		CEventDescription* getEventDescriptionsPtr() { return _eventDescriptions; }
 
+		/**
+		Devuelve la instancia del manejador de las instancias de evento.
+
+		@return Puntero al manejador de las instancias de evento.
+		*/
 		CEventInstance* getEventInstancesPtr() { return _eventInstances; }
 
 	private:
@@ -103,21 +140,21 @@ namespace Sounds{
 		// Instancia de low level
 		FMOD::System* _fmod_lowLevel_system;
 
+		// Clases Amigas
 		friend class Sounds::CSound;
 		friend class Sounds::CChannel;
 		friend class Sounds::CBank;
 		friend class Sounds::CEventDescription;
 		friend class Sounds::CEventInstance;
 
+		// Manejadores
 		Sounds::CSound* _sounds;
 		Sounds::CChannel* _channels;
 		Sounds::CBank* _banks;
 		Sounds::CEventDescription* _eventDescriptions;
 		Sounds::CEventInstance* _eventInstances;
 
-	};
+	}; // class CServer
 
-}
-
-
+} // namespace Sounds
 #endif SOUNDS_SERVER_H
