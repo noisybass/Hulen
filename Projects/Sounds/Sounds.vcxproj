@@ -11,18 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Sounds\Bank.cpp" />
-    <ClCompile Include="..\..\Src\Sounds\Channel.cpp" />
-    <ClCompile Include="..\..\Src\Sounds\Event.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\lowLevel\Channel.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\lowLevel\Sound.cpp" />
     <ClCompile Include="..\..\Src\Sounds\Server.cpp" />
-    <ClCompile Include="..\..\Src\Sounds\Sound.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\studio\Bank.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\studio\EventDescription.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\studio\EventInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Sounds\Bank.h" />
-    <ClInclude Include="..\..\Src\Sounds\Channel.h" />
-    <ClInclude Include="..\..\Src\Sounds\Event.h" />
+    <ClInclude Include="..\..\Src\Sounds\lowLevel\Channel.h" />
+    <ClInclude Include="..\..\Src\Sounds\lowLevel\Sound.h" />
     <ClInclude Include="..\..\Src\Sounds\Server.h" />
-    <ClInclude Include="..\..\Src\Sounds\Sound.h" />
+    <ClInclude Include="..\..\Src\Sounds\studio\Bank.h" />
+    <ClInclude Include="..\..\Src\Sounds\studio\EventDescription.h" />
+    <ClInclude Include="..\..\Src\Sounds\studio\EventInstance.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{20258022-D342-47F6-A2DC-3B0ED51C135D}</ProjectGuid>

@@ -1,13 +1,21 @@
 #ifndef SOUNDS_SERVER_H
 #define SOUNDS_SERVER_H
 
-#include "fmod\studio\fmod_studio.hpp"
+// std
 #include <string>
 #include <unordered_map>
-#include "Sounds\Sound.h"
-#include "Sounds\Channel.h"
-#include "Sounds\Bank.h"
-#include "Sounds\Event.h"
+
+// Fmod
+#include "fmod\studio\fmod_studio.hpp"
+
+// lowLevel
+#include "Sounds\lowLevel\Sound.h"
+#include "Sounds\lowlevel\Channel.h"
+
+// Studio
+#include "Sounds\studio\Bank.h"
+#include "Sounds\studio\EventDescription.h"
+#include "Sounds\studio\EventInstance.h"
 
 namespace Sounds{
 
@@ -67,7 +75,9 @@ namespace Sounds{
 
 		CBank* getBanksPtr(){ return _banks; }
 
-		CEvent* getEventsPtr() { return _events; }
+		CEventDescription* getEventDescriptionsPtr() { return _eventDescriptions; }
+
+		CEventInstance* getEventInstancesPtr() { return _eventInstances; }
 
 	private:
 
@@ -96,12 +106,14 @@ namespace Sounds{
 		friend class Sounds::CSound;
 		friend class Sounds::CChannel;
 		friend class Sounds::CBank;
-		friend class Sounds::CEvent;
+		friend class Sounds::CEventDescription;
+		friend class Sounds::CEventInstance;
 
 		Sounds::CSound* _sounds;
 		Sounds::CChannel* _channels;
 		Sounds::CBank* _banks;
-		Sounds::CEvent* _events;
+		Sounds::CEventDescription* _eventDescriptions;
+		Sounds::CEventInstance* _eventInstances;
 
 	};
 

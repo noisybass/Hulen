@@ -18,8 +18,6 @@ Contiene la implementación del estado de menú.
 
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
-#include "Sounds\Sound.h"
-#include "Sounds\Channel.h"
 
 #include <CEGUI/CEGUI.h>
 
@@ -50,13 +48,18 @@ namespace Application {
 		// Sonido en el menu principal
 		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
-		soundServer->getChannelsPtr()->loadChannel("TemaPrincipal", "CanalMenu");
+		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
 		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);*/
 
+		// Sonido con bancos
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getBanksPtr()->loadBank("Banco1", "Vehicles.bank");
-		soundServer->getEventsPtr()->getEvent("Evento1", "event:/Vehicles/Basic Engine");
-
+		soundServer->getBanksPtr()->loadBank("Banco1", "Master Bank.bank");
+		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
+		soundServer->getBanksPtr()->loadBank("Banco3", "Vehicles.bank");
+		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Vehicles/Basic Engine");
+		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
+		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
+		soundServer->getEventInstancesPtr()->start("Instancia1");
 	
 		return true;
 
@@ -69,6 +72,9 @@ namespace Application {
 
 		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");*/
+		
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->stop("Instancia1");
 
 		CApplicationState::release();
 
@@ -88,6 +94,9 @@ namespace Application {
 
 		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);*/
+
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
 		
 
 	} // activate
@@ -103,6 +112,9 @@ namespace Application {
 
 		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);*/
+
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
 		
 		CApplicationState::deactivate();
 

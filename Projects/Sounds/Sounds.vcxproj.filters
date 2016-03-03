@@ -1,51 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="lowLevel">
+      <UniqueIdentifier>{d9585f7d-c429-425a-8c06-03c8584306ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="studio">
+      <UniqueIdentifier>{adaf72d2-f92c-40b5-953a-b53ad0b1ca8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lowLevel\Header Files">
+      <UniqueIdentifier>{164ed2ac-4dc3-4037-8452-dd8f776ab8e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lowLevel\Source Files">
+      <UniqueIdentifier>{559c4187-a779-4bb2-888b-8dd108863734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="studio\Header Files">
+      <UniqueIdentifier>{7790b7cf-07ef-4d24-a3f4-d33800aa04c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="studio\Source Files">
+      <UniqueIdentifier>{8d491648-7c8f-4b01-b4fb-83e22bf02074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Sounds\Server.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Src\Sounds\lowLevel\Channel.cpp">
+      <Filter>lowLevel\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Sounds\Sound.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Src\Sounds\lowLevel\Sound.cpp">
+      <Filter>lowLevel\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Sounds\Channel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Src\Sounds\studio\Bank.cpp">
+      <Filter>studio\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Sounds\Bank.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Src\Sounds\studio\EventDescription.cpp">
+      <Filter>studio\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Sounds\Event.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Src\Sounds\studio\EventInstance.cpp">
+      <Filter>studio\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Sounds\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Sounds\Server.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Src\Sounds\lowLevel\Channel.h">
+      <Filter>lowLevel\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Sounds\Sound.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Src\Sounds\lowLevel\Sound.h">
+      <Filter>lowLevel\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Sounds\Channel.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Src\Sounds\studio\Bank.h">
+      <Filter>studio\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Sounds\Bank.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Src\Sounds\studio\EventDescription.h">
+      <Filter>studio\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Sounds\Event.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Src\Sounds\studio\EventInstance.h">
+      <Filter>studio\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Sounds\Server.h" />
   </ItemGroup>
 </Project>

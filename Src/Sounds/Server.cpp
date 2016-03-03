@@ -31,7 +31,8 @@ namespace Sounds{
 		_sounds = new Sounds::CSound();
 		_channels = new Sounds::CChannel();
 		_banks = new Sounds::CBank();
-		_events = new Sounds::CEvent();
+		_eventDescriptions = new Sounds::CEventDescription();
+		_eventInstances = new Sounds::CEventInstance();
 
 	}
 
@@ -46,8 +47,14 @@ namespace Sounds{
 		// Liberamos las estructuras de datos
 		delete _sounds;
 		delete _channels;
+		delete _banks;
+		delete _eventDescriptions;
+		delete _eventInstances;
 		_sounds = nullptr;
 		_channels = nullptr;
+		_banks = nullptr;
+		_eventDescriptions = nullptr;
+		_eventInstances = nullptr;
 
 		// Reseteamos la instancia de la clase
 		assert(_instance);
