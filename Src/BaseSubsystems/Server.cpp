@@ -91,6 +91,11 @@ namespace BaseSubsystems
 			Application::CBaseApplication::getSingletonPtr()->exitRequest();
 			return false;
 		}
+
+		void windowResized(Ogre::RenderWindow* renderWindow)
+		{
+			BaseSubsystems::CServer::getSingletonPtr()->setWindowExtents(renderWindow->getWidth(), renderWindow->getHeight());
+		}
 	};
 
 	CServer *CServer::_instance = 0;
