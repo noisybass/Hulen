@@ -72,7 +72,6 @@ namespace Sounds{
 		@return Valor booleano indicando si todo fue bien
 		*/
 		bool setPaused(std::string channelName, bool paused);
-		
 	
 	private:
 

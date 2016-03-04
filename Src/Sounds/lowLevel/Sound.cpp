@@ -22,7 +22,7 @@ namespace Sounds{
 		delete _sounds;
 	}
 
-	bool CSound::loadSound(std::string name, std::string fileSound, bool streaming)
+	bool CSound::loadSound(std::string name, std::string fileSound, FMOD_MODE mode, bool streaming)
 	{
 
 		assert(_sounds->find(name) == _sounds->end() && "No se puede cargar el mismo sonido 2 veces. Sounds::CSound::loadSound");
@@ -33,12 +33,12 @@ namespace Sounds{
 
 		// Lo cargamos en memoria
 		if (!streaming){
-			result = _fmod_lowLevel_system->createSound(file.c_str(), FMOD_DEFAULT, 0, &sound);
+			result = _fmod_lowLevel_system->createSound(file.c_str(), mode, 0, &sound);
 			assert(result == FMOD_OK && "Error al cargar el sonido en memoria. Sounds::CSound::loadSound");
 		}
 		// Hacemos la carga del audio dinamicamente
 		else{
-			result = _fmod_lowLevel_system->createStream(file.c_str(), FMOD_DEFAULT, 0, &sound);
+			result = _fmod_lowLevel_system->createStream(file.c_str(), mode, 0, &sound);
 			assert(result == FMOD_OK && "Error al cargar el sonido con streaming. Sounds::CSound::loadSound");
 		}
 		

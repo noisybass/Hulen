@@ -46,9 +46,9 @@ namespace Application {
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
 
 		// Sonido en el menu principal
-		/*
+		//*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav");
+		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
 		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
 
@@ -71,7 +71,7 @@ namespace Application {
 	void CMenuState::release() 
 	{
 
-		/*
+		//*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
 		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
@@ -96,7 +96,7 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		/*
+		//*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
 		/*/
@@ -114,7 +114,7 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
-		/*
+		//*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
 		/*/

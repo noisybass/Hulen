@@ -7,7 +7,9 @@
 namespace Sounds{
 
 	/**
-	
+	Con esta clase somos capaces de cargar los eventos realizados
+	con fmod. A partir de esta descriptor de evento podremos realizar
+	distintas instancias con Sounds::CEventInstance.
 	*/
 	class CEventDescription{
 
