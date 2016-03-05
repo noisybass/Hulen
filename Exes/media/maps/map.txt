@@ -7,6 +7,7 @@ Map_GO = {
 		state = "Body",
 		playerDeathTime = 3,
 		playerCanDie = false,
+		kasai = "Kasai_GO",
 	},
 
 	Kasai_GO = {
@@ -118,14 +119,8 @@ Map = {
 		light_attenuation_constant = 1.0,
 		light_attenuation_linear = 0.2,
 		light_attenuation_quadratic = 0.05,
-		is_visible = true,
-		physic_entity = "rigid",
-		physic_type = "kinematic",
-		physic_trigger = true,
-		physic_shape = "sphere",
-		physic_radius = 6.5,
-		physic_mass = 1,
-		physic_group = 1,
+		player = "Player_GO",
+		radius = 7.0,
 	},
 
 	Camera = {
