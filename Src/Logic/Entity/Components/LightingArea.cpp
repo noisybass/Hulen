@@ -48,8 +48,7 @@ namespace Logic
 	{
 		CPointLight* light = (CPointLight*)(_entity->getComponent("CPointLight"));
 
-		// Luego habra que cambiarlo para no poner body a pincho
-		float dist = _entity->getPosition().squaredDistance(_player->getBody()->getPosition());
+		float dist = _entity->getPosition().squaredDistance(_player->getPosition());
 		if (dist < _radius*_radius)
 		{
 			_playerInside = true;

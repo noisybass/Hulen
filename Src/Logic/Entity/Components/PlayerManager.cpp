@@ -12,7 +12,8 @@ namespace Logic
 	IMP_FACTORY(CPlayerManager);
 
 	CPlayerManager::CPlayerManager()
-		: IComponent(), _onLight(false), _deathTimeElapsed(0), _kasaiName(""), _kasai(nullptr)
+		: IComponent(), _onLight(false), _deathTimeElapsed(0), _kasaiName(""), _kasai(nullptr),
+		_chargeName(""), _charge(nullptr)
 	{
 
 	} // CPlayerManager
@@ -20,7 +21,10 @@ namespace Logic
 	CPlayerManager::~CPlayerManager()
 	{
 		if (_kasai)
+		{
 			_kasai = nullptr;
+			_charge = nullptr;
+		}
 	}
 
 	bool CPlayerManager::spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
@@ -31,11 +35,16 @@ namespace Logic
 		assert(entityInfo->hasAttribute("kasai") && "Hay que especificar el atributo kasai");
 		_kasaiName = entityInfo->getStringAttribute("kasai");
 
+		if (entityInfo->hasAttribute("charge"))
+			_chargeName = entityInfo->getStringAttribute("charge");
+
 	} // spawn
 
 	bool CPlayerManager::activate()
 	{
 		_kasai = _gameObject->getMap()->getGameObjectByName(_kasaiName);
+
+		_charge = _gameObject->getMap()->getGameObjectByName(_chargeName);
 
 		return true;
 
@@ -150,17 +159,14 @@ namespace Logic
 		// Llamar al método de la clase padre (IMPORTANTE).
 		IComponent::tick(msecs);
 
-		CLightingArea* kasaiArea = (CLightingArea*)(_kasai->getBody()->getComponent("CLightingArea"));
+		_onLight = playerOnLight();
 
-		_onLight = kasaiArea->_playerInside;
-
-		
 
 		if (_onLight)
 		{
 			// Reseteamos el contador para la muerte
 			_deathTimeElapsed = 0;
-			std::cout << "Resetar tiempo de morir" << std::endl;
+			//std::cout << "Resetar tiempo de morir" << std::endl;
 		}
 		else
 		{
@@ -171,7 +177,7 @@ namespace Logic
 			// Y empezamos a morirnos
 			if (!_onLight && _gameObject->_playerCanDie){
 				_deathTimeElapsed += msecs;
-				std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
+				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _gameObject->_playerDeathTime){
 					Logic::TMessage m;
 					m._type = Logic::Message::PLAYER_DEATH;
@@ -182,5 +188,15 @@ namespace Logic
 
 		
 	} // tick
+
+	bool CPlayerManager::playerOnLight()
+	{
+		CLightingArea* kasaiArea = (CLightingArea*)(_kasai->getBody()->getComponent("CLightingArea"));
+
+		CLightingArea* chargeArea = (CLightingArea*)(_charge->getBody()->getComponent("CLightingArea"));
+
+		return kasaiArea->_playerInside || chargeArea->_playerInside;
+
+	} // playerOnLight
 
 } // namespace Logic

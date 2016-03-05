@@ -309,6 +309,15 @@ namespace Logic
 			return "";
 		}
 
-	}
+	} // getDefaultMaterial
+
+	Vector3 CGameObject::getPosition() const
+	{
+		if (_state == GameObject::SHADOW)
+			return _shadow->getPosition();
+
+		return _body->getPosition();
+
+	} // getPosition
 
 } // namespace Logic

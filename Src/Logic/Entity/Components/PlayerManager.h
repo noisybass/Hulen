@@ -38,6 +38,8 @@ namespace Logic
 
 		void changeState(GameObject::TState state);
 
+		bool playerOnLight();
+
 	private:
 
 		/**
@@ -54,6 +56,16 @@ namespace Logic
 		Referencia al puntero de luz.
 		*/
 		CGameObject* _kasai;
+
+		/**
+		Nombre de la carga.
+		*/
+		std::string _chargeName;
+
+		/**
+		Referencia a la carga.
+		*/
+		CGameObject* _charge;
 
 
 	}; // class CPlayerManager
