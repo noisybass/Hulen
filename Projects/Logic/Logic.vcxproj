@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\KasaiController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerManager.cpp" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\KasaiController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Physics.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />

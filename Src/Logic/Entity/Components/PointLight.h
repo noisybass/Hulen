@@ -1,5 +1,5 @@
-#ifndef LOGIC_POINT_LIGHT
-#define LOGIC_POINT_LIGHT
+#ifndef LOGIC_POINT_LIGHT_H
+#define LOGIC_POINT_LIGHT_H
 
 #include "Logic\Entity\Component.h"
 #include "Graphics\PointLight.h"
@@ -67,4 +67,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // LOGIC_POINT_LIGHT
+#endif // LOGIC_POINT_LIGHT_H
