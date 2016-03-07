@@ -192,6 +192,7 @@ namespace Application {
 			if (_reloadState){
 
 				Map::CMapParser::getSingletonPtr()->releaseEntityList();
+				Map::CMapParser::getSingletonPtr()->releasePrefabList();
 				_currentState->deactivate();
 				_currentState->release();
 				_currentState->init();

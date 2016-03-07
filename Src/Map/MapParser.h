@@ -170,10 +170,10 @@ Map = {
 		un nombre de fichero.
 		
 		@param filename nombre del fichero con los datos del mapa.
-		@param name Nombre del stream para mensajes de error.
+		@param type Tipo de archivo a procesar, puede ser o "Map" o "Prefab".
 		@return true si el parseo fue satisfactorio.
 		*/
-		bool parseFile(const std::string& filename);
+		bool parseFile(const std::string& filename, const std::string &type);
 
 		/** 
 		Para escritura de errores en caso de fallo en el parseo. escribe
@@ -197,7 +197,14 @@ Map = {
 
 		@return Entidades parseadas.
 		*/
-		const TEntityList getEntityList() {return _entityList;}
+		TEntityList* getEntityList() {return &_entityList;}
+
+		/**
+		Devuelve el listado de los prefabs leidos del mapa.
+
+		@return Prefabs parseadas.
+		*/
+		TEntityList* getPrefabList() { return &_prefabList; }
 
 		/**
 		Elimina todas las entidades que contenga la lista de entidades 
@@ -206,15 +213,31 @@ Map = {
 		void releaseEntityList();
 
 		/**
-		Entidad temporal que se encuentra en medio de su parseo. Es usado
-		por la clase CParser para ir generando la lista de entidades.
+		Elimina todas los prefabs que contenga la lista de prefabs
+		parseadas.
 		*/
-		Map::CEntity *_entityInProgress;
+		void releasePrefabList();
 
 		/**
-		Lista de entidades parseada.
+		Devuelve la entidad que se esta parseando actualmente
 		*/
-		TEntityList _entityList;
+		Map::CEntity* getEntityInProgress(){ return _entityInProgress; }
+
+		/**
+		Devuelve el prefab que se esta parseando actualmente
+		*/
+		Map::CEntity* getPrefabInProgress(){ return _prefabInProgress; }
+
+		/**
+		Establece la entidad que se va a parsear.
+		*/
+		void setEntityInProgress(Map::CEntity* entity){ _entityInProgress = entity; }
+
+		/**
+		Establece el prefab que se va a parsear.
+		*/
+		void setPrefabInProgress(Map::CEntity* prefab){ _prefabInProgress = prefab; }
+		
 
 	private:
 		/**
@@ -259,7 +282,28 @@ Map = {
 		*/
 		CScanner* _lexer;
 
-		
+		/**
+		Entidad temporal que se encuentra en medio de su parseo. Es usado
+		por la clase CParser para ir generando la lista de entidades.
+		*/
+		Map::CEntity *_entityInProgress;
+
+		/**
+		Prefab temporal que se encuentra en medio de su parseo. Es usado
+		por la clase CParser para ir generando la lista de entidades.
+		*/
+		Map::CEntity *_prefabInProgress;
+
+		/**
+		Lista de entidades parseada.
+		*/
+		TEntityList _entityList;
+
+		/**
+		Lista de prefabs parseada.
+		*/
+		TEntityList _prefabList;
+
 	};
 
 } // namespace Map

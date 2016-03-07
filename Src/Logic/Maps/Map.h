@@ -14,6 +14,8 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 #include <map>
 #include "EntityID.h"
 #include "Logic\Entity\Message.h"
+#include <unordered_map>
+#include "Map/MapEntity.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
@@ -48,6 +50,17 @@ namespace Logic
 	class CMap
 	{
 	public:
+
+		/**
+		Método factoría que carga los prefabs. Tras el parseo de
+		todas las entidades del mapa mediante CMapParser, genera todas las
+		entidades con CEntityFactory.
+
+		@param filename Nombre del archivo a cargar.
+		@return Prefabs generado.
+		*/
+		static CMap* createPrefabsFromFile(const std::string &prefabFileName);
+
 		/**
 		Método factoría que carga un mapa de fichero. Tras el parseo de
 		todas las entidades del mapa mediante CMapParser, genera todas las
@@ -56,7 +69,12 @@ namespace Logic
 		@param filename Nombre del archivo a cargar.
 		@return Mapa generado.
 		*/
-		static CMap *createMapFromFile(const std::string &filename);
+		static CMap* createEntitiesFromFile(const std::string &filename);
+
+		/**
+		Crea una nueva instancia de un prefab.
+		*/
+		static CGameObject* instanciatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance);
 
 		/**
 		Constructor.
@@ -165,8 +183,15 @@ namespace Logic
 		*/
 		void sendMessageToGameObjects(Logic::TMessage m);
 
+		/**
+		Destruye todos los prefabs que se han creado.
+		*/
+		static void destroyAllPrefabs();
+
 
 	private:
+
+		
 
 		/**
 		Tipo tabla de entidades de mapa.
@@ -184,10 +209,26 @@ namespace Logic
 		std::string _name;
 
 		/**
+		Referencia al mapa con las entidades. lo guardamos para poder
+		instaciar nuevas entidades con los prefabs.
+		*/
+		static CMap* _entitiesMap;
+
+		/**
 		Escena gráfica donde se encontrarán las representaciones gráficas de
 		las entidades.
 		*/
 		Graphics::CScene* _scene;
+
+		struct TPrefab{
+			Map::CEntity* gameObject;
+			Map::CEntity* bodyEntity;
+			Map::CEntity* shadowEntity;
+		};
+
+		typedef std::unordered_map<std::string, TPrefab*> TPrefabList;
+
+		static TPrefabList _prefabList;
 
 	}; // class CMap
 

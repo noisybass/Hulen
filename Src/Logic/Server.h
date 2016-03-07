@@ -118,7 +118,7 @@ namespace Logic
 		@param filename Fichero que se desea cargar.
 		@return true si la carga fue correcta.
 		*/
-		bool loadLevel(const std::string &filename);
+		bool loadLevel(const std::string &filename, const std::string &prefabFilename);
 
 		/**
 		Si hay un nivel cargado lo descarga  destruye.
@@ -156,6 +156,11 @@ namespace Logic
 		Mapa donde se encuentran todas las entidades lógicas.
 		*/
 		CMap *_map;
+
+		/**
+		Prefabs del mapa que acabamos de cargar.
+		*/
+		CMap* _prefab;
 
 		/**
 		Entidad del jugador.

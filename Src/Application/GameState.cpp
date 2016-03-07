@@ -46,7 +46,7 @@ namespace Application {
 			return false;
 
 		// Cargamos el nivel a partir del nombre del mapa. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel("map.txt"))
+		if (!Logic::CServer::getSingletonPtr()->loadLevel("map.txt", "Prefabs.txt"))
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
