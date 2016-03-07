@@ -46,7 +46,7 @@ namespace Application {
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
 
 		// Sonido en el menu principal
-		//*
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
@@ -56,10 +56,13 @@ namespace Application {
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getBanksPtr()->loadBank("Banco1", "Master Bank.bank");
 		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
-		soundServer->getBanksPtr()->loadBank("Banco3", "Vehicles.bank");
-		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Vehicles/Basic Engine");
+		soundServer->getBanksPtr()->loadBank("Banco3", "Ambiente.bank");
+		//soundServer->getBanksPtr()->loadBank("Banco3", "Vehicles.bank");
+		//soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Vehicles/Basic Engine");
+		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Ambientes");
+
 		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
-		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
+		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
 		soundServer->getEventInstancesPtr()->start("Instancia1");
 		/**/
 		return true;
@@ -71,7 +74,7 @@ namespace Application {
 	void CMenuState::release() 
 	{
 
-		//*
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
 		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
@@ -96,12 +99,12 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		//*
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
 		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
+		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
 		/**/
 
 	} // activate
@@ -114,12 +117,12 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
-		//*
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
 		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
+		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
 		/**/
 		
 		CApplicationState::deactivate();

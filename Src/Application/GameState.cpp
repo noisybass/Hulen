@@ -27,6 +27,8 @@ Contiene la implementación del estado de juego.
 
 #include "Physics/Server.h"
 
+#include "Sounds\Server.h"
+
 #include <CEGUI/System.h>
 #include <CEGUI/WindowManager.h>
 #include <CEGUI/Window.h>
@@ -54,6 +56,8 @@ namespace Application {
 
 		// Inicializamos el evento
 		dieEvent.initEvent(this, &Application::CGameState::playerListener);
+
+
 
 		return true;
 
@@ -97,6 +101,9 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
+
 
 	} // activate
 
@@ -104,6 +111,10 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
+
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
+
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();
 		_timeWindow->setVisible(false);
