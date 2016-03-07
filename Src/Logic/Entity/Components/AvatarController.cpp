@@ -98,7 +98,8 @@ namespace Logic
 			m._type = Message::RECEIVE_AVATAR_STATE;
 			m.setArg<bool>("walkingRight", _walkingRight);
 			m.setArg<bool>("walkingLeft", _walkingLeft);
-			m.setArg<float>("speed", _speed);
+			m.setArg<bool>("jump", _jump);
+			m.setArg<float>("currentHeight", _currentHeight);
 
 			message.getArg<CEntity*>("receiver")->emitMessage(m);
 			break;
@@ -106,7 +107,8 @@ namespace Logic
 			std::cout << "Recibiendo estado..." << std::endl;
 			_walkingRight = message.getArg<bool>("walkingRight");
 			_walkingLeft = message.getArg<bool>("walkingLeft");
-			_speed = message.getArg<float>("speed");
+			_jump = message.getArg<bool>("jump");
+			_currentHeight = message.getArg<float>("currentHeight");
 			
 			break;
 		}
@@ -194,34 +196,6 @@ namespace Logic
 
 	void CAvatarController::tick(unsigned int msecs)
 	{
-		//IComponent::tick(msecs);
-
-		//Vector3 movement(Vector3::ZERO);
-
-		//if(_walkingLeft || _walkingRight || _jump)
-		//{
-		//	if (_walkingRight)  movement = Vector3(1, 0, 0) * _speed;
-		//	else if (_walkingLeft)   movement = Vector3(-1, 0, 0) * _speed;
-
-		//	if (_jump)
-		//	{
-		//		//CPhysicController* controller = (CPhysicController*)(_entity->getComponent("CPhysicController"));
-		//		movement.y = _jumpSpeed;
-		//		_jump = false;
-
-		//		std::cout << "Jumping" << std::endl;
-		//	}
-
-		//	movement *= msecs;
-
-		//	// Enviar un mensaje para que el componente físico mueva el personaje
-		//	TMessage message;
-		//	message._type = Message::AVATAR_WALK;
-		//	message.setArg<Vector3>(std::string("movement"), movement);
-
-		//	_entity->emitMessage(message);
-		//}
-
 		IComponent::tick(msecs);
 
 		Vector3 movement(Vector3::ZERO);
@@ -231,7 +205,7 @@ namespace Logic
 
 		if (_jump)
 		{
-			movement += Vector3(0, 1, 0) * _jumpSpeed * msecs;
+			movement += Vector3::UNIT_Y * _jumpSpeed * msecs;
 			_currentHeight += _jumpSpeed * msecs;
 			if (_currentHeight >= _jumpHeight)
 			{

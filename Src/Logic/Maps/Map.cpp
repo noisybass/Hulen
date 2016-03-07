@@ -30,35 +30,40 @@ Contiene la implementación de la clase CMap, Un mapa lógico.
 #define MAP_FILE_PATH "./media/maps/"
 
 namespace Logic {
-		
-	CMap* CMap::createMapFromFile(const std::string &filename)
+
+	// Definition
+	CMap::TPrefabList CMap::_prefabList = CMap::TPrefabList();
+	Logic::CMap* CMap::_entitiesMap = nullptr;
+
+	CMap* CMap::createPrefabsFromFile(const std::string &prefabFileName)
 	{
 		// Completamos la ruta con el nombre proporcionado
-		std::string completePath(MAP_FILE_PATH);
-		completePath = completePath + filename;
-		// Parseamos el fichero
-		if(!Map::CMapParser::getSingletonPtr()->parseFile(completePath))
+		std::string prefabPath(MAP_FILE_PATH);
+		prefabPath = prefabPath + prefabFileName;
+
+		// Parseamos el fichero de prefab
+		if (!Map::CMapParser::getSingletonPtr()->parseFile(prefabPath, "Prefab"))
 		{
-			assert(!"No se ha podido parsear el mapa.");
+			assert(!"No se ha podido parsear los prefabs.");
 			return false;
 		}
 
 		// Si se ha realizado con éxito el parseo creamos el mapa.
-		CMap *map = new CMap(filename);
+		CMap *map = new CMap(prefabFileName);
 
 		// Extraemos las entidades del parseo.
-		Map::CMapParser::TEntityList entityList = 
-			Map::CMapParser::getSingletonPtr()->getEntityList();
+		Map::CMapParser::TEntityList* prefabList =
+			Map::CMapParser::getSingletonPtr()->getPrefabList();
 
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
 		Map::CMapParser::TEntityList::const_iterator it, end;
-		it = entityList.begin();
-		end = entityList.end();
+		it = prefabList->begin();
+		end = prefabList->end();
 
 		// Creamos todas las entidades lógicas.
-		for(; it != end; it++)
-		{	
+		for (; it != end; it++)
+		{
 			assert((*it)->hasAttribute("type") && "Falta el atributo type");
 
 			// Obtenemos el tipo
@@ -66,22 +71,139 @@ namespace Logic {
 
 			if (!type.compare("Body") || !type.compare("Shadow"))
 			{
-				
+
 				// La propia factoría se encarga de añadir la entidad a su GameObject
 				CEntity* entity = entityFactory->createEntity((*it), map);
 				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+
+				std::string gameObjectName = (*it)->getStringAttribute("game_object");
+				std::string type = (*it)->getStringAttribute("type");
+
+				assert(_prefabList.find(gameObjectName) != _prefabList.end() && "No se encuentra ese gameObject");
+				TPrefab* prefab = _prefabList.at(gameObjectName);
+
+				if (type == "Body")
+					prefab->bodyEntity = (*it);
+				else if (type == "Shadow")
+					prefab->shadowEntity = (*it);
 			}
 			else if (!type.compare("GameObject"))
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
 				CGameObject* gameObject = entityFactory->createGameObject((*it), map);
 				assert(gameObject && "No se pudo crear un game object del mapa");
+
+				TPrefab* prefab = new TPrefab();
+				prefab->gameObject = (*it);
+				std::string name = (*it)->getName();
+
+				_prefabList.insert({name, prefab});
 			}
 		}
 
 		return map;
+	}
 
-	} // createMapFromFile
+	CGameObject* CMap::instanciatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
+	{
+		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
+
+		assert(_prefabList.find(prefabToInstantiate) != _prefabList.end() && "No existe el prefab que quieres instanciar.");
+		TPrefab* prefab = _prefabList.at(prefabToInstantiate);
+	
+		// Nos guardamos el nombre original del prefab y le ponemos el nombre 
+		// que nos pasan por la funcion
+		std::string gameObjectName = prefab->gameObject->getName();
+		prefab->gameObject->setName(nameToNewInstance + "_GO");
+
+		// La propia factoría se encarga de añadir el GameObject al mapa
+		CGameObject* gameObject = entityFactory->createGameObject(prefab->gameObject, _entitiesMap);
+		assert(gameObject && "No se pudo crear un game object del mapa");
+
+		// Reseteamos el nombre del gameobject
+		prefab->gameObject->setName(gameObjectName);
+
+		if (prefab->bodyEntity){
+			std::string bodyName = prefab->bodyEntity->getName();
+			prefab->bodyEntity->setName(nameToNewInstance + "_Body");
+			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
+			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
+
+			// La propia factoría se encarga de añadir la entidad a su GameObject
+			CEntity* entity = entityFactory->createEntity(prefab->bodyEntity, _entitiesMap);
+			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+
+			prefab->bodyEntity->setName(bodyName);
+			prefab->bodyEntity->setAttribute("game_object", gameObjectReferenceName);
+		}
+
+		if (prefab->shadowEntity){
+			std::string shadowName = prefab->shadowEntity->getName();
+			prefab->bodyEntity->setName(nameToNewInstance + "_Shadow");
+			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
+			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
+
+			// La propia factoría se encarga de añadir la entidad a su GameObject
+			CEntity* entity = entityFactory->createEntity(prefab->shadowEntity, _entitiesMap);
+			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+
+			prefab->bodyEntity->setName(shadowName);
+			prefab->bodyEntity->setAttribute("game_object", gameObjectReferenceName);
+		}
+
+		return gameObject;
+	}
+
+	CMap* CMap::createEntitiesFromFile(const std::string &filename)
+	{
+		// Completamos la ruta con el nombre proporcionado
+		std::string completePath(MAP_FILE_PATH);
+		completePath = completePath + filename;
+
+		// Parseamos el fichero de mapa
+		if (!Map::CMapParser::getSingletonPtr()->parseFile(completePath, "Map"))
+		{
+			assert(!"No se ha podido parsear el mapa.");
+			return false;
+		}
+
+		// Si se ha realizado con éxito el parseo creamos el mapa.
+		_entitiesMap = new CMap(filename);
+
+		// Extraemos las entidades del parseo.
+		Map::CMapParser::TEntityList* entityList =
+			Map::CMapParser::getSingletonPtr()->getEntityList();
+
+		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
+
+		Map::CMapParser::TEntityList::const_iterator it, end;
+		it = entityList->begin();
+		end = entityList->end();
+
+		// Creamos todas las entidades lógicas.
+		for (; it != end; it++)
+		{
+			assert((*it)->hasAttribute("type") && "Falta el atributo type");
+
+			// Obtenemos el tipo
+			std::string type = (*it)->getStringAttribute("type");
+
+			if (!type.compare("Body") || !type.compare("Shadow"))
+			{
+				// La propia factoría se encarga de añadir la entidad a su GameObject
+				CEntity* entity = entityFactory->createEntity((*it), _entitiesMap);
+				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+			}
+			else if (!type.compare("GameObject"))
+			{
+				// La propia factoría se encarga de añadir el GameObject al mapa
+				CGameObject* gameObject = entityFactory->createGameObject((*it), _entitiesMap);
+				assert(gameObject && "No se pudo crear un game object del mapa");
+			}
+		}
+
+		return _entitiesMap;
+	}
 
 	//--------------------------------------------------------
 
@@ -97,6 +219,8 @@ namespace Logic {
 	CMap::~CMap()
 	{
 		destroyAllGameObjects();
+		destroyAllPrefabs();
+		//delete _prefabList;
 		if(Graphics::CServer::getSingletonPtr())
 			Graphics::CServer::getSingletonPtr()->removeScene(_scene);
 
@@ -203,7 +327,18 @@ namespace Logic {
 
 		_gameObjectMap.clear();
 
-	} // removeEntity
+	} // destroyAllGameObjects
+
+	void CMap::destroyAllPrefabs()
+	{
+		for (auto it : _prefabList)
+		{
+			TPrefab* prefab = it.second;
+			delete prefab;
+		}
+
+		_prefabList.clear();
+	}
 
 	//--------------------------------------------------------
 

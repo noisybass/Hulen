@@ -59,11 +59,6 @@ bool CPhysicEntity::spawn(const std::string& name, CEntity *entity, CMap *map, c
 	if(!IComponent::spawn(name, entity,map,entityInfo))
 		return false;
 
-	// Lo utilizo para poder distinguir a la hora de recibir mensajes
-	// que tipo de entidad es.
-	if (entityInfo->hasAttribute("blueprint"))
-		_whoAmI = entityInfo->getStringAttribute("blueprint");
-
 	// Crear el objeto físico asociado al componente
 	_actor = createActor(entityInfo);
 
@@ -74,8 +69,7 @@ bool CPhysicEntity::spawn(const std::string& name, CEntity *entity, CMap *map, c
 
 bool CPhysicEntity::accept(const TMessage &message)
 {
-	return message._type == Message::KINEMATIC_MOVE ||
-		message._type == Message::SHAPE_HIT;
+	return message._type == Message::KINEMATIC_MOVE;
 }
 
 //---------------------------------------------------------
@@ -87,15 +81,6 @@ void CPhysicEntity::process(const TMessage &message)
 		// Acumulamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick.
 		_movement += message.getArg<Vector3>("movement");
-		break;
-	case Message::SHAPE_HIT:
-		if (_whoAmI == "Spike"){
-
-			TMessage msg;
-			msg._type = Message::PLAYER_DEATH;
-			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
-		
-		}
 		break;
 	}
 }

@@ -146,6 +146,16 @@ namespace BaseSubsystems
 		Si no hay ventana devuelve -1.
 		*/
 		void getWindowExtents(unsigned int &width, unsigned int &height);
+
+		/**
+		Pone las dimensiones máximas de la pantalla en las propiedades del ratón
+		OIS. Si se redimendiona la ventana de reenderizado deberemos llamar a este
+		método.
+
+		@param width Anchura de la ventana en pixels.
+		@param height Altura de la ventana en pixels.
+		*/
+		void setWindowExtents(unsigned int width, unsigned int height);
 		
 		/**
 		Devuelve el identificador de la ventana de reenderizado sobre
@@ -292,15 +302,6 @@ namespace BaseSubsystems
 		*/
 		bool initOgreResources();
 
-		/** 
-		Pone las dimensiones máximas de la pantalla en las propiedades del ratón
-		OIS. Si se redimendiona la ventana de reenderizado deberemos llamar a este 
-		método.
-
-		@param width Anchura de la ventana en pixels.
-		@param height Altura de la ventana en pixels.
-		*/
-		void setWindowExtents(unsigned int width, unsigned int height);
 
 		/**
 		Instancia única de la aplicación.

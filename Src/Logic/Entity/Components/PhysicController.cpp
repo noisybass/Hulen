@@ -180,8 +180,6 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	// Si chocamos contra una entidad estática no hacemos nada
 	PxRigidDynamic* actor = hit.shape->getActor()->isRigidDynamic();
 
-
-
 	if(!actor)
 		return;
 
@@ -207,6 +205,3 @@ void CPhysicController::onControllerHit (const PxControllersHit &hit)
 {
 
 }
-
-
-

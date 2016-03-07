@@ -2,6 +2,7 @@
 #define LOGIC_PLAYER_MANAGER_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/GameObject.h"
 
 namespace Logic
 {
@@ -17,6 +18,12 @@ namespace Logic
 
 		CPlayerManager();
 
+		~CPlayerManager();
+
+		bool spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo) override;
+
+		bool activate() override;
+
 		bool accept(const TMessage &message) override;
 
 		void process(const TMessage &message) override;
@@ -29,7 +36,9 @@ namespace Logic
 		*/
 		bool _onLight;
 
-		void changeState();
+		void changeState(GameObject::TState state);
+
+		bool playerOnLight();
 
 	private:
 
@@ -37,6 +46,27 @@ namespace Logic
 		El tiempo que le queda para que el jugador muera.
 		*/
 		float _deathTimeElapsed;
+
+		/**
+		Nombre del puntero de luz.
+		*/
+		std::string _kasaiName;
+
+		/**
+		Referencia al puntero de luz.
+		*/
+		CGameObject* _kasai;
+
+		/**
+		Nombre de la carga.
+		*/
+		std::string _chargeName;
+
+		/**
+		Referencia a la carga.
+		*/
+		CGameObject* _charge;
+
 
 	}; // class CPlayerManager
 

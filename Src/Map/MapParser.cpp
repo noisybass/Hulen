@@ -27,17 +27,19 @@ extern "C"
 
 namespace
 {
-
+	/**
+	Cargar el mapa
+	*/
 	int lua_beginMapEntity(lua_State* l)
 	{
-		Map::CMapParser::getSingletonPtr()->_entityInProgress = new Map::CEntity(lua_tostring(l, -1));
+		Map::CMapParser::getSingletonPtr()->setEntityInProgress(new Map::CEntity(lua_tostring(l, -1)));
 
 		return 0;
 	}
 
 	int lua_addEntityAttrib(lua_State* l)
 	{
-		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->_entityInProgress;
+		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->getEntityInProgress();
 		std::string key = lua_tostring(l, -2);
 
 		if (key == "type")
@@ -64,23 +66,75 @@ namespace
 
 	int lua_endMapEntity(lua_State* l)
 	{
-		Map::CMapParser::getSingletonPtr()->_entityList.push_back(Map::CMapParser::getSingletonPtr()->_entityInProgress);
 
-		Map::CMapParser::getSingletonPtr()->_entityInProgress = 0;
+		Map::CMapParser::getSingletonPtr()->getEntityList()->push_back(Map::CMapParser::getSingletonPtr()->getEntityInProgress());
+
+		Map::CMapParser::getSingletonPtr()->setEntityInProgress(nullptr);
 
 		return 0;
 	}
+
+
+	/**
+	Cargar los prefabs
+	*/
+	int lua_beginPrefabEntity(lua_State* l)
+	{
+		Map::CMapParser::getSingletonPtr()->setPrefabInProgress(new Map::CEntity(lua_tostring(l, -1)));
+
+		return 0;
+	}
+
+	int lua_addPrefabAttrib(lua_State* l)
+	{
+		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->getPrefabInProgress();
+		std::string key = lua_tostring(l, -2);
+
+		if (key == "type")
+		{
+			e->setType(lua_tostring(l, -1));
+		}
+		else if (key == "blueprint"){
+			e->setBlueprint(lua_tostring(l, -1));
+		}
+		else
+		{
+			if (lua_isboolean(l, -1))
+			{
+				e->setAttribute(lua_tostring(l, -2), lua_toboolean(l, -1) ? "true" : "false");
+			}
+			else
+			{
+				e->setAttribute(lua_tostring(l, -2), lua_tostring(l, -1));
+			}
+		}
+
+		return 0;
+	}
+
+	int lua_endPrefabEntity(lua_State* l)
+	{
+		Map::CEntity* s = Map::CMapParser::getSingletonPtr()->getPrefabInProgress();
+
+		Map::CMapParser::getSingletonPtr()->getPrefabList()->push_back(Map::CMapParser::getSingletonPtr()->getPrefabInProgress());
+
+		Map::CMapParser::getSingletonPtr()->setPrefabInProgress(nullptr);
+
+		return 0;
+	}
+
 }
 
 namespace Map {
 
-	CMapParser* CMapParser::_instance = 0;
+	CMapParser* CMapParser::_instance = nullptr;
 
 	//--------------------------------------------------------
 
 	CMapParser::CMapParser(): _traceScanning(false),
 							  _traceParsing(false),
-							  _entityInProgress(0)
+							  _entityInProgress(nullptr),
+							  _prefabInProgress(nullptr)
 	{
 		_instance = this;
 
@@ -91,6 +145,9 @@ namespace Map {
 		sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
 		sm->registerFunction(lua_endMapEntity, "EndMapEntity");
 		sm->registerFunction(lua_addEntityAttrib, "AddEntityAttrib");
+		sm->registerFunction(lua_beginPrefabEntity, "BeginPrefabEntity");
+		sm->registerFunction(lua_endPrefabEntity, "EndPrefabEntity");
+		sm->registerFunction(lua_addPrefabAttrib, "AddPrefabAttrib");
 
 	} // CMapParser
 
@@ -99,6 +156,7 @@ namespace Map {
 	CMapParser::~CMapParser()
 	{
 		releaseEntityList();
+		releasePrefabList();
 		_instance = 0;
 
 	} // ~CMapParser
@@ -144,15 +202,16 @@ namespace Map {
 
 	//--------------------------------------------------------
 
-	bool CMapParser::parseFile(const std::string &filename)
+	bool CMapParser::parseFile(const std::string &filename, const std::string &type)
 	{
-		/*std::ifstream in(filename.c_str());
-		if (!in.good()) return false;
-		return parseStream(in, filename);*/
-
 		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
-
-		std::string orden = "loadMap(\"" + filename + "\")";
+		std::string orden;
+		if (type == "Map"){
+			orden = "loadMap(\"" + filename + "\")";
+		}
+		else if (type == "Prefab"){
+			orden = "loadPrefab(\"" + filename + "\")";
+		}
 		sm->executeScript(orden.c_str());
 
 		return true;
@@ -192,6 +251,18 @@ namespace Map {
 			_entityList.pop_back();
 			delete _entityInProgress;
 		}
-	}
+	} // releaseEntityList
+
+	//--------------------------------------------------------
+
+	void CMapParser::releasePrefabList()
+	{
+		while (!_prefabList.empty())
+		{
+			_prefabInProgress = _prefabList.back();
+			_prefabList.pop_back();
+			delete _prefabInProgress;
+		}
+	} // releasePrefabList
 
 } // namespace Map

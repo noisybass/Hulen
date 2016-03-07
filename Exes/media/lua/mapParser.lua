@@ -44,6 +44,44 @@ function parseMap(map)
 		end
 end
 
+--[[
+	Parsing Prefab
+]]--
+
+function loadPrefab(prefabFile)
+	print ("Loading prefab map...")
+	Prefab_GO = {};
+	Prefab = {};
+
+	dofile(prefabFile);
+
+	if Prefab == nil or Prefab_GO == nil then
+		return 0
+	else
+		--printByConsole (Map_GO)
+		parsePrefab(Prefab_GO)
+		--printByConsole (Map)
+		parsePrefab(Prefab)
+	end
+
+end
+
+function parsePrefab(map)
+	for key, value in pairs(map) do
+			BeginPrefabEntity(key)
+
+			for k,v in pairs(value) do
+				if type(v) == "table" then
+					AddPrefabAttrib(k, v[1].." "..v[2].." "..v[3])
+				else
+					AddPrefabAttrib(k,v)
+				end
+			end
+
+			EndPrefabEntity(key)
+		end
+end
+
 function printByConsole(map)
 	for key, value in pairs(map) do
 			print (key)

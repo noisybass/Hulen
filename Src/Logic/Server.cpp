@@ -25,7 +25,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	CServer::CServer() : _map(0)
+	CServer::CServer() : _map(nullptr), _prefab(nullptr)
 	{
 		_instance = this;
 
@@ -101,16 +101,17 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	bool CServer::loadLevel(const std::string &filename)
+	bool CServer::loadLevel(const std::string &filename, const std::string &prefabFilename)
 	{
 		// solo admitimos un mapa cargado, si iniciamos un nuevo nivel 
 		// se borra el mapa anterior.
 		unLoadLevel();
 
-		if(_map = CMap::createMapFromFile(filename))
-		{
+		_prefab = CMap::createPrefabsFromFile(prefabFilename);
+		_map = CMap::createEntitiesFromFile(filename);
+		
+		if (_map && _prefab)
 			return true;
-		}
 
 		return false;
 
@@ -124,9 +125,16 @@ namespace Logic {
 		{
 			_map->deactivate();
 			delete _map;
-			_map = 0;
+			_map = nullptr;
 		}
-		_player = 0;
+		if (_prefab)
+		{
+			_prefab->deactivate();
+			delete _prefab;
+			_prefab = nullptr;
+		}
+
+		_player = nullptr;
 
 	} // unLoadLevel
 
