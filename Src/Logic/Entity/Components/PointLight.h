@@ -1,5 +1,5 @@
-#ifndef LOGIC_POINT_LIGHT
-#define LOGIC_POINT_LIGHT
+#ifndef LOGIC_POINT_LIGHT_H
+#define LOGIC_POINT_LIGHT_H
 
 #include "Logic\Entity\Component.h"
 #include "Graphics\PointLight.h"
@@ -47,9 +47,13 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		bool accept(const TMessage &message) override;
+		bool accept(const TMessage& message) override;
 
-		void process(const TMessage &message) override;
+		void process(const TMessage& message) override;
+
+		void setPosition(const Vector3& newPosition);
+
+		void setColor(const Vector3& newColor);
 
 	protected:
 
@@ -63,4 +67,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // LOGIC_POINT_LIGHT
+#endif // LOGIC_POINT_LIGHT_H

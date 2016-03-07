@@ -3,6 +3,7 @@ Background CGraphics
 Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController
 Camera CCamera
-Kasai CKasaiController CPointLight CPhysicEntity
+Kasai CPointLight CMousePointerFollower CLightingArea
+Charge CPointLight CLightingArea
 Spike CGraphics CPhysicEntity CSpike
 Empty

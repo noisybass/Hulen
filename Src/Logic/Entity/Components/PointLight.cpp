@@ -82,7 +82,7 @@ namespace Logic
 	bool CPointLight::accept(const TMessage &message)
 	{
 		return message._type == Message::LIGHT_SET_POSITION ||
-			message._type == Message::LIGHT_SET_VISIBLE;
+			message._type == Message::LIGHT_SET_COLOR;
 
 	} // accept
 
@@ -91,13 +91,24 @@ namespace Logic
 		switch (message._type)
 		{
 			case Message::LIGHT_SET_POSITION:
-				_light->setPosition(message.getArg<Vector3>("newPosition"));
+				setPosition(message.getArg<Vector3>("newPosition"));
 				break;
-			case Message::LIGHT_SET_VISIBLE:
-				_light->setVisible(message.getArg<bool>("visibility"));
+			case Message::LIGHT_SET_COLOR:
+				setColor(message.getArg<Vector3>("newColor"));
 				break;
 		}
 		
 	} // process
+
+	void CPointLight::setPosition(const Vector3& newPosition)
+	{
+		_light->setPosition(newPosition);
+
+	} // setPosition
+
+	void CPointLight::setColor(const Vector3& newColor)
+	{
+		_light->setDiffuseColour(Ogre::ColourValue(newColor.x, newColor.y, newColor.z));
+	} // setColor
 
 } // namespace Logic

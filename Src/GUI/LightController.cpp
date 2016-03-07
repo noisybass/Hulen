@@ -74,7 +74,7 @@ namespace GUI {
 		if(_controlledLight)
 		{
 			Logic::TMessage m;
-			m._type = Logic::Message::KASAI_MOVE;
+			m._type = Logic::Message::MOUSE_POINTER_MOVE;
 
 			Graphics::CCamera* camera = Graphics::CServer::getSingletonPtr()->getActiveScene()->getCamera();
 			
@@ -93,20 +93,20 @@ namespace GUI {
 		
 	bool CLightController::mousePressed(const CMouseState &mouseState)
 	{
-		if (_controlledLight)
-		{
-			Logic::TMessage m;
-			switch (mouseState.button)
-			{
-				case GUI::Button::LEFT:
-					m._type = Logic::Message::KASAI_SET_VISIBLE;
-					break;
-			}
+		//if (_controlledLight)
+		//{
+		//	Logic::TMessage m;
+		//	switch (mouseState.button)
+		//	{
+		//		case GUI::Button::LEFT:
+		//			m._type = Logic::Message::KASAI_SET_VISIBLE;
+		//			break;
+		//	}
 
-			_controlledLight->emitMessage(m);
-			// Si queremos que tambien el PlayerController escuche este evento tendríamos que devolver false
-			return true;
-		}
+		//	_controlledLight->emitMessage(m);
+		//	// Si queremos que tambien el PlayerController escuche este evento tendríamos que devolver false
+		//	return true;
+		//}
 		return false;
 
 	} // mousePressed

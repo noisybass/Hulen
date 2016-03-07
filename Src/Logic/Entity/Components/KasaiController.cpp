@@ -55,7 +55,6 @@ namespace Logic
 	bool CKasaiController::accept(const TMessage &message)
 	{
 		return message._type == Message::KASAI_MOVE ||
-			message._type == Message::KASAI_SET_VISIBLE ||
 			message._type == Message::TOUCHED ||
 			message._type == Message::UNTOUCHED;
 	} // accept
@@ -84,17 +83,6 @@ namespace Logic
 			{
 				_entity->setPosition(newPosition);
 			}
-			break;
-		case Message::KASAI_SET_VISIBLE:
-			_isVisible = !_isVisible;
-			if (!_isVisible)
-			{
-				m._type = Message::PLAYER_OUT_LIGHT;
-				_player->emitMessage(m);
-			}
-			m._type = Message::LIGHT_SET_VISIBLE;
-			m.setArg<bool>(std::string("visibility"), _isVisible);
-			_entity->emitMessage(m);
 			break;
 		case Message::TOUCHED:
 			if (_isVisible)

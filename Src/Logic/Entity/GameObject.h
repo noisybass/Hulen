@@ -105,6 +105,12 @@ namespace Logic
 		*/
 		const std::string& getDefaultMaterial(const std::string type) const;
 
+		/**
+		Devuelve la posición de la entidad que esta activa, en caso de que ambas lo esten
+		devuelve la posición del body.
+		*/
+		Vector3 getPosition() const;
+
 	protected:
 
 		/**
