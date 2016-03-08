@@ -57,11 +57,11 @@ namespace Application {
 		soundServer->getBanksPtr()->loadBank("Banco1", "Master Bank.bank");
 		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
 		soundServer->getBanksPtr()->loadBank("Banco3", "Ambiente.bank");
-		//soundServer->getBanksPtr()->loadBank("Banco3", "Vehicles.bank");
-		//soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Vehicles/Basic Engine");
 		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Ambientes");
-
+		
+		
 		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
+		soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
 		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
 		soundServer->getEventInstancesPtr()->start("Instancia1");
 		/**/
