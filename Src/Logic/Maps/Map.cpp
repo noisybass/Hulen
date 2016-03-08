@@ -104,7 +104,7 @@ namespace Logic {
 		return map;
 	}
 
-	CGameObject* CMap::instanciatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
+	CGameObject* CMap::instantiatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
 	{
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
