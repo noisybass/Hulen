@@ -8,7 +8,7 @@ Map_GO = {
 		playerDeathTime = 3,
 		playerCanDie = true,
 		kasai = "Kasai_GO",
-		charge = "Charge0_GO",
+		charge = "Charge_Prefab_GO",
 	},
 
 	Kasai_GO = {
@@ -59,13 +59,6 @@ Map_GO = {
 		blueprint = "Empty",
 		state = "Body",
 	},
-
-	Charge0_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
 }
 
 Map = {
@@ -224,20 +217,5 @@ Map = {
 		physic_file = "media/models/Spike.RepX",
 		physic_group = 1,
 	},
-
-	Charge0 = {
-		type = "Body",
-		blueprint = "Charge",
-		game_object = "Charge0_GO",
-		position = {-20.8, -14.7, 0},
-		light_position = {-20.8, -14.7, 0},
-		specular_colour = {1,1,1},
-		diffuse_colour = {1,1,1},
-		light_attenuation_range = 5.0,
-		light_attenuation_constant = 1.0,
-		light_attenuation_linear = 0.2,
-		light_attenuation_quadratic = 0.05,
-		player = "Player_GO",
-		radius = 5.0,
-	},
+	
 }
