@@ -56,10 +56,9 @@ namespace Logic
 		if(!_graphicsEntity)
 			return false;
 
-		if (entityInfo->hasAttribute("material")){
-			_material = entityInfo->getStringAttribute("material");
-			_graphicsEntity->setMaterial(_material);
-		}
+		if (entityInfo->hasAttribute("material"))
+			setMaterial(entityInfo->getStringAttribute("material"));
+			
 		// Si existe un _gameobject le ponemos el material por defecto
 		else if (_gameObject){
 			_material = _gameObject->getDefaultMaterial(entityInfo->getStringAttribute("type"));
@@ -149,6 +148,13 @@ namespace Logic
 		}
 
 	} // process
+
+	void CGraphics::setMaterial(std::string material)
+	{
+		_material = material;
+		_graphicsEntity->setMaterial(material);
+
+	} // setMaterial
 
 } // namespace Logic
 

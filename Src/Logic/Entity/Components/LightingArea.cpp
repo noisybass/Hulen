@@ -30,8 +30,8 @@ namespace Logic
 		assert(entityInfo->hasAttribute("player") && "Hay que especificar el atributo player");
 		_playerName = entityInfo->getStringAttribute("player");
 
-		if (entityInfo->hasAttribute("radius")){
-			_radius = entityInfo->getFloatAttribute("radius");
+		if (entityInfo->hasAttribute("lighting_area_radius")){
+			_radius = entityInfo->getFloatAttribute("lighting_area_radius");
 		}
 
 	} // spawn
