@@ -66,6 +66,12 @@ Map_GO = {
 		state = "Body",
 	},
 
+	--[[DeathPlane_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Both",
+	}]]--
+
 }
 
 Map = {
@@ -75,6 +81,7 @@ Map = {
 		blueprint = "Player",
 		game_object = "Player_GO",
 		position = {-27.8, -14.7, 0},
+		--position = {0,10,0}, -- DeathPlane pruebas
 		scale = {0.25, 0.25, 0.25},
 		orientation = 0,
 		model = "marine.mesh",
@@ -240,4 +247,38 @@ Map = {
 		player = "Player_GO",
 		radius = 5.0,
 	},
+
+	--[[DeathPlane_Body = {
+		type = "Body",
+		blueprint = "DeathPlane",
+		game_object = "DeathPlane_GO",
+		position = {-10, 0, 0},
+		scale = {6, 0.1, 1},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 65, 0.1, 10 },
+		physic_height = 1,
+		physic_group = 1,
+		material = "rocky",
+	},
+
+	DeathPlane_Shadow = {
+		type = "Shadow",
+		blueprint = "DeathPlane",
+		game_object = "DeathPlane_GO",
+		position = {-10, 0, 0},
+		scale = {6, 0.1, 1},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 65, 0.1, 10 },
+		physic_height = 1,
+		physic_group = 1,
+		material = "rocky",
+	},]]--
 }
