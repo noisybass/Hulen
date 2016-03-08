@@ -110,6 +110,7 @@
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp">
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -208,6 +209,7 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h">
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

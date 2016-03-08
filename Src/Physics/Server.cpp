@@ -375,14 +375,14 @@ PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3
 	PxBoxGeometry geom(Vector3ToPxVec3(dimensions));
 	PxMaterial *material = _defaultMaterial;
 	float density = mass / (dimensions.x * dimensions.y * dimensions.z);
-	PxTransform localPose(PxVec3(0, dimensions.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
+	//PxTransform localPose(PxVec3(0, dimensions.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
 
 	// Crear cubo dinámico o cinemático
 	PxRigidDynamic *actor;
 	if (kinematic)
-		actor = PxCreateKinematic(*_physics, pose, geom, *material, density, localPose);
+		actor = PxCreateKinematic(*_physics, pose, geom, *material, density);
 	else
-		actor = PxCreateDynamic(*_physics, pose, geom, *material, density, localPose);
+		actor = PxCreateDynamic(*_physics, pose, geom, *material, density);
 	
 	// Transformarlo en trigger si es necesario
 	if (trigger) {

@@ -6,4 +6,5 @@ Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable
 Spike CGraphics CPhysicEntity CSpike
+DeathPlane CGraphics CPhysicEntity CDeathPlane
 Empty
