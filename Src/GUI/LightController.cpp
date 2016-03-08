@@ -80,7 +80,6 @@ namespace GUI {
 			
 			Vector3 pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
 			m.setArg<Vector3>(std::string("newPosition"), Vector3(pos.x, pos.y, 0));
-			//std::cout << "(" << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
 			
 			_controlledLight->emitMessage(m);
 			return true;

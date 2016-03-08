@@ -611,6 +611,8 @@ namespace GUI
 
 	private:
 
+		friend class CPlayerController;
+
 		/**
 		Constructor.
 		*/

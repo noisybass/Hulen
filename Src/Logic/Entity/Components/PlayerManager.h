@@ -4,6 +4,8 @@
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/GameObject.h"
 
+#include <vector>
+
 namespace Logic
 {
 	/**
@@ -38,7 +40,9 @@ namespace Logic
 
 		void changeState(GameObject::TState state);
 
-		bool playerOnLight();
+		bool playerOnLight() const;
+
+		CGameObject* canPickAnyCharge() const;
 
 	private:
 
@@ -60,12 +64,17 @@ namespace Logic
 		/**
 		Nombre de la carga.
 		*/
-		std::string _chargeName;
+		std::string _chargePrefab;
 
 		/**
-		Referencia a la carga.
+		Vector que guarda las referencias a las cargas que están puestas en el mapa.
 		*/
-		CGameObject* _charge;
+		std::vector<CGameObject*> _chargesOnMap;
+
+		/**
+		Número de cargas que puede poner el jugador.
+		*/
+		unsigned int _chargesOwned;
 
 
 	}; // class CPlayerManager
