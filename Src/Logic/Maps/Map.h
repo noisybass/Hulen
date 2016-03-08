@@ -74,7 +74,7 @@ namespace Logic
 		/**
 		Crea una nueva instancia de un prefab.
 		*/
-		static CGameObject* instanciatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance);
+		static CGameObject* instantiatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance);
 
 		/**
 		Constructor.
