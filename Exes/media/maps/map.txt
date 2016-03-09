@@ -108,6 +108,47 @@ Map = {
 		gravity = 0.015,
 	},
 
+	--[[Player_Body = {
+		type = "Body",
+		blueprint = "PlayerNoAnimation",
+		game_object = "Player_GO",
+		position = {-27.8, -14.7, 0},
+		--position = {0,10,0}, -- DeathPlane pruebas
+		scale = {0.05,0.05,0.05},
+		orientation = 90,
+		model = "Character.mesh",
+		physic_shape = "capsule",
+		physic_radius = 1.5,
+		physic_height = 3,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 0.01,
+		jump_speed = 0.04,
+		jump_height = 12.0,
+		gravity = 0.015,
+	},
+
+	Player_Shadow = {
+		type = "Shadow",
+		blueprint = "PlayerNoAnimation",
+		game_object = "Player_GO",
+		position = {-27.8, -14.7, -3.5},
+		--position = {0,10,-3.5}, -- DeathPlane pruebas
+		scale = {0.05,0.05,0.05},
+		orientation = 90,
+		model = "Character.mesh",
+		material = "Red",
+		physic_shape = "capsule",
+		physic_radius = 1.5,
+		physic_height = 3,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 0.01,
+		jump_speed = 0.04,
+		jump_height = 12.0,
+		gravity = 0.015,
+	},]]--
+
 	Kasai = {
 		type = "Body",
 		blueprint = "Kasai",
