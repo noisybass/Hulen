@@ -35,7 +35,7 @@ namespace Logic {
 	CMap::TPrefabList CMap::_prefabList = CMap::TPrefabList();
 	Logic::CMap* CMap::_entitiesMap = nullptr;
 
-	CMap* CMap::createPrefabsFromFile(const std::string &prefabFileName)
+	bool CMap::createPrefabsFromFile(const std::string &prefabFileName)
 	{
 		// Completamos la ruta con el nombre proporcionado
 		std::string prefabPath(MAP_FILE_PATH);
@@ -45,11 +45,8 @@ namespace Logic {
 		if (!Map::CMapParser::getSingletonPtr()->parseFile(prefabPath, "Prefab"))
 		{
 			assert(!"No se ha podido parsear los prefabs.");
-			return false;
+			return nullptr;
 		}
-
-		// Si se ha realizado con éxito el parseo creamos el mapa.
-		CMap *map = new CMap(prefabFileName);
 
 		// Extraemos las entidades del parseo.
 		Map::CMapParser::TEntityList* prefabList =
@@ -71,12 +68,12 @@ namespace Logic {
 
 			if (!type.compare("Body") || !type.compare("Shadow"))
 			{
-
-				// La propia factoría se encarga de añadir la entidad a su GameObject
-				CEntity* entity = entityFactory->createEntity((*it), map);
-				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
-
+				assert((*it)->hasAttribute("game_object") && "Falta el atributo game_object");
 				std::string gameObjectName = (*it)->getStringAttribute("game_object");
+
+				// Con el name.length() - 3, lo que hacemos es quitar _GO del nombre
+				// Para poder llamar al prefab sin eso, así es menos lioso.
+				gameObjectName = gameObjectName.substr(0, gameObjectName.length() - 3);
 				std::string type = (*it)->getStringAttribute("type");
 
 				assert(_prefabList.find(gameObjectName) != _prefabList.end() && "No se encuentra ese gameObject");
@@ -89,19 +86,16 @@ namespace Logic {
 			}
 			else if (!type.compare("GameObject"))
 			{
-				// La propia factoría se encarga de añadir el GameObject al mapa
-				CGameObject* gameObject = entityFactory->createGameObject((*it), map);
-				assert(gameObject && "No se pudo crear un game object del mapa");
-
 				TPrefab* prefab = new TPrefab();
 				prefab->gameObject = (*it);
 				std::string name = (*it)->getName();
 
-				_prefabList.insert({name, prefab});
+				// Con el name.length() - 3, lo que hacemos es quitar _GO del nombre
+				// Para poder llamar al prefab sin eso, así es menos lioso.
+				_prefabList.insert({name.substr(0, name.length() - 3), prefab});
 			}
 		}
 
-		return map;
 	}
 
 	CGameObject* CMap::instantiatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
@@ -164,7 +158,7 @@ namespace Logic {
 		if (!Map::CMapParser::getSingletonPtr()->parseFile(completePath, "Map"))
 		{
 			assert(!"No se ha podido parsear el mapa.");
-			return false;
+			return nullptr;
 		}
 
 		// Si se ha realizado con éxito el parseo creamos el mapa.
@@ -183,10 +177,9 @@ namespace Logic {
 		// Creamos todas las entidades lógicas.
 		for (; it != end; it++)
 		{
-			assert((*it)->hasAttribute("type") && "Falta el atributo type");
-
 			// Obtenemos el tipo
-			std::string type = (*it)->getStringAttribute("type");
+			assert((*it)->hasAttribute("type") && "Falta el atributo type");
+			std::string type = (*it)->getStringAttribute("type");	
 
 			if (!type.compare("Body") || !type.compare("Shadow"))
 			{
@@ -203,6 +196,24 @@ namespace Logic {
 		}
 
 		return _entitiesMap;
+	}
+
+	Map::CEntity* CMap::getGameObjectFromPrefab(const std::string &prefabName)
+	{
+		assert(_prefabList.find(prefabName) != _prefabList.end() && "No existe el prefab del que quieres obtener su GameObject");
+		return _prefabList.at(prefabName)->gameObject;
+	}
+
+	Map::CEntity* CMap::getBodyFromPrefab(const std::string &prefabName)
+	{
+		assert(_prefabList.find(prefabName) != _prefabList.end() && "No existe el prefab del que quieres obtener su Body");
+		return _prefabList.at(prefabName)->bodyEntity;
+	}
+
+	Map::CEntity* CMap::getShadowFromPrefab(const std::string &prefabName)
+	{
+		assert(_prefabList.find(prefabName) != _prefabList.end() && "No existe el prefab del que quieres obtener su Shadow");
+		return _prefabList.at(prefabName)->shadowEntity;
 	}
 
 	//--------------------------------------------------------

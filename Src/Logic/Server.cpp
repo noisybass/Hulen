@@ -25,7 +25,7 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
-	CServer::CServer() : _map(nullptr), _prefab(nullptr)
+	CServer::CServer() : _map(nullptr)
 	{
 		_instance = this;
 
@@ -107,10 +107,10 @@ namespace Logic {
 		// se borra el mapa anterior.
 		unLoadLevel();
 
-		_prefab = CMap::createPrefabsFromFile(prefabFilename);
+		bool prefab = CMap::createPrefabsFromFile(prefabFilename);
 		_map = CMap::createEntitiesFromFile(filename);
 		
-		if (_map && _prefab)
+		if (_map && prefab)
 			return true;
 
 		return false;
@@ -126,12 +126,6 @@ namespace Logic {
 			_map->deactivate();
 			delete _map;
 			_map = nullptr;
-		}
-		if (_prefab)
-		{
-			_prefab->deactivate();
-			delete _prefab;
-			_prefab = nullptr;
 		}
 
 		_player = nullptr;

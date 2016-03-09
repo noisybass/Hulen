@@ -45,7 +45,7 @@ namespace Map
 		/** 
 		Constructor de la clase.
 		*/
-		CEntity(const std::string &name) : _blueprint(""), _name(name) {}
+		CEntity(const std::string &name) : _blueprint(""), _type(""),_name(name) {}
 
 		/**
 		Destructor.
@@ -164,6 +164,8 @@ namespace Map
 		@param name Nombre de la entidad.
 		*/
 		void setName(const std::string &name) {_name = name;}
+
+		void copyAttributes(const CEntity *entity);
 
 	protected:
 

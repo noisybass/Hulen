@@ -108,4 +108,21 @@ namespace Map {
 
 	} // getVector3Attribute
 
+
+	void CEntity::copyAttributes(const CEntity *entity)
+	{
+		if (entity->_type != "")
+			_type = entity->_type;
+		if (entity->_blueprint != "")
+			_blueprint = entity->_blueprint;
+
+		for (auto attribute : entity->_attributes){
+			// Conseguimos que al copiar los atributos, si es una entidad
+			// No se copie el game_object al que apunta el prefab, y nos
+			// quedamos con lo que habia puesto sin sobreescribirlo.
+			if (attribute.first != "game_object")
+				this->setAttribute(attribute.first, attribute.second);
+		}
+	}
+
 } // namespace Map

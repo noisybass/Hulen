@@ -8,7 +8,7 @@ Map_GO = {
 		playerDeathTime = 3,
 		playerCanDie = true,
 		kasai = "Kasai_GO",
-		charge = "Charge_Prefab_GO",
+		charge = "Charge_Prefab",
 	},
 
 	Kasai_GO = {
@@ -26,32 +26,28 @@ Map_GO = {
 	
 	World0_GO = {
 		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
+		prefab = "World_Prefab",
 	},
 
 	World1_GO = {
 		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
+		prefab = "World_Prefab",
 	},
 
 	World2_GO = {
 		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
+		prefab = "World_Prefab",
 	},
 
 	World3_GO = {
 		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
+		prefab = "World_Prefab",
 	},
 
 	World4_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
-		state = "Body",
+		state = "Body"
 	},
 
 	Spike_GO = {
@@ -143,66 +139,39 @@ Map = {
 
 	World0 = {
 		type = "Body",
-		blueprint = "World",
 		game_object = "World0_GO",
+		prefab = "World_Prefab",
 		position = {30, 0, 0},
 		scale = {0.1, 3.5, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "static",
-		physic_shape = "box",
 		physic_dimensions = { 0.1, 35, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "rocky",
 	},
+		
 
 	World1 = {
 		type = "Body",
-		blueprint = "World",
 		game_object = "World1_GO",
+		prefab = "World_Prefab",
 		position = {0, -17, 0},
 		scale = {6, 0.1, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "static",
-		physic_shape = "box",
 		physic_dimensions = { 65, 0.1, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "rocky",
 	},
 
 	World2 = {
 		type = "Body",
-		blueprint = "World",
 		game_object = "World2_GO",
+		prefab = "World_Prefab",
 		position = {0, 17, 0},
 		scale = {6, 0.1, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "static",
-		physic_shape = "box",
 		physic_dimensions = { 65, 0.1, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "rocky",
 	},
 
 	World3 = {
 		type = "Body",
-		blueprint = "World",
 		game_object = "World3_GO",
+		prefab = "World_Prefab",
 		position = {-30, 0, 0},
 		scale = {0.1, 3.5, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "static",
-		physic_shape = "box",
 		physic_dimensions = { 0.1, 35, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "rocky",
 	},
 
 	World4 = {
