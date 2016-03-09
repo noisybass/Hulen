@@ -85,6 +85,8 @@ namespace Logic
 		*/
 		virtual void process(const TMessage &message);
 
+		void setMaterial(std::string material);
+
 	protected:
 
 		/**

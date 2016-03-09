@@ -84,6 +84,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />

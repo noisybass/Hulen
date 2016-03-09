@@ -1,18 +1,18 @@
-#ifndef LOGIC_LIGHTING_AREA_H
-#define LOGIC_LIGHTING_AREA_H
+#ifndef LOGIC_INTERACTUABLE_H
+#define LOGIC_INTERACTUABLE_H
 
 #include "Logic\Entity\Component.h"
 
 namespace Logic
 {
-	class CLightingArea : public IComponent
+	class CInteractuable : public IComponent
 	{
-		DEC_FACTORY(CLightingArea);
+		DEC_FACTORY(CInteractuable);
 	public:
 
-		CLightingArea();
+		CInteractuable();
 
-		~CLightingArea();
+		~CInteractuable();
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
@@ -35,19 +35,19 @@ namespace Logic
 		CGameObject* _player;
 
 		/**
-		Indica si el player esta dentro del rango de luz.
+		Indica si el player esta dentro del rango de interacción.
 		*/
-		bool _playerInside;
+		bool _canInteract;
 
 		/**
-		Radio del rango de luz.
+		Radio del rango de interacción.
 		*/
 		float _radius;
 
-	}; // class CLightingArea
+	}; // class CInteractuable
 
-	REG_FACTORY(CLightingArea);
+	REG_FACTORY(CInteractuable);
 
 } // namespace Logic
 
-#endif // LOGIC_LIGHTING_AREA_H
+#endif // LOGIC_INTERACTUABLE_H
