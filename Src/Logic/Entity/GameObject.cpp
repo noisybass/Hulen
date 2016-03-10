@@ -3,6 +3,7 @@
 #include "Component.h"
 
 #include "Logic/Server.h"
+#include "Logic/Maps/Map.h"
 
 #include "Map/MapEntity.h"
 

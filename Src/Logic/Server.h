@@ -158,11 +158,6 @@ namespace Logic
 		CMap *_map;
 
 		/**
-		Prefabs del mapa que acabamos de cargar.
-		*/
-		CMap* _prefab;
-
-		/**
 		Entidad del jugador.
 		*/
 		CGameObject *_player;

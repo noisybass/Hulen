@@ -232,9 +232,18 @@ namespace Logic
 	//---------------------------------------------------------
 
 
-	Logic::CEntity *CEntityFactory::createEntity(const Map::CEntity *entityInfo, Logic::CMap *map)
+	Logic::CEntity *CEntityFactory::createEntity(Map::CEntity *entityInfo, Logic::CMap *map)
 	{
 		//std::cout << "Creando entidad " << entityInfo->getName() << std::endl;
+
+		if (entityInfo->hasAttribute("prefab")){
+			Map::CEntity* entityPrefab;
+			if (entityInfo->getType() == "Body")
+				entityPrefab = CMap::getBodyFromPrefab(entityInfo->getStringAttribute("prefab"));
+			else if (entityInfo->getType() == "Shadow")
+				entityPrefab = CMap::getShadowFromPrefab(entityInfo->getStringAttribute("prefab"));
+			entityInfo->copyAttributes(entityPrefab);
+		}
 
 		CEntity* ret = assembleEntity(entityInfo->getBlueprint());
 
@@ -262,9 +271,14 @@ namespace Logic
 
 	} // createEntity
 
-	Logic::CGameObject *CEntityFactory::createGameObject(const Map::CEntity *entityInfo, Logic::CMap *map)
+	Logic::CGameObject *CEntityFactory::createGameObject(Map::CEntity *entityInfo, Logic::CMap *map)
 	{
 		//std::cout << "Creando game object " << entityInfo->getName() << std::endl;
+
+		if (entityInfo->hasAttribute("prefab")){
+			Map::CEntity* prefabGameObject = CMap::getGameObjectFromPrefab(entityInfo->getStringAttribute("prefab"));
+			entityInfo->copyAttributes(prefabGameObject);
+		}
 
 		CGameObject* ret = assembleGameObject(entityInfo->getBlueprint());
 

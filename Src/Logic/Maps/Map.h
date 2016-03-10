@@ -59,7 +59,7 @@ namespace Logic
 		@param filename Nombre del archivo a cargar.
 		@return Prefabs generado.
 		*/
-		static CMap* createPrefabsFromFile(const std::string &prefabFileName);
+		static bool createPrefabsFromFile(const std::string &prefabFileName);
 
 		/**
 		Método factoría que carga un mapa de fichero. Tras el parseo de
@@ -70,6 +70,12 @@ namespace Logic
 		@return Mapa generado.
 		*/
 		static CMap* createEntitiesFromFile(const std::string &filename);
+
+		static Map::CEntity* getGameObjectFromPrefab(const std::string &prefabName);
+
+		static Map::CEntity* getBodyFromPrefab(const std::string &prefabName);
+
+		static Map::CEntity* getShadowFromPrefab(const std::string &prefabName);
 
 		/**
 		Crea una nueva instancia de un prefab.

@@ -114,11 +114,11 @@ namespace Logic
 		@note Las entidades aquí creadas pueden eliminarse al final del 
 		juego o bien utilizando deferredDeleteEntity.
 		*/
-		CEntity* createEntity(const Map::CEntity *entityInfo, CMap *map);
+		CEntity* createEntity(Map::CEntity *entityInfo, CMap *map);
 
 		/**
 		*/
-		CGameObject* createGameObject(const Map::CEntity *entityInfo, CMap *map);
+		CGameObject* createGameObject(Map::CEntity *entityInfo, CMap *map);
 
 		/**
 		Destruye el CEntity pasado como parámetro. La destrucción
