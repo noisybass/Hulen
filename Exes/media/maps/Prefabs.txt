@@ -95,6 +95,13 @@ Prefab = {
 		player = "Player_GO",
 		lighting_area_radius = 5.0,
 		interactuable_area_radius = 3.0,
+		physic_entity = "rigid",
+		physic_type = "dynamic",
+		physic_shape = "sphere",
+		physic_trigger = true,
+		physic_group = 1,
+		physic_mass = 1,
+		physic_radius = 0.5,
 	},
 
 }
