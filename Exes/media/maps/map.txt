@@ -221,7 +221,7 @@ Map = {
 		game_object = "World4_GO",
 		position = {0, 0, -3.5},
 		model = "Plane.mesh",
-		material = "rocky",
+		material = "Rocky",
 	},
 
 	Spike = {
@@ -250,7 +250,7 @@ Map = {
 		physic_dimensions = { 65, 0.1, 10 },
 		physic_height = 1,
 		physic_group = 1,
-		material = "rocky",
+		material = "Rocky",
 	},
 
 	DeathPlane_Shadow = {
@@ -267,6 +267,6 @@ Map = {
 		physic_dimensions = { 65, 0.1, 10 },
 		physic_height = 1,
 		physic_group = 1,
-		material = "rocky",
+		material = "Rocky",
 	},]]--
 }

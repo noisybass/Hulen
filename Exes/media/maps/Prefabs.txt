@@ -39,7 +39,7 @@ Prefab = {
 		physic_shape = "box",
 		physic_height = 1,
 		physic_group = 1,
-		material = "rocky",
+		material = "Rocky",
 	},
 
 	Kasai_Prefab = {

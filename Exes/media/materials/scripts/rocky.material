@@ -1,0 +1,15 @@
+material Rocky
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.2 0.2 0.2
+
+			texture_unit
+			{
+				texture egyptrockyfull.jpg
+			}
+		}
+	}
+}
