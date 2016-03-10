@@ -182,6 +182,9 @@ namespace Logic
 		case Message::SET_TRANSFORM:
 			_transform = message.getArg<Matrix4>("transform");
 			break;
+		case Message::SET_POSITION:
+			_transform.setTrans(message.getArg<Vector3>("newPosition"));
+			break;
 		case Message::SEND_STATE:
 			m._type = Message::RECEIVE_ENTITY_STATE;
 			receiverPosition = message.getArg<CEntity*>("receiver")->getPosition();

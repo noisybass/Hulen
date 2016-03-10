@@ -47,6 +47,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("light_position")){
 			_light->setPosition(entityInfo->getVector3Attribute("light_position"));
 		}
+		else
+			_light->setPosition(_entity->getPosition());
 
 		/**
 		Attenuation settings

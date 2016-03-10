@@ -40,7 +40,11 @@ namespace Graphics
 	void CLight::detachFromScene()
 	{
 		if (_scene)
+		{
+			_scene->getSceneMgr()->destroyLight(_light);
 			_scene = nullptr;
+		}
+			
 
 	} // deattachFromScene
 

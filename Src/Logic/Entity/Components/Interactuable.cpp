@@ -49,6 +49,7 @@ namespace Logic
 		CGraphics* graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
 		float dist = _entity->getPosition().squaredDistance(_player->getPosition());
+		//std::cout << dist << std::endl;
 		if (dist < _radius*_radius)
 		{
 			_canInteract = true;

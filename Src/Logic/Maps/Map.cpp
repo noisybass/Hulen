@@ -73,8 +73,8 @@ namespace Logic {
 			{
 
 				// La propia factoría se encarga de añadir la entidad a su GameObject
-				CEntity* entity = entityFactory->createEntity((*it), map);
-				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+				//CEntity* entity = entityFactory->createEntity((*it), map);
+				//assert(entity && "No se pudo crear una entidad perteneciente a un game object");
 
 				std::string gameObjectName = (*it)->getStringAttribute("game_object");
 				std::string type = (*it)->getStringAttribute("type");
@@ -90,8 +90,8 @@ namespace Logic {
 			else if (!type.compare("GameObject"))
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
-				CGameObject* gameObject = entityFactory->createGameObject((*it), map);
-				assert(gameObject && "No se pudo crear un game object del mapa");
+				//CGameObject* gameObject = entityFactory->createGameObject((*it), map);
+				//assert(gameObject && "No se pudo crear un game object del mapa");
 
 				TPrefab* prefab = new TPrefab();
 				prefab->gameObject = (*it);
@@ -104,7 +104,8 @@ namespace Logic {
 		return map;
 	}
 
-	CGameObject* CMap::instantiatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
+	CGameObject* CMap::instantiatePrefab(const std::string& prefabToInstantiate, const std::string& nameToNewInstance,
+		const std::string& bodyPosition, const std::string& shadowPosition)
 	{
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
@@ -129,6 +130,8 @@ namespace Logic {
 			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
 			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
 
+			prefab->bodyEntity->setAttribute("position", bodyPosition);
+
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->bodyEntity, _entitiesMap);
 			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
@@ -142,6 +145,8 @@ namespace Logic {
 			prefab->bodyEntity->setName(nameToNewInstance + "_Shadow");
 			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
 			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
+
+			prefab->shadowEntity->setAttribute("position", shadowPosition);
 
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->shadowEntity, _entitiesMap);

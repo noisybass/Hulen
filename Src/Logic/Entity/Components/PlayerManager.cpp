@@ -3,6 +3,7 @@
 #include "Application/GameState.h"
 #include "Logic/Entity/GameObject.h"
 #include "Logic/Events/Event.h"
+#include "Logic/Maps/EntityFactory.h"
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Components/LightingArea.h"
@@ -56,13 +57,16 @@ namespace Logic
 		return message._type == Message::PLAYER_ENTER_LIGHT ||
 			message._type == Message::PLAYER_OUT_LIGHT ||
 			message._type == Message::PLAYER_CHANGE_STATE ||
-			message._type == Message::PLAYER_DEATH;
+			message._type == Message::PLAYER_DEATH ||
+			message._type == Message::PUT_CHARGE ||
+			message._type == Message::PICK_CHARGE;
 
 	} // accept
 
 	void CPlayerManager::process(const TMessage &message)
 	{
 		CGameObject* chargeInRange;
+		TMessage m;
 
 		switch (message._type)
 		{
@@ -72,19 +76,14 @@ namespace Logic
 			if (chargeInRange)
 			{
 				// Buscarla en el vector de referencias
-				std::vector<CGameObject*>::const_iterator it = std::find_if(_chargesOnMap.begin(), _chargesOnMap.end(), [&](const CGameObject* charge) {
-					charge == chargeInRange;
-				});
+				std::vector<CGameObject*>::const_iterator it = std::find(_chargesOnMap.begin(), _chargesOnMap.end(), chargeInRange);
 
 				// Una vez que la tenemos la borramos del vector
 				if (it != _chargesOnMap.end())
 					_chargesOnMap.erase(it);
 
-				// Ahora la borramos del mapa
-				_gameObject->getMap()->removeGameObject((*it));
-
-				// Destruir
-				delete (*it);
+				// Destruir y borrar del mapa
+				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(chargeInRange);
 
 				// Incrementar el número de cargas que poseemos
 				_chargesOwned++;
@@ -94,10 +93,20 @@ namespace Logic
 			if (_chargesOwned > 0)
 			{
 				// Instanciamos la carga en el mapa
-				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, "Charge" + _chargesOwned);
+				Vector3 pos = message.getArg<Vector3>("instancePosition");
+				std::stringstream ss;
+				ss << pos.x << " " << pos.y << " " << pos.z;
+				std::string chargePosition = ss.str();
+				ss.str(std::string());
+				ss << "Charge" << _chargesOwned;
+				std::string chargeName = ss.str();
+				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, chargeName, chargePosition);
 
 				// La metemos en el vector de referencias
 				_chargesOnMap.push_back(newCharge);
+
+				// La activamos
+				newCharge->activate();
 
 				// Decrementamos el número de cargas que poseemos
 				_chargesOwned--;
@@ -203,7 +212,7 @@ namespace Logic
 		for (CGameObject* charge : _chargesOnMap)
 		{
 			chargeArea = (CLightingArea*)(charge->getBody()->getComponent("CLightingArea"));
-			b = b && chargeArea->_playerInside;
+			b = b || chargeArea->_playerInside;
 		}
 
 		return b;

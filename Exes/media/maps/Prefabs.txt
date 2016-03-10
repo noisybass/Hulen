@@ -84,10 +84,8 @@ Prefab = {
 		type = "Body",
 		blueprint = "Charge",
 		game_object = "Charge_Prefab_GO",
-		position = {-20.8, -15.7, 0},
 		model = "Cube.mesh",
 		scale = {0.05, 0.05, 0.05},
-		light_position = {-20.8, -15.7, 0},
 		specular_colour = {1,1,1},
 		diffuse_colour = {1,1,1},
 		light_attenuation_range = 5.0,
@@ -96,7 +94,7 @@ Prefab = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 5.0,
-		interactuable_area_radius = 1.5,
+		interactuable_area_radius = 3.0,
 	},
 
 }
