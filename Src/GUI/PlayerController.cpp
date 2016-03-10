@@ -93,7 +93,7 @@ namespace GUI {
 				pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
 				m.setArg<Vector3>(std::string("instancePosition"), Vector3(pos.x, pos.y, 0));
 				break;
-			case GUI::Key::L:
+			case GUI::Key::J:
 				m._type = Logic::Message::PICK_CHARGE;
 				break;
 			default:
