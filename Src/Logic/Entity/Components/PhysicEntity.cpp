@@ -234,6 +234,8 @@ PxRigidActor* CPhysicEntity::createFromFile(const Map::CEntity *entityInfo)
 
 void CPhysicEntity::onTrigger(IPhysics *otherComponent, bool enter)
 {
+	std::cout << "Colision entre: " << _entity->getName() << " y " << otherComponent->getEntity()->getName() << std::endl;
+
 	// Construimos un mensaje de tipo TOUCHED o UNTOUCHED y lo enviamos a 
 	// todos los componentes de la entidad. 
 	TMessage msg;

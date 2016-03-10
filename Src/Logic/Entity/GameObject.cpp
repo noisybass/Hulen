@@ -27,7 +27,6 @@ namespace Logic
 	CGameObject::~CGameObject()
 	{
 		destroyAllComponents();
-
 	} // ~CGameObject
 
 	bool CGameObject::spawn(CMap *map, const Map::CEntity *entityInfo)

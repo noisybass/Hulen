@@ -47,6 +47,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("light_position")){
 			_light->setPosition(entityInfo->getVector3Attribute("light_position"));
 		}
+		else
+			_light->setPosition(_entity->getPosition());
 
 		/**
 		Attenuation settings
@@ -82,7 +84,8 @@ namespace Logic
 	bool CPointLight::accept(const TMessage &message)
 	{
 		return message._type == Message::LIGHT_SET_POSITION ||
-			message._type == Message::LIGHT_SET_COLOR;
+			message._type == Message::LIGHT_SET_COLOR ||
+			message._type == Message::SET_TRANSFORM;
 
 	} // accept
 
@@ -95,6 +98,11 @@ namespace Logic
 				break;
 			case Message::LIGHT_SET_COLOR:
 				setColor(message.getArg<Vector3>("newColor"));
+				break;
+			case Message::SET_TRANSFORM:
+				Matrix4 transform = message.getArg<Matrix4>("transform");
+				Vector3 newPos = transform.getTrans();
+				setPosition(newPos);
 				break;
 		}
 		

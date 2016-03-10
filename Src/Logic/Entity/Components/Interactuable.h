@@ -20,6 +20,10 @@ namespace Logic
 
 		void tick(unsigned int msecs) override;
 
+		bool accept(const TMessage &message) override;
+
+		void process(const TMessage &message) override;
+
 	protected:
 
 		friend class CPlayerManager;

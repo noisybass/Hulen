@@ -3,9 +3,11 @@
 #include "Application/GameState.h"
 #include "Logic/Entity/GameObject.h"
 #include "Logic/Events/Event.h"
+#include "Logic/Maps/EntityFactory.h"
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Components/LightingArea.h"
+#include "Logic/Entity/Components/Interactuable.h"
 
 namespace Logic
 {
@@ -13,7 +15,7 @@ namespace Logic
 
 	CPlayerManager::CPlayerManager()
 		: IComponent(), _onLight(false), _deathTimeElapsed(0), _kasaiName(""), _kasai(nullptr),
-		_chargeName(""), _charge(nullptr)
+		_chargePrefab(""), _chargesOwned(3)
 	{
 
 	} // CPlayerManager
@@ -23,7 +25,6 @@ namespace Logic
 		if (_kasai)
 		{
 			_kasai = nullptr;
-			_charge = nullptr;
 		}
 	}
 
@@ -36,7 +37,7 @@ namespace Logic
 		_kasaiName = entityInfo->getStringAttribute("kasai");
 
 		if (entityInfo->hasAttribute("charge"))
-			_chargeName = entityInfo->getStringAttribute("charge");
+			_chargePrefab = entityInfo->getStringAttribute("charge");
 
 	} // spawn
 
@@ -45,7 +46,7 @@ namespace Logic
 		_kasai = _gameObject->getMap()->getGameObjectByName(_kasaiName);
 
 		//_charge = _gameObject->getMap()->getGameObjectByName(_chargeName);
-		_charge = Logic::CMap::instantiatePrefab(_chargeName, "Charge0");
+		//_charge = Logic::CMap::instantiatePrefab(_chargeName, "Charge0");
 
 		return true;
 
@@ -56,28 +57,61 @@ namespace Logic
 		return message._type == Message::PLAYER_ENTER_LIGHT ||
 			message._type == Message::PLAYER_OUT_LIGHT ||
 			message._type == Message::PLAYER_CHANGE_STATE ||
-			message._type == Message::PLAYER_DEATH;
+			message._type == Message::PLAYER_DEATH ||
+			message._type == Message::PUT_CHARGE ||
+			message._type == Message::PICK_CHARGE;
 
 	} // accept
 
 	void CPlayerManager::process(const TMessage &message)
 	{
+		CGameObject* chargeInRange;
+		TMessage m;
+
 		switch (message._type)
 		{
-		//case Message::PLAYER_ENTER_LIGHT:
-		//	_onLight = true;
-		//	std::cout << "Jugador dentro de la luz" << std::endl;
+		case Message::PICK_CHARGE:
+			// Comprobamos si hay alguna carga que podamos coger
+			chargeInRange = canPickAnyCharge();
+			if (chargeInRange)
+			{
+				// Buscarla en el vector de referencias
+				std::vector<CGameObject*>::const_iterator it = std::find(_chargesOnMap.begin(), _chargesOnMap.end(), chargeInRange);
 
-		//	// Reseteamos el tiempo
-		//	_deathTimeElapsed = 0;
-		//	std::cout << "Resetar tiempo de morir" << std::endl;
-		//	break;
-		//case Message::PLAYER_OUT_LIGHT:
-		//	_onLight = false;
-		//	if (_gameObject->_state == GameObject::SHADOW)
-		//		changeState();
-		//	std::cout << "Jugador fuera de la luz" << std::endl;
-		//	break;
+				// Una vez que la tenemos la borramos del vector
+				if (it != _chargesOnMap.end())
+					_chargesOnMap.erase(it);
+
+				// Destruir y borrar del mapa
+				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(chargeInRange);
+
+				// Incrementar el número de cargas que poseemos
+				_chargesOwned++;
+			}
+			break;
+		case Message::PUT_CHARGE:
+			if (_chargesOwned > 0)
+			{
+				// Instanciamos la carga en el mapa
+				Vector3 pos = message.getArg<Vector3>("instancePosition");
+				std::stringstream ss;
+				ss << pos.x << " " << pos.y << " " << pos.z;
+				std::string chargePosition = ss.str();
+				ss.str(std::string());
+				ss << "Charge" << _chargesOwned;
+				std::string chargeName = ss.str();
+				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, chargeName, chargePosition);
+
+				// La metemos en el vector de referencias
+				_chargesOnMap.push_back(newCharge);
+
+				// La activamos
+				newCharge->activate();
+
+				// Decrementamos el número de cargas que poseemos
+				_chargesOwned--;
+			}
+			break;
 		case Message::PLAYER_CHANGE_STATE:
 			if (_onLight)
 			{
@@ -128,31 +162,6 @@ namespace Logic
 				_gameObject->getBody()->emitMessage(message);
 			}
 		}
-
-		//TMessage message;
-		//message._type = Message::SEND_STATE;
-		//switch (_gameObject->_state)
-		//{
-		//case GameObject::BODY:
-		//	std::cout << "Cambiando de cuerpo a sombra" << std::endl;
-		//	_gameObject->_state = GameObject::SHADOW;
-		//	message.setArg<CEntity*>(std::string("receiver"), _gameObject->getShadow());
-
-		//	_gameObject->getShadow()->activate();
-		//	_gameObject->getBody()->emitMessage(message);
-		//	//_gameObject->getBody()->deactivate();
-
-		//	break;
-		//case GameObject::SHADOW:
-		//	std::cout << "Cambiando de sombra a cuerpo" << std::endl;
-		//	_gameObject->_state = GameObject::BODY;
-		//	message.setArg<CEntity*>(std::string("receiver"), _gameObject->getBody());
-
-		//	_gameObject->getBody()->activate();
-		//	_gameObject->getShadow()->emitMessage(message);
-		//	//_gameObject->getShadow()->deactivate();
-		//	break;
-		//}
 	} // changeState
 
 	void CPlayerManager::tick(unsigned int msecs)
@@ -190,14 +199,39 @@ namespace Logic
 		
 	} // tick
 
-	bool CPlayerManager::playerOnLight()
+	bool CPlayerManager::playerOnLight() const
 	{
+		bool b = false;
+
 		CLightingArea* kasaiArea = (CLightingArea*)(_kasai->getBody()->getComponent("CLightingArea"));
 
-		CLightingArea* chargeArea = (CLightingArea*)(_charge->getBody()->getComponent("CLightingArea"));
+		b = kasaiArea->_playerInside;
 
-		return kasaiArea->_playerInside || chargeArea->_playerInside;
+		CLightingArea* chargeArea;
+
+		for (CGameObject* charge : _chargesOnMap)
+		{
+			chargeArea = (CLightingArea*)(charge->getBody()->getComponent("CLightingArea"));
+			b = b || chargeArea->_playerInside;
+		}
+
+		return b;
 
 	} // playerOnLight
+
+	CGameObject* CPlayerManager::canPickAnyCharge() const
+	{
+		CInteractuable* chargeArea;
+
+		for (CGameObject* charge : _chargesOnMap)
+		{
+			chargeArea = (CInteractuable*)(charge->getBody()->getComponent("CInteractuable"));
+			if (chargeArea->_canInteract)
+				return charge;
+		}
+
+		return nullptr;
+
+	} // canPickAnyCharge
 
 } // namespace Logic

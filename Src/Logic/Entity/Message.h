@@ -25,6 +25,7 @@ namespace Logic
 		enum TMessageType
 		{
 			SET_TRANSFORM,
+			SET_POSITION,
 			SET_ANIMATION,
 			STOP_ANIMATION,
 			CONTROL,
@@ -48,7 +49,9 @@ namespace Logic
 			PLAYER_DEATH,
 			AMBIENT_LIGHT_SET_FOR_DEBUG,
 			AMBIENT_LIGHT_SET_REAL_MATERIAL,
-			SHAPE_HIT
+			SHAPE_HIT,
+			PICK_CHARGE,
+			PUT_CHARGE
 		};
 
 		/**

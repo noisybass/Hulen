@@ -12,6 +12,8 @@ namespace Graphics
 
 		void setPosition(const Ogre::Vector3& position);
 
+		const Ogre::Vector3& getPosition() const;
+
 	}; // class CPointLight
 
 } // namespace Graphics

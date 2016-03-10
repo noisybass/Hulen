@@ -69,6 +69,7 @@ namespace Logic {
 			if (!type.compare("Body") || !type.compare("Shadow"))
 			{
 				assert((*it)->hasAttribute("game_object") && "Falta el atributo game_object");
+
 				std::string gameObjectName = (*it)->getStringAttribute("game_object");
 
 				// Con el name.length() - 3, lo que hacemos es quitar _GO del nombre
@@ -98,7 +99,8 @@ namespace Logic {
 
 	}
 
-	CGameObject* CMap::instantiatePrefab(const std::string &prefabToInstantiate, const std::string &nameToNewInstance)
+	CGameObject* CMap::instantiatePrefab(const std::string& prefabToInstantiate, const std::string& nameToNewInstance,
+		const std::string& bodyPosition, const std::string& shadowPosition)
 	{
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
@@ -123,6 +125,8 @@ namespace Logic {
 			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
 			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
 
+			prefab->bodyEntity->setAttribute("position", bodyPosition);
+
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->bodyEntity, _entitiesMap);
 			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
@@ -136,6 +140,8 @@ namespace Logic {
 			prefab->bodyEntity->setName(nameToNewInstance + "_Shadow");
 			std::string gameObjectReferenceName = prefab->bodyEntity->getStringAttribute("game_object");
 			prefab->bodyEntity->setAttribute("game_object", nameToNewInstance + "_GO");
+
+			prefab->shadowEntity->setAttribute("position", shadowPosition);
 
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->shadowEntity, _entitiesMap);

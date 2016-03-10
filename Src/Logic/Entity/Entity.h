@@ -72,6 +72,7 @@ namespace Logic
 		pero cada game object es el responsable de eliminar sus entidades
 		*/
 		friend class CEntityFactory;
+		friend class CGameObject;
 
 		/**
 		Constructor protegido de la clase (para crear CEntity debe

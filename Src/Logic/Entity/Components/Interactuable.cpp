@@ -4,6 +4,7 @@
 #include "Logic/Entity/GameObject.h"
 #include "Map/MapEntity.h"
 #include "Logic/Entity/Components/Graphics.h"
+#include "Logic/Entity/Components/PhysicEntity.h"
 
 namespace Logic
 {
@@ -46,9 +47,12 @@ namespace Logic
 
 	void CInteractuable::tick(unsigned int msecs)
 	{
+		IComponent::tick(msecs);
+
 		CGraphics* graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
 		float dist = _entity->getPosition().squaredDistance(_player->getPosition());
+		//std::cout << dist << std::endl;
 		if (dist < _radius*_radius)
 		{
 			_canInteract = true;
@@ -59,6 +63,32 @@ namespace Logic
 			_canInteract = false;
 			graphics->setMaterial("Purple");
 		}
+
 	} // tick
+
+	bool CInteractuable::accept(const TMessage &message)
+	{
+		//std::cout << "Message type: " << message._type << std::endl;
+		return message._type == Message::TOUCHED ||
+			message._type == Message::UNTOUCHED;
+
+	} // accept
+
+	void CInteractuable::process(const TMessage &message)
+	{
+		CEntity* other;
+		switch (message._type)
+		{
+		case Message::TOUCHED:
+		case Message::UNTOUCHED:
+			other = message.getArg<CEntity*>("entity");
+			if (!(other->getBlueprint().compare("World")))
+				_entity->removeComponent("CPhysicEntity");
+			break;
+		default:
+			break;
+		}
+
+	} // process
 
 } // namespace Logic
