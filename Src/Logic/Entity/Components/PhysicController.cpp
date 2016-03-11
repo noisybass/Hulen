@@ -132,6 +132,7 @@ void CPhysicController::tick(unsigned int msecs)
 	{
 		CAvatarController* controller = (CAvatarController*)(_entity->getComponent("CAvatarController"));
 		controller->_jump = false;
+		controller->_currentHeight = 0.0f;
 	}
 
 	// Ponemos el movimiento a cero
