@@ -1,12 +1,12 @@
 Map_GO = {
-	
+
 	Player_GO = {
 		type = "GameObject",
 		blueprint = "Player_GO",
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = true,
+		playerCanDie = false,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 	},
@@ -23,7 +23,7 @@ Map_GO = {
 		blueprint = "Empty",
 		state = "Body",
 	},
-	
+
 	World0_GO = {
 		type = "GameObject",
 		prefab = "World_Prefab",
@@ -50,37 +50,70 @@ Map_GO = {
 		state = "Body"
 	},
 
-	Spike_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},
-
-	--[[DeathPlane_GO = {
+	Platform1_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Both",
-	}]]--
+	},
+
+	Platform2_GO = {
+		type = "GameObject",
+		prefab = "World_Prefab",
+	},
+
+	Platform3_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Both",
+	},
+
+	Platform4_GO = {
+		type = "GameObject",
+		prefab = "World_Prefab",
+	},
+
+	Platform5_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Both",
+	},
+
+	Platform6_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Both",
+	},
+
+	Platform7_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Shadow",
+	},
+
+	Platform8_GO = {
+		type = "GameObject",
+		prefab = "World_Prefab",
+		--blueprint = "Empty",
+		--state = "Shadow",
+	},
+
 
 }
 
 Map = {
-
+	
 	Player_Body = {
 		type = "Body",
 		blueprint = "Player",
-		--blueprint = "PlayerNoAnimation",
 		game_object = "Player_GO",
-		position = {-27.8, -14.7, 0},
-		--position = {0,10,0}, -- DeathPlane pruebas
+		position = {-27.8, 0, 0},
 		scale = {0.25, 0.25, 0.25},
 		orientation = 0,
 		model = "marine.mesh",
-		--model = "Character003.mesh",
 		defaultAnimation = "Idle",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
-		physic_height = 3,
+		physic_height = 0.75,
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 0.01,
@@ -93,7 +126,7 @@ Map = {
 		type = "Shadow",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {-27.8, -14.7, -3.5},
+		position = {-27.8, 0, -3.5},
 		scale = {0.25, 0.25, 0.25},
 		orientation = 0,
 		model = "marine.mesh",
@@ -101,7 +134,7 @@ Map = {
 		defaultAnimation = "Idle",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
-		physic_height = 3,
+		physic_height = 0.75,
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 0.01,
@@ -109,47 +142,6 @@ Map = {
 		jump_height = 12.0,
 		gravity = 0.015,
 	},
-
-	--[[Player_Body = {
-		type = "Body",
-		blueprint = "PlayerNoAnimation",
-		game_object = "Player_GO",
-		position = {-27.8, -14.7, 0},
-		--position = {0,10,0}, -- DeathPlane pruebas
-		scale = {0.05,0.05,0.05},
-		orientation = 90,
-		model = "Character.mesh",
-		physic_shape = "capsule",
-		physic_radius = 1.5,
-		physic_height = 3,
-		guizmo = false,
-		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.04,
-		jump_height = 12.0,
-		gravity = 0.015,
-	},
-
-	Player_Shadow = {
-		type = "Shadow",
-		blueprint = "PlayerNoAnimation",
-		game_object = "Player_GO",
-		position = {-27.8, -14.7, -3.5},
-		--position = {0,10,-3.5}, -- DeathPlane pruebas
-		scale = {0.05,0.05,0.05},
-		orientation = 90,
-		model = "Character.mesh",
-		material = "Red",
-		physic_shape = "capsule",
-		physic_radius = 1.5,
-		physic_height = 3,
-		guizmo = false,
-		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.04,
-		jump_height = 12.0,
-		gravity = 0.015,
-	},]]--
 
 	Kasai = {
 		type = "Body",
@@ -185,18 +177,23 @@ Map = {
 		game_object = "World0_GO",
 		prefab = "World_Prefab",
 		position = {30, 0, 0},
-		scale = {0.1, 3.5, 1},
-		physic_dimensions = { 0.1, 35, 10 },
+		scale = {1, 35, 10},
+		physic_dimensions = { 1, 35, 10 },
 	},
 		
 
 	World1 = {
+		-- Para que sea un DeathPlane
+		physic_type = "kinematic",
+		physic_mass = 1,
+		blueprint = "DeathPlane",
+		-- Fin
 		type = "Body",
 		game_object = "World1_GO",
 		prefab = "World_Prefab",
 		position = {0, -17, 0},
-		scale = {6, 0.1, 1},
-		physic_dimensions = { 65, 0.1, 10 },
+		scale = {60, 1, 10},
+		physic_dimensions = { 65, 1, 10 },
 	},
 
 	World2 = {
@@ -204,8 +201,8 @@ Map = {
 		game_object = "World2_GO",
 		prefab = "World_Prefab",
 		position = {0, 17, 0},
-		scale = {6, 0.1, 1},
-		physic_dimensions = { 65, 0.1, 10 },
+		scale = {60, 1, 10},
+		physic_dimensions = { 65, 1, 10 },
 	},
 
 	World3 = {
@@ -213,8 +210,8 @@ Map = {
 		game_object = "World3_GO",
 		prefab = "World_Prefab",
 		position = {-30, 0, 0},
-		scale = {0.1, 3.5, 1},
-		physic_dimensions = { 0.1, 35, 10 },
+		scale = {1, 35, 10},
+		physic_dimensions = { 1, 35, 10 },
 	},
 
 	World4 = {
@@ -226,49 +223,112 @@ Map = {
 		material = "Rocky",
 	},
 
-	Spike = {
+	Platform1_Body = {
 		type = "Body",
-		blueprint = "Spike",
-		game_object = "Spike_GO",
-		position = {0,-15,0},
-		model = "Spike.mesh",
-		static = true,
-		physic_entity = "fromFile",
-		physic_file = "media/models/Spike.RepX",
-		physic_group = 1,
+		game_object = "Platform1_GO",
+		prefab = "World_Prefab",
+		position = {-25, -4, 0},
+		scale = {10, 1, 3.5},
+		physic_dimensions = { 10, 1, 3.5 },
 	},
 
---[[DeathPlane_Body = {
-		type = "Body",
-		blueprint = "DeathPlane",
-		game_object = "DeathPlane_GO",
-		position = {-10, 0, 0},
-		scale = {6, 0.1, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "kinematic",
-		physic_mass = 1,
-		physic_shape = "box",
-		physic_dimensions = { 65, 0.1, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "Rocky",
-	},
-
-	DeathPlane_Shadow = {
+	Platform1_Shadow = {
 		type = "Shadow",
-		blueprint = "DeathPlane",
-		game_object = "DeathPlane_GO",
-		position = {-10, 0, 0},
-		scale = {6, 0.1, 1},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "kinematic",
-		physic_mass = 1,
-		physic_shape = "box",
-		physic_dimensions = { 65, 0.1, 10 },
-		physic_height = 1,
-		physic_group = 1,
-		material = "Rocky",
-	},]]--
+		game_object = "Platform1_GO",
+		prefab = "World_Prefab",
+		position = {-25, -4, -3.5},
+		scale = {10, 1, 0.1},
+		physic_dimensions = { 10, 1, 0.1 },
+	},
+
+	Platform2 = {
+		type = "Body",
+		game_object = "Platform2_GO",
+		prefab = "World_Prefab",
+		position = {-15, -4, 0},
+		scale = {10, 1, 1},
+		physic_dimensions = { 10, 1, 1 },
+	},
+
+	Platform3_Body = {
+		type = "Body",
+		game_object = "Platform3_GO",
+		prefab = "World_Prefab",
+		position = {2, -4, 0},
+		scale = {25, 1, 3.5},
+		physic_dimensions = { 25, 1, 3.5 },
+	},
+
+	Platform3_Shadow = {
+		type = "Shadow",
+		game_object = "Platform3_GO",
+		prefab = "World_Prefab",
+		position = {2, -4, -3.5},
+		scale = {25, 1, 0.1},
+		physic_dimensions = { 25, 1, 0.1 },
+	},
+
+	Platform4 = {
+		type = "Body",
+		game_object = "Platform4_GO",
+		prefab = "World_Prefab",
+		position = {-15, -12, 0},
+		scale = {10, 1, 3.5},
+		physic_dimensions = { 10, 1, 3.5 },
+	},
+
+	Platform5_Body = {
+		type = "Body",
+		game_object = "Platform5_GO",
+		prefab = "World_Prefab",
+		position = {15, 6, 0},
+		scale = {1, 21, 3.5},
+		physic_dimensions = { 1, 21, 3.5 },
+	},
+
+	Platform5_Shadow = {
+		type = "Shadow",
+		game_object = "Platform5_GO",
+		prefab = "World_Prefab",
+		position = {15, 6, -3.5},
+		scale = {1, 21, 0.1},
+		physic_dimensions = { 1, 21, 0.1 },
+	},
+
+	Platform6_Body = {
+		type = "Body",
+		game_object = "Platform6_GO",
+		prefab = "World_Prefab",
+		position = {5, -15, 0},
+		scale = {20, 1, 3.5},
+		physic_dimensions = { 20, 1, 3.5 },
+	},
+
+	Platform6_Shadow = {
+		type = "Shadow",
+		game_object = "Platform6_GO",
+		prefab = "World_Prefab",
+		position = {5, -15, -3.5},
+		scale = {20, 1, 0.1},
+		physic_dimensions = { 20, 1, 0.1 },
+	},
+
+	Platform7_Shadow = {
+		type = "Shadow",
+		game_object = "Platform7_GO",
+		prefab = "World_Prefab",
+		position = {20, -12, -3.5},
+		scale = {8, 1, 0.1},
+		physic_dimensions = { 8, 1, 0.1 },
+	},
+
+	Platform8_Body = {
+		type = "Body",
+		game_object = "Platform8_GO",
+		prefab = "World_Prefab",
+		position = {25, -9, 0},
+		scale = {6, 1, 3.5},
+		physic_dimensions = { 5, 1, 3.5 },
+	},
+
 }

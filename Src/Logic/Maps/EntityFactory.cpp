@@ -237,12 +237,21 @@ namespace Logic
 		//std::cout << "Creando entidad " << entityInfo->getName() << std::endl;
 
 		if (entityInfo->hasAttribute("prefab")){
+			// Utilizamos una variable auxiliar para guardarnos los valores de la entidad
+			Map::CEntity auxiliarGameObject("Auxiliar");
+			auxiliarGameObject.copyAttributes(entityInfo);
+
+			// Recogemos los valores por defecto del prefab
 			Map::CEntity* entityPrefab;
 			if (entityInfo->getType() == "Body")
 				entityPrefab = CMap::getBodyFromPrefab(entityInfo->getStringAttribute("prefab"));
 			else if (entityInfo->getType() == "Shadow")
 				entityPrefab = CMap::getShadowFromPrefab(entityInfo->getStringAttribute("prefab"));
+
+			// Establecemos los valores por defecto del prefab y despues
+			// volvemos a establecer los valores que tenia antes la entidad
 			entityInfo->copyAttributes(entityPrefab);
+			entityInfo->copyAttributes(&auxiliarGameObject);
 		}
 
 		CEntity* ret = assembleEntity(entityInfo->getBlueprint());
@@ -276,8 +285,17 @@ namespace Logic
 		//std::cout << "Creando game object " << entityInfo->getName() << std::endl;
 
 		if (entityInfo->hasAttribute("prefab")){
+			// Utilizamos una variable auxiliar para guardarnos los valores de la entidad
+			Map::CEntity auxiliarGameObject("Auxiliar");
+			auxiliarGameObject.copyAttributes(entityInfo);
+
+			// Recogemos los valores por defecto del prefab
 			Map::CEntity* prefabGameObject = CMap::getGameObjectFromPrefab(entityInfo->getStringAttribute("prefab"));
+
+			// Establecemos los valores por defecto del prefab y despues
+			// volvemos a establecer los valores que tenia antes la entidad
 			entityInfo->copyAttributes(prefabGameObject);
+			entityInfo->copyAttributes(&auxiliarGameObject);
 		}
 
 		CGameObject* ret = assembleGameObject(entityInfo->getBlueprint());

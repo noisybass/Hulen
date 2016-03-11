@@ -58,3 +58,20 @@ material Purple
 		}
 	}
 }
+
+material Black
+{
+	technique
+	{
+		pass
+		{
+
+			lighting on
+
+			diffuse 0 0 0 0
+			emissive 0 0 0 1
+		}
+
+	}
+
+}
