@@ -56,12 +56,12 @@ namespace Logic
 		if (dist < _radius*_radius)
 		{
 			_canInteract = true;
-			graphics->setMaterial("Blue");
+			graphics->setMaterial("Charge_on");
 		}
 		else
 		{
 			_canInteract = false;
-			graphics->setMaterial("Purple");
+			graphics->setMaterial("Charge_off");
 		}
 
 	} // tick
