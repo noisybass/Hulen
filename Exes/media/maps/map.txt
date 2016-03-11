@@ -93,8 +93,12 @@ Map_GO = {
 	Platform8_GO = {
 		type = "GameObject",
 		prefab = "World_Prefab",
-		--blueprint = "Empty",
-		--state = "Shadow",
+	},
+
+	Spike_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Shadow",
 	},
 
 
@@ -329,6 +333,14 @@ Map = {
 		position = {25, -9, 0},
 		scale = {6, 1, 3.5},
 		physic_dimensions = { 5, 1, 3.5 },
+	},
+
+	Spike_Shadow = {
+		type = "Shadow",
+		game_object = "Spike_GO",
+		prefab = "Spike_Prefab",
+		position = {0,-14, -3.5},
+		scale = {1, 1, 0.1},
 	},
 
 }

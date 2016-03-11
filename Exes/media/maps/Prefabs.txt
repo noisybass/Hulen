@@ -12,6 +12,12 @@ Prefab_GO = {
 		state = "Body",
 	},
 
+	Spike_Prefab_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	}
+
 }
 
 Prefab = {
@@ -35,6 +41,29 @@ Prefab = {
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
+		material = "Black",
+	},
+
+	Spike_Prefab_Body = {
+		type = "Body",
+		blueprint = "Spike",
+		game_object = "Spike_Prefab_GO",
+		model = "Spike.mesh",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/Spike.RepX",
+		physic_group = 1,
+	},
+
+	Spike_Prefab_Shadow = {
+		type = "Shadow",
+		blueprint = "Spike",
+		game_object = "Spike_Prefab_GO",
+		model = "Spike.mesh",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/Spike.RepX",
+		physic_group = 1,
 		material = "Black",
 	},
 
