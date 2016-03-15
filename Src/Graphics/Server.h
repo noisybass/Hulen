@@ -212,7 +212,7 @@ namespace Graphics
 		Instancia única de la aplicación.
 		*/
 		static CServer *_instance;
-		
+
 		/**
 		Punto de entrada al sistema Ogre.
 		*/

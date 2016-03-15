@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Spike.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Vision.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GameObject.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityFactory.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Spike.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Vision.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GameObject.h" />
     <ClInclude Include="..\..\Src\Logic\Events\Event.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />

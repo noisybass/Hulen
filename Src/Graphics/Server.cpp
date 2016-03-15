@@ -28,9 +28,9 @@ la ventana, etc.
 
 namespace Graphics 
 {
-	CServer *CServer::_instance = 0;
+	CServer *CServer::_instance = nullptr;
 
-	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0)
+	CServer::CServer() : _root(nullptr), _renderWindow(nullptr), _activeScene(nullptr), _dummyScene(nullptr)
 	{
 		assert(!_instance && "Segunda inicialización de Graphics::CServer no permitida!");
 
@@ -44,7 +44,7 @@ namespace Graphics
 	{
 		assert(_instance);
 
-		_instance = 0;
+		_instance = nullptr;
 
 	} // ~CServer
 
@@ -106,7 +106,7 @@ namespace Graphics
 		if(_activeScene)
 		{
 			_activeScene->deactivate();
-			_activeScene = 0;
+			_activeScene = nullptr;
 		}
 		while(!_scenes.empty())
 		{
@@ -138,7 +138,7 @@ namespace Graphics
 	{
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
-			_activeScene = 0;
+			_activeScene = nullptr;
 		_scenes.erase(scene->getName());
 		delete scene;
 
@@ -160,7 +160,7 @@ namespace Graphics
 		CScene* scene = (*iterator).second;
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
-			_activeScene = 0;
+			_activeScene = nullptr;
 		_scenes.erase(iterator);
 		delete scene;
 
