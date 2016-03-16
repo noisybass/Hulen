@@ -14,8 +14,9 @@ namespace Logic
 	IMP_FACTORY(CPlayerManager);
 
 	CPlayerManager::CPlayerManager()
-		: IComponent(), _onLight(false), _deathTimeElapsed(0), _kasaiName(""), _kasai(nullptr),
-		_chargePrefab(""), _chargesOwned(3)
+		: IComponent(), _onLight(false), _deathTimeElapsed(0.0),
+		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
+		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false)
 	{
 
 	} // CPlayerManager
@@ -38,6 +39,12 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("charge"))
 			_chargePrefab = entityInfo->getStringAttribute("charge");
+
+		if (entityInfo->hasAttribute("playerDeathTime"))
+			_playerDeathTime = entityInfo->getFloatAttribute("playerDeathTime") * 1000;
+
+		if (entityInfo->hasAttribute("playerCanDie"))
+			_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
 
 	} // spawn
 
@@ -175,7 +182,7 @@ namespace Logic
 		if (_onLight)
 		{
 			// Reseteamos el contador para la muerte
-			_deathTimeElapsed = 0;
+			_deathTimeElapsed = 0.0;
 			//std::cout << "Resetar tiempo de morir" << std::endl;
 		}
 		else
@@ -185,10 +192,10 @@ namespace Logic
 				changeState(GameObject::BODY);
 
 			// Y empezamos a morirnos
-			if (!_onLight && _gameObject->_playerCanDie){
+			if (!_onLight && _playerCanDie){
 				_deathTimeElapsed += msecs;
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
-				if (_deathTimeElapsed >= _gameObject->_playerDeathTime){
+				if (_deathTimeElapsed >= _playerDeathTime){
 					Logic::TMessage m;
 					m._type = Logic::Message::PLAYER_DEATH;
 					_gameObject->emitMessage(m);

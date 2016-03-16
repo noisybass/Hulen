@@ -18,8 +18,7 @@ namespace Logic
 	CGameObject::CGameObject(TEntityID gameObjectID)
 		: _gameObjectID(gameObjectID), _body(nullptr), _shadow(nullptr),
 		_map(nullptr), _blueprint(""), _name(""), _isPlayer(false), _isLight(false),
-		_playerDeathTime(3), _playerCanDie(false), _defaultBodyMaterial("Blue"),
-		_defaultShadowMaterial("Green")
+		_defaultBodyMaterial("Blue"), _defaultShadowMaterial("Green")
 	{
 
 	} // CGameObject
@@ -38,16 +37,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("name"))
 			_name = entityInfo->getStringAttribute("name");
 
-		if (entityInfo->hasAttribute("isPlayer")){
-			_isPlayer = entityInfo->getBoolAttribute("isPlayer");
-
-			if (entityInfo->hasAttribute("playerDeathTime"))
-				_playerDeathTime = entityInfo->getFloatAttribute("playerDeathTime") * 1000;
-
-			if (entityInfo->hasAttribute("playerCanDie"))
-				_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
-		}
-			
+		if (entityInfo->hasAttribute("isPlayer"))
+			_isPlayer = entityInfo->getBoolAttribute("isPlayer");		
 
 		if (entityInfo->hasAttribute("isLight"))
 			_isLight = entityInfo->getBoolAttribute("isLight");
