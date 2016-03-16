@@ -71,6 +71,9 @@ namespace Logic
 		for( it = _components.begin(); it != _components.end() && correct; ++it )
 			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
 
+		/////CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
+		_direction = 1;
+
 		return correct;
 
 	} // spawn

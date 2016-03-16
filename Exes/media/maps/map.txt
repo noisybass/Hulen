@@ -125,6 +125,7 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.015,
+		defaultVision = 5,
 	},
 
 	Player_Shadow = {

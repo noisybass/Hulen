@@ -275,6 +275,11 @@ namespace Logic
 
 		IComponent* getComponent(const std::string& name);
 
+		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
+		int getDirection() { return _direction; };
+
+		void setDirection(const int direction){ _direction = direction; }
+
 	protected:
 
 		/**
@@ -313,6 +318,9 @@ namespace Logic
 		Matrix4 _transform;
 
 		bool _changeState;
+
+		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
+		int _direction;
 
 	}; // class CEntity
 

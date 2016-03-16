@@ -127,6 +127,9 @@ namespace Logic
 		message.setArg<std::string>(std::string("animation"), std::string("Walk"));
 		message.setArg<bool>(std::string("loop"), true);
 
+		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
+		_entity->setDirection(-1);
+
 		_entity->emitMessage(message,this);
 
 	} // walk
@@ -142,6 +145,9 @@ namespace Logic
 		message._type = Message::SET_ANIMATION;
 		message.setArg<std::string>(std::string("animation"), std::string("WalkBack"));
 		message.setArg<bool>(std::string("loop"), true);
+
+		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
+		_entity->setDirection(1);
 
 		_entity->emitMessage(message,this);
 
