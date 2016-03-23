@@ -47,7 +47,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;../../dependencies/include/lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />

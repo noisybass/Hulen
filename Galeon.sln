@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Application", "Projects\Application\Application.vcxproj", "{0B9BBA1D-20A3-4737-BD4E-C354FEF50B8A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -23,6 +23,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Projects\Physics\Physics.vcxproj", "{848EBA43-0D28-4267-A717-030578DB8EE6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sounds", "Projects\Sounds\Sounds.vcxproj", "{20258022-D342-47F6-A2DC-3B0ED51C135D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "Projects\AI\AI.vcxproj", "{F877EE30-8AAF-4155-93CE-6595DED1F1A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +108,14 @@ Global
 		{20258022-D342-47F6-A2DC-3B0ED51C135D}.Release|Win32.ActiveCfg = Release|Win32
 		{20258022-D342-47F6-A2DC-3B0ED51C135D}.Release|Win32.Build.0 = Release|Win32
 		{20258022-D342-47F6-A2DC-3B0ED51C135D}.Release|x64.ActiveCfg = Release|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Debug|ARM.ActiveCfg = Debug|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Debug|Win32.Build.0 = Debug|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Debug|x64.ActiveCfg = Debug|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Release|ARM.ActiveCfg = Release|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Release|Win32.ActiveCfg = Release|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Release|Win32.Build.0 = Release|Win32
+		{F877EE30-8AAF-4155-93CE-6595DED1F1A3}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
