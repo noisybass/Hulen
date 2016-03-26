@@ -397,27 +397,12 @@ bool CScriptManager::executeProcedure(const char *subroutineName) {
 
 	assert(_lua);
 
-#ifdef _DEBUG
-	int topLua = lua_gettop(_lua);
-#endif
+	luabind::object obj = luabind::globals(_lua)[subroutineName];
 
-	// Lo primero es buscar la función (global) con ese
-	// nombre.
-	lua_getglobal(_lua, subroutineName);
-
-	if (!lua_isfunction(_lua, -1)) {
-		// ¡¡Vaya!!
-		lua_pop(_lua, 1);
+	if (!obj.is_valid() || luabind::type(obj) != LUA_TFUNCTION)
 		return false;
-	}
 
-	// Llamamos a la función, sin argumentos y sin
-	// resultado.
-	lua_call(_lua, 0, 0);
-
-	// sanity-check: no dejamos nada en la cima de la pila...
-	// (recuerda que assert sólo compila el interior en modo debug)
-	assert(lua_gettop(_lua) == topLua);
+	obj();
 
 	return true;
 
@@ -430,30 +415,15 @@ bool CScriptManager::executeProcedure(const char *subroutineName, int param1) {
 
 	assert(_lua);
 
-#ifdef _DEBUG
-	int topLua = lua_gettop(_lua);
-#endif
-
-	// Lo primero es buscar la función (global) con ese
-	// nombre.
-	lua_getglobal(_lua, subroutineName);
-
-	if (!lua_isfunction(_lua, -1)) {
-		// ¡¡Vaya!!
-		lua_pop(_lua, 1);
+	try
+	{
+		luabind::globals(_lua)[subroutineName](param1);
+	}
+	catch (luabind::error& ex)
+	{
+		std::cout << ex.what() << std::endl;
 		return false;
 	}
-
-	// Apilamos el parámetro.
-	lua_pushnumber(_lua, param1);
-
-	// Llamamos a la función, con un argumento y sin
-	// resultado.
-	lua_call(_lua, 1, 0);
-
-	// sanity-check: no dejamos nada en la cima de la pila...
-	// (recuerda que assert sólo compila el interior en modo debug)
-	assert(lua_gettop(_lua) == topLua);
 
 	return true;
 
@@ -466,39 +436,20 @@ bool CScriptManager::executeFunction(const char *subroutineName,
 
 	assert(_lua);
 
-#ifdef _DEBUG
-	int topLua = lua_gettop(_lua);
-#endif
+	try
+	{
+		luabind::object res = luabind::globals(_lua)[subroutineName](param1);
 
-	// Lo primero es buscar la función (global) con ese
-	// nombre.
-	lua_getglobal(_lua, subroutineName);
+		if (!res.is_valid() || luabind::type(res) != LUA_TNUMBER)
+			return false;
 
-	if (!lua_isfunction(_lua, -1)) {
-		// ¡¡Vaya!!
-		lua_pop(_lua, 1);
+		result = luabind::object_cast<int>(res);
+	}
+	catch (luabind::error& ex)
+	{
+		std::cout << ex.what() << std::endl;
 		return false;
 	}
-
-	// Apilamos el parámetro.
-	lua_pushnumber(_lua, param1);
-
-	// Llamamos a la función, con un argumento y con
-	// resultado.
-	lua_call(_lua, 1, 1);
-
-	if (!lua_isnumber(_lua, -1)) {
-		// ¡¡Vaya!!
-		lua_pop(_lua, 1);
-		return false;
-	}
-	result = (int) lua_tonumber(_lua, -1);
-
-	lua_pop(_lua, 1);
-
-	// sanity-check: no dejamos nada en la cima de la pila...
-	// (recuerda que assert sólo compila el interior en modo debug)
-	assert(lua_gettop(_lua) == topLua);
 
 	return true;
 
