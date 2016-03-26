@@ -156,48 +156,14 @@ bool CScriptManager::getGlobal(const char *name, bool defaultValue) {
 std::string CScriptManager::getGlobal(const char *name,
                                 const char *defaultValue) {
 
-	size_t len;
 	assert(_lua);
 
-#ifdef _DEBUG
-	int topLua = lua_gettop(_lua);
-#endif
+	luabind::object obj = luabind::globals(_lua)[name];
 
-	const char *result; // Antes de hacer la copia.
-
-	lua_getglobal(_lua, name);
-
-	if (!lua_isstring(_lua, -1))
-		result = defaultValue;
-	else {
-		result = lua_tolstring(_lua, -1, &len);
-
-		// lua_tolstring siempre nos pone el \0
-		// al final, pero podría haber alguno más
-		// por el medio.
-		// Si es así, entonces strlen(result)
-		// (que busca el \0) parará "antes de
-		// tiempo" y habrá diferencias en las
-		// longitudes apreciables.
-		assert(len == strlen(result));
-	}
-
-	// Hacemos la copia. La hacemos antes de quitar
-	// el elemento de la pila, porque Lua podría decidir
-	// recoger la basura y liberar la cadena result.
-	std::string resultCopy(result);
-
-	// Quitamos de la pila de Lua el elemento apilado por
-	// lua_getglobal.
-	// Si la variable global no existía, nos habrá
-	// apilado nil, de modo que siempre hay algo :-)
-	lua_pop(_lua, 1);
-
-	// sanity-check: no dejamos nada en la cima de la pila...
-	// (recuerda que assert sólo compila el interior en modo debug)
-	assert(lua_gettop(_lua) == topLua);
-
-	return resultCopy;
+	if (!obj.is_valid() || luabind::type(obj) != LUA_TSTRING)
+		return defaultValue;
+	else
+		return luabind::object_cast<const char*>(obj);
 
 } // getGlobal(char*)
 
