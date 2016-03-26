@@ -139,33 +139,15 @@ int CScriptManager::getGlobal(const char *name, int defaultValue) {
 //---------------------------------------------------------
 
 bool CScriptManager::getGlobal(const char *name, bool defaultValue) {
-
+	
 	assert(_lua);
 
-#ifdef _DEBUG
-	int topLua = lua_gettop(_lua);
-#endif
+	luabind::object obj = luabind::globals(_lua)[name];
 
-	bool result;
-
-	lua_getglobal(_lua, name);
-
-	if (!lua_isboolean(_lua, -1))
-		result = defaultValue;
+	if (!obj.is_valid() || luabind::type(obj) != LUA_TBOOLEAN)
+		return defaultValue;
 	else
-		result = lua_toboolean(_lua, -1)==0?false:true;
-
-	// Quitamos de la pila de Lua el elemento apilado por
-	// lua_getglobal.
-	// Si la variable global no existía, nos habrá
-	// apilado nil, de modo que siempre hay algo :-)
-	lua_pop(_lua, 1);
-
-	// sanity-check: no dejamos nada en la cima de la pila...
-	// (recuerda que assert sólo compila el interior en modo debug)
-	assert(lua_gettop(_lua) == topLua);
-
-	return result;
+		return luabind::object_cast<bool>(obj);
 
 } // getGlobal(bool)
 
