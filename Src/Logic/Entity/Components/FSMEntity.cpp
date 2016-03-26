@@ -2,12 +2,12 @@
 
 #include "BaseSubsystems\ScriptManager.h"
 
-extern "C"
-{
-#include <lua.h>
-}
-
-#include <luabind\luabind.hpp>
+//extern "C"
+//{
+//#include <lua.h>
+//}
+//
+//#include <luabind\luabind.hpp>
 
 namespace Logic
 {
@@ -21,28 +21,29 @@ namespace Logic
 		// Creamos la máquina de estados
 		_FSM = new AI::StateMachine<CFSMEntity>(this);
 
-		// Registramos las funciones de esta clase que se van a usar
-		// desde los estados
-		registerFSMEntity();
-
-		// Cargamos el script con las definiciones de los estados
-		loadStates();
-
 		return true;
 
 	} // spawn
 
 	bool CFSMEntity::activate()
 	{
+		// Registramos las funciones de esta clase que se van a usar
+		// desde los estados
+		registerFSMEntity();
+
+		// Cargamos el script con las definiciones de los estados
+		if (!loadStates())
+			return false;
+
 		// Al activar el componenente es cuando le asignamos a la máquina 
 		// de estados el estado inicial
-
 		lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
 
 		luabind::object states = luabind::globals(lua);
 
 		if (luabind::type(states) == LUA_TTABLE)
 		{
+			luabind::object state = states["State_Prueba"];
 			_FSM->setCurrentState(states["State_Prueba"]);
 
 			return true;
@@ -79,11 +80,11 @@ namespace Logic
 
 	} // registerFSMEntity
 
-	void CFSMEntity::loadStates()
+	bool CFSMEntity::loadStates()
 	{
 		std::cout << "Cargando el script de los estados..." << std::endl;
 
-		ScriptManager::CScriptManager::GetPtrSingleton()->loadScript("media/lua/states.lua");
+		return ScriptManager::CScriptManager::GetPtrSingleton()->loadScript("media/lua/states.lua");
 
 	} // loadStates
 

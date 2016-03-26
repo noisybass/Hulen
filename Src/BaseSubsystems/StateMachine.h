@@ -51,14 +51,14 @@ namespace AI
 
 		void update()
 		{
-			std::cout << "UPDATE" << std::endl;
-
 			//// Nos aseguramos de que el estado es válido antes de llamar
 			//// a execute()
-			/*if (_currentState.is_valid())
+			if (_currentState.is_valid())
 			{
-				_currentState["Execute"](_owner);
-			}*/
+				std::cout << "UPDATE" << std::endl;
+				std::cout << _currentState << std::endl;
+				//_currentState["Execute"](_owner);
+			}
 
 		} // update
 

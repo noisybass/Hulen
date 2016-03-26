@@ -21,7 +21,7 @@ namespace Logic
 
 		void registerFSMEntity();
 
-		void loadStates();
+		bool loadStates();
 
 		AI::StateMachine<CFSMEntity>* getFSM() const { return _FSM; }
 
