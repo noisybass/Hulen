@@ -140,13 +140,15 @@ namespace Map {
 		// Configuramos la parte de LUA
 		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
 
-		sm->loadScript("media/lua/MapParser.lua");
+		
 		sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
 		sm->registerFunction(lua_endMapEntity, "EndMapEntity");
 		sm->registerFunction(lua_addEntityAttrib, "AddEntityAttrib");
 		sm->registerFunction(lua_beginPrefabEntity, "BeginPrefabEntity");
 		sm->registerFunction(lua_endPrefabEntity, "EndPrefabEntity");
 		sm->registerFunction(lua_addPrefabAttrib, "AddPrefabAttrib");
+
+		sm->loadScript("media/lua/MapParser.lua");
 
 	} // CMapParser
 
@@ -211,6 +213,7 @@ namespace Map {
 		else if (type == "Prefab"){
 			orden = "loadPrefab(\"" + filename + "\")";
 		}
+		sm->executeScript("decirHola()");
 		sm->executeScript(orden.c_str());
 
 		return true;
