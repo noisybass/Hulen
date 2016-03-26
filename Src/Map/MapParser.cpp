@@ -28,12 +28,6 @@ extern "C"
 
 namespace Probando
 {
-	void sayHello(const std::string& message)
-	{
-		//std::cout << "HELLOOOOOOOOOOOOOOO!!!" << std::endl;
-		std::cout << message << std::endl;
-	}
-
 	/**
 	Cargar el mapa
 	*/
@@ -136,7 +130,6 @@ namespace Map {
 		// Configuramos la parte de LUA
 		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
 
-		sm->loadScript("media/lua/script.lua");
 		sm->loadScript("media/lua/MapParser.lua");
 		
 
@@ -147,8 +140,7 @@ namespace Map {
 				luabind::def("AddEntityAttrib", &Probando::lua_addEntityAttrib),
 				luabind::def("BeginPrefabEntity", &Probando::lua_beginPrefabEntity),
 				luabind::def("EndPrefabEntity", &Probando::lua_endPrefabEntity),
-				luabind::def("AddPrefabAttrib", &Probando::lua_addPrefabAttrib),
-				luabind::def("SayHello", &Probando::sayHello)
+				luabind::def("AddPrefabAttrib", &Probando::lua_addPrefabAttrib)
 			];
 		/*sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
 		sm->registerFunction(lua_endMapEntity, "EndMapEntity");
@@ -223,7 +215,7 @@ namespace Map {
 			orden = "loadPrefab(\"" + filename + "\")";
 		}
 		const char* aux = orden.c_str();
-		//sm->executeScript("decirHola(\"MENSAJE\")");
+
 		sm->executeScript(orden.c_str());
 
 		return true;

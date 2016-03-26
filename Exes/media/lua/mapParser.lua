@@ -8,7 +8,6 @@
 -- tabla Map global
 -- Devuelve un valor booleano indicando si todo fue bien.
 function loadMap(mapFile)
-	SayHello("Vamos a empezar con las entidades")
 	print("Loading map...")
 	Map_GO = {};
 	Map = {};
@@ -52,7 +51,6 @@ end
 ]]--
 
 function loadPrefab(prefabFile)
-	SayHello("Vamos a empezar con los prefabs")
 	print ("Loading prefab map...")
 	Prefab_GO = {};
 	Prefab = {};
