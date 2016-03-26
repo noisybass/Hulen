@@ -31,14 +31,6 @@ extern "C" {
 
 #include "luabind/luabind.hpp"
 
-namespace Probando
-{
-	void sayHello()
-	{
-		std::cout << "HELLOOOOOOOOOOOOOOO!!!" << std::endl;
-	}
-}
-
 namespace ScriptManager {
 
 // Única instancia de la clase.
@@ -503,15 +495,6 @@ bool CScriptManager::open() {
 	luaopen_base(_lua);
 
 	luabind::open(_lua);
-	loadScript("media/lua/script.lua");
-
-	luabind::module(_lua)
-		[
-			luabind::def("SayHello", &Probando::sayHello)
-		];
-
-	
-	//executeScript("decirHola()");
 
 	return true;
 

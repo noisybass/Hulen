@@ -62,7 +62,6 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 
 		miApp.release();
 	}
-
 	return 0;
 
 } // main

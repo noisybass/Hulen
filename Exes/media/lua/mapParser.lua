@@ -8,6 +8,7 @@
 -- tabla Map global
 -- Devuelve un valor booleano indicando si todo fue bien.
 function loadMap(mapFile)
+	SayHello("Vamos a empezar con las entidades")
 	print("Loading map...")
 	Map_GO = {};
 	Map = {};
@@ -35,8 +36,10 @@ function parseMap(map)
 			for k,v in pairs(value) do
 				if type(v) == "table" then
 					AddEntityAttrib(k, v[1].." "..v[2].." "..v[3])
-				else
+				elseif type(v) == "string" then
 					AddEntityAttrib(k,v)
+				else
+					AddEntityAttrib(k, tostring(v))
 				end
 			end
 
@@ -49,6 +52,7 @@ end
 ]]--
 
 function loadPrefab(prefabFile)
+	SayHello("Vamos a empezar con los prefabs")
 	print ("Loading prefab map...")
 	Prefab_GO = {};
 	Prefab = {};
@@ -73,8 +77,10 @@ function parsePrefab(map)
 			for k,v in pairs(value) do
 				if type(v) == "table" then
 					AddPrefabAttrib(k, v[1].." "..v[2].." "..v[3])
-				else
+				elseif type(v) == "string" then
 					AddPrefabAttrib(k,v)
+				else
+					AddPrefabAttrib(k, tostring(v))
 				end
 			end
 

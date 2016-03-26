@@ -24,94 +24,91 @@ extern "C"
 #include <lua.h>
 }
 
-namespace
+#include "luabind\luabind.hpp"
+
+namespace Probando
 {
+	void sayHello(const std::string& message)
+	{
+		//std::cout << "HELLOOOOOOOOOOOOOOO!!!" << std::endl;
+		std::cout << message << std::endl;
+	}
+
 	/**
 	Cargar el mapa
 	*/
-	int lua_beginMapEntity(lua_State* l)
-	{
-		Map::CMapParser::getSingletonPtr()->setEntityInProgress(new Map::CEntity(lua_tostring(l, -1)));
+	void lua_beginMapEntity(const std::string& entityName)
+	{	
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
 
-		return 0;
+		Map::CMapParser::getSingletonPtr()->setEntityInProgress(new Map::CEntity(entityName));
+
 	}
 
-	int lua_addEntityAttrib(lua_State* l)
+	void lua_addEntityAttrib(const std::string& name, const std::string& value)
 	{
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
+
 		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->getEntityInProgress();
-		std::string key = lua_tostring(l, -2);
+		std::string key = name;
 
 		if (key == "type")
 		{
-			e->setType(lua_tostring(l, -1));
+			e->setType(value);
 		}
 		else if (key == "blueprint"){
-			e->setBlueprint(lua_tostring(l, -1));
+			e->setBlueprint(value);
 		}
 		else
 		{
-			if (lua_isboolean(l, -1))
-			{
-				e->setAttribute(lua_tostring(l, -2), lua_toboolean(l, -1)? "true" : "false");
-			}
-			else
-			{
-				e->setAttribute(lua_tostring(l, -2), lua_tostring(l, -1));
-			}
+			e->setAttribute(name, value);
 		}
 
-		return 0;
 	}
 
-	int lua_endMapEntity(lua_State* l)
+	void lua_endMapEntity(const std::string& entityName)
 	{
 
 		Map::CMapParser::getSingletonPtr()->getEntityList()->push_back(Map::CMapParser::getSingletonPtr()->getEntityInProgress());
 
 		Map::CMapParser::getSingletonPtr()->setEntityInProgress(nullptr);
 
-		return 0;
 	}
 
 
 	/**
 	Cargar los prefabs
 	*/
-	int lua_beginPrefabEntity(lua_State* l)
+	void lua_beginPrefabEntity(const std::string& prefabName)
 	{
-		Map::CMapParser::getSingletonPtr()->setPrefabInProgress(new Map::CEntity(lua_tostring(l, -1)));
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
 
-		return 0;
+		Map::CMapParser::getSingletonPtr()->setPrefabInProgress(new Map::CEntity(prefabName));
+
 	}
 
-	int lua_addPrefabAttrib(lua_State* l)
+	void lua_addPrefabAttrib(const std::string& name, const std::string& value)
 	{
+		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
+
 		Map::CEntity* e = Map::CMapParser::getSingletonPtr()->getPrefabInProgress();
-		std::string key = lua_tostring(l, -2);
+		std::string key = name;
 
 		if (key == "type")
 		{
-			e->setType(lua_tostring(l, -1));
+			e->setType(value);
 		}
 		else if (key == "blueprint"){
-			e->setBlueprint(lua_tostring(l, -1));
+			e->setBlueprint(value);
 		}
 		else
 		{
-			if (lua_isboolean(l, -1))
-			{
-				e->setAttribute(lua_tostring(l, -2), lua_toboolean(l, -1) ? "true" : "false");
-			}
-			else
-			{
-				e->setAttribute(lua_tostring(l, -2), lua_tostring(l, -1));
-			}
+			e->setAttribute(name, value);
 		}
 
-		return 0;
 	}
 
-	int lua_endPrefabEntity(lua_State* l)
+	void lua_endPrefabEntity(const std::string& prefabName)
 	{
 		Map::CEntity* s = Map::CMapParser::getSingletonPtr()->getPrefabInProgress();
 
@@ -119,7 +116,6 @@ namespace
 
 		Map::CMapParser::getSingletonPtr()->setPrefabInProgress(nullptr);
 
-		return 0;
 	}
 
 }
@@ -140,15 +136,28 @@ namespace Map {
 		// Configuramos la parte de LUA
 		ScriptManager::CScriptManager *sm = ScriptManager::CScriptManager::GetPtrSingleton();
 
+		sm->loadScript("media/lua/script.lua");
+		sm->loadScript("media/lua/MapParser.lua");
 		
-		sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
+
+		luabind::module(sm->_lua)
+			[
+				luabind::def("BeginMapEntity", &Probando::lua_beginMapEntity),
+				luabind::def("EndMapEntity", &Probando::lua_endMapEntity),
+				luabind::def("AddEntityAttrib", &Probando::lua_addEntityAttrib),
+				luabind::def("BeginPrefabEntity", &Probando::lua_beginPrefabEntity),
+				luabind::def("EndPrefabEntity", &Probando::lua_endPrefabEntity),
+				luabind::def("AddPrefabAttrib", &Probando::lua_addPrefabAttrib),
+				luabind::def("SayHello", &Probando::sayHello)
+			];
+		/*sm->registerFunction(lua_beginMapEntity, "BeginMapEntity");
 		sm->registerFunction(lua_endMapEntity, "EndMapEntity");
 		sm->registerFunction(lua_addEntityAttrib, "AddEntityAttrib");
 		sm->registerFunction(lua_beginPrefabEntity, "BeginPrefabEntity");
 		sm->registerFunction(lua_endPrefabEntity, "EndPrefabEntity");
-		sm->registerFunction(lua_addPrefabAttrib, "AddPrefabAttrib");
+		sm->registerFunction(lua_addPrefabAttrib, "AddPrefabAttrib");*/
 
-		sm->loadScript("media/lua/MapParser.lua");
+		
 
 	} // CMapParser
 
@@ -213,7 +222,8 @@ namespace Map {
 		else if (type == "Prefab"){
 			orden = "loadPrefab(\"" + filename + "\")";
 		}
-		sm->executeScript("decirHola()");
+		const char* aux = orden.c_str();
+		//sm->executeScript("decirHola(\"MENSAJE\")");
 		sm->executeScript(orden.c_str());
 
 		return true;

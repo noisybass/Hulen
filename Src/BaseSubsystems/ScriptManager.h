@@ -280,6 +280,11 @@ public:
 
 	lua_State *getNativeInterpreter() { return _lua; }
 
+	/**
+	* Contexto (intérprete) de Lua usado.
+	*/
+	lua_State *_lua;
+
 protected:
 
 	/**
@@ -329,11 +334,6 @@ protected:
 	 * Se inicializa en Init() y se destruye en Release().
 	 */
 	static CScriptManager *_instance;
-
-	/**
-	 * Contexto (intérprete) de Lua usado.
-	 */
-	lua_State *_lua;
 
 }; // class CScriptManager
 
