@@ -6,6 +6,6 @@ PlayerNoAnimation CAvatarController CGraphics CPhysicController
 Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CPhysicEntity
-Spike CGraphics CPhysicEntity CSpike
+Spike CGraphics CPhysicEntity CSpike CFSMEntity
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 Empty

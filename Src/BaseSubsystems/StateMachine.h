@@ -45,18 +45,20 @@ namespace AI
 
 		void setCurrentState(const luabind::object& state)
 		{
-			_currentState = s;
+			_currentState = state;
 
 		} // setCurrentState
 
 		void update()
 		{
-			// Nos aseguramos de que el estado es válido antes de llamar
-			// a execute()
-			if (_currentState.is_valid())
+			std::cout << "UPDATE" << std::endl;
+
+			//// Nos aseguramos de que el estado es válido antes de llamar
+			//// a execute()
+			/*if (_currentState.is_valid())
 			{
 				_currentState["Execute"](_owner);
-			}
+			}*/
 
 		} // update
 

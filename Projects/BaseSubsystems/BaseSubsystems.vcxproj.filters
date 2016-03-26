@@ -34,5 +34,8 @@
     <ClInclude Include="..\..\Src\BaseSubsystems\ScriptManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\BaseSubsystems\StateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

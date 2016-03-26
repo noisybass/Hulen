@@ -90,6 +90,7 @@
     <ClInclude Include="..\..\Src\BaseSubsystems\Math.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\ScriptManager.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Server.h" />
+    <ClInclude Include="..\..\Src\BaseSubsystems\StateMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

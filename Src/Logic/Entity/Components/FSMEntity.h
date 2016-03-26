@@ -2,7 +2,7 @@
 #define LOGIC_FSM_ENTITY_H
 
 #include "Logic\Entity\Component.h"
-#include "AI\StateMachine.h"
+#include "BaseSubsystems\StateMachine.h"
 
 namespace Logic
 {
@@ -13,11 +13,15 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
+		bool activate() override;
+
 		void tick(unsigned int msecs) override;
 
 		void sayHello();
 
 		void registerFSMEntity();
+
+		void loadStates();
 
 		AI::StateMachine<CFSMEntity>* getFSM() const { return _FSM; }
 
