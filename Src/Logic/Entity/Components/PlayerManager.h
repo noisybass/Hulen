@@ -47,6 +47,18 @@ namespace Logic
 	private:
 
 		/**
+		Opcion de depuracion, si lo ponemos a true el jugador puede morir,
+		si no por defecto no morira.
+		*/
+		bool _playerCanDie;
+
+		/**
+		Atributo que indica el tiempo maximo que el jugador
+		puede mantenerse en la oscuridad.
+		*/
+		float _playerDeathTime;
+
+		/**
 		El tiempo que le queda para que el jugador muera.
 		*/
 		float _deathTimeElapsed;

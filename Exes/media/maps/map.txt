@@ -6,7 +6,7 @@ Map_GO = {
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = false,
+		playerCanDie = true,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 	},
