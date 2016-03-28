@@ -6,7 +6,7 @@ Map_GO = {
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = true,
+		playerCanDie = false,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 	},
@@ -108,7 +108,7 @@ Map = {
 	
 	Player_Body = {
 		type = "Body",
-		blueprint = "Player",
+		blueprint = "PlayerPatrol",
 		game_object = "Player_GO",
 		position = {-27.8, 0, 0},
 		scale = {0.2, 0.2, 0.2},
@@ -125,11 +125,14 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.015,
+		--positionToGo = {0, 0, 0},
+		patrolPosition1 = {-10, 0, 0},
+		patrolPosition2 = {5, 0, 0},
 	},
 
 	Player_Shadow = {
 		type = "Shadow",
-		blueprint = "Player",
+		blueprint = "PlayerPatrol",
 		game_object = "Player_GO",
 		position = {-27.8, 0, -3.5},
 		scale = {0.2, 0.2, 0.2},
@@ -146,6 +149,9 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.01,
+		--positionToGo = {0, 0, 0},
+		patrolPosition1 = {-10, 0, 0},
+		patrolPosition2 = {5, 0, 0},
 	},
 
 	Kasai = {

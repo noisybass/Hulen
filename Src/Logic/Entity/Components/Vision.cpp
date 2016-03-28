@@ -69,7 +69,7 @@ namespace Logic
 
 	void CVision::process(const TMessage &message)
 	{
-	
+		
 	} // process
 	
 
