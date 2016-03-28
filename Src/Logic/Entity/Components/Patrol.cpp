@@ -52,6 +52,8 @@ namespace Logic
 
 	void CPatrol::tick(unsigned int msecs)
 	{
+		IComponent::tick(msecs);
+
 		if (_arrivedToDestination)
 		{
 			CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
