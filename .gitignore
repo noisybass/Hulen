@@ -26,7 +26,9 @@ Exes/*.pdb
 Exes/Microsoft.DTfW.DHL.manifest
 Exes/ogre.cfg
 Exes/plugins_d.cfg
+Exes/plugins.cfg
 Exes/tests_d.cfg
+Exes/tests.cfg
 Exes/vld.ini
 
 # Carpetas donde se compilan los subproyectos de Galeon
