@@ -1,20 +1,6 @@
-/**
-@file Components/Component.cpp
-
-Contiene la implementación de la clase base de los componentes.
- 
-@see Logic::IComponent
-@see Logic::CCommunicationPort
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Component.h"
 
 #include <cassert>
-
-#include "Entity.h"
 
 namespace Logic 
 {

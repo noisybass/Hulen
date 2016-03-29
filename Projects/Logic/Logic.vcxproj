@@ -83,6 +83,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\ClasePruebas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\ClasePruebas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />

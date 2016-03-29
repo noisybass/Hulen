@@ -17,11 +17,13 @@
 #ifndef __ScriptManager_ScriptManager_H
 #define __ScriptManager_ScriptManager_H
 
-// Predeclaración de clases para ahorrar tiempo de compilación
-// al ahorrarnos la inclusión de ficheros .h en otros .h
+extern "C" {
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>  // Para inicializar la librería base de Lua
+}
 
-// Estructura con el contexto (estado) del intérprete de Lua.
-struct lua_State;
+#include "luabind/luabind.hpp"
 
 typedef int (*lua_CFunction) (lua_State *L);
 

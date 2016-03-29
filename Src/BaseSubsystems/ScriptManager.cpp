@@ -16,24 +16,13 @@
 
 #include "ScriptManager.h"
 
-// Incluímos las cabedceras de Lua.
-// Como es código C (no C++), hay que indicarselo al
-// compilador para que asuma el convenio de nombres
-// de C en el código objeto.
-extern "C" {
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>  // Para inicializar la librería base de Lua
-}
-
 #include <cassert>
 #include <iostream> // Mensajes de error
 
-#include "luabind/luabind.hpp"
-
 #include "Logic\Entity\Components\FSMEntity.h"
-#include "Logic\Entity\Component.h"
-#include "Logic\Entity\CommunicationPort.h"
+#include "Logic\Entity\Components\ClasePruebas.h"
+//#include "Logic\Entity\Component.h"
+//#include "Logic\Entity\CommunicationPort.h"
 #include "BaseSubsystems\StateMachine.h"
 
 namespace ScriptManager {
@@ -508,15 +497,16 @@ bool CScriptManager::open() {
 	// Registramos las funciones de la clase FSMEntity y de la máquina de estados
 	luabind::module(_lua)
 		[
-			luabind::class_<Logic::CCommunicationPort>("CommunicationPort"),
-			luabind::class_<Logic::IComponent, luabind::bases<Logic::CCommunicationPort> >("Component"),
-			luabind::class_<Logic::CFSMEntity, luabind::bases<Logic::IComponent> >("CFSMEntity")
+			/*luabind::class_<Logic::CCommunicationPort>("CommunicationPort"),
+			luabind::class_<Logic::IComponent, luabind::bases<Logic::CCommunicationPort> >("Component"),*/
+			luabind::class_<ClasePruebas>("ClasePruebas"),
+			luabind::class_<Logic::CFSMEntity/*, luabind::bases<Logic::IComponent>*/, luabind::bases<ClasePruebas> >("CFSMEntity")
 			.def("SayHello", &Logic::CFSMEntity::sayHello)
 			.def("GetFSM", &Logic::CFSMEntity::getFSM),
-			luabind::class_<AI::StateMachine<std::string> >("StateMachine")
-			.def("ChangeState", &AI::StateMachine<std::string>::changeState)
-			.def("GetCurrentState", &AI::StateMachine<std::string>::getCurrentState)
-			.def("SetCurrentState", &AI::StateMachine<std::string>::setCurrentState)
+			luabind::class_<AI::StateMachine<Logic::CFSMEntity> >("StateMachine")
+			.def("ChangeState", &AI::StateMachine<Logic::CFSMEntity>::changeState)
+			.def("GetCurrentState", &AI::StateMachine<Logic::CFSMEntity>::getCurrentState)
+			.def("SetCurrentState", &AI::StateMachine<Logic::CFSMEntity>::setCurrentState)
 		];
 
 	return true;

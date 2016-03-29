@@ -1,14 +1,15 @@
 #ifndef LOGIC_FSM_ENTITY_H
 #define LOGIC_FSM_ENTITY_H
 
-#include "Logic\Entity\Component.h"
+//#include "Logic\Entity\Component.h"
 #include "BaseSubsystems\StateMachine.h"
+#include "ClasePruebas.h"
 
 namespace Logic
 {
-	class CFSMEntity : public IComponent
+	class CFSMEntity /*: public IComponent*/ : public ClasePruebas
 	{
-		DEC_FACTORY(CFSMEntity);
+		/*DEC_FACTORY(CFSMEntity);*/
 	private:
 
 		AI::StateMachine<CFSMEntity>* _FSM;
@@ -17,9 +18,9 @@ namespace Logic
 
 		CFSMEntity();
 
-		bool activate() override;
+		bool activate()/* override*/;
 
-		void tick(unsigned int msecs) override;
+		void tick(unsigned int msecs) /*override*/;
 
 		void sayHello();
 
@@ -27,7 +28,7 @@ namespace Logic
 
 	}; // class CFSMEntity
 
-	REG_FACTORY(CFSMEntity);
+	/*REG_FACTORY(CFSMEntity);*/
 
 } // namespace Logic
 

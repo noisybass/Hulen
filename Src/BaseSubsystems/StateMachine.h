@@ -45,7 +45,7 @@ namespace AI
 				std::cout << "UPDATE" << std::endl;
 				//Logic::CFSMEntity* entidadPrueba = new Logic::CFSMEntity();
 				//_currentState["ProbandoConArgumentos"](entidadPrueba);
-				//_currentState["Execute"](_owner);
+				_currentState["Execute"](_owner);
 			}
 
 		} // update

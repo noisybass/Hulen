@@ -1,32 +1,13 @@
-/**
-@file Component.h
-
-Contiene la declaración de la clase base de los componentes.
-
-@see Logic::IComponent
-@see Logic::CCommunicationPort
-
-@author David Llansó
-@date Julio, 2010
-*/
 #ifndef __Logic_Component_H
 #define __Logic_Component_H
 
 #include "CommunicationPort.h"
 #include "Logic/Maps/ComponentFactory.h"
 
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Map
-{
-	class CEntity;
-}
-
-namespace Logic 
-{
-	class CMap;
-	class CEntity;
-	class CGameObject;
-}
+#include "Map/MapEntity.h"
+#include "Logic/Maps/Map.h"
+#include "Logic/Entity/Entity.h"
+#include "Logic/Entity/GameObject.h"
 
 //declaración de la clase
 namespace Logic 

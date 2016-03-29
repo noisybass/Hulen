@@ -2,6 +2,8 @@
 
 #include "BaseSubsystems\ScriptManager.h"
 
+#include <iostream>
+
 //extern "C"
 //{
 //#include <lua.h>
@@ -11,10 +13,10 @@
 
 namespace Logic
 {
-	IMP_FACTORY(CFSMEntity);
+	/*IMP_FACTORY(CFSMEntity);*/
 
 	CFSMEntity::CFSMEntity()
-		: IComponent()
+		/*: IComponent()*/
 	{
 		// Creamos la máquina de estados
 		_FSM = new AI::StateMachine<CFSMEntity>(this);
@@ -46,7 +48,7 @@ namespace Logic
 
 	void CFSMEntity::tick(unsigned int msecs)
 	{
-		IComponent::tick(msecs);
+		/*IComponent::tick(msecs);*/
 
 		_FSM->update();
 
