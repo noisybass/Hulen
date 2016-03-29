@@ -32,6 +32,12 @@ namespace Logic
 		if (entityInfo->hasAttribute("defaultVision"))
 			_defaultVision = entityInfo->getFloatAttribute("defaultVision");
 
+		if (entityInfo->hasAttribute("xRaySeparation"))
+			_xRaySeparation = entityInfo->getIntAttribute("xRaySeparation");
+
+		if (entityInfo->hasAttribute("yRaySeparation"))
+			_yRaySeparation = entityInfo->getIntAttribute("yRaySeparation");
+
 		return true;
 
 	} // spawn
@@ -41,9 +47,17 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		Logic::CEntity* entity = visionRay();
+
 		Ogre::Vector3 startPosition = _entity->getPosition();
+		// Actualizamos la x para que no choque con la propia malla.
+		if (_entity->getDirection() == 1) startPosition.x += _xRaySeparation;
+		else if (_entity->getDirection() == -1) startPosition.x -= _xRaySeparation;
+		startPosition.y += _yRaySeparation; // Actualizo la y para ver el rayo un poco más arriba, y no desde el pivote del personaje
+
 		Ogre::Vector3 endPosition = _entity->getPosition();
+		endPosition.y += _yRaySeparation;
 		endPosition.x += _defaultVision * _entity->getDirection();
+
 		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
 
 		if (entity != nullptr){
@@ -57,7 +71,11 @@ namespace Logic
 		if (_entity->getDirection() == 0) return nullptr;
 
 		// Inicializamos el rayo
-		_ray.setOrigin(_entity->getPosition());
+		Vector3 origin = _entity->getPosition();
+		if (_entity->getDirection() == 1) origin.x += _xRaySeparation;
+		else if (_entity->getDirection() == -1) origin.x -= _xRaySeparation;
+		origin.y += _yRaySeparation;
+		_ray.setOrigin(origin);
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
 
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, maxDistance);
@@ -68,7 +86,11 @@ namespace Logic
 		if (_entity->getDirection() == 0) return nullptr;
 
 		// Inicializamos el rayo
-		_ray.setOrigin(_entity->getPosition());
+		Vector3 origin = _entity->getPosition();
+		if (_entity->getDirection() == 1) origin.x += _xRaySeparation;
+		else if (_entity->getDirection() == -1) origin.x -= _xRaySeparation;
+		origin.y += _yRaySeparation;
+		_ray.setOrigin(origin);
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
 		
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);

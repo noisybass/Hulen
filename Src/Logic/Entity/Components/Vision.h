@@ -27,7 +27,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CVision() : IComponent(), _ray(), _defaultVision(5) {}
+		CVision() : IComponent(), _ray(), _defaultVision(5), _xRaySeparation(0.7), _yRaySeparation(0.5) {}
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -66,6 +66,9 @@ namespace Logic
 		Ray _ray;
 
 		float _defaultVision;
+
+		float _xRaySeparation;
+		float _yRaySeparation;
 		
 
 	}; // class CVision
