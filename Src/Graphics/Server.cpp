@@ -16,6 +16,7 @@ la ventana, etc.
 
 #include "Server.h"
 #include "Scene.h"
+#include "Graphics\DebugDrawing.h"
 
 #include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
@@ -30,7 +31,7 @@ namespace Graphics
 {
 	CServer *CServer::_instance = nullptr;
 
-	CServer::CServer() : _root(nullptr), _renderWindow(nullptr), _activeScene(nullptr), _dummyScene(nullptr)
+	CServer::CServer() : _root(nullptr), _renderWindow(nullptr), _activeScene(nullptr), _dummyScene(nullptr), _debugDrawing(nullptr)
 	{
 		assert(!_instance && "Segunda inicialización de Graphics::CServer no permitida!");
 
@@ -103,6 +104,7 @@ namespace Graphics
 
 	void CServer::close() 
 	{
+
 		if(_activeScene)
 		{
 			_activeScene->deactivate();
@@ -112,6 +114,7 @@ namespace Graphics
 		{
 			removeScene(_scenes.begin());
 		}
+		
 
 	} // close
 
@@ -136,6 +139,12 @@ namespace Graphics
 
 	void CServer::removeScene(CScene* scene)
 	{
+		if (_debugDrawing){
+			delete _debugDrawing;
+			_debugDrawing = nullptr;
+		}
+			
+
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
 			_activeScene = nullptr;
@@ -157,6 +166,7 @@ namespace Graphics
 
 	void CServer::removeScene(TScenes::const_iterator iterator)
 	{
+
 		CScene* scene = (*iterator).second;
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
@@ -221,6 +231,18 @@ namespace Graphics
 			// Reenderizamos un frame
 			_root->renderOneFrame(secs);
 		}
+		if (_debugDrawing){
+			_debugDrawing->tick(secs);
+		}
 	} // tick
+
+	CDebugDrawing* CServer::getDebugDrawing()
+	{
+		if (!_debugDrawing){
+			_debugDrawing = new Graphics::CDebugDrawing();
+		}
+
+		return _debugDrawing;
+	}
 
 } // namespace Graphics

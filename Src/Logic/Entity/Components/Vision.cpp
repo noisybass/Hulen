@@ -15,6 +15,8 @@ entidad cuando recibe un mensaje TOUCHED / UNTOUCHED.
 #include "Logic\Entity\Entity.h"
 #include "Physics\Server.h"
 #include "Map\MapEntity.h"
+#include "Graphics\Server.h"
+#include "Graphics\DebugDrawing.h"
 #include <iostream>
 
 namespace Logic 
@@ -38,6 +40,10 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		Logic::CEntity* entity = visionRay();
+		Ogre::Vector3 startPosition = _entity->getPosition();
+		Ogre::Vector3 endPosition = _entity->getPosition();
+		endPosition.x += _defaultVision * _entity->getDirection();
+		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine("Linea", startPosition, endPosition, Ogre::ColourValue::Green);
 
 		if (entity != nullptr){
 			std::cout << "He tocado " + entity->getName() << std::endl;
@@ -48,7 +54,7 @@ namespace Logic
 	{
 		// Inicializamos el rayo
 		_ray.setOrigin(_entity->getPosition());
-		_ray.setDirection(Vector3(1, 0, 0)); // Derecha
+		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
 
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, maxDistance);
 	}
@@ -57,7 +63,7 @@ namespace Logic
 	{
 		// Inicializamos el rayo
 		_ray.setOrigin(_entity->getPosition());
-		_ray.setDirection(Vector3(1, 0, 0)); // Derecha
+		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
 
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
 	}

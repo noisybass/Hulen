@@ -36,6 +36,7 @@ namespace Graphics
 	class CEntity;
 	class CStaticEntity;
 	class CLight;
+	class CDebugDrawing;
 }
 
 namespace Graphics 
@@ -154,6 +155,7 @@ namespace Graphics
 		activarlas o desactivarlas y actualizar su estado.
 		*/
 		friend class CServer;
+		friend class CDebugDrawing;
 
 		/**
 		Constructor de la clase.
