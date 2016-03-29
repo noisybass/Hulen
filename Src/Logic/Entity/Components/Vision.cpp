@@ -35,6 +35,8 @@ namespace Logic
 
 	void CVision::tick(unsigned int msecs)
 	{
+		IComponent::tick(msecs);
+
 		Logic::CEntity* entity = visionRay();
 
 		if (entity != nullptr){
@@ -58,8 +60,6 @@ namespace Logic
 		_ray.setDirection(Vector3(1, 0, 0)); // Derecha
 
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
-
-		
 	}
 
 	bool CVision::accept(const TMessage &message)
