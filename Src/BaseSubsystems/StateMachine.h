@@ -1,8 +1,6 @@
 #ifndef AI_STATE_MACHINE_H
 #define AI_STATE_MACHINE_H
 
-#include "Logic\Entity\Components\FSMEntity.h"
-
 extern "C"
 {
 #include <lua.h>
@@ -29,17 +27,6 @@ namespace AI
 		StateMachine(T* owner)
 			: _owner(owner) 
 		{
-			std::cout << "Registrando funciones de la maquina de estados..." << std::endl;
-
-			/*lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
-
-			luabind::module(lua)
-				[
-					luabind::class_<StateMachine<T> >("State Machine")
-					.def("ChangeState", &StateMachine<T>::changeState)
-					.def("GetCurrentState", &StateMachine<T>::getCurrentState)
-					.def("SetCurrentState", &StateMachine<T>::setCurrentState)
-				];*/
 
 		} // StateMachine
 
@@ -56,7 +43,8 @@ namespace AI
 			if (_currentState.is_valid())
 			{
 				std::cout << "UPDATE" << std::endl;
-				std::cout << _currentState << std::endl;
+				//Logic::CFSMEntity* entidadPrueba = new Logic::CFSMEntity();
+				//_currentState["ProbandoConArgumentos"](entidadPrueba);
 				//_currentState["Execute"](_owner);
 			}
 

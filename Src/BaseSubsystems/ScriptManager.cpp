@@ -31,6 +31,11 @@ extern "C" {
 
 #include "luabind/luabind.hpp"
 
+#include "Logic\Entity\Components\FSMEntity.h"
+#include "Logic\Entity\Component.h"
+#include "Logic\Entity\CommunicationPort.h"
+#include "BaseSubsystems\StateMachine.h"
+
 namespace ScriptManager {
 
 // Única instancia de la clase.
@@ -495,6 +500,24 @@ bool CScriptManager::open() {
 	luaopen_base(_lua);
 
 	luabind::open(_lua);
+
+	// Cargamos el script del estado de prueba
+	if (!loadScript("media/lua/states.lua"))
+		std::cout << "No se ha cargado states.lua correctamente" << std::endl;
+
+	// Registramos las funciones de la clase FSMEntity y de la máquina de estados
+	luabind::module(_lua)
+		[
+			luabind::class_<Logic::CCommunicationPort>("CommunicationPort"),
+			luabind::class_<Logic::IComponent, luabind::bases<Logic::CCommunicationPort> >("Component"),
+			luabind::class_<Logic::CFSMEntity, luabind::bases<Logic::IComponent> >("CFSMEntity")
+			.def("SayHello", &Logic::CFSMEntity::sayHello)
+			.def("GetFSM", &Logic::CFSMEntity::getFSM),
+			luabind::class_<AI::StateMachine<std::string> >("StateMachine")
+			.def("ChangeState", &AI::StateMachine<std::string>::changeState)
+			.def("GetCurrentState", &AI::StateMachine<std::string>::getCurrentState)
+			.def("SetCurrentState", &AI::StateMachine<std::string>::setCurrentState)
+		];
 
 	return true;
 

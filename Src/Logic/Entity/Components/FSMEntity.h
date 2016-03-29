@@ -9,9 +9,13 @@ namespace Logic
 	class CFSMEntity : public IComponent
 	{
 		DEC_FACTORY(CFSMEntity);
+	private:
+
+		AI::StateMachine<CFSMEntity>* _FSM;
+
 	public:
 
-		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+		CFSMEntity();
 
 		bool activate() override;
 
@@ -19,15 +23,7 @@ namespace Logic
 
 		void sayHello();
 
-		void registerFSMEntity();
-
-		bool loadStates();
-
 		AI::StateMachine<CFSMEntity>* getFSM() const { return _FSM; }
-
-	protected:
-
-		AI::StateMachine<CFSMEntity>* _FSM;
 
 	}; // class CFSMEntity
 
