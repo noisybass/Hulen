@@ -25,7 +25,7 @@ namespace Logic
 {
 	CEntity::CEntity() 
 		: _gameObject(nullptr), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
-		_activated(false), _changeState(false)
+		_activated(false), _changeState(false), _direction(0)
 	{
 
 	} // CEntity
@@ -68,11 +68,11 @@ namespace Logic
 
 		bool correct = true;
 
-		for( it = _components.begin(); it != _components.end() && correct; ++it )
-			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
-
 		/////CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
 		_direction = 1;
+
+		for( it = _components.begin(); it != _components.end() && correct; ++it )
+			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
 
 		return correct;
 

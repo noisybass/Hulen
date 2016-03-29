@@ -19,6 +19,7 @@ namespace Logic
 		// Init positions
 		_positionToGo = entity->getPosition();
 		_nextPositionToGo = entity->getPosition();
+		_entity->setDirection(0);
 
 		if (entityInfo->hasAttribute("positionToGo")){
 			_positionToGo = entityInfo->getVector3Attribute("positionToGo");
@@ -58,9 +59,9 @@ namespace Logic
 	{
 		// Nos movemos hacia la derecha
 		if (_entity->getPosition().x < _positionToGo.x)
-			_direction = 1;
+			_entity->setDirection(1);
 		else if (_entity->getPosition().x > _positionToGo.x)
-			_direction = -1;
+			_entity->setDirection(-1);
 	}
 
 	bool CMoveController::destinationReached()
@@ -82,21 +83,21 @@ namespace Logic
 		// Nos movemos porque no hemos llegado a nuestro destino.
 		if (!destinationReached())
 		{
-			if (_direction == 0){
+			if (_entity->getDirection() == 0){
 				calculateDirection();
 				// Change animations
-				if (_direction == 1) walkRight();
-				else if (_direction == -1) walkLeft();
+				if (_entity->getDirection() == 1) walkRight();
+				else if (_entity->getDirection() == -1) walkLeft();
 			}
-			movement += Vector3(_direction, 0, 0) * _speed * msecs;
+			movement += Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
 		}
 		else
 		{	
 			// Hemos llegado al destino, solo lo ejecutamos
 			// nada mas llegar al destino.
-			if (_direction != 0)
+			if (_entity->getDirection() != 0)
 			{
-				_direction = 0;
+				_entity->setDirection(0);
 				// Idle animation
 				stop();
 

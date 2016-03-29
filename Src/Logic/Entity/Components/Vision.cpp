@@ -17,6 +17,7 @@ entidad cuando recibe un mensaje TOUCHED / UNTOUCHED.
 #include "Map\MapEntity.h"
 #include "Graphics\Server.h"
 #include "Graphics\DebugDrawing.h"
+#include "BaseSubsystems/Math.h"
 #include <iostream>
 
 namespace Logic 
@@ -43,15 +44,18 @@ namespace Logic
 		Ogre::Vector3 startPosition = _entity->getPosition();
 		Ogre::Vector3 endPosition = _entity->getPosition();
 		endPosition.x += _defaultVision * _entity->getDirection();
-		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine("Linea", startPosition, endPosition, Ogre::ColourValue::Green);
+		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
 
 		if (entity != nullptr){
 			std::cout << "He tocado " + entity->getName() << std::endl;
 		}
+		
 	}
 
 	Logic::CEntity* CVision::visionRay(const float maxDistance)
 	{
+		if (_entity->getDirection() == 0) return nullptr;
+
 		// Inicializamos el rayo
 		_ray.setOrigin(_entity->getPosition());
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
@@ -61,10 +65,12 @@ namespace Logic
 
 	Logic::CEntity* CVision::visionRay()
 	{
+		if (_entity->getDirection() == 0) return nullptr;
+
 		// Inicializamos el rayo
 		_ray.setOrigin(_entity->getPosition());
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
-
+		
 		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
 	}
 

@@ -17,7 +17,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CMoveController() : IComponent(), _speed(0.01), _gravity(0.015), _direction(0){}
+		CMoveController() : IComponent(), _speed(0.01), _gravity(0.015) {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -86,8 +86,6 @@ namespace Logic
 		Vector3 _positionToGo;
 
 		Vector3 _nextPositionToGo;
-
-		int _direction;
 
 
 	}; // class CAvatarController
