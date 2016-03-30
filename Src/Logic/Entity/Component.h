@@ -1,13 +1,12 @@
-#ifndef __Logic_Component_H
-#define __Logic_Component_H
+#ifndef LOGIC_COMPONENT_H
+#define LOGIC_COMPONENT_H
 
-#include "CommunicationPort.h"
+#include "Logic/Entity/CommunicationPort.h"
 #include "Logic/Maps/ComponentFactory.h"
-
-#include "Map/MapEntity.h"
 #include "Logic/Maps/Map.h"
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/GameObject.h"
+#include "Map/MapEntity.h"
 
 //declaración de la clase
 namespace Logic 
