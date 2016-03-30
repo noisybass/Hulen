@@ -1,22 +1,13 @@
-/**
-@file Entity.h
-
-Contiene la declaración de la clase Entity, que representa una entidad
-de juego. Es una colección de componentes.
-
-@see Logic::CEntity
-@see Logic::IComponent
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
-#ifndef __Logic_Entity_H
-#define __Logic_Entity_H
+#ifndef LOGIC_ENTITY_H
+#define LOGIC_ENTITY_H
 
 #include "BaseSubsystems/Math.h"
-
 #include "Logic/Maps/EntityID.h"
+#include "Logic/Maps/Map.h"
+#include "Logic/Maps/EntityFactory.h"
+#include "Logic/Entity/GameObject.h"
+#include "Logic/Entity/Component.h"
+#include "Map/MapEntity.h"
 
 // Mensaje
 #include "Message.h"
@@ -24,20 +15,6 @@ de juego. Es una colección de componentes.
 #include <list>
 #include <map>
 #include <string>
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Map
-{
-	class CEntity;
-}
-
-namespace Logic 
-{
-	class CMap;
-	class IComponent;
-	class CEntityFactory;
-	class CGameObject;
-}
 
 // Declaración de la clase
 namespace Logic 

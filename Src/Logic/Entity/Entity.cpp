@@ -1,25 +1,4 @@
-/**
-@file Entity.cpp
-
-Contiene la implementación de la clase Entity, que representa una entidad
-de juego. Es una colección de componentes.
-
-@see Logic::CEntity
-@see Logic::IComponent
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Entity.h"
-
-// Componentes
-#include "Component.h"
-
-
-#include "Logic/Maps/Map.h"
-#include "Map/MapEntity.h"
-#include "GameObject.h"
 
 namespace Logic 
 {
