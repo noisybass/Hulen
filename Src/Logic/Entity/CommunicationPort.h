@@ -1,17 +1,5 @@
-/**
-@file CommunicationPort.h
-
-Contiene la declaración de la clase que se encarga del intercambio 
-de los mensajes.
-
-@see Logic::CCommunicationPort
-
-@author David Llansó García
-@date Julio, 2010
-*/
-
-#ifndef __Logic_CommunicationPort_H
-#define __Logic_CommunicationPort_H
+#ifndef LOGIC_COMMUNICATION_PORT_H
+#define LOGIC_COMMUNICATION_PORT_H
 
 #include <list>
 
