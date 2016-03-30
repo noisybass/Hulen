@@ -101,6 +101,10 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
+		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
+		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
 
@@ -114,6 +118,10 @@ namespace Application {
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
+
+		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getChannelsPtr()->stop("CanalMenu");
+		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");*/
 
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();

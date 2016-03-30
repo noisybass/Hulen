@@ -1,29 +1,12 @@
-/**
-@file MapParser.h
+#ifndef MAP_MAP_PARSER_H
+#define MAP_MAP_PARSER_H
 
-Contiene la declaración de la clase que encapsula el parseo de mapas.
-
-@see Map::CMapParser
-
-@author David Llansó García
-@date Agosto, 2010
-*/
-
-
-#ifndef __MapParser_H
-#define __MapParser_H
+#include "Map/MapEntity.h"
+#include "Map/Parser.h"
+#include "Map/Scanner.h"
 
 #include <string>
 #include <list>
-
-// Predeclaración de clases.
-namespace Map
-{
-	class CEntity;
-	class CParser;
-	class CScanner;
-}
-
 
 /**
 Namespace con todo lo relacionado con el parseado de mapas. Se encuentran

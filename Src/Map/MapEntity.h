@@ -1,19 +1,8 @@
-/**
-@file Entity.h
-
-Contiene la declaración de la clase que representa una entidad leida 
-del fichero del mapa.
-
-@see Map::CEntity
-
-@author David Llansó García
-@date Agosto, 2010
-*/
-
-#ifndef __Map_Entity_H
-#define __Map_Entity_H
+#ifndef MAP_ENTITY_H
+#define MAP_ENTITY_H
 
 #include "BaseSubsystems/Math.h"
+
 #include <string>
 #include <map>
 

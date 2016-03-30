@@ -1,12 +1,3 @@
-/**
-@file Entity.cpp
-
-Contiene la implementación de la clase que representa una entidad leida 
-del fichero del mapa.
-
-@author David Llansó García
-@date Agosto, 2010
-*/
 #include "MapEntity.h"
 
 #include <cassert>

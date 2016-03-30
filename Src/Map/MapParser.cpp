@@ -1,21 +1,4 @@
-/**
-@file MapParser.cpp
-
-Contiene la implementación de la clase que encapsula el parseo de mapas.
-
-@see Map::CMapParser
-
-@author David Llansó García
-@date Agosto, 2010
-*/
-
-#include <fstream>
-#include <sstream>
-#include <cassert>
-
-#include "MapEntity.h"
 #include "MapParser.h"
-#include "scanner.h"
 
 #include "BaseSubsystems\ScriptManager.h"
 
@@ -25,6 +8,10 @@ extern "C"
 }
 
 #include "luabind\luabind.hpp"
+
+#include <fstream>
+#include <sstream>
+#include <cassert>
 
 namespace Probando
 {
