@@ -1,24 +1,13 @@
-/**
-@file Map.h
-
-Contiene la declaración de la clase CMap, Un mapa lógico.
-
-@see Logic::Map
-
-@author David Llansó
-@date Agosto, 2010
-*/
-#ifndef __Logic_Map_H
-#define __Logic_Map_H
-
-#include <map>
-#include <unordered_map>
+#ifndef LOGIC_MAP_H
+#define LOGIC_MAP_H
 
 #include "Map/MapEntity.h"
 #include "Logic/Maps/EntityID.h"
 #include "Logic/Entity/Message.h"
-
 #include "Graphics/Scene.h"
+
+#include <map>
+#include <unordered_map>
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 

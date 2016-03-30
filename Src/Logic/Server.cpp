@@ -1,20 +1,6 @@
-/**
-@file Server.cpp
-
-Contiene la implementación de la clase CServer, Singleton que se encarga de
-la gestión de la lógica del juego.
-
-@see Logic::CServer
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
 #include "Server.h"
-#include "Logic/Maps/Map.h"
 
 #include "Logic/Maps/EntityFactory.h"
-
 #include "Map/MapParser.h"
 
 #include <cassert>

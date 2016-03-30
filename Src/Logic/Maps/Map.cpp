@@ -1,28 +1,12 @@
-/**
-@file Map.cpp
-
-Contiene la implementación de la clase CMap, Un mapa lógico.
-
-@see Logic::Map
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
 #include "Map.h"
 
 #include "Logic/Entity/Entity.h"
-#include "Logic\Entity\GameObject.h"
-#include "EntityFactory.h"
-
+#include "Logic/Entity/GameObject.h"
+#include "Logic/Maps/EntityFactory.h"
 #include "Map/MapParser.h"
-#include "Map/MapEntity.h"
-
 #include "Graphics/Server.h"
-#include "Graphics/Scene.h"
-
-#include "GUI\Server.h"
-#include "GUI\SceneController.h"
+#include "GUI/Server.h"
+#include "GUI/SceneController.h"
 
 #include <cassert>
 

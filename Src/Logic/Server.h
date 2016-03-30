@@ -1,25 +1,10 @@
-/**
-@file Server.h
+#ifndef LOGIC_SERVER_H
+#define LOGIC_SERVER_H
 
-Contiene la declaración de la clase CServer, Singleton que se encarga de
-la gestión de la lógica del juego.
-
-@see Logic::CServer
-
-@author David Llansó
-@date Agosto, 2010
-*/
-#ifndef __Logic_Server_H
-#define __Logic_Server_H
+#include "Logic/Entity/GameObject.h"
+#include "Logic/Maps/Map.h"
 
 #include <string>
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Logic 
-{
-	class CMap;
-	class CGameObject;
-}
 
 /**
 Namespace que engloba la lógica del juego. Engloba desde el mapa lógico
