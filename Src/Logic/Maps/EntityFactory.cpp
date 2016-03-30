@@ -1,21 +1,6 @@
-/**
-@file EntityFactory.cpp
-
-Contiene la implementación de la clase factoría de entidades
-del juego.
-
-@see Logic::CEntityFactory
-
-@author David Llansó García, Marco Antonio Gómez Martín
-@date Agosto, 2010
-*/
 #include "EntityFactory.h"
-#include "ComponentFactory.h"
-#include "Logic/Entity/Entity.h"
-#include "Logic\Entity\GameObject.h"
-#include "Map.h"
 
-#include "Map/MapEntity.h"
+#include "Logic/Maps/ComponentFactory.h"
 
 #include <iostream>
 #include <fstream>

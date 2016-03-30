@@ -12,21 +12,19 @@ Contiene la declaración de la clase CMap, Un mapa lógico.
 #define __Logic_Map_H
 
 #include <map>
-#include "EntityID.h"
-#include "Logic\Entity\Message.h"
 #include <unordered_map>
+
 #include "Map/MapEntity.h"
+#include "Logic/Maps/EntityID.h"
+#include "Logic/Entity/Message.h"
+
+#include "Graphics/Scene.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
 {
 	class CEntity;
 	class CGameObject;
-}
-
-namespace Graphics 
-{
-	class CScene;
 }
 
 // Declaración de la clase

@@ -1,18 +1,5 @@
-/**
-@file ComponentFactory.h
-
-Contiene la declaración de la clase CComponentFactory, Singleton que almacena 
-los punteros a función de funciones de creación componentes (IComponent).
-
-@see Logic::CComponentFactory
-@see BaseSubsystems::CFactory
-@see Logic::CComponent
-
-@author David Llansó
-@date Julio, 2010
-*/
-#ifndef __Logic_ComponentFactory_H
-#define __Logic_ComponentFactory_H
+#ifndef LOGIC_COMPONENT_FACTORY_H
+#define LOGIC_COMPONENT_FACTORY_H
 
 #include "BaseSubsystems/Factory.h"
 

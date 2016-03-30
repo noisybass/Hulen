@@ -1,38 +1,16 @@
-/**
-@file EntityFactory.h
+#ifndef LOGIC_ENTITY_FACTORY_H
+#define LOGIC_ENTITY_FACTORY_H
 
-Contiene la declaración de la clase factoría de entidades
-del juego.
-
-@see Logic::CEntityFactory
-
-@author David Llansó García, Marco Antonio Gómez Martín
-@date Agosto, 2010
-*/
-
-#ifndef __Logic_EntityFactory_H
-#define __Logic_EntityFactory_H
+#include "Logic/Maps/EntityID.h"
+#include "Logic/Maps/Map.h"
+#include "Logic/Entity/Entity.h"
+#include "Logic/Entity/GameObject.h"
+#include "Map/MapEntity.h"
 
 #include <map>
 #include <string>
 #include <list>
 #include <vector>
-
-#include "EntityID.h"
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Map
-{
-	class CEntity;
-}
-
-namespace Logic 
-{
-	class CMap;
-	class CEntity;
-	class CGameObject;
-	class CBluePrint;
-}
 
 // Definición de la clase
 namespace Logic 
