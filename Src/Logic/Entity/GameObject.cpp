@@ -1,12 +1,7 @@
 #include "GameObject.h"
 
-#include "Component.h"
-
 #include "Logic/Server.h"
-#include "Logic/Maps/Map.h"
-
 #include "Map/MapEntity.h"
-
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/LightController.h"
