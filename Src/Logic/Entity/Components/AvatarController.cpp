@@ -42,6 +42,15 @@ namespace Logic
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");
 
+		if (entityInfo->hasAttribute("walkRightAnimation"))
+			_walkRightAnimation = entityInfo->getStringAttribute("walkRightAnimation");
+
+		if (entityInfo->hasAttribute("walkLeftAnimation"))
+			_walkLeftAnimation = entityInfo->getStringAttribute("walkLeftAnimation");
+
+		if (entityInfo->hasAttribute("idleAnimation"))
+			_idleAnimation = entityInfo->getStringAttribute("idleAnimation");
+
 		return true;
 
 	} // spawn
@@ -124,7 +133,7 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("Walk"));
+		message.setArg<std::string>(std::string("animation"), std::string(_walkLeftAnimation));
 		message.setArg<bool>(std::string("loop"), true);
 
 		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
@@ -143,7 +152,7 @@ namespace Logic
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("WalkBack"));
+		message.setArg<std::string>(std::string("animation"), std::string(_walkRightAnimation));
 		message.setArg<bool>(std::string("loop"), true);
 
 		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
@@ -164,7 +173,7 @@ namespace Logic
 		{
 			TMessage message;
 			message._type = Message::SET_ANIMATION;
-			message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+			message.setArg<std::string>(std::string("animation"), std::string(_idleAnimation));
 			message.setArg<bool>(std::string("loop"), true);
 
 			_entity->emitMessage(message, this);
@@ -182,7 +191,7 @@ namespace Logic
 		{
 			TMessage message;
 			message._type = Message::SET_ANIMATION;
-			message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+			message.setArg<std::string>(std::string("animation"), std::string(_idleAnimation));
 			message.setArg<bool>(std::string("loop"), true);
 
 			_entity->emitMessage(message, this);

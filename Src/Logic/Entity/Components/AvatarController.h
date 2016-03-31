@@ -42,7 +42,7 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
-							  _speed(0.05f) {}
+			_speed(0.05f), _walkLeftAnimation(""), _walkRightAnimation(""), _idleAnimation("") {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -167,6 +167,13 @@ namespace Logic
 		float _gravity;
 
 		float _jumpHeight;
+
+		/**
+		Animations
+		*/
+		std::string _walkRightAnimation;
+		std::string _walkLeftAnimation;
+		std::string _idleAnimation;
 
 	private: 
 		float _currentHeight = 0.0f;

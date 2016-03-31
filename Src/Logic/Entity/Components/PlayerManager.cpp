@@ -46,6 +46,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("playerCanDie"))
 			_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
 
+		return true;
+
 	} // spawn
 
 	bool CPlayerManager::activate()

@@ -107,6 +107,12 @@ Map_GO = {
 		state = "Shadow",
 	},
 
+	--[[Cosa_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]--
+
 
 }
 
@@ -119,9 +125,14 @@ Map = {
 		position = {-27.8, 0, 0},
 		scale = {0.2, 0.2, 0.2},
 		orientation = 0,
-		model = "marine.mesh",
+		--model = "marine.mesh",
+		model = "Test_Main_character.mesh",
 		material = "Yellow",
-		defaultAnimation = "Idle",
+		--defaultAnimation = "Idle",
+		defaultAnimation = "Idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		walkLeftAnimation = "Walking_cycle",
+		idleAnimation = "Idle_cycle_1",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
 		physic_height = 0.75,
@@ -141,9 +152,14 @@ Map = {
 		position = {-27.8, 0, -3.5},
 		scale = {0.2, 0.2, 0.2},
 		orientation = 0,
-		model = "marine.mesh",
+		--model = "marine.mesh",
+		model = "Test_Main_character.mesh",
 		material = "Black",
-		defaultAnimation = "Idle",
+		--defaultAnimation = "Idle",
+		defaultAnimation = "Idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		walkLeftAnimation = "Walking_cycle",
+		idleAnimation = "Idle_cycle_1",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
 		physic_height = 0.75,
@@ -165,6 +181,9 @@ Map = {
 		model = "marine.mesh",
 		material = "Red",
 		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		walkLeftAnimation = "Walk",
+		idleAnimation = "Idle",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
 		physic_height = 0.75,
@@ -373,5 +392,16 @@ Map = {
 		position = {0,-14, -3.5},
 		scale = {1, 1, 0.1},
 	},
+
+	--[[Cosa_Body = {
+		type = "Body",
+		game_object = "Cosa_GO",
+		prefab = "Spike_Prefab",
+		model = "Test_Main_character.mesh",
+		position = {0,-14, 0},
+		scale = {1, 1, 0.1},
+		guizmo = false,
+		guizmoSize = 10,
+	},]]--
 
 }
