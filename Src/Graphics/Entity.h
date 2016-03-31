@@ -1,33 +1,14 @@
-//---------------------------------------------------------------------------
-// Entity.h
-//---------------------------------------------------------------------------
-
-/**
-@file Entity.h
-
-Contiene la declaración de la clase que representa una entidad gráfica.
-
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_Entity_H
-#define __Graphics_Entity_H
+#ifndef GRAPHICS_ENTITY_H
+#define GRAPHICS_ENTITY_H
 
 #include "BaseSubsystems/Math.h"
+#include "Graphics/Scene.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
 	class Entity;
 	class SceneNode;
-}
-
-namespace Graphics 
-{
-	class CScene;
 }
 
 namespace Graphics 

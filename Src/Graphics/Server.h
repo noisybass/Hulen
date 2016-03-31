@@ -1,21 +1,5 @@
-//---------------------------------------------------------------------------
-// Server.h
-//---------------------------------------------------------------------------
-
-/**
-@file Server.h
-
-Contiene la declaración de la clase principal de gráficos, la que permite crear
-la ventana, etc.
-
-@see Graphics::CServer
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_Server_H
-#define __Graphics_Server_H
+#ifndef GRAPHICS_SERVER_H
+#define GRAPHICS_SERVER_H
 
 #include <map>
 

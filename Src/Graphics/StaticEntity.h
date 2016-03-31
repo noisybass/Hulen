@@ -1,22 +1,5 @@
-//---------------------------------------------------------------------------
-// StaticEntity.h
-//---------------------------------------------------------------------------
-
-/**
-@file StaticEntity.h
-
-Contiene la declaración de la clase que representa una entidad gráfica 
-estática.
-
-@see Graphics::CStaticEntity
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_StaticEntity_H
-#define __Graphics_StaticEntity_H
+#ifndef GRAPHICS_STATIC_ENTITY_H
+#define GRAPHICS_STATIC_ENTITY_H
 
 #include "Entity.h"
 

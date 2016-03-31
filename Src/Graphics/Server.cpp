@@ -1,22 +1,6 @@
-//---------------------------------------------------------------------------
-// Server.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file Server.cpp
-
-Contiene la implementación de la clase principal de gráficos, la que permite crear
-la ventana, etc.
-
-@see Graphics::CServer
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Server.h"
-#include "Scene.h"
 
+#include "Graphics/Scene.h"
 #include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
 

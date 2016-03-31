@@ -1,34 +1,13 @@
-//---------------------------------------------------------------------------
-// AnimatedEntity.h
-//---------------------------------------------------------------------------
+#ifndef GRAPHICS_ANIMATED_ENTITY_H
+#define GRAPHICS_ANIMATED_ENTITY_H
 
-/**
-@file AnimatedEntity.h
-
-Contiene la declaración de la clase que representa una entidad gráfica 
-con animaciones.
-
-@see Graphics::CAnimatedEntity
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_AnimatedEntity_H
-#define __Graphics_AnimatedEntity_H
-
-#include "Entity.h"
+#include "Graphics/Entity.h"
+#include "Graphics/Scene.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
 	class AnimationState;
-}
-
-namespace Graphics 
-{
-	class CScene;
 }
 	
 namespace Graphics 

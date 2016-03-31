@@ -1,21 +1,5 @@
-//---------------------------------------------------------------------------
-// StaticEntity.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file StaticEntity.cpp
-
-Contiene la implementación de la clase que representa una entidad gráfica 
-estática.
-
-@see Graphics::CStaticEntity
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "StaticEntity.h"
+
 #include "Scene.h"
 
 #include <assert.h>

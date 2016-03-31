@@ -1,23 +1,6 @@
-//---------------------------------------------------------------------------
-// Entity.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file Entity.cpp
-
-Contiene la implementación de la clase que representa una entidad gráfica.
-
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Entity.h"
-#include "Scene.h"
 
 #include "BaseSubsystems/Server.h"
-#include "BaseSubsystems/Math.h"
 
 #include <assert.h>
 

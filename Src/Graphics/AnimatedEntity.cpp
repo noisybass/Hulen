@@ -1,20 +1,3 @@
-//---------------------------------------------------------------------------
-// AnimatedEntity.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file AnimatedEntity.cpp
-
-Contiene la implementación de la clase que representa una entidad gráfica 
-con animaciones.
-
-@see Graphics::CAnimatedEntity
-@see Graphics::CEntity
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "AnimatedEntity.h"
 
 #include <assert.h>

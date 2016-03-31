@@ -1,25 +1,10 @@
-//---------------------------------------------------------------------------
-// Scene.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file Scene.cpp
-
-Contiene la implementación de la clase contenedora de los elementos
-de una escena.
-
-@see Graphics::CScene
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Scene.h"
-#include "Camera.h"
-#include "Server.h"
-#include "StaticEntity.h"
-#include "Light.h"
+
+#include "Graphics/Camera.h"
+#include "Graphics/StaticEntity.h"
+#include "Graphics/Light.h"
 #include "BaseSubsystems/Server.h"
+#include "Logic/Entity/Entity.h"
 
 #include <assert.h>
 
@@ -30,10 +15,6 @@ de una escena.
 #include <OgreStaticGeometry.h>
 #include <OgreColourValue.h>
 #include <OgreManualObject.h>
-
-#include "Logic\Entity\Entity.h"
-
-
 
 namespace Graphics 
 {

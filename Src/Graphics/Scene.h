@@ -1,21 +1,7 @@
-//---------------------------------------------------------------------------
-// Scene.h
-//---------------------------------------------------------------------------
+#ifndef GRAPHICS_SCENE_H
+#define GRAPHICS_SCENE_H
 
-/**
-@file Scene.h
-
-Contiene la declaración de la clase contenedora de los elementos
-de una escena.
-
-@see Graphics::CScene
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_Scene_H
-#define __Graphics_Scene_H
+#include "Graphics/Server.h"
 
 #include <list>
 
@@ -31,7 +17,6 @@ namespace Ogre
 }
 namespace Graphics 
 {
-	class CServer;
 	class CCamera;
 	class CEntity;
 	class CStaticEntity;

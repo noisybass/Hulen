@@ -1,33 +1,15 @@
-//---------------------------------------------------------------------------
-// Camera.h
-//---------------------------------------------------------------------------
-
-/**
-@file Camera.h
-
-Contiene la declaración de la clase que maneja la cámara.
-
-@see Graphics::CCamera
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __Graphics_Camera_H
-#define __Graphics_Camera_H
+#ifndef GRAPHICS_CAMERA_H
+#define GRAPHICS_CAMERA_H
 
 #include "BaseSubsystems/Math.h"
+#include "Graphics/Scene.h"
+#include "Graphics/Server.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
 	class Camera;
 	class SceneNode;
-}
-namespace Graphics 
-{
-	class CScene;
-	class CServer;
 }
 
 namespace Graphics 

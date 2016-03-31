@@ -1,23 +1,6 @@
-//---------------------------------------------------------------------------
-// Camera.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file Camera.cpp
-
-Contiene la implementación de la clase que maneja la cámara.
-
-@see Graphics::CCamera
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "Camera.h"
-#include "Scene.h"
 
 #include "BaseSubsystems/Server.h"
-#include "BaseSubsystems/Math.h"
 
 #include <assert.h>
 

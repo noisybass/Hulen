@@ -1,4 +1,5 @@
 #include "PointLight.h"
+
 #include <OgreSceneNode.h>
 
 namespace Graphics
