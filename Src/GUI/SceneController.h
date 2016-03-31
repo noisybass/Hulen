@@ -1,5 +1,5 @@
-#ifndef __GUI_SceneController_H
-#define __GUI_SceneController_H
+#ifndef GUI_SCENE_CONTROLLER_H
+#define GUI_SCENE_CONTROLLER_H
 
 #include "InputManager.h"
 #include "Logic\Maps\Map.h"

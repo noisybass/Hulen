@@ -1,28 +1,6 @@
-//---------------------------------------------------------------------------
-// InputManager.cpp
-//---------------------------------------------------------------------------
-
-/**
-@file InputManager.cpp
-
-Contiene la implementación del gestor de periféricos de entrada
-así como las clases oyentes que deben extender las clases que
-quieran ser avisadas de los eventos de dichos periféricos:
-ratón y teclado.
-
-@see GUI::CInputManager
-@see GUI::CKeyboardListener
-@see GUI::CMouseListener
-
-@author David Llansó
-@date Julio, 2010
-*/
-
 #include "InputManager.h"
 
 #include "BaseSubsystems/Server.h"
-
-#include <OISInputManager.h>
 
 #include <sstream>
 #include <cassert>

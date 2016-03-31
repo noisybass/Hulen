@@ -1,31 +1,11 @@
-/**
-@file Server.h
+#ifndef GUI_SERVER_H
+#define GUI_SERVER_H
 
-Contiene la declaración de la clase CServer, Singleton que se encarga de
-la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
-
-@see GUI::CServer
-
-@author David Llansó
-@date Agosto, 2010
-*/
-#ifndef __GUI_Server_H
-#define __GUI_Server_H
-
-#include "InputManager.h"
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Logic 
-{
-	class CAvatarController;
-}
-
-namespace GUI 
-{
-	class CPlayerController;
-	class CLightController;
-	class CSceneController;
-}
+#include "GUI/InputManager.h"
+#include "GUI/PlayerController.h"
+#include "GUI/LightController.h"
+#include "GUI/SceneController.h"
+#include "Logic/Entity/Components/AvatarController.h"
 
 namespace CEGUI
 {

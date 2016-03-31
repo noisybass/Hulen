@@ -1,23 +1,9 @@
-/**
-@file Server.cpp
-
-Contiene la implementación de la clase CServer, Singleton que se encarga de
-la gestión de la interfaz con el usuario (entrada de periféricos, CEGui...).
-
-@see GUI::CServer
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
 #include "Server.h"
 
-#include "PlayerController.h"
-#include "LightController.h"
-#include "SceneController.h"
 #include "BaseSubsystems/Server.h"
 
 #include <cassert>
+
 #include <CEGUI/System.h>
 #include <CEGUI/WindowManager.h>
 #include <CEGUI/Window.h>

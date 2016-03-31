@@ -1,13 +1,8 @@
-#ifndef __GUI_LightController_H
-#define __GUI_LightController_H
+#ifndef GUI_LIGHT_CONTROLLER_H
+#define GUI_LIGHT_CONTROLLER_H
 
 #include "InputManager.h"
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Logic 
-{
-	class CGameObject;
-}
+#include "Logic/Entity/GameObject.h"
 
 // Declaración de la clase
 namespace GUI

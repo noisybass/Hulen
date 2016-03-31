@@ -1,36 +1,11 @@
-//---------------------------------------------------------------------------
-// InputManager.h
-//---------------------------------------------------------------------------
-
-/**
-@file InputManager.h
-
-Contiene la declaración del gestor de periféricos de entrada
-así como las clases oyentes que deben extender las clases que
-quieran ser avisadas de los eventos de dichos periféricos:
-ratón y teclado.
-
-@see GUI::CInputManager
-@see GUI::CKeyboardListener
-@see GUI::CMouseListener
-
-@author David Llansó
-@date Julio, 2010
-*/
-
-#ifndef __GUI_InputManager_H
-#define __GUI_InputManager_H
+#ifndef GUI_INPUT_MANAGER_H
+#define GUI_INPUT_MANAGER_H
 
 #include <OISMouse.h>
 #include <OISKeyboard.h>
+#include <OISInputManager.h>
 
 #include <list>
-
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace OIS
-{
-	class InputManager;
-}
 
 /**
 Namespace con todo lo que se refiere a la interfaz con el usuario.

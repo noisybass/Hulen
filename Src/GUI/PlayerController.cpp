@@ -1,22 +1,6 @@
-/**
-@file PlayerController.cpp
-
-Contiene la implementación de la clase CPlayerController. Se encarga de
-recibir eventos del teclado y del ratón y de interpretarlos para
-mover al jugador.
-
-@see GUI::CPlayerController
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
 #include "PlayerController.h"
-#include "InputManager.h"
 
-#include "Logic/Entity/GameObject.h"
 #include "Logic/Entity/Message.h"
-
 #include "Graphics\Server.h"
 #include "Graphics\Scene.h"
 #include "Graphics\Camera.h"

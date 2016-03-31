@@ -1,21 +1,9 @@
-/**
-@file PlayerController.h
-
-Contiene la declaración de la clase CPlayerController. Se encarga de
-recibir eventos del teclado y del ratón y de interpretarlos para
-mover al jugador.
-
-@see GUI::CPlayerController
-
-@author David Llansó
-@date Agosto, 2010
-*/
-#ifndef __GUI_PlayerController_H
-#define __GUI_PlayerController_H
+#ifndef GUI_PLAYER_CONTROLLER_H
+#define GUI_PLAYER_CONTROLLER_H
 
 #include "InputManager.h"
+#include "Logic/Entity/GameObject.h"
 
-// Predeclaración de clases para ahorrar tiempo de compilación
 namespace Logic 
 {
 	class CGameObject;
