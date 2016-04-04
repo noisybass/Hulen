@@ -45,8 +45,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("walkRightAnimation"))
 			_walkRightAnimation = entityInfo->getStringAttribute("walkRightAnimation");
 
-		if (entityInfo->hasAttribute("walkLeftAnimation"))
-			_walkLeftAnimation = entityInfo->getStringAttribute("walkLeftAnimation");
+		/*if (entityInfo->hasAttribute("walkLeftAnimation"))
+			_walkLeftAnimation = entityInfo->getStringAttribute("walkLeftAnimation");*/
 
 		if (entityInfo->hasAttribute("idleAnimation"))
 			_idleAnimation = entityInfo->getStringAttribute("idleAnimation");
@@ -131,15 +131,20 @@ namespace Logic
 		_walkingLeft = true;
 
 		// Cambiamos la animación
-		TMessage message;
+		/*TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string(_walkLeftAnimation));
-		message.setArg<bool>(std::string("loop"), true);
+		message.setArg<std::string>(std::string("animation"), std::string(_walkRightAnimation));
+		message.setArg<bool>(std::string("loop"), true);*/
+
+		TMessage msg;
+		msg._type = Message::ROLL_ENTITY_NODE;
+		msg.setArg<int>(("degrees"), 90);
 
 		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
 		_entity->setDirection(-1);
 
-		_entity->emitMessage(message,this);
+		//_entity->emitMessage(message,this);
+		_entity->emitMessage(msg, this);
 
 	} // walk
 	

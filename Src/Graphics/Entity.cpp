@@ -304,5 +304,10 @@ namespace Graphics
 		_entity->setMaterialName(material);
 	}
 
+	/*void CEntity::rollEntityNode(int degrees)
+	{
+		//_entityNode->rotate(Vector3::UNIT_Y, Ogre::Degree(degrees));
+	}*/
+
 
 } // namespace Graphics

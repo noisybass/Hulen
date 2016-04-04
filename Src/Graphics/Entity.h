@@ -168,6 +168,11 @@ namespace Graphics
 		*/
 		void setMaterial(std::string material);
 
+		/**
+		Roll the entity Node some degrees.
+		*/
+		void rollEntityNode(int degrees);
+
 
 	protected:
 

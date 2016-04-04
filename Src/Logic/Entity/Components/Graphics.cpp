@@ -123,7 +123,8 @@ namespace Logic
 	{
 		return message._type == Message::SET_TRANSFORM ||
 			   message._type == Message::AMBIENT_LIGHT_SET_FOR_DEBUG ||
-			   message._type == Message::AMBIENT_LIGHT_SET_REAL_MATERIAL;
+			   message._type == Message::AMBIENT_LIGHT_SET_REAL_MATERIAL ||
+			   message._type == Message::ROLL_ENTITY_NODE;
 
 	} // accept
 	
@@ -145,6 +146,9 @@ namespace Logic
 			if (_model == "Cube.mesh"){
 				_graphicsEntity->setMaterial(_material);
 			}
+			break;
+		case Message::ROLL_ENTITY_NODE:
+			_graphicsEntity->rollEntityNode(message.getArg<int>("degrees"));
 			break;
 		}
 

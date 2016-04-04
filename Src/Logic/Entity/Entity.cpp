@@ -92,7 +92,6 @@ namespace Logic
 		for( it = _components.begin(); it != _components.end(); ++it )
 			_activated = it->second->activate() && _activated;
 
-
 		return _activated;
 
 	} // activate
