@@ -24,6 +24,7 @@
 //#include "Logic\Entity\Component.h"
 //#include "Logic\Entity\CommunicationPort.h"
 #include "BaseSubsystems\StateMachine.h"
+#include "BaseSubsystems\FSMAgent.h"
 
 namespace ScriptManager {
 
@@ -503,10 +504,10 @@ bool CScriptManager::open() {
 			luabind::class_<Logic::CFSMEntity/*, luabind::bases<Logic::IComponent>*/, luabind::bases<ClasePruebas> >("CFSMEntity")
 			.def("SayHello", &Logic::CFSMEntity::sayHello)
 			.def("GetFSM", &Logic::CFSMEntity::getFSM),
-			luabind::class_<AI::StateMachine<Logic::CFSMEntity> >("StateMachine")
-			.def("ChangeState", &AI::StateMachine<Logic::CFSMEntity>::changeState)
-			.def("GetCurrentState", &AI::StateMachine<Logic::CFSMEntity>::getCurrentState)
-			.def("SetCurrentState", &AI::StateMachine<Logic::CFSMEntity>::setCurrentState)
+			luabind::class_<AI::StateMachine<AI::FSMAgent> >("StateMachine")
+			.def("ChangeState", &AI::StateMachine<AI::FSMAgent>::changeState)
+			.def("GetCurrentState", &AI::StateMachine<AI::FSMAgent>::getCurrentState)
+			.def("SetCurrentState", &AI::StateMachine<AI::FSMAgent>::setCurrentState)
 		];
 
 	return true;
