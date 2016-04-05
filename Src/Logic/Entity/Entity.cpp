@@ -24,8 +24,8 @@ de juego. Es una colección de componentes.
 namespace Logic 
 {
 	CEntity::CEntity() 
-		: _gameObject(nullptr), _blueprint(""), _name(""), _transform(Matrix4::IDENTITY),
-		_activated(false), _changeState(false), _direction(0)
+		: _gameObject(nullptr), _blueprint(""), _name(""), _position(Vector3::ZERO),
+		_activated(false), _changeState(false), _direction(ENTITY_DIRECTION::NONE)
 	{
 
 	} // CEntity
@@ -52,24 +52,22 @@ namespace Logic
 
 		if(entityInfo->hasAttribute("position"))
 		{
-			Vector3 position = entityInfo->getVector3Attribute("position");
-			_transform.setTrans(position);
+			_position = entityInfo->getVector3Attribute("position");
 		}
 
-		// Por comodidad en el mapa escribimos los ángulos en grados.
-		if(entityInfo->hasAttribute("orientation"))
+		_direction = ENTITY_DIRECTION::RIGHT;
+
+		if (entityInfo->hasAttribute("direction"))
 		{
-			float yaw = Math::fromDegreesToRadians(entityInfo->getFloatAttribute("orientation"));
-			Math::yaw(yaw,_transform);
+			std::string direction = entityInfo->getStringAttribute("direction");
+			if (direction == "right") _direction = ENTITY_DIRECTION::RIGHT;
+			else if (direction == "left") _direction = ENTITY_DIRECTION::LEFT;
 		}
 
 		// Inicializamos los componentes
 		TComponentMap::const_iterator it;
 
 		bool correct = true;
-
-		/////CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
-		_direction = 1;
 
 		for( it = _components.begin(); it != _components.end() && correct; ++it )
 			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
@@ -181,11 +179,8 @@ namespace Logic
 		Vector3 receiverPosition, senderPosition;
 		switch(message._type)
 		{
-		case Message::SET_TRANSFORM:
-			_transform = message.getArg<Matrix4>("transform");
-			break;
 		case Message::SET_POSITION:
-			_transform.setTrans(message.getArg<Vector3>("newPosition"));
+			_position = message.getArg<Vector3>("newPosition");
 			break;
 		case Message::SEND_STATE:
 			m._type = Message::RECEIVE_ENTITY_STATE;
@@ -216,73 +211,18 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::setTransform(const Matrix4& transform) 
-	{
-		_transform = transform;
-
-		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message.setArg<Matrix4>(std::string("transform"), _transform);
-
-		emitMessage(message);
-
-	} // setTransform
-
-	//---------------------------------------------------------
-
 	void CEntity::setPosition(const Vector3 &position, IComponent* invoker)  
 	{
-		_transform.setTrans(position);
+		_position = position;
 
 		// Avisamos a los componentes del cambio.
 		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message.setArg<Matrix4>(std::string("transform"), _transform);
+		message._type = Message::SET_POSITION;
+		message.setArg<Vector3>(std::string("newPosition"), position);
 
 		emitMessage(message,invoker);
 
 	} // setPosition
-
-	//---------------------------------------------------------
-
-	void CEntity::setOrientation(const Matrix3& orientation) 
-	{
-		_transform = orientation;
-
-		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message.setArg<Matrix4>(std::string("transform"), _transform);
-
-		emitMessage(message);
-
-	} // setOrientation
-
-	//---------------------------------------------------------
-
-	Matrix3 CEntity::getOrientation() const
-	{
-		Matrix3 orientation;
-		_transform.extract3x3Matrix(orientation);
-		return orientation;
-
-	} // getOrientation
-
-	//---------------------------------------------------------
-
-	void CEntity::setYaw(float yaw)
-	{
-		Math::setYaw(yaw, _transform);
-
-		// Avisamos a los componentes del cambio.
-		TMessage message;
-		message._type = Message::SET_TRANSFORM;
-		message.setArg<Matrix4>(std::string("transform"), _transform);
-
-		emitMessage(message);
-
-	} // setYaw
 
 	//---------------------------------------------------------
 

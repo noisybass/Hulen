@@ -32,7 +32,8 @@ namespace Logic
 		if(!_scene->addEntity(_animatedGraphicsEntity))
 			return 0;
 
-		_animatedGraphicsEntity->setTransform(_entity->getTransform());
+		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
+		_animatedGraphicsEntity->setPosition(_entity->getPosition());
 
 		if (entityInfo->hasAttribute("scale"))
 		{

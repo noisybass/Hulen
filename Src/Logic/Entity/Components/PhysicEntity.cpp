@@ -98,8 +98,12 @@ void CPhysicEntity::tick(unsigned int msecs)
 		return;
 
 	// Actualizar la posición y la orientación de la entidad lógica usando la 
-	// información proporcionada por el motor de física	
-	_entity->setTransform(_server->getActorTransform(dinActor));
+	// información proporcionada por el motor de física
+	//_entity->setTransform(_server->getActorTransform(dinActor));
+
+	// Only update the position because we update the rotation with 
+	// player input
+	_entity->setPosition(_server->getActorTransform(dinActor).getTrans());
 
 	// Si el objeto físico es cinemático intentamos moverlo de acuerdo 
 	// a los mensajes KINEMATIC_MOVE recibidos 

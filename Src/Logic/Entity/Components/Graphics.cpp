@@ -111,7 +111,8 @@ namespace Logic
 			_graphicsEntity->setScale(_scale);
 		}
 
-		_graphicsEntity->setTransform(_entity->getTransform());
+		//_graphicsEntity->setTransform(_entity->getTransform());
+		_graphicsEntity->setPosition(_entity->getPosition());
 		
 		return _graphicsEntity;
 
@@ -121,7 +122,7 @@ namespace Logic
 
 	bool CGraphics::accept(const TMessage &message)
 	{
-		return message._type == Message::SET_TRANSFORM ||
+		return message._type == Message::SET_POSITION ||
 			   message._type == Message::AMBIENT_LIGHT_SET_FOR_DEBUG ||
 			   message._type == Message::AMBIENT_LIGHT_SET_REAL_MATERIAL ||
 			   message._type == Message::ROLL_ENTITY_NODE;
@@ -134,8 +135,8 @@ namespace Logic
 	{
 		switch(message._type)
 		{
-		case Message::SET_TRANSFORM:
-			_graphicsEntity->setTransform(message.getArg<Matrix4>("transform"));
+		case Message::SET_POSITION:
+			_graphicsEntity->setPosition(message.getArg<Vector3>("newPosition"));
 			break;
 		case Message::AMBIENT_LIGHT_SET_FOR_DEBUG:
 			if (_model == "Cube.mesh"){

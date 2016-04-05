@@ -45,9 +45,6 @@ namespace Logic
 		if (entityInfo->hasAttribute("walkRightAnimation"))
 			_walkRightAnimation = entityInfo->getStringAttribute("walkRightAnimation");
 
-		/*if (entityInfo->hasAttribute("walkLeftAnimation"))
-			_walkLeftAnimation = entityInfo->getStringAttribute("walkLeftAnimation");*/
-
 		if (entityInfo->hasAttribute("idleAnimation"))
 			_idleAnimation = entityInfo->getStringAttribute("idleAnimation");
 
@@ -128,23 +125,16 @@ namespace Logic
 
 	void CAvatarController::walkLeft() 
 	{
+
 		_walkingLeft = true;
 
-		// Cambiamos la animación
-		/*TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string(_walkRightAnimation));
-		message.setArg<bool>(std::string("loop"), true);*/
+		walkAnimation();
 
-		TMessage msg;
-		msg._type = Message::ROLL_ENTITY_NODE;
-		msg.setArg<int>(("degrees"), 90);
-
-		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
-		_entity->setDirection(-1);
-
-		//_entity->emitMessage(message,this);
-		_entity->emitMessage(msg, this);
+		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
+		{
+			changeDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
+		}
+		
 
 	} // walk
 	
@@ -154,18 +144,37 @@ namespace Logic
 	{
 		_walkingRight = true;
 
-		// Cambiamos la animación
+		walkAnimation();
+
+		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
+		{
+			changeDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
+		}
+
+	} // walkRight
+
+	void CAvatarController::changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction)
+	{
+		TMessage msg;
+		msg._type = Message::ROLL_ENTITY_NODE;
+		msg.setArg<int>(("degrees"), 180);
+
+		_entity->setDirection(direction);
+
+		_entity->emitMessage(msg, this);
+	}
+
+
+	void CAvatarController::walkAnimation()
+	{
+		// change animation
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
 		message.setArg<std::string>(std::string("animation"), std::string(_walkRightAnimation));
 		message.setArg<bool>(std::string("loop"), true);
 
-		///CHAPUZA, CAMBIAR!! SOLO ES DE PRUEBA, lo suyo seria arreglar el orientation
-		_entity->setDirection(1);
-
-		_entity->emitMessage(message,this);
-
-	} // walkBack
+		_entity->emitMessage(message, this);
+	}
 	
 	//---------------------------------------------------------
 

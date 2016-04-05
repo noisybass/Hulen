@@ -14,6 +14,7 @@ de la entidad.
 #define __Logic_AvatarController_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/Entity.h"
 
 //declaración de la clase
 namespace Logic 
@@ -133,6 +134,10 @@ namespace Logic
 		void jump();
 
 	protected:
+
+		void walkAnimation();
+
+		void changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction);
 
 		friend class CPhysicController;
 

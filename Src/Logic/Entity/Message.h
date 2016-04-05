@@ -24,7 +24,6 @@ namespace Logic
 	{
 		enum TMessageType
 		{
-			SET_TRANSFORM,
 			SET_POSITION,
 			SET_ANIMATION,
 			STOP_ANIMATION,

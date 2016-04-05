@@ -61,15 +61,15 @@ void CRayPerception::tick(unsigned int msecs)
 	// Para que no golpee contra la propia cápsula debe empezar justo delante
 	// de ella.
 	// HACK: altura y anchura de la cápsula deberían estar parametrizadas
-	Vector3 dir = Math::getDirection(_entity->getTransform());
-	Vector3 origin = _entity->getPosition() + Vector3(0, 3, 0) + 3.1f * dir;
+	//Vector3 dir = Math::getDirection(_entity->getTransform());
+	//Vector3 origin = _entity->getPosition() + Vector3(0, 3, 0) + 3.1f * dir;
 
 	// Crear el rayo rayo y comprobar si colisiona con alguna entidad
-	Ray ray(origin, dir);
+	/*Ray ray(origin, dir);
 	CEntity *entity = Physics::CServer::getSingletonPtr()->raycastClosest(ray, _distance);
 	if (entity) {
 		//std::cout << entity->getName() << " percibida" << std::endl;
-	}
+	}*/
 
 	// Nota: este componente es bastante inútil tal y como está programado. Habría que
 	// generalizarlo para que funcionase con otras entidades.
