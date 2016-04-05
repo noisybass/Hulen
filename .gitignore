@@ -41,3 +41,8 @@ Projects/*/Release
 *.user
 *.log
 *.opensdf
+
+# Installer
+Installer/DebugMicrosoft
+Installer/Prerequisites
+Installer.exe
