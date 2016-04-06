@@ -41,6 +41,10 @@ namespace AI
 
 	} // getFSM
 
-	void sayHello();
+	void FSMAgent::sayHello()
+	{
+		std::cout << "Hello!!" << std::endl;
+
+	} // sayHello
 
 } // namespace AI
