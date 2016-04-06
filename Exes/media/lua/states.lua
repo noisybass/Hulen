@@ -1,18 +1,19 @@
 State_Prueba = {}
 
-State_Prueba["Enter"] = function(CFSMEntity)
+State_Prueba["Enter"] = function(agent)
 
 	print ("[Lua]: Enter")
 
 end
 
-State_Prueba["Execute"] = function(CFSMEntity)
+State_Prueba["Execute"] = function(agent)
 
-	CFSMEntity: SayHello()
+	--agent: SayHello()
+	print ("--> PROBANDO FUNCIONES CON ARGUMENTOS")
 
 end
 
-State_Prueba["Exit"] = function(CFSMEntity)
+State_Prueba["Exit"] = function(agent)
 
 	print ("[Lua]: Exit")
 
@@ -20,12 +21,12 @@ end
 
 State_Prueba["Probando"] = function()
 	
-	print ("ASGFAGAGAGAGAG")
+	print ("--> PROBANDO FUNCIONES SIN ARGUMENTOS")
 
 end
 
-State_Prueba["ProbandoConArgumentos"] = function(CFSMEntity)
+State_Prueba["ProbandoConArgumentos"] = function(agent)
 
-	CFSMEntity: SayHello()
+	print ("--> PROBANDO FUNCIONES CON ARGUMENTOS")
 
 end

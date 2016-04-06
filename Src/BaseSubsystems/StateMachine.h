@@ -8,6 +8,8 @@ extern "C"
 
 #include <luabind\luabind.hpp>
 
+#include <iostream>
+
 namespace AI
 {
 	template <class T>

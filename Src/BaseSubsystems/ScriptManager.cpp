@@ -500,15 +500,21 @@ bool CScriptManager::open() {
 		[
 			/*luabind::class_<Logic::CCommunicationPort>("CommunicationPort"),
 			luabind::class_<Logic::IComponent, luabind::bases<Logic::CCommunicationPort> >("Component"),*/
-			luabind::class_<ClasePruebas>("ClasePruebas"),
-			luabind::class_<Logic::CFSMEntity/*, luabind::bases<Logic::IComponent>*/, luabind::bases<ClasePruebas> >("CFSMEntity")
-			.def("SayHello", &Logic::CFSMEntity::sayHello)
-			.def("GetFSM", &Logic::CFSMEntity::getFSM),
+			//luabind::class_<ClasePruebas>("ClasePruebas"),
+			//luabind::class_<Logic::CFSMEntity/*, luabind::bases<Logic::IComponent>*/, luabind::bases<ClasePruebas> >("CFSMEntity")
+			//.def("SayHello", &Logic::CFSMEntity::sayHello)
+			//.def("GetFSM", &Logic::CFSMEntity::getFSM),
+			luabind::class_<AI::FSMAgent>("FSMAgent"),
+			/*.def("SayHello", &AI::FSMAgent::sayHello)
+			.def("GetFSM", &AI::FSMAgent::getFSM),*/
 			luabind::class_<AI::StateMachine<AI::FSMAgent> >("StateMachine")
 			.def("ChangeState", &AI::StateMachine<AI::FSMAgent>::changeState)
 			.def("GetCurrentState", &AI::StateMachine<AI::FSMAgent>::getCurrentState)
 			.def("SetCurrentState", &AI::StateMachine<AI::FSMAgent>::setCurrentState)
 		];
+
+	AI::FSMAgent* agent = new AI::FSMAgent();
+	agent->update();
 
 	return true;
 
