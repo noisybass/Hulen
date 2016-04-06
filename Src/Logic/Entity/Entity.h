@@ -165,26 +165,6 @@ namespace Logic
 		const std::string &getBlueprint() const { return _blueprint; }
 
 		/**
-		Establece la matriz de transformación de la entidad. Avisa a los 
-		componentes del cambio.
-
-		@param transform Nueva matriz de transformación de la entidad.
-		*/
-		void setTransform(const Matrix4& transform);
-
-		/**
-		Devuelve la metriz de transformación de la entidad.
-		<p>
-		La posición es inicialmente leída del mapa (si no aparece,
-		se colocará a (0, 0, 0)) y la orientación es también inicialmente 
-		leída del mapa, como un simple viraje (si no aparece, se colocará 
-		a 0). Obviamente, pueden cambiar con el tiempo.
-
-		@return Matriz de transformación de la entidad en el entorno.
-		*/
-		Matrix4 getTransform() const { return _transform; }
-
-		/**
 		Establece la posición de la entidad. Avisa a los componentes
 		del cambio.
 
@@ -201,45 +181,7 @@ namespace Logic
 
 		@return Posición de la entidad en el entorno.
 		*/
-		Vector3 getPosition() const { return _transform.getTrans(); }
-
-		/**
-		Establece la orientación de la entidad. Avisa a los componentes
-		del cambio.
-
-		@param pos Nueva orientación.
-		*/
-		void setOrientation(const Matrix3& orientation);
-
-		/**
-		Establece el viraje de la entidad. Avisa a los componentes
-		del cambio.
-
-		@param yaw Nuevo viraje.
-		*/
-		void setYaw(float yaw);
-
-		/**
-		Devuelve el viraje de la entidad.
-		<p>
-		La orientación es inicialmente leída del mapa como un simple
-		viraje (si no aparece, se colocará a 0), aunque, obviamente, puede
-		cambiar con el tiempo.
-
-		@return Viraje en el entorno.
-		*/
-		float getYaw() const { return Math::getYaw(_transform); }
-
-		/**
-		Devuelve la matriz de rotación de la entidad.
-		<p>
-		La orientación es inicialmente leída del mapa como un simple 
-		viraje (si no aparece, se colocará a 0), aunque, obviamente, puede
-		cambiar con el tiempo.
-
-		@return Orientación en el entorno.
-		*/
-		Matrix3 getOrientation() const;
+		Vector3 getPosition() const { return _position; }
 
 		/**
 		Indica si la entidad se encuentra activa.
@@ -251,6 +193,19 @@ namespace Logic
 		CGameObject* getGameObject() const;
 
 		IComponent* getComponent(const std::string& name);
+
+		/**
+		Direction
+		*/
+		enum ENTITY_DIRECTION {
+			RIGHT = 1,
+			LEFT = -1,
+			NONE = 0
+		};
+
+		int getDirection() { return _direction; };
+
+		void setDirection(ENTITY_DIRECTION direction){ _direction = direction;}
 
 	protected:
 
@@ -287,9 +242,19 @@ namespace Logic
 		/**
 		Matriz de transformación de la entidad. Contiene posición y orientación.
 		*/
-		Matrix4 _transform;
+		//Matrix4 _transform;
 
 		bool _changeState;
+
+		/**
+		Entity direction.
+		*/
+		ENTITY_DIRECTION _direction;
+
+		/**
+		Entity position
+		*/
+		Vector3 _position;
 
 	}; // class CEntity
 

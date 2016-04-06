@@ -6,9 +6,15 @@ Map_GO = {
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = true,
+		playerCanDie = false,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
+	},
+
+	Character_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
 	},
 
 	Kasai_GO = {
@@ -101,6 +107,12 @@ Map_GO = {
 		state = "Shadow",
 	},
 
+	--[[Cosa_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]--
+
 
 }
 
@@ -112,10 +124,13 @@ Map = {
 		game_object = "Player_GO",
 		position = {-27.8, 0, 0},
 		scale = {0.2, 0.2, 0.2},
-		orientation = 0,
-		model = "marine.mesh",
+		--model = "marine.mesh",
+		model = "Test_Main_character.mesh",
 		material = "Yellow",
-		defaultAnimation = "Idle",
+		--defaultAnimation = "Idle",
+		defaultAnimation = "Idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		idleAnimation = "Idle_cycle_1",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
 		physic_height = 0.75,
@@ -125,6 +140,7 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.015,
+		defaultVision = 5,
 	},
 
 	Player_Shadow = {
@@ -133,10 +149,13 @@ Map = {
 		game_object = "Player_GO",
 		position = {-27.8, 0, -3.5},
 		scale = {0.2, 0.2, 0.2},
-		orientation = 0,
-		model = "marine.mesh",
+		--model = "marine.mesh",
+		model = "Test_Main_character.mesh",
 		material = "Black",
-		defaultAnimation = "Idle",
+		--defaultAnimation = "Idle",
+		defaultAnimation = "Idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		idleAnimation = "Idle_cycle_1",
 		physic_shape = "capsule",
 		physic_radius = 1.5,
 		physic_height = 0.75,
@@ -146,6 +165,31 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.01,
+	},
+
+	Character_Body = {
+		type = "Body",
+		blueprint = "CharacterPatrol",
+		game_object = "Character_GO",
+		position = {-11, 0, 0},
+		scale = {0.2, 0.2, 0.2},
+		model = "marine.mesh",
+		material = "Red",
+		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		--walkLeftAnimation = "Walk",
+		idleAnimation = "Idle",
+		physic_shape = "capsule",
+		physic_radius = 1.5,
+		physic_height = 0.75,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 0.01,
+		jump_speed = 0.03,
+		jump_height = 8.0,
+		gravity = 0.01,
+		patrolPosition1 = {-10, 0, 0},
+		patrolPosition2 = {5, 0, 0},
 	},
 
 	Kasai = {
@@ -343,5 +387,16 @@ Map = {
 		position = {0,-14, -3.5},
 		scale = {1, 1, 0.1},
 	},
+
+	--[[Cosa_Body = {
+		type = "Body",
+		game_object = "Cosa_GO",
+		prefab = "Spike_Prefab",
+		model = "Test_Main_character.mesh",
+		position = {0,-14, 0},
+		scale = {1, 1, 0.1},
+		guizmo = false,
+		guizmoSize = 10,
+	},]]--
 
 }

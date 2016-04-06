@@ -189,6 +189,14 @@ namespace Math
 
 	} // getDirection
 
+	/**
+	Normaliza un vector3
+	*/
+	static float normaliseVector3(Vector3& vectorToNormalise)
+	{
+		return vectorToNormalise.normalise();
+	}
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H

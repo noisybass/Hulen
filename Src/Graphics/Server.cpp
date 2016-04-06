@@ -1,6 +1,7 @@
 #include "Server.h"
 
 #include "Graphics/Scene.h"
+#include "Graphics/DebugDrawing.h"
 #include "BaseSubsystems/Server.h"
 #include "BaseSubsystems/Math.h"
 
@@ -12,9 +13,9 @@
 
 namespace Graphics 
 {
-	CServer *CServer::_instance = 0;
+	CServer *CServer::_instance = nullptr;
 
-	CServer::CServer() : _root(0), _renderWindow(0), _activeScene(0), _dummyScene(0)
+	CServer::CServer() : _root(nullptr), _renderWindow(nullptr), _activeScene(nullptr), _dummyScene(nullptr), _debugDrawing(nullptr)
 	{
 		assert(!_instance && "Segunda inicialización de Graphics::CServer no permitida!");
 
@@ -28,7 +29,7 @@ namespace Graphics
 	{
 		assert(_instance);
 
-		_instance = 0;
+		_instance = nullptr;
 
 	} // ~CServer
 
@@ -87,15 +88,17 @@ namespace Graphics
 
 	void CServer::close() 
 	{
+
 		if(_activeScene)
 		{
 			_activeScene->deactivate();
-			_activeScene = 0;
+			_activeScene = nullptr;
 		}
 		while(!_scenes.empty())
 		{
 			removeScene(_scenes.begin());
 		}
+		
 
 	} // close
 
@@ -120,9 +123,15 @@ namespace Graphics
 
 	void CServer::removeScene(CScene* scene)
 	{
+		if (_debugDrawing){
+			delete _debugDrawing;
+			_debugDrawing = nullptr;
+		}
+			
+
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
-			_activeScene = 0;
+			_activeScene = nullptr;
 		_scenes.erase(scene->getName());
 		delete scene;
 
@@ -141,10 +150,11 @@ namespace Graphics
 
 	void CServer::removeScene(TScenes::const_iterator iterator)
 	{
+
 		CScene* scene = (*iterator).second;
 		// Si borramos la escena activa tenemos que quitarla.
 		if(_activeScene == scene)
-			_activeScene = 0;
+			_activeScene = nullptr;
 		_scenes.erase(iterator);
 		delete scene;
 
@@ -205,6 +215,18 @@ namespace Graphics
 			// Reenderizamos un frame
 			_root->renderOneFrame(secs);
 		}
+		if (_debugDrawing){
+			_debugDrawing->tick(secs);
+		}
 	} // tick
+
+	CDebugDrawing* CServer::getDebugDrawing()
+	{
+		if (!_debugDrawing){
+			_debugDrawing = new Graphics::CDebugDrawing();
+		}
+
+		return _debugDrawing;
+	}
 
 } // namespace Graphics

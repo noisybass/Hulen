@@ -13,6 +13,7 @@ namespace Ogre
 namespace Graphics 
 {
 	class CScene;
+	class CDebugDrawing;
 }
 
 /**
@@ -121,6 +122,11 @@ namespace Graphics
 		CScene* getActiveScene() {return _activeScene;}
 
 		/**
+		Devuelve una referencia al debugDrawing
+		*/
+		CDebugDrawing* getDebugDrawing();
+
+		/**
 		Elimina la escena pasada por parámetro de la tabla de escenas
 		y la libera.
 
@@ -196,7 +202,7 @@ namespace Graphics
 		Instancia única de la aplicación.
 		*/
 		static CServer *_instance;
-		
+
 		/**
 		Punto de entrada al sistema Ogre.
 		*/
@@ -224,6 +230,11 @@ namespace Graphics
 		siempre haya una escena para el dibujado del GUI.
 		*/
 		CScene* _dummyScene;
+
+		/**
+		Referencia a la clase que pinta entidades para depuracion.
+		*/
+		CDebugDrawing* _debugDrawing;
 
 	}; // class CServer
 

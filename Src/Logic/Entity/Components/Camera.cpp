@@ -111,14 +111,14 @@ namespace Logic
 		{
 			// Actualizamos la posición de la cámara.
 			Vector3 position = _target->getPosition();
-			Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
-			direction.y = _height;
-			_graphicsCamera->setCameraPosition(position + direction);
+			//Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
+			//direction.y = _height;
+			_graphicsCamera->setCameraPosition(position /*+ direction*/);
 
 			// Y la posición hacia donde mira la cámara.
-			direction = _targetDistance * Math::getDirection(_target->getOrientation());
-			direction.y = _targetHeight;
-			_graphicsCamera->setTargetCameraPosition(position + direction);
+			//direction = _targetDistance * Math::getDirection(_target->getOrientation());
+			//direction.y = _targetHeight;
+			_graphicsCamera->setTargetCameraPosition(position /*+ direction*/);
 		}
 
 	} // tick

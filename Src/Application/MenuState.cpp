@@ -61,7 +61,7 @@ namespace Application {
 		
 		
 		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
+		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
 		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
 		soundServer->getEventInstancesPtr()->start("Instancia1");
 		/**/

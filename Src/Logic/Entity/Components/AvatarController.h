@@ -14,6 +14,7 @@ de la entidad.
 #define __Logic_AvatarController_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/Entity.h"
 
 //declaración de la clase
 namespace Logic 
@@ -42,7 +43,7 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
-							  _speed(0.05f) {}
+			_speed(0.05f), _walkRightAnimation(""), _idleAnimation("") {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -134,6 +135,10 @@ namespace Logic
 
 	protected:
 
+		void walkAnimation();
+
+		void changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction);
+
 		friend class CPhysicController;
 
 		/**
@@ -167,6 +172,13 @@ namespace Logic
 		float _gravity;
 
 		float _jumpHeight;
+
+		/**
+		Animations
+		*/
+		std::string _walkRightAnimation;
+		//std::string _walkLeftAnimation;
+		std::string _idleAnimation;
 
 	private: 
 		float _currentHeight = 0.0f;

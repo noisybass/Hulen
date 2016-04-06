@@ -91,6 +91,8 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\MoveController.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Patrol.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerManager.cpp" />
@@ -99,6 +101,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Spike.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Vision.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\GameObject.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\ComponentFactory.cpp" />
     <ClCompile Include="..\..\Src\Logic\Maps\EntityFactory.cpp" />
@@ -120,6 +123,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\MoveController.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Patrol.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Physics.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DamageTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
@@ -131,6 +136,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Spike.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Vision.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\GameObject.h" />
     <ClInclude Include="..\..\Src\Logic\Events\Event.h" />
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h" />

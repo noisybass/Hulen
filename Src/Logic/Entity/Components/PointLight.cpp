@@ -85,7 +85,7 @@ namespace Logic
 	{
 		return message._type == Message::LIGHT_SET_POSITION ||
 			message._type == Message::LIGHT_SET_COLOR ||
-			message._type == Message::SET_TRANSFORM;
+			message._type == Message::SET_POSITION;
 
 	} // accept
 
@@ -99,10 +99,8 @@ namespace Logic
 			case Message::LIGHT_SET_COLOR:
 				setColor(message.getArg<Vector3>("newColor"));
 				break;
-			case Message::SET_TRANSFORM:
-				Matrix4 transform = message.getArg<Matrix4>("transform");
-				Vector3 newPos = transform.getTrans();
-				setPosition(newPos);
+			case Message::SET_POSITION:
+				setPosition(message.getArg<Vector3>("newPosition"));
 				break;
 		}
 		

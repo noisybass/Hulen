@@ -136,7 +136,7 @@ namespace Graphics
 		if(_entityNode)
 		{
 			_entityNode->setPosition(transform.getTrans());
-			_entityNode->setOrientation(transform.extractQuaternion());
+			//_entityNode->setOrientation(transform.extractQuaternion());
 		}
 
 	} // setTransform
@@ -285,6 +285,11 @@ namespace Graphics
 
 	void CEntity::setMaterial(std::string material){
 		_entity->setMaterialName(material);
+	}
+
+	void CEntity::rollEntityNode(int degrees)
+	{
+		_entityNode->rotate(Vector3::UNIT_Y, Ogre::Degree(degrees));
 	}
 
 

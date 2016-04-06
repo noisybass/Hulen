@@ -57,8 +57,6 @@ namespace Application {
 		// Inicializamos el evento
 		dieEvent.initEvent(this, &Application::CGameState::playerListener);
 
-
-
 		return true;
 
 	} // init

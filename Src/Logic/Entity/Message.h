@@ -24,7 +24,6 @@ namespace Logic
 	{
 		enum TMessageType
 		{
-			SET_TRANSFORM,
 			SET_POSITION,
 			SET_ANIMATION,
 			STOP_ANIMATION,
@@ -51,7 +50,9 @@ namespace Logic
 			AMBIENT_LIGHT_SET_REAL_MATERIAL,
 			SHAPE_HIT,
 			PICK_CHARGE,
-			PUT_CHARGE
+			PUT_CHARGE,
+			ARRIVED_TO_DESTINATION,
+			ROLL_ENTITY_NODE,
 		};
 
 		/**

@@ -689,7 +689,7 @@ Logic::CEntity* CServer::raycastClosest (const Ray& ray, float maxDist) const
 		IPhysics *component = (IPhysics *) hit.shape->getActor()->userData;
 		return component->getEntity();
 	} else {
-		return NULL;
+		return nullptr;
 	}
 }
 
