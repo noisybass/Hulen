@@ -35,6 +35,8 @@ namespace Logic
 			_radius = entityInfo->getFloatAttribute("interactuable_area_radius");
 		}
 
+		return true;
+
 	} // spawn
 
 	bool CInteractuable::activate()
