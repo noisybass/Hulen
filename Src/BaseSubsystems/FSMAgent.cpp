@@ -15,10 +15,7 @@ namespace AI
 
 		if (luabind::type(states) == LUA_TTABLE)
 		{
-			luabind::object state = states["State_Prueba"];
 			_FSM->setCurrentState(states["State_Prueba"]);
-
-			state["Probando"]();
 		}
 
 	} // FSMAgent

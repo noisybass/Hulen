@@ -1,22 +1,11 @@
 #include "FSMEntity.h"
 
-#include "BaseSubsystems\ScriptManager.h"
-
-#include <iostream>
-
-//extern "C"
-//{
-//#include <lua.h>
-//}
-//
-//#include <luabind\luabind.hpp>
-
 namespace Logic
 {
 	IMP_FACTORY(CFSMEntity);
 
 	CFSMEntity::CFSMEntity()
-		/*: IComponent()*/
+		: IComponent()
 	{
 		// Creamos la máquina de estados
 		_agent = new AI::FSMAgent();

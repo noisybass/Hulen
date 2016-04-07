@@ -46,8 +46,7 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		Logic::CEntity* entity = visionRay();
-
+		// PINTADO DE LA VISION
 		Ogre::Vector3 startPosition = _entity->getPosition();
 		// Actualizamos la x para que no choque con la propia malla.
 		if (_entity->getDirection() == 1) startPosition.x += _xRaySeparation;
@@ -60,8 +59,17 @@ namespace Logic
 
 		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
 
-		if (entity != nullptr){
-			std::cout << "He tocado " + entity->getName() << std::endl;
+		// LOGICA DE LA VISION
+		Logic::CEntity* entity = visionRay();
+
+		if (entity){
+			_seeingEntity = true;
+			_lastSeenEntity = entity;
+			//std::cout << "He tocado " + entity->getName() << std::endl;
+		}
+		else
+		{
+			_seeingEntity = false;
 		}
 		
 	}

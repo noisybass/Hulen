@@ -20,6 +20,9 @@
     <ClCompile Include="..\..\Src\BaseSubsystems\FSMAgent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\BaseSubsystems\FSMCrawler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\BaseSubsystems\Documentation.h">
@@ -41,6 +44,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\BaseSubsystems\FSMAgent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\BaseSubsystems\FSMCrawler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

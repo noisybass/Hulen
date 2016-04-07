@@ -1,11 +1,11 @@
 World CGraphics CPhysicEntity
 Background CGraphics
 Player_GO CPlayerManager
-Player CAvatarController CAnimatedGraphics CPhysicController CVision
-CharacterPatrol CAnimatedGraphics CMoveController CPhysicController CPatrol CVision
+Player CAvatarController CAnimatedGraphics CPhysicController
+CharacterPatrol CAnimatedGraphics CMoveController CPhysicController CPatrol CVision CCrawler
 Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CPhysicEntity
-Spike CGraphics CPhysicEntity CSpike CFSMEntity
+Spike CGraphics CPhysicEntity CSpike
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 Empty

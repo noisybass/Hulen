@@ -81,11 +81,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\BaseSubsystems\FSMCrawler.cpp" />
     <ClCompile Include="..\..\Src\BaseSubsystems\FSMAgent.cpp" />
     <ClCompile Include="..\..\Src\BaseSubsystems\ScriptManager.cpp" />
     <ClCompile Include="..\..\Src\BaseSubsystems\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\BaseSubsystems\FSMCrawler.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Documentation.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\Factory.h" />
     <ClInclude Include="..\..\Src\BaseSubsystems\FSMAgent.h" />
