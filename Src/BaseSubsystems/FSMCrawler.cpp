@@ -5,7 +5,7 @@
 namespace AI
 {
 
-	FSMCrawler::FSMCrawler() : _seeingPlayer(false)
+	FSMCrawler::FSMCrawler(Logic::CEntity* entity) : _seeingPlayer(false), _entity(entity)
 	{
 		_FSM = new AI::StateMachine<FSMCrawler>(this);
 
@@ -31,6 +31,15 @@ namespace AI
 		_FSM->update();
 
 	} // update
+
+	void FSMCrawler::changeState(const luabind::object& newState, const std::string& componentToDeactivate, const std::string& componentToActivate)
+	{
+		_entity->getComponent(componentToDeactivate)->deactivate();
+		_entity->getComponent(componentToActivate)->activate();
+
+		_FSM->changeState(newState);
+
+	} // changeState
 
 	StateMachine<FSMCrawler>* FSMCrawler::getFSM() const
 	{

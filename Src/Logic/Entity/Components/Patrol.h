@@ -1,24 +1,11 @@
-#ifndef PATROL_H
-#define PATROL_H
+#ifndef LOGIC_PATROL_H
+#define LOGIC_PATROL_H
 
 #include "Logic/Entity/Component.h"
 
 //declaración de la clase
 namespace Logic 
 {
-/**
-	Este componente procesa mensajes de tipo TOUCHED o UNTOUCHED (indican que la 
-	entidad ha sido tocada o dejada de ser tocada) para enviar un mensaje SWITCH a 
-	una entidad objetivo.
-	<p>
-	La entidad objetivo se especifica en el mapa con el atributo "target". Este 
-	atributo <em>debe</em> ser especificado.
-	
-    @ingroup logicGroup
-
-	@author David Llansó García
-	@date Octubre, 2010
-*/
 	class CPatrol : public IComponent
 	{
 		DEC_FACTORY(CPatrol);
@@ -33,13 +20,17 @@ namespace Logic
 		Inicialización del componente usando la descripción de la entidad que hay en 
 		el fichero de mapa.
 		*/
-		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
-		
-		virtual bool accept(const TMessage &message);
-		
-		virtual void process(const TMessage &message);
+		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		virtual void tick(unsigned int msecs);
+		bool activate() override;
+
+		void deactivate() override;
+		
+		bool accept(const TMessage &message) override;
+		
+		void process(const TMessage &message) override;
+
+		void tick(unsigned int msecs) override;
 
 	protected:
 		
@@ -57,4 +48,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // PATROL_H
+#endif // LOGIC_PATROL_H

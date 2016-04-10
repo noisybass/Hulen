@@ -16,6 +16,10 @@ namespace Logic
 
 		CCrawler();
 
+		~CCrawler();
+
+		bool spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo) override;
+
 		void tick(unsigned int msecs) override;
 
 	}; // class CCrawler

@@ -7,11 +7,27 @@ namespace Logic
 	IMP_FACTORY(CCrawler);
 
 	CCrawler::CCrawler()
-		: IComponent()
+		: IComponent(), _agent(nullptr)
 	{
-		// Creamos la máquina de estados
-		_agent = new AI::FSMCrawler();
+
+	} // CCrawler
+
+	CCrawler::~CCrawler()
+	{
+		if (_agent)
+			delete _agent;
 	}
+
+	bool CCrawler::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+		if (!IComponent::spawn(name, entity, map, entityInfo))
+			return false;
+
+		_agent = new AI::FSMCrawler(_entity);
+
+		return true;
+
+	} // spawn
 
 
 	void CCrawler::tick(unsigned int msecs)
@@ -22,7 +38,7 @@ namespace Logic
 		CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
 		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
 		{
-			std::cout << "He visto al player" << std::endl;
+			//std::cout << "He visto al player" << std::endl;
 			_agent->setSeeingPlayer(true);
 		}
 		else

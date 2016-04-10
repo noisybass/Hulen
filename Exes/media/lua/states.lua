@@ -25,6 +25,8 @@ end
 
 State_Patrol = {}
 
+State_Patrol["Component"] = "CPatrol"
+
 State_Patrol["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Patrol")
@@ -34,7 +36,8 @@ end
 State_Patrol["Execute"] = function(agent)
 
 	if agent: SeeingPlayer() then
-		agent: GetFSM(): ChangeState(State_Chase)
+		--agent: GetFSM(): ChangeState(State_Chase)
+		agent: ChangeState(State_Chase, State_Patrol["Component"], State_Patrol["Component"])
 	end
 
 end
@@ -50,6 +53,8 @@ end
 ------------------------------------------------
 
 State_Chase = {}
+
+State_Chase["Component"] = "CChase"
 
 State_Chase["Enter"] = function(agent)
 

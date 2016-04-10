@@ -501,6 +501,7 @@ bool CScriptManager::open() {
 
 			luabind::class_<AI::FSMCrawler>("Crawler")
 			.def("SeeingPlayer", &AI::FSMCrawler::seeingPlayer)
+			.def("ChangeState", &AI::FSMCrawler::changeState)
 			.def("GetFSM", &AI::FSMCrawler::getFSM),
 
 			/*luabind::class_<AI::StateMachine<AI::FSMAgent> >("StateMachine")

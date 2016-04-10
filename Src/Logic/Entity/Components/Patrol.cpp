@@ -32,6 +32,20 @@ namespace Logic
 
 	} // spawn
 
+	bool CPatrol::activate()
+	{
+		std::cout << "ACTIVANDO..." << std::endl;
+
+		return true;
+
+	} // activate
+
+	void CPatrol::deactivate()
+	{
+		std::cout << "DESACTIVANDO..." << std::endl;
+
+	} // deactivate
+
 	bool CPatrol::accept(const TMessage &message)
 	{
 		return message._type == Message::ARRIVED_TO_DESTINATION;
