@@ -7,6 +7,8 @@ namespace AI
 
 	FSMCrawler::FSMCrawler() : _seeingPlayer(false)
 	{
+		_agentValues = new TValues();
+
 		_FSM = new AI::StateMachine<FSMCrawler>(this);
 
 		lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
@@ -22,6 +24,7 @@ namespace AI
 
 	FSMCrawler::~FSMCrawler()
 	{
+		delete _agentValues;
 		delete _FSM;
 
 	} // ~Crawler
@@ -38,16 +41,10 @@ namespace AI
 
 	} // getFSM
 
-	bool FSMCrawler::seeingPlayer() const
+	TValues* FSMCrawler::getValues()
 	{
-		return _seeingPlayer;
+		return _agentValues;
 
-	} // seeingPlayer
-
-	void FSMCrawler::setSeeingPlayer(bool newValue)
-	{
-		_seeingPlayer = newValue;
-
-	} // setSeeingPlayer
+	} // getValues
 
 } // namespace AI

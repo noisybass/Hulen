@@ -16,6 +16,8 @@ namespace Logic
 
 		CCrawler();
 
+		~CCrawler();
+
 		void tick(unsigned int msecs) override;
 
 	}; // class CCrawler

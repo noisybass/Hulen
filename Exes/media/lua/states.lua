@@ -1,24 +1,3 @@
-State_Prueba = {}
-
-State_Prueba["Enter"] = function(agent)
-
-	print ("[Lua]: Enter")
-
-end
-
-State_Prueba["Execute"] = function(agent)
-
-	print ("--> PROBANDO FUNCIONES CON ARGUMENTOS")
-	agent: SayHello()
-
-end
-
-State_Prueba["Exit"] = function(agent)
-
-	print ("[Lua]: Exit")
-
-end
-
 ------------------------------------------------
 ------------------------------------------------
 ------------------------------------------------
@@ -33,7 +12,7 @@ end
 
 State_Patrol["Execute"] = function(agent)
 
-	if agent: SeeingPlayer() then
+	if agent: GetValues(): GetBoolValue("SeeingPlayer") then
 		agent: GetFSM(): ChangeState(State_Chase)
 	end
 
@@ -59,7 +38,7 @@ end
 
 State_Chase["Execute"] = function(agent)
 
-	if not agent: SeeingPlayer() then
+	if not agent: GetValues(): GetBoolValue("SeeingPlayer") then
 		agent: GetFSM(): ChangeState(State_Patrol)
 	end
 

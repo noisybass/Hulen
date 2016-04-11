@@ -11,7 +11,15 @@ namespace Logic
 	{
 		// Creamos la máquina de estados
 		_agent = new AI::FSMCrawler();
-	}
+
+	} // CCrawler
+
+	CCrawler::~CCrawler()
+	{
+		if (_agent)
+			delete _agent;
+
+	} // ~CCrawler
 
 
 	void CCrawler::tick(unsigned int msecs)
@@ -23,11 +31,11 @@ namespace Logic
 		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
 		{
 			std::cout << "He visto al player" << std::endl;
-			_agent->setSeeingPlayer(true);
+			_agent->getValues()->setBoolValue("SeeingPlayer", true);
 		}
 		else
 		{
-			_agent->setSeeingPlayer(false);
+			_agent->getValues()->setBoolValue("SeeingPlayer", false);
 		}
 			
 
