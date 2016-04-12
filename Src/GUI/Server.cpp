@@ -77,6 +77,8 @@ namespace GUI {
 		// (automáticamente cargan los archivos looknfeel e imageset)
 		CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 		CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+		CEGUI::SchemeManager::getSingleton().createFromFile("AlfiskoSkin.scheme");
+		CEGUI::SchemeManager::getSingleton().createFromFile("Hulen.scheme");
 
 #ifndef NON_EXCLUSIVE_MODE_IN_WINDOW_MODE 
 		// Establecemos cual será el puntero del ratón.
