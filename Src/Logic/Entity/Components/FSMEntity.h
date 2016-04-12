@@ -1,8 +1,8 @@
 #ifndef LOGIC_FSM_ENTITY_H
 #define LOGIC_FSM_ENTITY_H
 
-#include "Logic\Entity\Component.h"
-#include "BaseSubsystems\FSMAgent.h"
+#include "Logic/Entity/Component.h"
+#include "BaseSubsystems/FSMAgent.h"
 
 namespace Logic
 {
@@ -15,6 +15,10 @@ namespace Logic
 	public:
 
 		CFSMEntity();
+
+		~CFSMEntity();
+
+		bool spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo) override;
 
 		void tick(unsigned int msecs) override;
 

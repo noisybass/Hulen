@@ -5,9 +5,11 @@
 namespace AI
 {
 
-	FSMAgent::FSMAgent()
+	FSMAgent::FSMAgent(Logic::CEntity* entity) : _seeingPlayer(false), _entity(entity)
 	{
-		_FSM = new AI::StateMachine<FSMAgent>(this);
+		_agentValues = new TValues();
+
+		_FSM = new AI::FSM<FSMAgent>(this);
 
 		lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
 
@@ -15,16 +17,17 @@ namespace AI
 
 		if (luabind::type(states) == LUA_TTABLE)
 		{
-			_FSM->setCurrentState(states["State_Prueba"]);
+			_FSM->setCurrentState(states["State_Patrol"]);
 		}
 
-	} // FSMAgent
+	} // Crawler
 
 	FSMAgent::~FSMAgent()
 	{
+		delete _agentValues;
 		delete _FSM;
 
-	} // ~FSMAgent
+	} // ~Crawler
 
 	void FSMAgent::update()
 	{
@@ -32,16 +35,25 @@ namespace AI
 
 	} // update
 
-	StateMachine<FSMAgent>* FSMAgent::getFSM() const
+	void FSMAgent::changeState(const luabind::object& newState, const std::string& componentToDeactivate, const std::string& componentToActivate)
+	{
+		_entity->getComponent(componentToDeactivate)->deactivate();
+		_entity->getComponent(componentToActivate)->activate();
+
+		_FSM->changeState(newState);
+
+	} // changeState
+
+	FSM<FSMAgent>* FSMAgent::getFSM() const
 	{
 		return _FSM;
 
 	} // getFSM
 
-	void FSMAgent::sayHello()
+	TValues* FSMAgent::getValues()
 	{
-		std::cout << "Hello!!" << std::endl;
+		return _agentValues;
 
-	} // sayHello
+	} // getValues
 
 } // namespace AI
