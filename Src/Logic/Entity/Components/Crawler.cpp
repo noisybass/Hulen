@@ -16,7 +16,8 @@ namespace Logic
 	{
 		if (_agent)
 			delete _agent;
-	}
+
+	} // ~CCrawler
 
 	bool CCrawler::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
@@ -38,12 +39,12 @@ namespace Logic
 		CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
 		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
 		{
-			//std::cout << "He visto al player" << std::endl;
-			_agent->setSeeingPlayer(true);
+			std::cout << "He visto al player" << std::endl;
+			_agent->getValues()->setBoolValue("SeeingPlayer", true);
 		}
 		else
 		{
-			_agent->setSeeingPlayer(false);
+			_agent->getValues()->setBoolValue("SeeingPlayer", false);
 		}
 			
 
