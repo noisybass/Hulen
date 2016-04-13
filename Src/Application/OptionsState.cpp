@@ -85,7 +85,7 @@ namespace Application {
 	{
 		switch(key.keyId)
 		{
-		case GUI::Key::RETURN:
+		case GUI::Key::ESCAPE:
 			_app->popState();
 			break;
 		default:
