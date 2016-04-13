@@ -7,7 +7,7 @@
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Components/LightingArea.h"
-#include "Logic/Entity/Components/Interactuable.h"
+#include "Logic/Entity/Components/ChargeInteractuable.h"
 
 namespace Logic
 {
@@ -230,11 +230,11 @@ namespace Logic
 
 	CGameObject* CPlayerManager::canPickAnyCharge() const
 	{
-		CInteractuable* chargeArea;
+		CChargeInteractuable* chargeArea;
 
 		for (CGameObject* charge : _chargesOnMap)
 		{
-			chargeArea = (CInteractuable*)(charge->getBody()->getComponent("CInteractuable"));
+			chargeArea = (CChargeInteractuable*)(charge->getBody()->getComponent("CChargeInteractuable"));
 			if (chargeArea->_canInteract)
 				return charge;
 		}

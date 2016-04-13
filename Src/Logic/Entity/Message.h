@@ -53,6 +53,7 @@ namespace Logic
 			PUT_CHARGE,
 			ARRIVED_TO_DESTINATION,
 			ROLL_ENTITY_NODE,
+			INTERACTUABLE,
 		};
 
 		/**
