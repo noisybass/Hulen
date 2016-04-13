@@ -35,14 +35,23 @@ namespace AI
 
 	} // update
 
-	void FSMAgent::changeState(const luabind::object& newState, const std::string& componentToDeactivate, const std::string& componentToActivate)
+	void FSMAgent::changeState(const luabind::object& newState)
 	{
-		_entity->getComponent(componentToDeactivate)->deactivate();
-		_entity->getComponent(componentToActivate)->activate();
-
 		_FSM->changeState(newState);
 
 	} // changeState
+
+	void FSMAgent::activate(const std::string& component)
+	{
+		_entity->getComponent(component)->activate();
+
+	} // activate
+
+	void FSMAgent::deactivate(const std::string& component)
+	{
+		_entity->getComponent(component)->deactivate();
+
+	} // deactivate
 
 	FSM<FSMAgent>* FSMAgent::getFSM() const
 	{
@@ -55,5 +64,29 @@ namespace AI
 		return _agentValues;
 
 	} // getValues
+
+	bool FSMAgent::getBoolValue(const std::string& id) const
+	{
+		return _agentValues->getValue<bool>(id);
+
+	} // getBoolValue
+
+	float FSMAgent::getFloatValue(const std::string& id) const
+	{
+		return _agentValues->getValue<float>(id);
+
+	} // getFloatValue
+
+	void FSMAgent::setBoolValue(const std::string& id, bool value)
+	{
+		_agentValues->setValue<bool>(id, value);
+
+	} // setBoolValue
+
+	void FSMAgent::setFloatValue(const std::string& id, float value)
+	{
+		_agentValues->setValue<float>(id, value);
+
+	} // setFloatValue
 
 } // namespace AI

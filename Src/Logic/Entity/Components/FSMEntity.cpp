@@ -39,11 +39,11 @@ namespace Logic
 		CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
 		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
 		{
-			_agent->getValues()->setBoolValue("SeeingPlayer", true);
+			_agent->setBoolValue("SeeingPlayer", true);
 		}
 		else
 		{
-			_agent->getValues()->setBoolValue("SeeingPlayer", false);
+			_agent->setBoolValue("SeeingPlayer", false);
 		}
 			
 

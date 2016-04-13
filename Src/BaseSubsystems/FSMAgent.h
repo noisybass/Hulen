@@ -20,17 +20,14 @@ namespace AI
 
 		std::unordered_map<std::string, TAgentValue> _values;
 
-		bool getBoolValue(const std::string& id) const
+		template<typename T>
+		T getValue(const std::string& id) const
 		{
-			return boost::get<bool>(_values.at(id));
+			return boost::get<T>(_values.at(id));
 		}
 
-		float getFloatValue(const std::string& id) const
-		{
-			return boost::get<float>(_values.at(id));
-		}
-
-		void setBoolValue(const std::string& id, bool value)
+		template<typename T>
+		void setValue(const std::string& id, const T& value)
 		{
 			auto search = _values.find(id);
 
@@ -42,26 +39,6 @@ namespace AI
 			{
 				_values.emplace(std::make_pair(id, value));
 			}
-		}
-
-		void setFloatValue(const std::string& id, float value)
-		{
-			auto search = _values.find(id);
-
-			if (search != _values.end())
-			{
-				_values[id] = value;
-			}
-			else
-			{
-				_values.emplace(std::make_pair(id, value));
-			}
-		}
-
-		bool simpleFunction()
-		{
-			std::cout << "asfagdsgda" << std::endl;
-			return true;
 		}
 
 	} TValues;
@@ -83,11 +60,23 @@ namespace AI
 
 		void update();
 
-		void changeState(const luabind::object& newState, const std::string& componentToDeactivate, const std::string& componentToActivate);
+		void changeState(const luabind::object& newState);
+
+		void activate(const std::string& component);
+
+		void deactivate(const std::string& component);
 
 		FSM<FSMAgent>* getFSM() const;
 
 		TValues* getValues();
+
+		bool getBoolValue(const std::string& id) const;
+
+		float getFloatValue(const std::string& id) const;
+
+		void setBoolValue(const std::string& id, bool value);
+
+		void setFloatValue(const std::string& id, float value);
 
 	}; // class FSMAgent
 

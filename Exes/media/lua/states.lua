@@ -9,13 +9,14 @@ State_Patrol["Component"] = "CPatrol"
 State_Patrol["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Patrol")
+	agent: Activate(State_Patrol["Component"])
 
 end
 
 State_Patrol["Execute"] = function(agent)
 
-	if agent: GetValues(): GetBoolValue("SeeingPlayer") then
-		agent: ChangeState(State_Chase, State_Patrol["Component"], State_Patrol["Component"])
+	if agent: GetBoolValue("SeeingPlayer") then
+		agent: ChangeState(State_Chase)
 	end
 
 end
@@ -23,6 +24,7 @@ end
 State_Patrol["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Patrol")
+	agent: Deactivate(State_Patrol["Component"])
 
 end
 
@@ -42,8 +44,8 @@ end
 
 State_Chase["Execute"] = function(agent)
 
-	if not agent: GetValues(): GetBoolValue("SeeingPlayer") then
-		agent: GetFSM(): ChangeState(State_Patrol)
+	if not agent: GetBoolValue("SeeingPlayer") then
+		agent: ChangeState(State_Patrol)
 	end
 
 end
