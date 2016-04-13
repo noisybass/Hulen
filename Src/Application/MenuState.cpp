@@ -45,6 +45,10 @@ namespace Application {
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
 
+		_menuWindow->getChildElement("Options")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
+
 		// Sonido en el menu principal
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
@@ -202,6 +206,13 @@ namespace Application {
 	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
 	{
 		_app->exitRequest();
+		return true;
+
+	} // exitReleased
+
+	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
+	{
+		_app->pushState("options");
 		return true;
 
 	} // exitReleased

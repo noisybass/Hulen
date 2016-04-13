@@ -21,22 +21,16 @@
             <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
         </Window>
         
-        <Window type="AlfiskoSkin/Button" name="Exit" >
+        <Window type="AlfiskoSkin/Button" name="Controls" >
             <Property name="Area" value="{{0.6,0},{0.6,0},{0.9,0},{0.7,0}}" />
             <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="Exit" />
+            <Property name="Text" value="Controls" />
             <Property name="AlwaysOnTop" value="True" />
         </Window>
-        <Window type="AlfiskoSkin/Button" name="Start" >
-            <Property name="Area" value="{{0.1,0},{0.6,0},{0.4,0},{0.7,0}}" />
-            <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="Start" />
-            <Property name="AlwaysOnTop" value="True" />
-        </Window>
-        <Window type="AlfiskoSkin/Button" name="Options" >
+        <Window type="AlfiskoSkin/Button" name="Back" >
             <Property name="Area" value="{{0.3,0},{0.8,0},{0.7,0},{0.9,0}}" />
             <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="Options" />
+            <Property name="Text" value="Back" />
             <Property name="AlwaysOnTop" value="True" />
         </Window>
     </Window>

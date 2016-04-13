@@ -1,68 +1,29 @@
-//---------------------------------------------------------------------------
-// MenuState.h
-//---------------------------------------------------------------------------
-
-/**
-@file MenuState.h
-
-Contiene la declaración del estado de menú.
-
-@see Application::CApplicationState
-@see Application::CMenuState
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
-#ifndef __Application_MenuState_H
-#define __Application_MenuState_H
+#ifndef __Application_OptionsState_H
+#define __Application_OptionsState_H
 
 #include "ApplicationState.h"
 
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Application 
-{
-	class CBaseApplication;
-}
+#include "GUI/Server.h"
+#include "Sounds\Server.h"
 
-namespace CEGUI
-{
-	class EventArgs;
-	class Window;
-}
+#include <CEGUI/CEGUI.h>
 
 namespace Application 
 {
-	/**
-	Como su nombre indica, esta clase es la clase del menú
-	principal del juego. Es muy sencilla y lo único que hace es cargar
-	un layout de CEGUI al inicio y activarlo y desactivarlo cuando
-	se activa o desactiva el estado (haciéndo visible/invisible también
-	el puntero del ratón). También asocia los eventos de los botones 
-	del menú a las funciones C++ que se deben invocar cuando los botones
-	son pulsados.
-	<p>
-	Este estado es CEGUI dependiente, lo cual no es deseable, la aplicación
-	debería ser independiente de las tecnologías usadas.
-
-	@ingroup applicationGroup
-
-	@author David Llansó
-	@date Agosto, 2010
-	*/
-	class CMenuState : public CApplicationState 
+	
+	class COptionsState : public CApplicationState 
 	{
 	public:
 		/** 
 		Constructor de la clase 
 		*/
-		CMenuState(CBaseApplication *app) : CApplicationState(app)
+		COptionsState(CBaseApplication *app) : CApplicationState(app)
 				{}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CMenuState();
+		virtual ~COptionsState();
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -168,26 +129,12 @@ namespace Application
 		*/
 		CEGUI::Window* _menuWindow;
 		
-		/**
-		Función que se quiere realizar cuando se pulse el botón start.
-		Simplemente cambia al estado de juego.
-		*/
-		bool startReleased(const CEGUI::EventArgs& e);
+		bool backReleased(const CEGUI::EventArgs& e);
 
-		/**
-		Función que se quiere realizar cuando se pulse el botón exit.
-		Simplemente termina la aplicación.
-		*/
-		bool exitReleased(const CEGUI::EventArgs& e);
-
-		/**
-		Function called when click the options button.
-		Change the state to the options menu.
-		*/
-		bool optionsReleased(const CEGUI::EventArgs& e);
+		bool controlsMenu(const CEGUI::EventArgs& e);
 
 	}; // CMenuState
 
 } // namespace Application
 
-#endif //  __Application_MenuState_H
+#endif //  __Application_OptionsState_H
