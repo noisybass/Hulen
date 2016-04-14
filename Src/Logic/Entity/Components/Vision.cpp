@@ -49,7 +49,9 @@ namespace Logic
 
 		if (_fsm)
 		{
-			_fsm->setValue<bool>("SeeingPlayer", false);
+			_fsm->setValue<bool>("seeing_entity", false);
+
+			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
 		}
 
 		return true;
@@ -83,7 +85,6 @@ namespace Logic
 		if (entity){
 			_seeingEntity = true;
 			_lastSeenEntity = entity;
-			//std::cout << "He tocado " + entity->getName() << std::endl;
 		}
 		else
 		{
@@ -92,14 +93,8 @@ namespace Logic
 
 		if (_fsm)
 		{
-			if (_seeingEntity && !_lastSeenEntity->getName().compare("Player_Body"))
-			{
-				_fsm->setValue<bool>("SeeingPlayer", true);
-			}
-			else
-			{
-				_fsm->setValue<bool>("SeeingPlayer", false);
-			}
+			_fsm->setValue<bool>("seeing_entity", _seeingEntity);
+			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
 		}
 		
 	}

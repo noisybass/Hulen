@@ -1,5 +1,5 @@
-#ifndef VISION_H
-#define VISION_H
+#ifndef LOGIC_VISION_H
+#define LOGIC_VISION_H
 
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/Components/FSMEntity.h"
@@ -7,19 +7,6 @@
 //declaración de la clase
 namespace Logic 
 {
-/**
-	Este componente procesa mensajes de tipo TOUCHED o UNTOUCHED (indican que la 
-	entidad ha sido tocada o dejada de ser tocada) para enviar un mensaje SWITCH a 
-	una entidad objetivo.
-	<p>
-	La entidad objetivo se especifica en el mapa con el atributo "target". Este 
-	atributo <em>debe</em> ser especificado.
-	
-    @ingroup logicGroup
-
-	@author David Llansó García
-	@date Octubre, 2010
-*/
 	class CVision : public IComponent
 	{
 		DEC_FACTORY(CVision);
@@ -80,4 +67,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // VISION_H
+#endif // LOGIC_VISION_H

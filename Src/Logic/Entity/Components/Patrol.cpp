@@ -1,7 +1,7 @@
 #include "Patrol.h"
-#include "Logic\Entity\Entity.h"
-#include "Physics\Server.h"
-#include "Map\MapEntity.h"
+#include "Logic/Entity/Entity.h"
+#include "Physics/Server.h"
+#include "Map/MapEntity.h"
 #include "Logic/Entity/Components/MoveController.h"
 #include <iostream>
 
@@ -35,6 +35,7 @@ namespace Logic
 	bool CPatrol::activate()
 	{
 		std::cout << "ACTIVANDO..." << std::endl;
+		_active = true;
 
 		return true;
 
@@ -43,6 +44,7 @@ namespace Logic
 	void CPatrol::deactivate()
 	{
 		std::cout << "DESACTIVANDO..." << std::endl;
+		_active = false;
 
 	} // deactivate
 
@@ -66,17 +68,21 @@ namespace Logic
 
 	void CPatrol::tick(unsigned int msecs)
 	{
-		IComponent::tick(msecs);
-
-		if (_arrivedToDestination)
+		if (_active)
 		{
-			CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
-			if (_arrivedDestination == _patrolPosition1) 
-				moveController->nextPosition(_patrolPosition2);
-			else if (_arrivedDestination == _patrolPosition2)
-				moveController->nextPosition(_patrolPosition1);
-			_arrivedToDestination = false;
+			IComponent::tick(msecs);
+
+			if (_arrivedToDestination)
+			{
+				CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+				if (_arrivedDestination == _patrolPosition1)
+					moveController->nextPosition(_patrolPosition2);
+				else if (_arrivedDestination == _patrolPosition2)
+					moveController->nextPosition(_patrolPosition1);
+				_arrivedToDestination = false;
+			}
 		}
+
 	} // tick
 
 	
