@@ -8,7 +8,7 @@ end
 
 State_Prueba["Execute"] = function(agent)
 
-	print ("--> PROBANDO FUNCIONES CON ARGUMENTOS")
+	--print ("--> PROBANDO FUNCIONES CON ARGUMENTOS")
 	agent: SayHello()
 
 end
@@ -21,6 +21,6 @@ end
 
 State_Prueba["Probando"] = function()
 	
-	print ("--> PROBANDO FUNCIONES SIN ARGUMENTOS")
+	--print ("--> PROBANDO FUNCIONES SIN ARGUMENTOS")
 
 end

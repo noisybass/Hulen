@@ -68,7 +68,8 @@ namespace Logic
 			message._type == Message::PLAYER_CHANGE_STATE ||
 			message._type == Message::PLAYER_DEATH ||
 			message._type == Message::PUT_CHARGE ||
-			message._type == Message::PICK_CHARGE;
+			message._type == Message::PICK_CHARGE ||
+			message._type == Message::PLAYER_LEVER_INTERACT; 
 
 	} // accept
 

@@ -6,6 +6,8 @@ CharacterPatrol CAnimatedGraphics CMoveController CPhysicController CPatrol CVis
 Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CChargeInteractuable CPhysicEntity
+Lever CGraphics CInteractuable CLeverInteractuable
+LeverTarget CGraphics CLeverTargetExample
 Spike CGraphics CPhysicEntity CSpike CFSMEntity
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 Empty

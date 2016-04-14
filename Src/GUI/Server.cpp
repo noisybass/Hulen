@@ -16,7 +16,7 @@ namespace GUI {
 
 	//--------------------------------------------------------
 
-	CServer::CServer() : _playerController(0)
+	CServer::CServer() : _playerController(nullptr), _lightController(nullptr), _sceneController(nullptr), _objectsController(nullptr)
 	{
 		_instance = this;
 
@@ -69,6 +69,7 @@ namespace GUI {
 		_playerController = new CPlayerController();
 		_lightController = new CLightController();
 		_sceneController = new CSceneController();
+		_objectsController = new CObjectsController();
 
 		_GUISystem = BaseSubsystems::CServer::getSingletonPtr()->getGUISystem();
 
@@ -107,6 +108,7 @@ namespace GUI {
 		delete _lightController;
 		delete _playerController;
 		delete _sceneController;
+		delete _objectsController;
 
 	} // close
 

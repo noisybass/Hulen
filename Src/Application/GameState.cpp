@@ -94,6 +94,9 @@ namespace Application {
 		// Queremos que el GUI maneje a la luz.
 		GUI::CServer::getSingletonPtr()->getLightController()->activate();
 
+		// We want the objects can receive messages from the input.
+		GUI::CServer::getSingletonPtr()->getObjectsController()->activate();
+
 		// Activamos la ventana que nos muestra el tiempo transcurrido.
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
 		_timeWindow->setVisible(true);
@@ -131,6 +134,9 @@ namespace Application {
 
 		// Desactivamos la luz
 		GUI::CServer::getSingletonPtr()->getLightController()->deactivate();
+
+		// Deactivate the objects
+		GUI::CServer::getSingletonPtr()->getObjectsController()->deactivate();
 		
 		// Desactivamos el mapa de la partida.
 		Logic::CServer::getSingletonPtr()->deactivateMap();

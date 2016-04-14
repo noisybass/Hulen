@@ -107,6 +107,18 @@ Map_GO = {
 		state = "Shadow",
 	},
 
+	Lever_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	LeverTarget_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	}
+
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -117,6 +129,25 @@ Map_GO = {
 }
 
 Map = {
+
+	LeverTarget_Body = {
+		type = "Body",
+		blueprint = "LeverTarget",
+		game_object = "LeverTarget_GO",
+		position = "-20, 5, 0}",
+		model = "Cube.mesh",
+	},
+
+	Lever_Body = {
+		type = "Body",
+		blueprint = "Lever",
+		game_object = "Lever_GO",
+		position = "-20, -3, 0}",
+		model = "Cube.mesh",
+		interactuable_area_radius = 3,
+		player = "Player_GO",
+		lever_GO_target  = "LeverTarget_GO",
+	},
 	
 	Player_Body = {
 		type = "Body",
