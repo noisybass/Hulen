@@ -16,9 +16,10 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 */
 #include "GaleonApplication.h"
 
-#include "ExitState.h"
 #include "MenuState.h"
 #include "GameState.h"
+#include "PauseState.h"
+#include "ExitState.h"
 #include "Logic\Events\Event.h"
 
 
@@ -46,16 +47,15 @@ namespace Application {
 
 		// Creamos los estados. La aplicación se hace responsable de
 		// destruirlos.
-		if(!addState("menu", new CMenuState(this)))
-			return false;
+		addState("menu", new CMenuState(this));
 
-		if (!addState("game", new CGameState(this)))
-			return false;
+		addState("game", new CGameState(this));
 
-		if(!addState("exit", new CExitState(this)))
-			return false;
+		addState("pause", new CPauseState(this));
 
-		if(!pushState("menu"))
+		addState("exit", new CExitState(this));
+
+		if(!pushState("menu",true))
 			return false;
 
 		return true;

@@ -101,7 +101,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 	
-	bool CBaseApplication::addState(const std::string &name,
+	void CBaseApplication::addState(const std::string &name,
 					   CApplicationState *newState) 
 	{
 		TStateTable::const_iterator it;
@@ -117,13 +117,13 @@ namespace Application {
 		assert(it == _stateTable.end());
 #endif
 		_stateTable[name] = newState;
-		return newState->init();
+		//return newState->init();
 
 	} // addState
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::pushState(const std::string &name)
+	bool CBaseApplication::pushState(const std::string &name, bool init)
 	{
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
@@ -134,9 +134,13 @@ namespace Application {
 		if (it == _stateTable.end())
 			return false;
 
-		// Desactivamos el estado si habia un estado en la pila.
+		// Desactivamos el estado y liberamos si habia un estado en la pila.
 		if (!_states.empty())
 			_states.top()->deactivate();
+
+		// Inicializamos el estado a cargar si se indica
+		if (init)
+			it->second->init();
 
 		// Activamos el estado que vamos a meter en la pila
 		it->second->activate();
@@ -145,18 +149,24 @@ namespace Application {
 		_states.push(it->second);
 
 		return true;
-	}
+
+	} // pushState
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::popState()
+	bool CBaseApplication::popState(bool release)
 	{
 		// Si no hay ningún elemento, no hacemos nada.
 		if (_states.empty())
 			return false;
 
-		// Desactivamos el estado y lo eliminamos.
+		// Desactivamos el estado.
 		_states.top()->deactivate();
+
+		if (release)
+			_states.top()->release();
+
+		// Sacamos el estado de la pila
 		_states.pop();
 
 		// Activamos el estado que teniamos en la pila si existe
@@ -164,7 +174,7 @@ namespace Application {
 			_states.top()->activate();
 
 		return true;
-	}
+	} // popState
 
 	//--------------------------------------------------------
 
@@ -191,8 +201,6 @@ namespace Application {
 			// Recargamos el estado actual
 			if (_reloadState){
 
-				Map::CMapParser::getSingletonPtr()->releaseEntityList();
-				Map::CMapParser::getSingletonPtr()->releasePrefabList();
 				_currentState->deactivate();
 				_currentState->release();
 				_currentState->init();

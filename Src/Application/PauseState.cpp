@@ -1,20 +1,20 @@
 //---------------------------------------------------------------------------
-// MenuState.cpp
+// PauseState.cpp
 //---------------------------------------------------------------------------
 
 /**
-@file MenuState.cpp
+@file PauseState.cpp
 
-Contiene la implementación del estado de menú.
+Contiene la implementación del estado de pausa.
 
 @see Application::CApplicationState
-@see Application::CMenuState
+@see Application::CPauseState
 
-@author David Llansó
-@date Agosto, 2010
+@author Daniel Ruiz
+@date Abril, 2016
 */
 
-#include "MenuState.h"
+#include "PauseState.h"
 
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
@@ -23,34 +23,34 @@ Contiene la implementación del estado de menú.
 
 namespace Application {
 
-	CMenuState::~CMenuState() 
+	CPauseState::~CPauseState()
 	{
-	} // ~CMenuState
+	} // ~CPauseState
 
 	//--------------------------------------------------------
 
-	bool CMenuState::init() 
+	bool CPauseState::init()
 	{
 		CApplicationState::init();
 
-		// Cargamos la ventana que muestra el menú
-		_menuWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Menu.layout");
-		
-		// Asociamos los botones del menú con las funciones que se deben ejecutar.
-		_menuWindow->getChildElement("Start")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, 
-				CEGUI::SubscriberSlot(&CMenuState::startReleased, this));
-		
-		_menuWindow->getChildElement("Exit")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, 
-				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
+		// Cargamos la ventana que muestra la pausa
+		_PauseWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Pause.layout");
 
-		// Sonido en el menu principal
+		// Asociamos los botones de la pausa con las funciones que se deben ejecutar.
+		_PauseWindow->getChildElement("Resume")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CPauseState::startReleased, this));
+
+		_PauseWindow->getChildElement("Menu")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CPauseState::exitReleased, this));
+
+		// Sonido en el Pause principal
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
-		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
+		soundServer->getChannelsPtr()->loadChannel("CanalPause", "TemaPrincipal");
+		soundServer->getChannelsPtr()->setVolume("CanalPause", 0.3);
 
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
@@ -58,8 +58,8 @@ namespace Application {
 		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
 		soundServer->getBanksPtr()->loadBank("Banco3", "Ambiente.bank");
 		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Ambientes");
-		
-		
+
+
 		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
 		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
 		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
@@ -71,14 +71,14 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::release() 
+	void CPauseState::release()
 	{
 
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->stop("CanalMenu");
+		soundServer->getChannelsPtr()->stop("CanalPause");
 		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
-		
+
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getEventInstancesPtr()->stop("Instancia1");
@@ -89,19 +89,19 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::activate() 
+	void CPauseState::activate()
 	{
 		CApplicationState::activate();
 
-		// Activamos la ventana que nos muestra el menú y activamos el ratón.
-		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_menuWindow);
-		_menuWindow->setVisible(true);
-		_menuWindow->activate();
+		// Activamos la ventana que nos muestra la pausa y activamos el ratón.
+		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_PauseWindow);
+		_PauseWindow->setVisible(true);
+		_PauseWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
+		soundServer->getChannelsPtr()->setPaused("CanalPause", false);
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
@@ -111,27 +111,27 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::deactivate() 
-	{		
-		// Desactivamos la ventana GUI con el menú y el ratón.
+	void CPauseState::deactivate()
+	{
+		// Desactivamos la ventana GUI con la pausa y el ratón.
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
-		_menuWindow->deactivate();
-		_menuWindow->setVisible(false);
+		_PauseWindow->deactivate();
+		_PauseWindow->setVisible(false);
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
-		
+		soundServer->getChannelsPtr()->setPaused("CanalPause", true);
+
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
 		*/
 		/**/
-		
+
 		CApplicationState::deactivate();
 	} // deactivate
 
 	//--------------------------------------------------------
 
-	void CMenuState::tick(unsigned int msecs) 
+	void CPauseState::tick(unsigned int msecs)
 	{
 		CApplicationState::tick(msecs);
 
@@ -139,7 +139,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CMenuState::keyPressed(GUI::TKey key)
+	bool CPauseState::keyPressed(GUI::TKey key)
 	{
 		return false;
 
@@ -147,25 +147,16 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CMenuState::keyReleased(GUI::TKey key)
+	bool CPauseState::keyReleased(GUI::TKey key)
 	{
-		switch(key.keyId)
+		switch (key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->exitRequest();
+			// Pop PauseState
+			_app->popState();
 			break;
 		case GUI::Key::RETURN:
-
-			// Pop MenuState
-			_app->popState(true);
-
-			// Push GameState
-			_app->pushState("game", true);
-
-			// Push PauseState
-			_app->pushState("pause",true);
-
-			// Pop PauseState (deactivation)
+			// Pop PauseState
 			_app->popState();
 			break;
 		default:
@@ -176,16 +167,16 @@ namespace Application {
 	} // keyReleased
 
 	//--------------------------------------------------------
-	
-	bool CMenuState::mouseMoved(const GUI::CMouseState &mouseState)
+
+	bool CPauseState::mouseMoved(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseMoved
 
 	//--------------------------------------------------------
-		
-	bool CMenuState::mousePressed(const GUI::CMouseState &mouseState)
+
+	bool CPauseState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -194,37 +185,33 @@ namespace Application {
 	//--------------------------------------------------------
 
 
-	bool CMenuState::mouseReleased(const GUI::CMouseState &mouseState)
+	bool CPauseState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
-			
+
 	//--------------------------------------------------------
-		
-	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
+
+	bool CPauseState::startReleased(const CEGUI::EventArgs& e)
 	{
-		// Pop MenuState
-		_app->popState(true);
-
-		// Push GameState
-		_app->pushState("game", true);
-
-		// Push PauseState
-		_app->pushState("pause", true);
-
-		// Pop PauseState (deactivation)
 		_app->popState();
-
 		return true;
 
 	} // startReleased
-			
+
 	//--------------------------------------------------------
 
-	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
+	bool CPauseState::exitReleased(const CEGUI::EventArgs& e)
 	{
-		_app->exitRequest();
+		// Pop PauseState
+		_app->popState(true);
+
+		// Pop GameState
+		_app->popState(true);
+
+		// Push MenuState
+		_app->pushState("menu",true);
 		return true;
 
 	} // exitReleased

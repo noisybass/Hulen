@@ -21,6 +21,8 @@ Contiene la implementación del estado de juego.
 #include "Logic/Maps/Map.h"
 #include "Logic\Events\Event.h"
 
+#include "Map\MapParser.h"
+
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/LightController.h"
@@ -77,6 +79,10 @@ namespace Application {
 		// Liberamos el evento
 		dieEvent.clearEvents();
 
+
+		Map::CMapParser::getSingletonPtr()->releaseEntityList();
+		Map::CMapParser::getSingletonPtr()->releasePrefabList();
+
 	} // release
 
 	//--------------------------------------------------------
@@ -99,12 +105,14 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
-		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		/*
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);*/
+		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
+		*/
+		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
 
 
 	} // activate
@@ -115,7 +123,7 @@ namespace Application {
 	{
 
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
+		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
 
 		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
@@ -174,7 +182,10 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->popState();
+
+			// Push PauseState (activation)
+
+			_app->pushState("pause");
 			break;
 		case GUI::Key::R:
 			_app->reloadState();

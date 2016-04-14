@@ -143,7 +143,7 @@ namespace Application
 		de eliminarlo al finalizar.
 		@return true si todo fue bien.
 		*/
-		bool addState(const std::string &name,
+		void addState(const std::string &name,
 						CApplicationState *newState);
 
 		/**
@@ -153,16 +153,18 @@ namespace Application
 
 		@param name Nombre del estado.
 		@return Devuelve cierto si el estado solicitado existe. Si el
-		estado no existe, <em>no</em> hay un cambio efectivo del estado.
+		estado no existe, <em>no</em> hay un cambio efectivo del estado. 
+		Activa el estado a insertar. Inicializa el estado si init es true.
 		*/
-		bool pushState(const std::string &name);
+		bool pushState(const std::string &name, bool init = false);
 
 		/**
 		Elimina de la pila el estado que esta en la cima.La 
 		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
-		vuelta del bucle principal de la aplicación.
+		vuelta del bucle principal de la aplicación. Desactiva el estado que 
+		está en la cima. Libera el estado si release = true.
 		*/
-		bool popState();
+		bool popState(bool release = false);
 
 		/**
 		Recarga el estado actual
