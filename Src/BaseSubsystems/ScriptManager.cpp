@@ -498,8 +498,9 @@ bool CScriptManager::open() {
 			.def("ChangeState", &AI::FSMAgent::changeState)
 			.def("Deactivate", &AI::FSMAgent::deactivate)
 			.def("Activate", &AI::FSMAgent::activate)
-			.def("GetBoolValue", &AI::FSMAgent::getBoolValue)
-			.def("GetFloatValue", &AI::FSMAgent::getFloatValue),
+			.def("GetBoolValue", &AI::FSMAgent::getValue<bool>)
+			.def("GetFloatValue", &AI::FSMAgent::getValue<float>)
+			.def("GetStringValue", &AI::FSMAgent::getValue<std::string>),
 
 			luabind::class_<AI::FSM<AI::FSMAgent> >("FSM")
 			.def("ChangeState", &AI::FSM<AI::FSMAgent>::changeState)

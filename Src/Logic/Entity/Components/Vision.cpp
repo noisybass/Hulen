@@ -12,11 +12,11 @@ entidad cuando recibe un mensaje TOUCHED / UNTOUCHED.
 */
 
 #include "Vision.h"
-#include "Logic\Entity\Entity.h"
-#include "Physics\Server.h"
-#include "Map\MapEntity.h"
-#include "Graphics\Server.h"
-#include "Graphics\DebugDrawing.h"
+#include "Logic/Entity/Entity.h"
+#include "Physics/Server.h"
+#include "Map/MapEntity.h"
+#include "Graphics/Server.h"
+#include "Graphics/DebugDrawing.h"
 #include "BaseSubsystems/Math.h"
 #include <iostream>
 
@@ -41,6 +41,24 @@ namespace Logic
 		return true;
 
 	} // spawn
+
+	bool CVision::activate()
+	{
+		// Si tenemos un componente responsable del agente de IA tendremos que actualizar su información
+		_fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+
+		if (_fsm)
+		{
+			_fsm->setValue<bool>("SeeingPlayer", false);
+		}
+
+		return true;
+	}
+
+	void CVision::deactivate()
+	{
+
+	}
 
 	void CVision::tick(unsigned int msecs)
 	{
@@ -70,6 +88,18 @@ namespace Logic
 		else
 		{
 			_seeingEntity = false;
+		}
+
+		if (_fsm)
+		{
+			if (_seeingEntity && !_lastSeenEntity->getName().compare("Player_Body"))
+			{
+				_fsm->setValue<bool>("SeeingPlayer", true);
+			}
+			else
+			{
+				_fsm->setValue<bool>("SeeingPlayer", false);
+			}
 		}
 		
 	}

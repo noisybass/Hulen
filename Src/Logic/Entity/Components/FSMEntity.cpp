@@ -36,15 +36,15 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		// Actualizamos los valores que necesita el agente
-		CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
+		/*CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
 		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
 		{
-			_agent->setBoolValue("SeeingPlayer", true);
+			_agent->setValue<bool>("SeeingPlayer", true);
 		}
 		else
 		{
-			_agent->setBoolValue("SeeingPlayer", false);
-		}
+			_agent->setValue<bool>("SeeingPlayer", false);
+		}*/
 			
 
 		_agent->update();

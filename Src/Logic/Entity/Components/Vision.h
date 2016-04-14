@@ -2,6 +2,7 @@
 #define VISION_H
 
 #include "Logic/Entity/Component.h"
+#include "Logic/Entity/Components/FSMEntity.h"
 
 //declaración de la clase
 namespace Logic 
@@ -27,27 +28,24 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CVision() : IComponent(), _ray(), _defaultVision(5), _xRaySeparation(0.7), _yRaySeparation(0.5),
+		CVision() : IComponent(), _fsm(nullptr), _ray(), _defaultVision(5), _xRaySeparation(0.7), _yRaySeparation(0.5),
 			_seeingEntity(false), _lastSeenEntity(nullptr) {}
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
 		el fichero de mapa.
 		*/
-		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		/**
-		Este componente sólo acepta mensaje de tipos TOUCHED y UNTOUCHED.
-		*/
-		virtual bool accept(const TMessage &message);
+		bool activate() override;
 
-		/**
-		Al recibir mensaje TOUCHED y UNTOUCHED emite mensajes SWITCH
-		a la entidad objetivo para que cambie de posición.
-		*/
-		virtual void process(const TMessage &message);
+		void deactivate() override;
 
-		virtual void tick(unsigned int msecs);
+		bool accept(const TMessage &message) override;
+
+		void process(const TMessage &message) override;
+
+		void tick(unsigned int msecs) override;
 
 		/**
 		Devuelve la primera entidad vista. Utiliza
@@ -66,6 +64,8 @@ namespace Logic
 		Logic::CEntity* _lastSeenEntity;
 
 	protected:
+
+		Logic::CFSMEntity* _fsm;
 
 		Ray _ray;
 

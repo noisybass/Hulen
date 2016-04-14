@@ -13,7 +13,7 @@
 namespace AI
 {
 
-	typedef boost::variant<bool, float> TAgentValue;
+	typedef boost::variant<bool, float, std::string> TAgentValue;
 
 	typedef struct
 	{
@@ -66,17 +66,11 @@ namespace AI
 
 		void deactivate(const std::string& component);
 
-		FSM<FSMAgent>* getFSM() const;
+		template<typename T>
+		T getValue(const std::string& id) const { return _agentValues->getValue<T>(id); }
 
-		TValues* getValues();
-
-		bool getBoolValue(const std::string& id) const;
-
-		float getFloatValue(const std::string& id) const;
-
-		void setBoolValue(const std::string& id, bool value);
-
-		void setFloatValue(const std::string& id, float value);
+		template<typename T>
+		void setValue(const std::string& id, const T& value) { _agentValues->setValue<T>(id, value); }
 
 	}; // class FSMAgent
 

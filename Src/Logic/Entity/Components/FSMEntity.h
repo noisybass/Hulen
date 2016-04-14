@@ -22,6 +22,12 @@ namespace Logic
 
 		void tick(unsigned int msecs) override;
 
+		template<typename T>
+		T getValue(const std::string& id) const { return _agent->getValue<T>(id); }
+
+		template<typename T>
+		void setValue(const std::string& id, const T& value) { _agent->setValue<T>(id, value); }
+
 	}; // class CFSMEntity
 
 	REG_FACTORY(CFSMEntity);

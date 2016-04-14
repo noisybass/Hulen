@@ -44,6 +44,7 @@ end
 
 State_Chase["Execute"] = function(agent)
 
+	--if not agent: GetBoolValue("SeeingPlayer") then
 	if not agent: GetBoolValue("SeeingPlayer") then
 		agent: ChangeState(State_Patrol)
 	end

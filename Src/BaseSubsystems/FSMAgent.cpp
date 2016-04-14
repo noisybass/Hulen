@@ -53,40 +53,4 @@ namespace AI
 
 	} // deactivate
 
-	FSM<FSMAgent>* FSMAgent::getFSM() const
-	{
-		return _FSM;
-
-	} // getFSM
-
-	TValues* FSMAgent::getValues()
-	{
-		return _agentValues;
-
-	} // getValues
-
-	bool FSMAgent::getBoolValue(const std::string& id) const
-	{
-		return _agentValues->getValue<bool>(id);
-
-	} // getBoolValue
-
-	float FSMAgent::getFloatValue(const std::string& id) const
-	{
-		return _agentValues->getValue<float>(id);
-
-	} // getFloatValue
-
-	void FSMAgent::setBoolValue(const std::string& id, bool value)
-	{
-		_agentValues->setValue<bool>(id, value);
-
-	} // setBoolValue
-
-	void FSMAgent::setFloatValue(const std::string& id, float value)
-	{
-		_agentValues->setValue<float>(id, value);
-
-	} // setFloatValue
-
 } // namespace AI

@@ -2,7 +2,7 @@ World CGraphics CPhysicEntity
 Background CGraphics
 Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController
-CharacterPatrol CAnimatedGraphics CMoveController CPhysicController CPatrol CVision CFSMEntity
+CharacterPatrol CAnimatedGraphics CMoveController CPhysicController CPatrol CFSMEntity CVision 
 Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CPhysicEntity
