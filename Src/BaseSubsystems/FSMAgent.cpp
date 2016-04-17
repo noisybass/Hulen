@@ -43,7 +43,7 @@ namespace AI
 
 	void FSMAgent::sayHello()
 	{
-		std::cout << "Hello!!" << std::endl;
+		//std::cout << "Hello!!" << std::endl;
 
 	} // sayHello
 

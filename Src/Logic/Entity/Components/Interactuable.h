@@ -20,10 +20,6 @@ namespace Logic
 
 		void tick(unsigned int msecs) override;
 
-		bool accept(const TMessage &message) override;
-
-		void process(const TMessage &message) override;
-
 	protected:
 
 		friend class CPlayerManager;
@@ -37,11 +33,6 @@ namespace Logic
 		Referencia al player.
 		*/
 		CGameObject* _player;
-
-		/**
-		Indica si el player esta dentro del rango de interacción.
-		*/
-		bool _canInteract;
 
 		/**
 		Radio del rango de interacción.

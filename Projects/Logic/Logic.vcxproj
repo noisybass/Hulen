@@ -83,11 +83,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\ClasePruebas.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.cpp" />
@@ -117,10 +120,13 @@
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\ClasePruebas.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MoveController.h" />

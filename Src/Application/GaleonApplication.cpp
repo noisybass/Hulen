@@ -19,6 +19,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "MenuState.h"
 #include "GameState.h"
 #include "PauseState.h"
+#include "OptionsState.h"
 #include "ExitState.h"
 #include "Logic\Events\Event.h"
 
@@ -52,6 +53,8 @@ namespace Application {
 		addState("game", new CGameState(this));
 
 		addState("pause", new CPauseState(this));
+
+		addState("options", new COptionsState(this));
 
 		addState("exit", new CExitState(this));
 

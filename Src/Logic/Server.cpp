@@ -105,6 +105,12 @@ namespace Logic {
 
 	//--------------------------------------------------------
 
+	bool CServer::checkMapExists(const std::string &filename){
+		return CMap::checkFileExists(filename);
+	}
+
+	//--------------------------------------------------------
+
 	void CServer::unLoadLevel()
 	{
 		if(_map)

@@ -198,7 +198,7 @@ namespace Application {
 		if (it == _stateTable.end())
 			return false;
 
-		return ((CGameState *)it->second)->setMapName(newStateMapName);
+		return ((CGameState *)it->second)->setMap(newStateMapName);
 	} // setGameStateMap
 
 	//--------------------------------------------------------

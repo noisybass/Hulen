@@ -21,6 +21,8 @@ Contiene la implementación del estado de menú.
 
 #include <CEGUI/CEGUI.h>
 
+#include <regex>
+
 namespace Application {
 
 	CMenuState::~CMenuState() 
@@ -44,6 +46,10 @@ namespace Application {
 		_menuWindow->getChildElement("Exit")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
+
+		_menuWindow->getChildElement("Options")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
 
 		// Sonido en el menu principal
 		/*
@@ -153,6 +159,8 @@ namespace Application {
 
 	bool CMenuState::keyReleased(GUI::TKey key)
 	{
+		std::string mapName;
+
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
@@ -160,20 +168,31 @@ namespace Application {
 			break;
 		case GUI::Key::RETURN:
 
+			mapName = _menuWindow->getChild("MapName")->getText().c_str();
+
+			if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+				std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
+				return false;
+			}
+
+			// Intenta cambiar el fichero del mapa a cargar
+			if (!_app->setGameStateMap(mapName))
+				return false;
+
 			// Pop MenuState
 			_app->popState(true);
-
-			// Cambia el fichero del mapa a cargar
-			_app->setGameStateMap("map.lua");
 
 			// Push GameState
 			_app->pushState("game", true);
 
 			// Push PauseState
-			_app->pushState("pause",true);
+			_app->pushState("pause", true);
 
 			// Pop PauseState (deactivation)
 			_app->popState();
+
+			return true;
+
 			break;
 		default:
 			return false;
@@ -211,11 +230,20 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
+
+		std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
+
+		if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+			std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
+			return false;
+		}
+
+		// Intenta cambiar el fichero del mapa a cargar
+		if (!_app->setGameStateMap(mapName))
+			return false;
+	
 		// Pop MenuState
 		_app->popState(true);
-
-		// Cambia el fichero del mapa a cargar
-		_app->setGameStateMap("map.lua");
 
 		// Push GameState
 		_app->pushState("game", true);
@@ -235,6 +263,13 @@ namespace Application {
 	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
 	{
 		_app->exitRequest();
+		return true;
+
+	} // exitReleased
+
+	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
+	{
+		_app->pushState("options",true);
 		return true;
 
 	} // exitReleased

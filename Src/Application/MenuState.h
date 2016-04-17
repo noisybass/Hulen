@@ -180,6 +180,12 @@ namespace Application
 		*/
 		bool exitReleased(const CEGUI::EventArgs& e);
 
+		/**
+		Function called when click the options button.
+		Change the state to the options menu.
+		*/
+		bool optionsReleased(const CEGUI::EventArgs& e);
+
 	}; // CMenuState
 
 } // namespace Application

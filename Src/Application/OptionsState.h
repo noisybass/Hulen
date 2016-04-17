@@ -1,81 +1,29 @@
-//---------------------------------------------------------------------------
-// GameState.h
-//---------------------------------------------------------------------------
-
-/**
-@file GameState.h
-
-Contiene la declaración del estado de juego.
-
-@see Application::CApplicationState
-@see Application::CGameState
-
-@author David Llansó
-@date Agosto, 2010
-*/
-
-#ifndef __Application_GameState_H
-#define __Application_GameState_H
+#ifndef __Application_OptionsState_H
+#define __Application_OptionsState_H
 
 #include "ApplicationState.h"
-#include "Logic\Events\Event.h"
 
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Application 
-{
-	class CBaseApplication;
-}
+#include "GUI/Server.h"
+#include "Sounds\Server.h"
 
-namespace Graphics 
-{
-	class CScene;
-	class CCamera;
-	class CEntity;
-	class CStaticEntity;
-	class CAnimatedEntity;
-}
-
-namespace CEGUI
-{
-	class Window;
-}
+#include <CEGUI/CEGUI.h>
 
 namespace Application 
 {
-	/**
-	Clase CGameState; representa el estado de juego de la aplicación.
-	Se encarga de la preparación y la carga del mapa lógico del juego.
-	Tiene cableados los nombres de ficheros de mapa y de blueprints por
-	simplicidad. En la activación y desactivación se encarga de activar
-	y desactivar el módulo que se encarga de manejar al jugador leyendo 
-	eventos de entrada de periféricos y de activar y desactivar el mapa 
-	de Logic::CServer. En el tick() también se actualiza el módulo de 
-	lógica.
-	<p>
-	Como ejemplo de Ventana 2D para el GUI se tiene una pequeña ventana 
-	que muestra el tiempo transcurrido. 
-	Esto provoca que este estado sea CEGUI dependiente, lo cual no es 
-	deseable. La aplicación	debería ser independiente de las tecnologías 
-	usadas.
-
-	@ingroup applicationGroup
-
-	@author David Llansó
-	@date Agosto, 2010
-	*/
-	class CGameState : public CApplicationState 
+	
+	class COptionsState : public CApplicationState 
 	{
 	public:
 		/** 
 		Constructor de la clase 
 		*/
-		CGameState(CBaseApplication *app) : CApplicationState(app), 
-			_scene(0), _time(0), _isMapLoaded(false), _mapName("map.lua") {}
+		COptionsState(CBaseApplication *app) : CApplicationState(app)
+				{}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CGameState() {}
+		virtual ~COptionsState();
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -112,12 +60,6 @@ namespace Application
 		de ser la primera vez...).
 		*/
 		virtual void tick(unsigned int msecs);
-
-		/**
-		Método que cambia el fichero del mapa a cargar. 
-		Comprueba que existe el mapa con el nombre que le llega por parámetro.  
-		*/
-		bool setMap(const std::string &mapname);
 
 		// Métodos de CKeyboardListener
 		
@@ -180,45 +122,19 @@ namespace Application
 		*/
 		virtual bool mouseReleased(const GUI::CMouseState &mouseState);
 
-		/**
-		Metodo que utilizaremos para escuchar los eventos de muerte del player
-		*/
-		void playerListener(std::string &action);
-
-	protected:
+	private:
 
 		/**
-		Indica si el mapa se ha cargado o no.
+		Ventana CEGUI que muestra el menú.
 		*/
-		bool _isMapLoaded;
+		CEGUI::Window* _menuWindow;
+		
+		bool backReleased(const CEGUI::EventArgs& e);
 
-		/**
-		Nombre del mapa a cargar.
-		*/
-		std::string _mapName;
+		bool controlsMenu(const CEGUI::EventArgs& e);
 
-		/**
-		Escena del estado.
-		*/
-		Graphics::CScene* _scene;
-
-		/**
-		Ventana que muestra el tiempo de juego transcurrido.
-		*/
-		CEGUI::Window* _timeWindow;
-
-		/**
-		Tiempo de juego en milisegundos.
-		*/
-		unsigned int _time;
-
-		/**
-		Evento de muerte del jugador.
-		*/
-		Logic::CEventSystem <Logic::Events::DieClass, Logic::Events::DieFunction> dieEvent;
-
-	}; // CGameState
+	}; // CMenuState
 
 } // namespace Application
 
-#endif //  __Application_GameState_H
+#endif //  __Application_OptionsState_H

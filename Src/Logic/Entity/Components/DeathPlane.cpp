@@ -12,6 +12,7 @@ namespace Logic
 		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
+		return true;
 	} // spawn
 
 	bool CDeathPlane::accept(const TMessage &message)

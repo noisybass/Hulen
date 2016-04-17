@@ -34,6 +34,7 @@ namespace Logic
 			_radius = entityInfo->getFloatAttribute("lighting_area_radius");
 		}
 
+		return true;
 	} // spawn
 
 	bool CLightingArea::activate()

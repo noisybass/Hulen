@@ -58,6 +58,14 @@ namespace Logic
 		*/
 		static CMap* createEntitiesFromFile(const std::string &filename);
 
+		/**
+		Comprueba si existe un fichero con el nombre indicado en el parámetro.
+
+		@param filename Nombre del archivo que se quiere comprobar que existe.
+		@return si existe o no el fichero.
+		*/
+		static bool checkFileExists(const std::string &filename);
+
 		static Map::CEntity* getGameObjectFromPrefab(const std::string &prefabName);
 
 		static Map::CEntity* getBodyFromPrefab(const std::string &prefabName);

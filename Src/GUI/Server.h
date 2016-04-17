@@ -5,6 +5,7 @@
 #include "GUI/PlayerController.h"
 #include "GUI/LightController.h"
 #include "GUI/SceneController.h"
+#include "GUI/ObjectsController.h"
 #include "Logic/Entity/Components/AvatarController.h"
 
 namespace CEGUI
@@ -78,6 +79,10 @@ namespace GUI
 		@return Instancia de la clase GUI que controla la escena.
 		*/
 		CSceneController *getSceneController() { return _sceneController; }
+
+		CObjectsController* getObjectsController() { return _objectsController; }
+
+
 
 		/***************************************************************
 		Métodos de CKeyboardListener
@@ -176,6 +181,11 @@ namespace GUI
 		Clase GUI que se encarga de controlar la escena.
 		*/
 		CSceneController* _sceneController;
+
+		/**
+		Clase GUI que se encarga de controlar los objetos.
+		*/
+		CObjectsController* _objectsController;
 
 		/**
 		Sistema de la interfaz gráfica de usuario CEGUI.
