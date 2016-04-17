@@ -20,6 +20,7 @@ de todo el juego.
 #include "Clock.h"
 
 #include "Map\MapParser.h"
+#include "GameState.h"
 
 #include <assert.h>
 
@@ -179,8 +180,26 @@ namespace Application {
 	//--------------------------------------------------------
 
 	void CBaseApplication::reloadState(){
+
 		_reloadState = true;
-	}
+
+	} // reloadState
+
+	//--------------------------------------------------------
+
+	bool CBaseApplication::setGameStateMap(const std::string &newStateMapName){
+
+		// Buscamos el estado.
+		TStateTable::const_iterator it;
+
+		it = _stateTable.find("game");
+
+		// Si no hay ningún estado con ese nombre, no hacemos nada
+		if (it == _stateTable.end())
+			return false;
+
+		return ((CGameState *)it->second)->setMapName(newStateMapName);
+	} // setGameStateMap
 
 	//--------------------------------------------------------
 

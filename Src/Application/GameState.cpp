@@ -46,11 +46,11 @@ namespace Application {
 		Physics::CServer::getSingletonPtr()->createScene();
 
 		// Cargamos el archivo con las definiciones de las entidades del nivel.
-		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
+		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.lua"))
 			return false;
 
 		// Cargamos el nivel a partir del nombre del mapa. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel("map.txt", "Prefabs.txt"))
+		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "Prefabs.lua"))
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
@@ -58,6 +58,8 @@ namespace Application {
 
 		// Inicializamos el evento
 		dieEvent.initEvent(this, &Application::CGameState::playerListener);
+
+		_isMapLoaded = true;
 
 		return true;
 
@@ -82,6 +84,8 @@ namespace Application {
 
 		Map::CMapParser::getSingletonPtr()->releaseEntityList();
 		Map::CMapParser::getSingletonPtr()->releasePrefabList();
+
+		_isMapLoaded = false;
 
 	} // release
 
@@ -196,6 +200,19 @@ namespace Application {
 		return true;
 
 	} // keyReleased
+
+	//--------------------------------------------------------
+
+	bool CGameState::setMapName(const std::string &newMapName){
+		if (!_isMapLoaded){
+			_mapName = newMapName;
+			return true;
+		}
+		else{
+			return false;
+		}
+
+	} // setMapName
 
 	//--------------------------------------------------------
 	

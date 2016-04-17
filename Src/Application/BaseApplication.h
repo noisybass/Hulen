@@ -172,6 +172,11 @@ namespace Application
 		void reloadState();
 
 		/**
+		Permite cambiar el mapa que va a cargar el GameState cuando se inicialice.
+		*/
+		bool setGameStateMap(const std::string &newStateMapName);
+
+		/**
 		Devuelve el estado actual de la aplicación.
 
 		@return Estado actual de la aplicación.
