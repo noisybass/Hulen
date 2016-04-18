@@ -61,7 +61,7 @@ if (!Logic::CServer::Init())
 if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
 	return;
 
-Logic::CServer::getSingletonPtr()->loadLevel("map.txt");
+Logic::CServer::getSingletonPtr()->loadLevel("map.lua");
 
 ...
 

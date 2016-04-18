@@ -16,11 +16,13 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 */
 #include "GaleonApplication.h"
 
-#include "ExitState.h"
 #include "MenuState.h"
 #include "GameState.h"
+#include "PauseState.h"
 #include "OptionsState.h"
+#include "ExitState.h"
 #include "Logic\Events\Event.h"
+#include "SoundsResources.h"
 
 
 namespace Application {
@@ -45,21 +47,24 @@ namespace Application {
 		if (!C3DApplication::init())
 			return false;
 
+		// Load all sounds
+		if (!Application::CSoundsResources::init())
+			return false;
+		Application::CSoundsResources::loadAll();
+
 		// Creamos los estados. La aplicación se hace responsable de
 		// destruirlos.
-		if(!addState("menu", new CMenuState(this)))
-			return false;
+		addState("menu", new CMenuState(this));
 
-		if (!addState("game", new CGameState(this)))
-			return false;
+		addState("game", new CGameState(this));
 
-		if(!addState("exit", new CExitState(this)))
-			return false;
+		addState("pause", new CPauseState(this));
 
-		if (!addState("options", new COptionsState(this)))
-			return false;
+		addState("options", new COptionsState(this));
 
-		if(!pushState("menu"))
+		addState("exit", new CExitState(this));
+
+		if(!pushState("menu",true))
 			return false;
 
 		return true;
@@ -72,6 +77,10 @@ namespace Application {
 	{
 		// Desactivamos y eliminamos todos los estados.
 		releaseAllStates();
+
+		// Unload all sounds
+		Application::CSoundsResources::unloadAll();
+		Application::CSoundsResources::release();
 
 		C3DApplication::release();
 

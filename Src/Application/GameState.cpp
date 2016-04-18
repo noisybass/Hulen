@@ -21,6 +21,8 @@ Contiene la implementación del estado de juego.
 #include "Logic/Maps/Map.h"
 #include "Logic\Events\Event.h"
 
+#include "Map\MapParser.h"
+
 #include "GUI/Server.h"
 #include "GUI/PlayerController.h"
 #include "GUI/LightController.h"
@@ -44,11 +46,11 @@ namespace Application {
 		Physics::CServer::getSingletonPtr()->createScene();
 
 		// Cargamos el archivo con las definiciones de las entidades del nivel.
-		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.txt"))
+		if (!Logic::CEntityFactory::getSingletonPtr()->loadBluePrints("blueprints.lua"))
 			return false;
 
 		// Cargamos el nivel a partir del nombre del mapa. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel("map.txt", "Prefabs.txt"))
+		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "Prefabs.lua"))
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
@@ -56,6 +58,15 @@ namespace Application {
 
 		// Inicializamos el evento
 		dieEvent.initEvent(this, &Application::CGameState::playerListener);
+
+		_isMapLoaded = true;
+
+		// Start the sound
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->loadInstance("GameInstance", "MainMenuEvent");
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
+		soundServer->getEventInstancesPtr()->setParameterValue("GameInstance", "Intensidad", 80);
+		soundServer->getEventInstancesPtr()->start("GameInstance");
 
 		return true;
 
@@ -72,10 +83,19 @@ namespace Application {
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
 
-		CApplicationState::release();
+		// Erase the MainMenuInstance
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->stop("GameInstance");
 
 		// Liberamos el evento
 		dieEvent.clearEvents();
+
+		CApplicationState::release();
+
+		Map::CMapParser::getSingletonPtr()->releaseEntityList();
+		Map::CMapParser::getSingletonPtr()->releasePrefabList();
+
+		_isMapLoaded = false;
 
 	} // release
 
@@ -102,13 +122,16 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
-		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		/*
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);*/
+		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
+		/*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
-
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
+		
+		/**/
 
 	} // activate
 
@@ -116,13 +139,15 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
-
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
-
-		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
-		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");*/
+		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
+		/*/
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", true);
+		/**/
+		
 
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();
@@ -180,7 +205,10 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->popState();
+
+			// Push PauseState (activation)
+
+			_app->pushState("pause");
 			break;
 		case GUI::Key::R:
 			_app->reloadState();
@@ -191,6 +219,24 @@ namespace Application {
 		return true;
 
 	} // keyReleased
+
+	//--------------------------------------------------------
+
+	bool CGameState::setMap(const std::string &mapname){
+		if (!_isMapLoaded){
+
+			// Comprobamos que existe un fichero de mapa con ese nombre.
+			if (!Logic::CServer::getSingletonPtr()->checkMapExists(mapname))
+				return false;
+			
+			_mapName = mapname;
+			return true;
+		}
+		else{
+			return false;
+		}
+
+	} // setMapName
 
 	//--------------------------------------------------------
 	

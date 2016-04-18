@@ -20,6 +20,7 @@ de todo el juego.
 #include "Clock.h"
 
 #include "Map\MapParser.h"
+#include "GameState.h"
 
 #include <assert.h>
 
@@ -77,22 +78,22 @@ namespace Application {
 	
 	void CBaseApplication::releaseAllStates()
 	{
-		// Desactivamos todos los estados que hay en la pila
+		// Desactivamos y liberamos todos los estados que hay en la pila
 		while (!_states.empty()){
 			CApplicationState* currentState = _states.top();
 			currentState->deactivate();
+			currentState->release();
 			currentState = 0;
 			_states.pop();
 		}		
 
 		// Eliminamos los estados
-
 		TStateTable::const_iterator it, end;
 
 		for (it = _stateTable.begin(), end = _stateTable.end();
 			 it != end; ++it) 
 		{
-			it->second->release();
+			//it->second->release();
 			delete it->second;
 		}
 		_stateTable.clear();
@@ -101,7 +102,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 	
-	bool CBaseApplication::addState(const std::string &name,
+	void CBaseApplication::addState(const std::string &name,
 					   CApplicationState *newState) 
 	{
 		TStateTable::const_iterator it;
@@ -117,13 +118,13 @@ namespace Application {
 		assert(it == _stateTable.end());
 #endif
 		_stateTable[name] = newState;
-		return newState->init();
+		//return newState->init();
 
 	} // addState
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::pushState(const std::string &name)
+	bool CBaseApplication::pushState(const std::string &name, bool init)
 	{
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
@@ -134,9 +135,13 @@ namespace Application {
 		if (it == _stateTable.end())
 			return false;
 
-		// Desactivamos el estado si habia un estado en la pila.
+		// Desactivamos el estado y liberamos si habia un estado en la pila.
 		if (!_states.empty())
 			_states.top()->deactivate();
+
+		// Inicializamos el estado a cargar si se indica
+		if (init)
+			it->second->init();
 
 		// Activamos el estado que vamos a meter en la pila
 		it->second->activate();
@@ -145,18 +150,24 @@ namespace Application {
 		_states.push(it->second);
 
 		return true;
-	}
+
+	} // pushState
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::popState()
+	bool CBaseApplication::popState(bool release)
 	{
 		// Si no hay ningún elemento, no hacemos nada.
 		if (_states.empty())
 			return false;
 
-		// Desactivamos el estado y lo eliminamos.
+		// Desactivamos el estado.
 		_states.top()->deactivate();
+
+		if (release)
+			_states.top()->release();
+
+		// Sacamos el estado de la pila
 		_states.pop();
 
 		// Activamos el estado que teniamos en la pila si existe
@@ -164,13 +175,31 @@ namespace Application {
 			_states.top()->activate();
 
 		return true;
-	}
+	} // popState
 
 	//--------------------------------------------------------
 
 	void CBaseApplication::reloadState(){
+
 		_reloadState = true;
-	}
+
+	} // reloadState
+
+	//--------------------------------------------------------
+
+	bool CBaseApplication::setGameStateMap(const std::string &newStateMapName){
+
+		// Buscamos el estado.
+		TStateTable::const_iterator it;
+
+		it = _stateTable.find("game");
+
+		// Si no hay ningún estado con ese nombre, no hacemos nada
+		if (it == _stateTable.end())
+			return false;
+
+		return ((CGameState *)it->second)->setMap(newStateMapName);
+	} // setGameStateMap
 
 	//--------------------------------------------------------
 
@@ -191,8 +220,6 @@ namespace Application {
 			// Recargamos el estado actual
 			if (_reloadState){
 
-				Map::CMapParser::getSingletonPtr()->releaseEntityList();
-				Map::CMapParser::getSingletonPtr()->releasePrefabList();
 				_currentState->deactivate();
 				_currentState->release();
 				_currentState->init();

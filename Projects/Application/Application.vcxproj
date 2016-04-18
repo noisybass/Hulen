@@ -114,6 +114,8 @@
     <ClCompile Include="..\..\Src\Application\MenuState.cpp" />
     <ClCompile Include="..\..\Src\Application\OgreClock.cpp" />
     <ClCompile Include="..\..\Src\Application\OptionsState.cpp" />
+    <ClCompile Include="..\..\Src\Application\PauseState.cpp" />
+    <ClCompile Include="..\..\Src\Application\SoundsResources.cpp" />
     <ClCompile Include="..\..\Src\Docs\docCompilando.cpp" />
     <ClCompile Include="..\..\Src\Docs\docDirectorios.cpp" />
   </ItemGroup>
@@ -129,6 +131,8 @@
     <ClInclude Include="..\..\Src\Application\MenuState.h" />
     <ClInclude Include="..\..\Src\Application\OgreClock.h" />
     <ClInclude Include="..\..\Src\Application\OptionsState.h" />
+    <ClInclude Include="..\..\Src\Application\PauseState.h" />
+    <ClInclude Include="..\..\Src\Application\SoundsResources.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Galeon.ico" />

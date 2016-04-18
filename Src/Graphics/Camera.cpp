@@ -38,7 +38,7 @@ namespace Graphics
 		_camera->setFarClipDistance(500);
 
 		//TO DO: La cámara que necesitamos NO es ortográfica, es con perspectiva. 
-		// Si se implementa el poder tener una camara ortográfica, quedaría mejor parametrizado y cargandolo desde el map.txt.
+		// Si se implementa el poder tener una camara ortográfica, quedaría mejor parametrizado y cargandolo desde el map.lua.
 		//_camera->setProjectionType(Ogre::ProjectionType::PT_ORTHOGRAPHIC);
 		//_camera->setOrthoWindow(13, 13);
 
