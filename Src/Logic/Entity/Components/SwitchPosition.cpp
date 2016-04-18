@@ -24,7 +24,8 @@ namespace Logic
 	//---------------------------------------------------------
 
 	CSwitchPosition::CSwitchPosition() : IComponent(), _targetPosition(Vector3::ZERO), 
-										_speed(0.05f), _loop(false), _lastMovement(Vector3::ZERO)
+										_speed(0.05f), _loop(false), _lastMovement(Vector3::ZERO),
+										_targetArrived(false)
 	{
 		_position[0] = Vector3::ZERO;
 		_position[1] = Vector3::ZERO;
@@ -73,6 +74,7 @@ namespace Logic
 		case Message::SWITCH:
 			assert((message.getArg<int>("switch") >= 0) && (message.getArg<int>("switch") <= 1));
 			_targetPosition = _position[message.getArg<int>("switch")];
+			_targetArrived = false;
 			break;
 		}
 
@@ -85,47 +87,53 @@ namespace Logic
 		// Invocamos al método de la clase padre
 		IComponent::tick(msecs);
 
-		// Calcular la dirección en la que debemos mover la entidad
-		Vector3 displ = _targetPosition - _entity->getPosition();
-	
-		// Si estamos en loop y nos hemos pasado del objetivo, cambiamos de objetivo
-		if (_loop && displ.dotProduct(_lastMovement) <= 0) {
-			if(_targetPosition == _position[0])
-				_targetPosition = _position[1];
-			else
-				_targetPosition = _position[0];		
+		if (!_targetArrived)
+		{
+			// Calcular la dirección en la que debemos mover la entidad
+			Vector3 displ = _targetPosition - _entity->getPosition();
 
-			displ = _targetPosition - _entity->getPosition();
-		}
+			// Si estamos en loop y nos hemos pasado del objetivo, cambiamos de objetivo
+			if (_loop && displ.dotProduct(_lastMovement) <= 0) {
+				if (_targetPosition == _position[0])
+					_targetPosition = _position[1];
+				else
+					_targetPosition = _position[0];
 
-		// Calcular la distancia a la que está el objetivo
-		float distance = displ.length();
-		
-		// Calcular desplazamiento en función del tiempo transcurrido
-		displ.normalise();
-		displ *= msecs * _speed;
-		
-		// Si nos pasamos del objetivo ajustamos para llegar justo hasta él 
-		if (displ.length() > distance) {
+				displ = _targetPosition - _entity->getPosition();
+			}
+
+			// Calcular la distancia a la que está el objetivo
+			float distance = displ.length();
+
+			// Calcular desplazamiento en función del tiempo transcurrido
 			displ.normalise();
-			displ *= distance;
+			displ *= msecs * _speed;
+
+			// Si nos pasamos del objetivo ajustamos para llegar justo hasta él 
+			if (displ.length() > distance) {
+				displ.normalise();
+				displ *= distance;
+				_targetArrived = true;
+			}
+
+			// Notificamos el movimiento que deseamos realizar
+			TMessage m;
+			m._type = Message::KINEMATIC_MOVE;
+			m.setArg<Vector3>(std::string("movement"), displ);
+
+			bool accepted = _entity->emitMessage(m);
+
+			// Si nadie captura el mensaje significa que no hay componente físico,
+			// así que movemos la entidad nosotros
+			if (!accepted) {
+				_entity->setPosition(_entity->getPosition() + displ);
+			}
+
+			// Actualizamos el último movimiento realizado
+			_lastMovement = displ;
 		}
 
-		// Notificamos el movimiento que deseamos realizar
-		TMessage m;
-		m._type = Message::KINEMATIC_MOVE;
-		m.setArg<Vector3>(std::string("movement"), displ);
-
-		bool accepted = _entity->emitMessage(m);
-
-		// Si nadie captura el mensaje significa que no hay componente físico,
-		// así que movemos la entidad nosotros
-		if (!accepted) {
-			_entity->setPosition(_entity->getPosition() + displ);
-		}
-
-		// Actualizamos el último movimiento realizado
-		_lastMovement = displ;
+		
 
 	} // tick
 

@@ -7,7 +7,7 @@ Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CChargeInteractuable CPhysicEntity
 Lever CGraphics CInteractuable CLeverInteractuable
-LeverTarget CGraphics CLeverTargetExample
+LeverTarget CGraphics CLeverTargetDoor CPhysicEntity CSwitchPosition
 Spike CGraphics CPhysicEntity CSpike CFSMEntity
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 Empty

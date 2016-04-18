@@ -394,6 +394,8 @@ PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3
 	}
 
 	// Anotar el componente lógico asociado a la entidad física
+	// If you want to load a kinematic actor and fails here,
+	// see again if you put the "physic_mass" variable in your map
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
