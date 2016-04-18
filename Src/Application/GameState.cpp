@@ -90,13 +90,12 @@ namespace Application {
 		// Liberamos el evento
 		dieEvent.clearEvents();
 
-		CApplicationState::release();
-
 		Map::CMapParser::getSingletonPtr()->releaseEntityList();
 		Map::CMapParser::getSingletonPtr()->releasePrefabList();
 
 		_isMapLoaded = false;
 
+		CApplicationState::release();
 	} // release
 
 	//--------------------------------------------------------
