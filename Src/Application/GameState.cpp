@@ -61,6 +61,13 @@ namespace Application {
 
 		_isMapLoaded = true;
 
+		// Start the sound
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->loadInstance("GameInstance", "MainMenuEvent");
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
+		soundServer->getEventInstancesPtr()->setParameterValue("GameInstance", "Intensidad", 80);
+		soundServer->getEventInstancesPtr()->start("GameInstance");
+
 		return true;
 
 	} // init
@@ -76,7 +83,9 @@ namespace Application {
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
 
-		CApplicationState::release();
+		// Erase the MainMenuInstance
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->stop("GameInstance");
 
 		// Liberamos el evento
 		dieEvent.clearEvents();
@@ -86,6 +95,8 @@ namespace Application {
 		Map::CMapParser::getSingletonPtr()->releasePrefabList();
 
 		_isMapLoaded = false;
+
+		CApplicationState::release();
 
 	} // release
 
@@ -117,10 +128,11 @@ namespace Application {
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
 		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
+		/*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		*/
-		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 80);
-
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
+		
+		/**/
 
 	} // activate
 
@@ -128,13 +140,15 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
-
+		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 1);
-
-		/*Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
-		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");*/
+		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
+		/*/
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("GameInstance", true);
+		/**/
+		
 
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();

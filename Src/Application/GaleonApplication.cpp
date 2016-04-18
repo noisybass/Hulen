@@ -22,6 +22,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "OptionsState.h"
 #include "ExitState.h"
 #include "Logic\Events\Event.h"
+#include "SoundsResources.h"
 
 
 namespace Application {
@@ -45,6 +46,11 @@ namespace Application {
 		// Inicializamos la clase de la que heredamos.
 		if (!C3DApplication::init())
 			return false;
+
+		// Load all sounds
+		if (!Application::CSoundsResources::init())
+			return false;
+		Application::CSoundsResources::loadAll();
 
 		// Creamos los estados. La aplicación se hace responsable de
 		// destruirlos.
@@ -71,6 +77,10 @@ namespace Application {
 	{
 		// Desactivamos y eliminamos todos los estados.
 		releaseAllStates();
+
+		// Unload all sounds
+		Application::CSoundsResources::unloadAll();
+		Application::CSoundsResources::release();
 
 		C3DApplication::release();
 

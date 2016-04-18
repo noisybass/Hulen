@@ -57,22 +57,14 @@ namespace Application {
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
 		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
-		*/
-		
-		/*
+	
+		/*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getBanksPtr()->loadBank("Banco1", "Master Bank.bank");
-		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
-		soundServer->getBanksPtr()->loadBank("Banco3", "Ambiente.bank");
-		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Ambientes");
-		*/
-		
-		
-		//soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
-		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
-		//soundServer->getEventInstancesPtr()->start("Instancia1");
-		//*/
+		soundServer->getEventInstancesPtr()->loadInstance("MainMenuInstance", "MainMenuEvent");
+		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
+		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 50);
+		soundServer->getEventInstancesPtr()->start("MainMenuInstance");
+		/**/
 		return true;
 
 	} // init
@@ -86,11 +78,11 @@ namespace Application {
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
 		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
-		*/
-		
-		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->stop("Instancia1");
-		
+		/*/
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->stop("MainMenuInstance");
+		/**/
+
 		CApplicationState::release();
 
 	} // release
@@ -111,10 +103,10 @@ namespace Application {
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
 
-		*/
-		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
-		//*/
+		/*/
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
+		/**/
 
 	} // activate
 
@@ -130,10 +122,9 @@ namespace Application {
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
-		*/
+		/*/
 		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
-		
+		//soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", true);
 		/**/
 		
 		CApplicationState::deactivate();
