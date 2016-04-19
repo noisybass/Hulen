@@ -34,8 +34,11 @@ namespace Logic
 
 	bool CPatrol::activate()
 	{
-		std::cout << "ACTIVANDO..." << std::endl;
+		std::cout << "ACTIVANDO PATROL..." << std::endl;
 		_active = true;
+
+		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+		moveController->nextPosition(_patrolPosition1);
 
 		return true;
 
@@ -43,7 +46,7 @@ namespace Logic
 
 	void CPatrol::deactivate()
 	{
-		std::cout << "DESACTIVANDO..." << std::endl;
+		std::cout << "DESACTIVANDO PATROL..." << std::endl;
 		_active = false;
 
 	} // deactivate
