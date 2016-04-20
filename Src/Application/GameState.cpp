@@ -50,7 +50,7 @@ namespace Application {
 			return false;
 
 		// Cargamos el nivel a partir del nombre del mapa. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "Prefabs.lua"))
+		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "prefabs.lua"))
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.

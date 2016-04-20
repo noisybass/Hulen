@@ -21,6 +21,7 @@ de todo el juego.
 
 #include "Map\MapParser.h"
 #include "GameState.h"
+#include "LoadingState.h"
 
 #include <assert.h>
 
@@ -200,6 +201,25 @@ namespace Application {
 
 		return ((CGameState *)it->second)->setMap(newStateMapName);
 	} // setGameStateMap
+
+	//--------------------------------------------------------
+
+	bool CBaseApplication::setLoadingNextState(const std::string &loadingNextState){
+
+		// Buscamos el estado.
+		TStateTable::const_iterator it;
+
+		it = _stateTable.find("loading");
+
+		// Si no hay ningún estado con ese nombre, no hacemos nada.
+		if (it == _stateTable.end())
+			return false;
+
+		//  Cambiamos la escena a cargar del estado loading.
+		((CLoadingState *)it->second)->setNextState(loadingNextState);
+
+		return true;
+	} // setLoadingNextState
 
 	//--------------------------------------------------------
 

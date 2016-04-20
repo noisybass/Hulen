@@ -18,6 +18,7 @@ Contiene la implementación del estado de menú.
 
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
+#include "LoadingState.h"
 
 #include <CEGUI/CEGUI.h>
 
@@ -236,14 +237,11 @@ namespace Application {
 		// Pop MenuState
 		_app->popState(true);
 
-		// Push GameState
-		_app->pushState("game", true);
+		// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+		_app->setLoadingNextState("game");
 
-		// Push PauseState
-		_app->pushState("pause", true);
-
-		// Pop PauseState (deactivation)
-		_app->popState();
+		// Push LoadingState
+		_app->pushState("loading", true);
 
 		return true;
 

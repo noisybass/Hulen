@@ -177,6 +177,11 @@ namespace Application
 		bool setGameStateMap(const std::string &newStateMapName);
 
 		/**
+		Permite cambiar el estado que se va a cargar tras el loading state.
+		*/
+		bool setLoadingNextState(const std::string &loadingNextState);
+
+		/**
 		Devuelve el estado actual de la aplicación.
 
 		@return Estado actual de la aplicación.
