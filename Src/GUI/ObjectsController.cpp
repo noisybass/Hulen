@@ -59,7 +59,7 @@ namespace GUI {
 		for (std::pair<std::string, Logic::CEntity*> entity : _entities)
 		{
 			switch (key.keyId){
-			case GUI::Key::Z:
+			case GUI::Key::E:
 				Logic::TMessage message;
 				message._type = Logic::Message::PLAYER_LEVER_INTERACT;
 				entity.second->emitMessage(message);
