@@ -17,13 +17,13 @@ end
 
 State_Patrol["Execute"] = function(agent, msecs)
 
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+		agent: ChangeState(State_Attack)
+	end
+
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
 		agent: ChangeState(State_Chase)
 	end
-
-	--if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
-		--agent: ChangeState(State_Attack)
-	--end
 
 end
 
@@ -50,6 +50,10 @@ State_Chase["Enter"] = function(agent)
 end
 
 State_Chase["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+		agent: ChangeState(State_Attack)
+	end
 
 	if not agent: GetBoolValue("seeing_entity") or (agent: GetBoolValue("seeing_entity") and not agent: GetStringValue("seen_entity_name") == "Player_Body")then
 		agent: ChangeState(State_Alert)
@@ -83,13 +87,13 @@ end
 
 State_Alert["Execute"] = function(agent, msecs)
 
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+		agent: ChangeState(State_Attack)
+	end
+
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
 		agent: ChangeState(State_Chase)
 	end
-
-	--if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
-		--agent: ChangeState(State_Attack)
-	--end
 
 	State_Alert.accum_time =  State_Alert.accum_time + msecs
 
@@ -117,17 +121,19 @@ State_Attack = {
 State_Attack["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Attack")
+	agent: Activate(State_Attack.component)
 
 end
 
 State_Attack["Execute"] = function(agent, msecs)
 
-	print ("[Lua]: Executing State Attack")
+	--print ("[Lua]: Executing State Attack")
 
 end
 
 State_Attack["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Attack")
+	agent: Deactivate(State_Attack.component)
 
 end

@@ -31,7 +31,7 @@ IMP_FACTORY(CPhysicController);
 //---------------------------------------------------------
 
 CPhysicController::CPhysicController() : IPhysics(), _controller(NULL), 
-								       _movement(0,0,0), _falling(false)
+_movement(0, 0, 0), _falling(false), _fsm(nullptr)
 {
 	_server = CServer::getSingletonPtr();
 }
@@ -60,6 +60,24 @@ bool CPhysicController::spawn(const std::string& name, CEntity* entity, CMap *ma
 	_controller = createController(entityInfo);
 
 	return true;
+}
+
+bool CPhysicController::activate()
+{
+	// Si tenemos un componente responsable del agente de IA tendremos que actualizar su información
+	_fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+
+	if (_fsm)
+	{
+		_fsm->setValue<bool>("touching_entity", false);
+	}
+
+	return true;
+}
+
+void CPhysicController::deactivate()
+{
+
 }
 
 //---------------------------------------------------------
@@ -204,5 +222,11 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 
 void CPhysicController::onControllerHit (const PxControllersHit &hit)
 {
+	if (_fsm)
+	{
+		IPhysics *otherComponent = (IPhysics *)hit.other->getActor()->userData;
 
+		_fsm->setValue<bool>("touching_entity", true);
+		_fsm->setValue<std::string>("touched_entity_name", otherComponent->getEntity()->getName());
+	}
 }

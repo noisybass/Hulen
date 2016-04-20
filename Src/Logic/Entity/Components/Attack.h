@@ -10,6 +10,12 @@ namespace Logic
 	{
 		DEC_FACTORY(CAttack);
 
+		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+
+		bool activate() override;
+
+		void deactivate() override;
+
 	}; // class CAttack
 
 	REG_FACTORY(CAttack);
