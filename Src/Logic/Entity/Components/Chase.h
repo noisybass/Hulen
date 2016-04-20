@@ -12,7 +12,7 @@ namespace Logic
 
 	public:
 
-		CChase() : IComponent(), _active(false), _target(nullptr) {}
+		CChase();
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
@@ -25,8 +25,6 @@ namespace Logic
 	private:
 
 		CEntity* _target;
-
-		bool _active;
 
 	}; // class CChase
 

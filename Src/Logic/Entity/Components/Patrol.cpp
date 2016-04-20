@@ -9,6 +9,12 @@
 namespace Logic 
 {
 	IMP_FACTORY(CPatrol);
+
+	CPatrol::CPatrol() : IComponent(), _arrivedToDestination(true), _patrolPosition1(Vector3::ZERO),
+		_patrolPosition2(Vector3::ZERO), _arrivedDestination(Vector3::ZERO)
+	{
+
+	} // CPatrol
 	
 	bool CPatrol::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
@@ -34,8 +40,9 @@ namespace Logic
 
 	bool CPatrol::activate()
 	{
+		IComponent::activate();
+
 		std::cout << "ACTIVANDO PATROL..." << std::endl;
-		_active = true;
 
 		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
 		moveController->nextPosition(_patrolPosition1);
@@ -46,8 +53,9 @@ namespace Logic
 
 	void CPatrol::deactivate()
 	{
+		IComponent::deactivate();
+
 		std::cout << "DESACTIVANDO PATROL..." << std::endl;
-		_active = false;
 
 	} // deactivate
 

@@ -7,17 +7,25 @@ namespace Logic
 
 	IMP_FACTORY(CChase);
 
+	CChase::CChase() : IComponent(), _target(nullptr)
+	{
+
+	} // CChase
+
 	bool CChase::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
 	{
 		if (!IComponent::spawn(name, entity, map, entityInfo))
 			return false;
 
+		_active = false;
+
 	} // spawn
 
 	bool CChase::activate()
 	{
+		IComponent::activate();
+
 		std::cout << "ACTIVANDO CHASE..." << std::endl;
-		_active = true;
 
 		_target = _entity->getGameObject()->getMap()->getGameObjectByName("Player_GO")->getBody();
 
@@ -27,8 +35,9 @@ namespace Logic
 
 	void CChase::deactivate()
 	{
+		IComponent::deactivate();
+
 		std::cout << "DESACTIVANDO CHASE..." << std::endl;
-		_active = false;
 
 		_target = nullptr;
 

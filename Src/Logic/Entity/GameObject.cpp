@@ -110,7 +110,10 @@ namespace Logic
 		TComponentMap::const_iterator it;
 
 		for (it = _components.begin(); it != _components.end(); ++it)
-			_activated = it->second->activate() && _activated;
+		{
+			if (it->second->isActive())
+				_activated = it->second->activate() && _activated;
+		}
 
 		// Activamos el cuerpo y la sombra
 		switch (_state)

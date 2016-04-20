@@ -13,8 +13,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CPatrol() : IComponent(), _arrivedToDestination(true), _patrolPosition1(Vector3::ZERO),
-			_patrolPosition2(Vector3::ZERO), _arrivedDestination(Vector3::ZERO), _active(true) {}
+		CPatrol();
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -41,8 +40,6 @@ namespace Logic
 
 		bool _arrivedToDestination;
 		Vector3 _arrivedDestination;
-
-		bool _active;
 
 	}; // class CPatrol
 
