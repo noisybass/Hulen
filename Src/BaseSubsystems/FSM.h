@@ -38,13 +38,13 @@ namespace AI
 
 		} // setCurrentState
 
-		void update()
+		void update(unsigned int msecs)
 		{
 			// Nos aseguramos de que el estado es válido antes de llamar
 			// a execute()
 			if (_currentState.is_valid())
 			{
-				_currentState["Execute"](_owner);
+				_currentState["Execute"](_owner, msecs);
 			}
 
 		} // update

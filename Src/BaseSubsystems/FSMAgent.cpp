@@ -29,9 +29,9 @@ namespace AI
 
 	} // ~Crawler
 
-	void FSMAgent::update()
+	void FSMAgent::update(unsigned int msecs)
 	{
-		_FSM->update();
+		_FSM->update(msecs);
 
 	} // update
 

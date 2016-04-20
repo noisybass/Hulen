@@ -47,7 +47,7 @@ namespace Logic
 		}*/
 			
 
-		_agent->update();
+		_agent->update(msecs);
 
 	} // tick
 

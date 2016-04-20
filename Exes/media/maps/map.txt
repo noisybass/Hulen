@@ -169,7 +169,7 @@ Map = {
 
 	Character_Body = {
 		type = "Body",
-		blueprint = "CharacterPatrol",
+		blueprint = "Crawler",
 		game_object = "Character_GO",
 		position = {-11, 0, 0},
 		scale = {0.2, 0.2, 0.2},
@@ -188,7 +188,7 @@ Map = {
 		jump_speed = 0.03,
 		jump_height = 8.0,
 		gravity = 0.01,
-		patrolPosition1 = {-10, 0, 0},
+		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 	},
 
