@@ -117,18 +117,35 @@ Map_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	}
+	},
+
+	FinishLevel_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
 
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
 	},]]--
-
-
 }
 
 Map = {
+
+	FinishLevel_Body = {
+		type = "Body",
+		blueprint = "FinishLevel",
+		game_object = "FinishLevel_GO",
+		position = {-15, -3, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 1,1,1 },
+	},
 
 	LeverTarget_Body = {
 		type = "Body",

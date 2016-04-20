@@ -171,16 +171,16 @@ namespace Application {
 				return false;
 
 			// Pop MenuState
-			_app->popState(true);
+			_app->addAction(new CPopAction(true));
 
 			// Push GameState
-			_app->pushState("game", true);
+			_app->addAction(new CPushAction(States::GameState, true));
 
 			// Push PauseState
-			_app->pushState("pause", true);
+			_app->addAction(new CPushAction(States::PauseState, true));
 
 			// Pop PauseState (deactivation)
-			_app->popState();
+			_app->addAction(new CPopAction());
 
 			return true;
 
@@ -234,16 +234,16 @@ namespace Application {
 			return false;
 	
 		// Pop MenuState
-		_app->popState(true);
+		_app->addAction(new CPopAction(true));
 
 		// Push GameState
-		_app->pushState("game", true);
+		_app->addAction(new CPushAction(States::GameState, true));
 
 		// Push PauseState
-		_app->pushState("pause", true);
+		_app->addAction(new CPushAction(States::PauseState, true));
 
 		// Pop PauseState (deactivation)
-		_app->popState();
+		_app->addAction(new CPopAction());
 
 		return true;
 
@@ -260,7 +260,7 @@ namespace Application {
 
 	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
 	{
-		_app->pushState("options",true);
+		_app->addAction(new CPushAction(States::OptionsState, true));
 		return true;
 
 	} // exitReleased

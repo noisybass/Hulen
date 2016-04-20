@@ -56,8 +56,8 @@ namespace Application {
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
 		_timeWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Time.layout");
 
-		// Inicializamos el evento
-		dieEvent.initEvent(this, &Application::CGameState::playerListener);
+		// Init the events
+		playerEvent.initEvent(this, &Application::CGameState::playerListener);
 
 		_isMapLoaded = true;
 
@@ -88,7 +88,7 @@ namespace Application {
 		soundServer->getEventInstancesPtr()->stop("GameInstance");
 
 		// Liberamos el evento
-		dieEvent.clearEvents();
+		playerEvent.clearEvents();
 
 		Map::CMapParser::getSingletonPtr()->releaseEntityList();
 		Map::CMapParser::getSingletonPtr()->releasePrefabList();
@@ -207,7 +207,7 @@ namespace Application {
 
 			// Push PauseState (activation)
 
-			_app->pushState("pause");
+			_app->addAction(new CPushAction(States::PauseState));
 			break;
 		case GUI::Key::R:
 			_app->reloadState();
@@ -265,11 +265,20 @@ namespace Application {
 	//--------------------------------------------------------
 
 	void CGameState::playerListener(std::string &action){
-		if (action == "Die"){
+		if (action == "die"){
 			std::cout << "He muerto" << std::endl;
 			_app->reloadState();
 		}
+		else if (action == "endLevel"){
+			std::cout << "End level" << std::endl;
 
-	}
+			// Pop GameState
+			_app->addAction(new CPopAction(true));
+
+			// Push MenuState
+			_app->addAction(new CPushAction(States::MenuState, true));
+		}
+
+	} // playerListener
 
 } // namespace Application

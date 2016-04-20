@@ -133,6 +133,7 @@
     <ClInclude Include="..\..\Src\Application\OptionsState.h" />
     <ClInclude Include="..\..\Src\Application\PauseState.h" />
     <ClInclude Include="..\..\Src\Application\SoundsResources.h" />
+    <ClInclude Include="..\..\Src\Application\StateActions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Galeon.ico" />

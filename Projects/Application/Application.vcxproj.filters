@@ -95,6 +95,9 @@
     <ClInclude Include="..\..\Src\Application\SoundsResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Application\StateActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Galeon.ico">

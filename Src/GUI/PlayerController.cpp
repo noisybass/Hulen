@@ -63,7 +63,8 @@ namespace GUI {
 				m.setArg<std::string>(std::string("control"), std::string("walkRight"));
 				break;
 			case GUI::Key::T:
-				m._type = Logic::Message::PLAYER_DEATH;
+				m.setArg<std::string>(std::string("playerEvent"), std::string("die"));
+				m._type = Logic::Message::PLAYER_EVENT;
 				break;
 			case GUI::Key::SPACE:
 				m.setArg<std::string>(std::string("control"), std::string("jump"));

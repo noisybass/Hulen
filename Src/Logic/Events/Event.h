@@ -23,17 +23,17 @@ namespace Logic{
 		
 		Tenemos lo siguiente:
 
-		<Code> Logic::CEventSystem<Logic::Events::DieClass, Logic::Events::DieFunction>::
-				       getInstance<Logic::Events::DieClass, Logic::Events::DieFunction>()
+		<Code> Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
+				       getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
 				       ->fireEvent(string);  </Code>
 
 	Simplemente por hacer un poco más legible el código.
 	*/
 	namespace Events{
 
-		/*Die Event*/
-		typedef Application::CGameState DieClass;
-		typedef void (Application::CGameState::* DieFunction) (std::string&);
+		/*Player Event*/
+		typedef Application::CGameState GameStateClass;
+		typedef void (Application::CGameState::* PlayerEventFunction) (std::string&);
 
 		/*Next Event*/
 	};
@@ -70,13 +70,13 @@ namespace Logic{
 	su estado actual, lo hariamos de la siguiente manera:
 		1 - En la clase CGameState, que es la que maneja los estados de nuestra applicación,
 		nos creamos una variable de esta clase de la siguiente manera:
-			<Code> Logic::CEventSystem <Logic::Events::DieClass, Logic::Events::DieFunction> dieEvent; </Code>
+			<Code> Logic::CEventSystem <Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction> playerEvent; </Code>
 
-		Siendo DieClass el tipo de la clase que se subscribe al evento (En este caso nuestro CGameState)
+		Siendo GameStateClass el tipo de la clase que se subscribe al evento (En este caso nuestro CGameState)
 		y la función que se ejecutara cuando se dispare el evento.
 
 		2 - Despues de esto lo inicializamos en el metodo init de CGameState:
-			<Code> dieEvent.initEvent(this, &Application::CGameState::playerListener); </Code>
+			<Code> playerEvent.initEvent(this, &Application::CGameState::playerListener); </Code>
 
 		3 - Una vez hecho esto lo unico que nos queda es que cuando el player muera, 
 		avisemos al CGameState de este evento, para ello, en nuestro caso lo realizamos 
@@ -88,6 +88,9 @@ namespace Logic{
 		basicamente obtenemos la referencia de esa clase y llamamos al fireEvent (En este caso
 		lo llamamos con argumentos porque la funcion a la que nos hemos registrado tiene un
 		argumento de tipo std::string).
+
+		4 - No olvidarse de liberar los recursos con 
+			<Code> playerEvent.clearEvents(); </Code>
 	*/
 	template <typename classType, typename functionType, typename... ARGS>
 	class CEventSystem {

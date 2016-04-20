@@ -213,9 +213,9 @@ namespace Application
 		unsigned int _time;
 
 		/**
-		Evento de muerte del jugador.
+		Player events.
 		*/
-		Logic::CEventSystem <Logic::Events::DieClass, Logic::Events::DieFunction> dieEvent;
+		Logic::CEventSystem <Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction> playerEvent;
 
 	}; // CGameState
 
