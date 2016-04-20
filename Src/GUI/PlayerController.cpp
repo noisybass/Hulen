@@ -48,10 +48,6 @@ namespace GUI {
 	{
 		if(_controlledAvatar)
 		{
-			Graphics::CCamera* camera;
-			GUI::CMouseState mouseState;
-			Vector3 pos;
-
 			Logic::TMessage m;
 			m._type = Logic::Message::CONTROL;
 			switch(key.keyId)
@@ -62,22 +58,15 @@ namespace GUI {
 			case GUI::Key::D:
 				m.setArg<std::string>(std::string("control"), std::string("walkRight"));
 				break;
-			case GUI::Key::T:
-				m._type = Logic::Message::PLAYER_DEATH;
-				break;
 			case GUI::Key::SPACE:
+			case GUI::Key::W:
 				m.setArg<std::string>(std::string("control"), std::string("jump"));
 				break;
-			case GUI::Key::K:
-				m._type = Logic::Message::PUT_CHARGE;
-				camera = Graphics::CServer::getSingletonPtr()->getActiveScene()->getCamera();
-
-				mouseState = GUI::CInputManager::getSingletonPtr()->_mouseState;
-
-				pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
-				m.setArg<Vector3>(std::string("instancePosition"), Vector3(pos.x, pos.y, 0));
+			case GUI::Key::T:
+				m.setArg<std::string>(std::string("playerEvent"), std::string("die"));
+				m._type = Logic::Message::PLAYER_EVENT;
 				break;
-			case GUI::Key::J:
+			case GUI::Key::E:
 				m._type = Logic::Message::PICK_CHARGE;
 				break;
 			default:
@@ -107,11 +96,6 @@ namespace GUI {
 				m._type = Logic::Message::CONTROL;
 				m.setArg<std::string>(std::string("control"), std::string("stopWalkingRight"));
 				break;
-
-			case GUI::Key::E:
-				m._type = Logic::Message::PLAYER_CHANGE_STATE;
-				break;
-
 			default:
 				return false;
 			}
@@ -134,19 +118,29 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
-		/*if (_controlledAvatar)
+		std::cout << "Hola";
+		if (_controlledAvatar)
 		{
-			Logic::TMessage message;
+			Graphics::CCamera* camera;
+			Vector3 pos;
+			Logic::TMessage m;
+
 			switch (mouseState.button)
 			{
-			case GUI::Button::RIGHT:
-				message._type = Logic::Message::PLAYER_CHANGE_STATE;
+			case GUI::Button::LEFT:
+				m._type = Logic::Message::PLAYER_CHANGE_STATE;
 				break;
+			case GUI::Button::RIGHT:
+				m._type = Logic::Message::PUT_CHARGE;
+				camera = Graphics::CServer::getSingletonPtr()->getActiveScene()->getCamera();
+
+				pos = camera->screenToWorld(mouseState.posAbsX, mouseState.posAbsY);
+				m.setArg<Vector3>(std::string("instancePosition"), Vector3(pos.x, pos.y, 0));
 			}
 
-			_controlledAvatar->emitMessage(message);
+			_controlledAvatar->emitMessage(m);
 			return true;
-		}*/
+		}
 		return false;
 
 	} // mousePressed

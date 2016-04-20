@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Falagard version="7">
+
+<!--
+:::: StaticImage (alternate version, image /is/ background, frame overlays it slightly & blends)
+-->
+    <WidgetLook name="Hulen/background">
+         <ImagerySection name="bg">
+            <ImageryComponent>
+                <Area>
+                    <Dim type="LeftEdge">
+                        <AbsoluteDim value="0"/>
+                    </Dim>
+                    <Dim type="TopEdge">
+                        <AbsoluteDim value="0"/>
+                    </Dim>
+                    <Dim type="RightEdge">
+                        <UnifiedDim scale="1" type="RightEdge"/>
+                    </Dim>
+                    <Dim type="BottomEdge">
+                        <UnifiedDim scale="1" type="BottomEdge"/>
+                    </Dim>
+                </Area>
+                <Image name="HulenImages/background" />
+                <VertFormat type="Stretched"/>
+                <HorzFormat type="Stretched"/>
+            </ImageryComponent>
+         </ImagerySection>
+         <StateImagery name="Enabled">
+            <Layer>
+                <Section section="bg" />
+            </Layer>
+         </StateImagery>
+     </WidgetLook>
+</Falagard>

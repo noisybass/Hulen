@@ -90,6 +90,7 @@ namespace GUI {
 		
 	bool CLightController::mousePressed(const CMouseState &mouseState)
 	{
+
 		//if (_controlledLight)
 		//{
 		//	Logic::TMessage m;

@@ -24,6 +24,9 @@ de todo el juego.
 #include <string>
 #include <cassert>
 #include <stack>
+#include <queue>
+#include "StateActions.h"
+
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Application 
@@ -64,6 +67,7 @@ namespace Application
 							 public GUI::CMouseListener
 	{
 	public:
+
 		/**
 		Constructor de la clase
 		*/
@@ -143,31 +147,26 @@ namespace Application
 		de eliminarlo al finalizar.
 		@return true si todo fue bien.
 		*/
-		bool addState(const std::string &name,
+		void addState(const States &name,
 						CApplicationState *newState);
 
 		/**
-		Inserta un estado en la aplicación a partir de su nombre.La 
-		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
-		vuelta del bucle principal de la aplicación.
-
-		@param name Nombre del estado.
-		@return Devuelve cierto si el estado solicitado existe. Si el
-		estado no existe, <em>no</em> hay un cambio efectivo del estado.
+		Add an action to the state manager, the actions are defined in 
+		ApplicationState.h, by now the actions are POP and PUSH of the 
+		different states that we have. also we had a boolean to know if
+		initialize the state.
 		*/
-		bool pushState(const std::string &name);
-
-		/**
-		Elimina de la pila el estado que esta en la cima.La 
-		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
-		vuelta del bucle principal de la aplicación.
-		*/
-		bool popState();
+		void addAction(CStateActions* action);
 
 		/**
 		Recarga el estado actual
 		*/
 		void reloadState();
+
+		/**
+		Permite cambiar el mapa que va a cargar el GameState cuando se inicialice.
+		*/
+		bool setGameStateMap(const std::string &newStateMapName);
 
 		/**
 		Devuelve el estado actual de la aplicación.
@@ -241,6 +240,28 @@ namespace Application
 
 	protected:
 
+		void executeActions();
+
+		/**
+		Inserta un estado en la aplicación a partir de su nombre.La
+		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
+		vuelta del bucle principal de la aplicación.
+
+		@param name Nombre del estado.
+		@return Devuelve cierto si el estado solicitado existe. Si el
+		estado no existe, <em>no</em> hay un cambio efectivo del estado.
+		Activa el estado a insertar. Inicializa el estado si init es true.
+		*/
+		bool pushState(const States &name, bool init = false);
+
+		/**
+		Elimina de la pila el estado que esta en la cima.La
+		acción <em>no</em> es inmediata, sino que se realizará en la siguiente
+		vuelta del bucle principal de la aplicación. Desactiva el estado que
+		está en la cima. Libera el estado si release = true.
+		*/
+		bool popState(bool release = false);
+
 		/**
 		Realiza un cambio de estado, avisando al estado saliente
 		y al estado entrante del hecho.
@@ -271,7 +292,7 @@ namespace Application
 		Tipo de datos tabla de estados. Es una tabla hash
 		de las STL.
 		*/
-		typedef std::map<std::string, CApplicationState*> TStateTable;
+		typedef std::map<States, CApplicationState*> TStateTable;
 
 		/**
 		Tabla hash con todos los estados de la aplicación
@@ -304,6 +325,11 @@ namespace Application
 		Indica si queremos recargar el estado actual o no.
 		*/
 		bool _reloadState;
+
+		/**
+		Acciones que se deben de hacer al inicio del tick.
+		*/
+		std::queue <CStateActions*> _actions;
 
 	}; // class BaseApplication
 

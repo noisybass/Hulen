@@ -107,16 +107,71 @@ Map_GO = {
 		state = "Shadow",
 	},
 
+	Lever_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	LeverTarget_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	FinishLevel_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
 	},]]--
-
-
 }
 
 Map = {
+
+	FinishLevel_Body = {
+		type = "Body",
+		blueprint = "FinishLevel",
+		game_object = "FinishLevel_GO",
+		position = {-15, -3, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 1,1,1 },
+	},
+
+	LeverTarget_Body = {
+		type = "Body",
+		blueprint = "LeverTarget",
+		game_object = "LeverTarget_GO",
+		position = {-20, 5, 0},
+		model = "Cube.mesh",
+		position2 = {-20, 10, 0},
+		speed = 0.01,
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,1,1 },
+	},
+
+	Lever_Body = {
+		type = "Body",
+		blueprint = "Lever",
+		game_object = "Lever_GO",
+		position = {-20, -3, 0},
+		model = "Cube.mesh",
+		interactuable_area_radius = 3,
+		player = "Player_GO",
+		lever_GO_target  = "LeverTarget_GO",
+	},
 	
 	Player_Body = {
 		type = "Body",

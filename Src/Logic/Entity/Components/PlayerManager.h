@@ -44,6 +44,8 @@ namespace Logic
 
 		CGameObject* canPickAnyCharge() const;
 
+		CGameObject* nearOfLever() const;
+
 	private:
 
 		/**

@@ -106,6 +106,14 @@ namespace Logic
 		bool loadLevel(const std::string &filename, const std::string &prefabFilename);
 
 		/**
+		Comprueba si existe un fichero de mapa con el nombre indicado en el parámetro.
+
+		@param filename Nombre del archivo que se quiere comprobar que existe.
+		@return si existe o no el fichero.
+		*/
+		bool checkMapExists(const std::string &filename);
+
+		/**
 		Si hay un nivel cargado lo descarga  destruye.
 		*/
 		void unLoadLevel();

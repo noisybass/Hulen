@@ -188,6 +188,24 @@ namespace Logic {
 		return _entitiesMap;
 	}
 
+	bool CMap::checkFileExists(const std::string &filename){
+
+		// Completamos la ruta con el nombre proporcionado
+		std::string completePath(MAP_FILE_PATH);
+		completePath = completePath + filename;
+
+		std::ifstream f(completePath.c_str());
+		if (f.good()) {
+			f.close();
+			return true;
+		}
+		else {
+			std::cout << "ERROR!! The file: " + completePath + " does not exist." << std::endl;
+			f.close();
+			return false;
+		}
+	}
+
 	Map::CEntity* CMap::getGameObjectFromPrefab(const std::string &prefabName)
 	{
 		assert(_prefabList.find(prefabName) != _prefabList.end() && "No existe el prefab del que quieres obtener su GameObject");

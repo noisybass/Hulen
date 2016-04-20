@@ -21,6 +21,8 @@ Contiene la implementación del estado de menú.
 
 #include <CEGUI/CEGUI.h>
 
+#include <regex>
+
 namespace Application {
 
 	CMenuState::~CMenuState() 
@@ -45,25 +47,23 @@ namespace Application {
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
 				CEGUI::SubscriberSlot(&CMenuState::exitReleased, this));
 
+		_menuWindow->getChildElement("Options")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
+
 		// Sonido en el menu principal
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
 		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
 		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
-
+	
 		/*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getBanksPtr()->loadBank("Banco1", "Master Bank.bank");
-		soundServer->getBanksPtr()->loadBank("Banco2", "Master Bank.strings.bank");
-		soundServer->getBanksPtr()->loadBank("Banco3", "Ambiente.bank");
-		soundServer->getEventDescriptionsPtr()->loadEventDescription("Evento1", "event:/Ambientes");
-		
-		
-		soundServer->getEventInstancesPtr()->loadInstance("Instancia1", "Evento1");
-		soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
-		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "RPM", 650);
-		soundServer->getEventInstancesPtr()->start("Instancia1");
+		soundServer->getEventInstancesPtr()->loadInstance("MainMenuInstance", "MainMenuEvent");
+		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
+		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 50);
+		soundServer->getEventInstancesPtr()->start("MainMenuInstance");
 		/**/
 		return true;
 
@@ -78,11 +78,11 @@ namespace Application {
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->stop("CanalMenu");
 		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
-		
 		/*/
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->stop("Instancia1");
+		soundServer->getEventInstancesPtr()->stop("MainMenuInstance");
 		/**/
+
 		CApplicationState::release();
 
 	} // release
@@ -102,9 +102,10 @@ namespace Application {
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
+
 		/*/
-		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", false);
+		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
+		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
 		/**/
 
 	} // activate
@@ -117,12 +118,13 @@ namespace Application {
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
+		
 		/*
 		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
 		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
 		/*/
 		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setPaused("Instancia1", true);
+		//soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", true);
 		/**/
 		
 		CApplicationState::deactivate();
@@ -148,13 +150,40 @@ namespace Application {
 
 	bool CMenuState::keyReleased(GUI::TKey key)
 	{
+		std::string mapName;
+
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
 			_app->exitRequest();
 			break;
 		case GUI::Key::RETURN:
-			_app->pushState("game");
+
+			mapName = _menuWindow->getChild("MapName")->getText().c_str();
+
+			if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+				std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
+				return false;
+			}
+
+			// Intenta cambiar el fichero del mapa a cargar
+			if (!_app->setGameStateMap(mapName))
+				return false;
+
+			// Pop MenuState
+			_app->addAction(new CPopAction(true));
+
+			// Push GameState
+			_app->addAction(new CPushAction(States::GameState, true));
+
+			// Push PauseState
+			_app->addAction(new CPushAction(States::PauseState, true));
+
+			// Pop PauseState (deactivation)
+			_app->addAction(new CPopAction());
+
+			return true;
+
 			break;
 		default:
 			return false;
@@ -192,7 +221,30 @@ namespace Application {
 		
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
-		_app->pushState("game");
+
+		std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
+
+		if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+			std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
+			return false;
+		}
+
+		// Intenta cambiar el fichero del mapa a cargar
+		if (!_app->setGameStateMap(mapName))
+			return false;
+	
+		// Pop MenuState
+		_app->addAction(new CPopAction(true));
+
+		// Push GameState
+		_app->addAction(new CPushAction(States::GameState, true));
+
+		// Push PauseState
+		_app->addAction(new CPushAction(States::PauseState, true));
+
+		// Pop PauseState (deactivation)
+		_app->addAction(new CPopAction());
+
 		return true;
 
 	} // startReleased
@@ -202,6 +254,13 @@ namespace Application {
 	bool CMenuState::exitReleased(const CEGUI::EventArgs& e)
 	{
 		_app->exitRequest();
+		return true;
+
+	} // exitReleased
+
+	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
+	{
+		_app->addAction(new CPushAction(States::OptionsState, true));
 		return true;
 
 	} // exitReleased

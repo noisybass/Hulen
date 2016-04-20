@@ -6,8 +6,6 @@ State_Patrol = {
 	component = "CPatrol"
 }
 
---State_Patrol["Component"] = "CPatrol"
-
 State_Patrol["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Patrol")

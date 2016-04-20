@@ -70,7 +70,7 @@ namespace Application
 		Constructor de la clase 
 		*/
 		CGameState(CBaseApplication *app) : CApplicationState(app), 
-			_scene(0), _time(0) {}
+			_scene(0), _time(0), _isMapLoaded(false), _mapName("map.lua") {}
 
 		/** 
 		Destructor 
@@ -112,6 +112,12 @@ namespace Application
 		de ser la primera vez...).
 		*/
 		virtual void tick(unsigned int msecs);
+
+		/**
+		Método que cambia el fichero del mapa a cargar. 
+		Comprueba que existe el mapa con el nombre que le llega por parámetro.  
+		*/
+		bool setMap(const std::string &mapname);
 
 		// Métodos de CKeyboardListener
 		
@@ -182,6 +188,16 @@ namespace Application
 	protected:
 
 		/**
+		Indica si el mapa se ha cargado o no.
+		*/
+		bool _isMapLoaded;
+
+		/**
+		Nombre del mapa a cargar.
+		*/
+		std::string _mapName;
+
+		/**
 		Escena del estado.
 		*/
 		Graphics::CScene* _scene;
@@ -197,9 +213,9 @@ namespace Application
 		unsigned int _time;
 
 		/**
-		Evento de muerte del jugador.
+		Player events.
 		*/
-		Logic::CEventSystem <Logic::Events::DieClass, Logic::Events::DieFunction> dieEvent;
+		Logic::CEventSystem <Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction> playerEvent;
 
 	}; // CGameState
 

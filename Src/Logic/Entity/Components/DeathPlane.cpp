@@ -12,6 +12,7 @@ namespace Logic
 		if(!IComponent::spawn(name, entity,map,entityInfo))
 			return false;
 
+		return true;
 	} // spawn
 
 	bool CDeathPlane::accept(const TMessage &message)
@@ -26,7 +27,8 @@ namespace Logic
 		{
 		case Message::SHAPE_HIT:
 			TMessage msg;
-			msg._type = Message::PLAYER_DEATH;
+			msg._type = Message::PLAYER_EVENT;
+			msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
 			break;
 		}

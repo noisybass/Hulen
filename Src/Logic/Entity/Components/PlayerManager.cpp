@@ -7,7 +7,7 @@
 #include "Map/MapEntity.h"
 
 #include "Logic/Entity/Components/LightingArea.h"
-#include "Logic/Entity/Components/Interactuable.h"
+#include "Logic/Entity/Components/ChargeInteractuable.h"
 
 namespace Logic
 {
@@ -66,9 +66,10 @@ namespace Logic
 		return message._type == Message::PLAYER_ENTER_LIGHT ||
 			message._type == Message::PLAYER_OUT_LIGHT ||
 			message._type == Message::PLAYER_CHANGE_STATE ||
-			message._type == Message::PLAYER_DEATH ||
+			message._type == Message::PLAYER_EVENT ||
 			message._type == Message::PUT_CHARGE ||
-			message._type == Message::PICK_CHARGE;
+			message._type == Message::PICK_CHARGE ||
+			message._type == Message::PLAYER_LEVER_INTERACT; 
 
 	} // accept
 
@@ -130,13 +131,11 @@ namespace Logic
 					changeState(GameObject::SHADOW);
 			}
 			break;
-		case Message::PLAYER_DEATH:
-			std::cout << "Jugador muerto" << std::endl;
-			std::string string = "Die";
+		case Message::PLAYER_EVENT:
 
-			Logic::CEventSystem<Logic::Events::DieClass, Logic::Events::DieFunction>::
-				    getInstance<Logic::Events::DieClass, Logic::Events::DieFunction>()
-				    ->fireEvent(string);
+			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
+				    getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
+					->fireEvent(message.getArg<std::string>("playerEvent"));
 
 			break;
 		}
@@ -199,7 +198,8 @@ namespace Logic
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _playerDeathTime){
 					Logic::TMessage m;
-					m._type = Logic::Message::PLAYER_DEATH;
+					m._type = Logic::Message::PLAYER_EVENT;
+					m.setArg<std::string>(std::string("playerEvent"), std::string("die"));
 					_gameObject->emitMessage(m);
 				}
 			}
@@ -230,11 +230,11 @@ namespace Logic
 
 	CGameObject* CPlayerManager::canPickAnyCharge() const
 	{
-		CInteractuable* chargeArea;
+		CChargeInteractuable* chargeArea;
 
 		for (CGameObject* charge : _chargesOnMap)
 		{
-			chargeArea = (CInteractuable*)(charge->getBody()->getComponent("CInteractuable"));
+			chargeArea = (CChargeInteractuable*)(charge->getBody()->getComponent("CChargeInteractuable"));
 			if (chargeArea->_canInteract)
 				return charge;
 		}

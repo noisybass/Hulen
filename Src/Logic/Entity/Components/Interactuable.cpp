@@ -11,7 +11,7 @@ namespace Logic
 	IMP_FACTORY(CInteractuable);
 
 	CInteractuable::CInteractuable()
-		: IComponent(), _canInteract(false), _radius(0.0f), _playerName(""), _player(nullptr)
+		: IComponent(), _radius(0.0f), _playerName(""), _player(nullptr)
 	{
 
 	} // Cinteractuable
@@ -35,6 +35,8 @@ namespace Logic
 			_radius = entityInfo->getFloatAttribute("interactuable_area_radius");
 		}
 
+		return true;
+
 	} // spawn
 
 	bool CInteractuable::activate()
@@ -53,42 +55,13 @@ namespace Logic
 
 		float dist = _entity->getPosition().squaredDistance(_player->getPosition());
 		//std::cout << dist << std::endl;
-		if (dist < _radius*_radius)
-		{
-			_canInteract = true;
-			graphics->setMaterial("Charge_on");
-		}
-		else
-		{
-			_canInteract = false;
-			graphics->setMaterial("Charge_off");
-		}
+
+		TMessage message;
+		message._type = Message::INTERACTUABLE;
+		if (dist < _radius*_radius) message.setArg("canInteract", true); 
+		else message.setArg("canInteract", false);
+		_entity->emitMessage(message);
 
 	} // tick
-
-	bool CInteractuable::accept(const TMessage &message)
-	{
-		//std::cout << "Message type: " << message._type << std::endl;
-		return message._type == Message::TOUCHED ||
-			message._type == Message::UNTOUCHED;
-
-	} // accept
-
-	void CInteractuable::process(const TMessage &message)
-	{
-		CEntity* other;
-		switch (message._type)
-		{
-		case Message::TOUCHED:
-		case Message::UNTOUCHED:
-			other = message.getArg<CEntity*>("entity");
-			if (!(other->getBlueprint().compare("World")))
-				_entity->removeComponent("CPhysicEntity");
-			break;
-		default:
-			break;
-		}
-
-	} // process
 
 } // namespace Logic

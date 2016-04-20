@@ -95,6 +95,8 @@ namespace Logic
 		*/
 		Vector3 _lastMovement;
 
+		bool _targetArrived;
+
 	}; // class CSwitchPosition
 
 	REG_FACTORY(CSwitchPosition);
