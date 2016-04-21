@@ -1,8 +1,8 @@
 #ifndef LOGIC_FSM_ENTITY_H
 #define LOGIC_FSM_ENTITY_H
 
-#include "Logic\Entity\Component.h"
-#include "BaseSubsystems\FSMAgent.h"
+#include "Logic/Entity/Component.h"
+#include "BaseSubsystems/FSMAgent.h"
 
 namespace Logic
 {
@@ -16,7 +16,17 @@ namespace Logic
 
 		CFSMEntity();
 
+		~CFSMEntity();
+
+		bool spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo) override;
+
 		void tick(unsigned int msecs) override;
+
+		template<typename T>
+		T getValue(const std::string& id) const { return _agent->getValue<T>(id); }
+
+		template<typename T>
+		void setValue(const std::string& id, const T& value) { _agent->setValue<T>(id, value); }
 
 	}; // class CFSMEntity
 

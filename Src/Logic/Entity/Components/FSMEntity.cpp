@@ -1,33 +1,42 @@
 #include "FSMEntity.h"
 
-#include "BaseSubsystems\ScriptManager.h"
-
-#include <iostream>
-
-//extern "C"
-//{
-//#include <lua.h>
-//}
-//
-//#include <luabind\luabind.hpp>
+#include "Logic/Entity/Components/Vision.h"
 
 namespace Logic
 {
 	IMP_FACTORY(CFSMEntity);
 
 	CFSMEntity::CFSMEntity()
-		/*: IComponent()*/
+		: IComponent(), _agent(nullptr)
 	{
-		// Creamos la máquina de estados
-		_agent = new AI::FSMAgent();
-	}
+
+	} // CCrawler
+
+	CFSMEntity::~CFSMEntity()
+	{
+		if (_agent)
+			delete _agent;
+
+	} // ~CCrawler
+
+	bool CFSMEntity::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+		if (!IComponent::spawn(name, entity, map, entityInfo))
+			return false;
+
+		assert(entityInfo->hasAttribute("fsm_initial_state"));
+		_agent = new AI::FSMAgent(_entity, entityInfo->getStringAttribute("fsm_initial_state"));
+
+		return true;
+
+	} // spawn
 
 
 	void CFSMEntity::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
 
-		_agent->update();
+		_agent->update(msecs);
 
 	} // tick
 

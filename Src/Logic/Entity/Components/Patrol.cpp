@@ -1,7 +1,7 @@
 #include "Patrol.h"
-#include "Logic\Entity\Entity.h"
-#include "Physics\Server.h"
-#include "Map\MapEntity.h"
+#include "Logic/Entity/Entity.h"
+#include "Physics/Server.h"
+#include "Map/MapEntity.h"
 #include "Logic/Entity/Components/MoveController.h"
 #include <iostream>
 
@@ -9,6 +9,12 @@
 namespace Logic 
 {
 	IMP_FACTORY(CPatrol);
+
+	CPatrol::CPatrol() : IComponent(), _arrivedToDestination(true), _patrolPosition1(Vector3::ZERO),
+		_patrolPosition2(Vector3::ZERO), _arrivedDestination(Vector3::ZERO)
+	{
+
+	} // CPatrol
 	
 	bool CPatrol::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
@@ -32,6 +38,27 @@ namespace Logic
 
 	} // spawn
 
+	bool CPatrol::activate()
+	{
+		IComponent::activate();
+
+		std::cout << "ACTIVANDO PATROL..." << std::endl;
+
+		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+		moveController->nextPosition(_patrolPosition1);
+
+		return true;
+
+	} // activate
+
+	void CPatrol::deactivate()
+	{
+		IComponent::deactivate();
+
+		std::cout << "DESACTIVANDO PATROL..." << std::endl;
+
+	} // deactivate
+
 	bool CPatrol::accept(const TMessage &message)
 	{
 		return message._type == Message::ARRIVED_TO_DESTINATION;
@@ -52,17 +79,21 @@ namespace Logic
 
 	void CPatrol::tick(unsigned int msecs)
 	{
-		IComponent::tick(msecs);
-
-		if (_arrivedToDestination)
+		if (_active)
 		{
-			CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
-			if (_arrivedDestination == _patrolPosition1) 
-				moveController->nextPosition(_patrolPosition2);
-			else if (_arrivedDestination == _patrolPosition2)
-				moveController->nextPosition(_patrolPosition1);
-			_arrivedToDestination = false;
+			IComponent::tick(msecs);
+
+			if (_arrivedToDestination)
+			{
+				CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+				if (_arrivedDestination == _patrolPosition1)
+					moveController->nextPosition(_patrolPosition2);
+				else if (_arrivedDestination == _patrolPosition2)
+					moveController->nextPosition(_patrolPosition1);
+				_arrivedToDestination = false;
+			}
 		}
+
 	} // tick
 
 	

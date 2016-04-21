@@ -12,11 +12,11 @@ entidad cuando recibe un mensaje TOUCHED / UNTOUCHED.
 */
 
 #include "Vision.h"
-#include "Logic\Entity\Entity.h"
-#include "Physics\Server.h"
-#include "Map\MapEntity.h"
-#include "Graphics\Server.h"
-#include "Graphics\DebugDrawing.h"
+#include "Logic/Entity/Entity.h"
+#include "Physics/Server.h"
+#include "Map/MapEntity.h"
+#include "Graphics/Server.h"
+#include "Graphics/DebugDrawing.h"
 #include "BaseSubsystems/Math.h"
 #include <iostream>
 
@@ -42,12 +42,31 @@ namespace Logic
 
 	} // spawn
 
+	bool CVision::activate()
+	{
+		// Si tenemos un componente responsable del agente de IA tendremos que actualizar su información
+		_fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+
+		if (_fsm)
+		{
+			_fsm->setValue<bool>("seeing_entity", false);
+
+			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
+		}
+
+		return true;
+	}
+
+	void CVision::deactivate()
+	{
+
+	}
+
 	void CVision::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
 
-		Logic::CEntity* entity = visionRay();
-
+		// PINTADO DE LA VISION
 		Ogre::Vector3 startPosition = _entity->getPosition();
 		// Actualizamos la x para que no choque con la propia malla.
 		if (_entity->getDirection() == 1) startPosition.x += _xRaySeparation;
@@ -60,8 +79,22 @@ namespace Logic
 
 		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
 
-		if (entity != nullptr){
-			std::cout << "He tocado " + entity->getName() << std::endl;
+		// LOGICA DE LA VISION
+		Logic::CEntity* entity = visionRay();
+
+		if (entity){
+			_seeingEntity = true;
+			_lastSeenEntity = entity;
+		}
+		else
+		{
+			_seeingEntity = false;
+		}
+
+		if (_fsm)
+		{
+			_fsm->setValue<bool>("seeing_entity", _seeingEntity);
+			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
 		}
 		
 	}

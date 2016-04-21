@@ -1,5 +1,5 @@
-#ifndef AI_STATE_MACHINE_H
-#define AI_STATE_MACHINE_H
+#ifndef AI_FSM_H
+#define AI_FSM_H
 
 extern "C"
 {
@@ -13,7 +13,7 @@ extern "C"
 namespace AI
 {
 	template <class T>
-	class StateMachine
+	class FSM
 	{
 	private:
 		
@@ -26,11 +26,11 @@ namespace AI
 
 	public:
 
-		StateMachine(T* owner)
+		FSM(T* owner)
 			: _owner(owner) 
 		{
 
-		} // StateMachine
+		} // FSM
 
 		void setCurrentState(const luabind::object& state)
 		{
@@ -38,16 +38,13 @@ namespace AI
 
 		} // setCurrentState
 
-		void update()
+		void update(unsigned int msecs)
 		{
-			//// Nos aseguramos de que el estado es válido antes de llamar
-			//// a execute()
+			// Nos aseguramos de que el estado es válido antes de llamar
+			// a execute()
 			if (_currentState.is_valid())
 			{
-				//std::cout << "UPDATE" << std::endl;
-				//Logic::CFSMEntity* entidadPrueba = new Logic::CFSMEntity();
-				//_currentState["ProbandoConArgumentos"](entidadPrueba);
-				_currentState["Execute"](_owner);
+				_currentState["Execute"](_owner, msecs);
 			}
 
 		} // update
@@ -71,8 +68,8 @@ namespace AI
 
 		} // currentState
 
-	}; // class StateMachine
+	}; // class FSM
 
 } // namespace AI
 
-#endif // AI_STATE_MACHINE_H
+#endif // AI_FSM_H

@@ -100,7 +100,7 @@ namespace Logic
 
 		@return true si todo ha ido correctamente.
 		*/
-		virtual bool activate() {return true;}
+		virtual bool activate() { _active = true;  return true; }
 		
 		/**
 		Método que desactiva el componente; invocado cuando se
@@ -111,7 +111,7 @@ namespace Logic
 		La implementación eliminará al componente de algunos observers en los 
 		que pueda estar registrado (como el cronómetro del sistema, etc.).
 		*/
-		virtual void deactivate() {}
+		virtual void deactivate() { _active = false;  }
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.
@@ -132,9 +132,13 @@ namespace Logic
 
 		CGameObject* getGameObject() const;
 
+		bool isActive() const { return _active; }
+
 	protected:
 
 		std::string _name;
+
+		bool _active;
 
 		/**
 		clase amiga que puede establecerse como poseedor del componente.

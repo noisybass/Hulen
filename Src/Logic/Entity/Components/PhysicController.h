@@ -16,6 +16,7 @@ el mundo físico usando character controllers.
 #define __Logic_PhysicController_H
 
 #include "Physics.h"
+#include "Logic/Entity/Components/FSMEntity.h"
 
 // Predeclaración de tipos
 namespace physx {
@@ -82,6 +83,10 @@ namespace Logic
 		*/
 		virtual void process(const TMessage &message);
 
+		bool activate() override;
+
+		void deactivate() override;
+
 		/**
 		Este método se invoca en cada ciclo de la simulación y hace lo siguiente:
 		<ul>
@@ -129,6 +134,8 @@ namespace Logic
 
 		// Indica si el character controller esta apoyado sobre una superficie o cayendo.
 		bool _falling;
+
+		Logic::CFSMEntity* _fsm;
 
 
 	}; // class CPhysicController
