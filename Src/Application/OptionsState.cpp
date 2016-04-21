@@ -86,7 +86,7 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->popState(true);
+			_app->addAction(new CPopAction(true));
 			break;
 		default:
 			return false;
@@ -121,7 +121,7 @@ namespace Application {
 	} // mouseReleased
 
 	bool COptionsState::backReleased(const CEGUI::EventArgs& e){
-		_app->popState(true);
+		_app->addAction(new CPopAction(true));
 
 		return true;
 	} // backReleased

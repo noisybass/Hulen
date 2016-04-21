@@ -82,19 +82,19 @@ namespace Application {
 		CApplicationState::tick(msecs);
 
 		// Pop LoadingState
-		_app->popState(true);
+		_app->addAction(new CPopAction());
 
 		if (_nextState == "game"){
 
 			// Push GameState
-			_app->pushState("game", true);
+			_app->addAction(new CPushAction(States::GameState, true));
 
 			// Push PauseState
-			_app->pushState("pause", true);
+			_app->addAction(new CPushAction(States::PauseState, true));
 		}
 
 		// Pop PauseState (deactivation)
-		_app->popState();
+		_app->addAction(new CPopAction());
 
 	} // tick
 

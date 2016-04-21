@@ -103,7 +103,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 	
-	void CBaseApplication::addState(const std::string &name,
+	void CBaseApplication::addState(const States &name,
 					   CApplicationState *newState) 
 	{
 		TStateTable::const_iterator it;
@@ -125,7 +125,31 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::pushState(const std::string &name, bool init)
+	void CBaseApplication::addAction(CStateActions* action){
+		_actions.push(action);
+	} // addAction
+
+	//--------------------------------------------------------
+
+	void CBaseApplication::executeActions(){
+		while (!_actions.empty()){
+			CStateActions* temp = _actions.front();
+			if (temp->stateAction == StateAction::POP){
+				CPopAction* pop = (CPopAction*) temp;
+				popState(pop->release);
+			}
+			else if (temp->stateAction == StateAction::PUSH){
+				CPushAction* push = (CPushAction*)temp;
+				pushState(push->state, push->init);
+			}
+			delete temp;
+			_actions.pop();
+		}
+	} // executeActions
+
+	//--------------------------------------------------------
+
+	bool CBaseApplication::pushState(const States &name, bool init)
 	{
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
@@ -193,7 +217,7 @@ namespace Application {
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
 
-		it = _stateTable.find("game");
+		it = _stateTable.find(States::GameState);
 
 		// Si no hay ningún estado con ese nombre, no hacemos nada
 		if (it == _stateTable.end())
@@ -209,7 +233,7 @@ namespace Application {
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
 
-		it = _stateTable.find("loading");
+		it = _stateTable.find(States::LoadingState);
 
 		// Si no hay ningún estado con ese nombre, no hacemos nada.
 		if (it == _stateTable.end())
@@ -246,6 +270,9 @@ namespace Application {
 				_currentState->activate();
 				_reloadState = false;
 			}
+
+			// Execute the pending actions
+			executeActions();
 
 			if (!_currentState ||
 				_currentState != _states.top())

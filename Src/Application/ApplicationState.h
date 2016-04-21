@@ -23,6 +23,7 @@ aplicacion.
 
 namespace Application 
 {
+
 	/**
 	Clase CApplicationState; representa un estado de la 
 	aplicación, como el estado del menú, o el estado jugando,

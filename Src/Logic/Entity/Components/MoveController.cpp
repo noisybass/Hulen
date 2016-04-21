@@ -83,12 +83,12 @@ namespace Logic
 		// Nos movemos porque no hemos llegado a nuestro destino.
 		if (!destinationReached())
 		{
-			if (_entity->getDirection() == 0){
+			//if (_entity->getDirection() == 0){
 				calculateDirection();
 				// Change animations
 				if (_entity->getDirection() == 1) walkRight();
 				else if (_entity->getDirection() == -1) walkLeft();
-			}
+			//}
 			movement += Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
 		}
 		else
@@ -97,7 +97,7 @@ namespace Logic
 			// nada mas llegar al destino.
 			if (_entity->getDirection() != 0)
 			{
-				_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::NONE);
+				//_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::NONE);
 				// Idle animation
 				stop();
 

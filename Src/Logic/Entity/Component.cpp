@@ -5,7 +5,7 @@
 namespace Logic 
 {
 	IComponent::IComponent() 
-		: _entity(nullptr), _gameObject(nullptr) 
+		: _entity(nullptr), _gameObject(nullptr), _active(true)
 	{
 
 	} // IComponent

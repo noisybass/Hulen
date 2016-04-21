@@ -19,12 +19,8 @@
 #include <cassert>
 #include <iostream> // Mensajes de error
 
-#include "Logic\Entity\Components\FSMEntity.h"
-#include "Logic\Entity\Components\ClasePruebas.h"
-//#include "Logic\Entity\Component.h"
-//#include "Logic\Entity\CommunicationPort.h"
-#include "BaseSubsystems\StateMachine.h"
-#include "BaseSubsystems\FSMAgent.h"
+#include "BaseSubsystems/FSM.h"
+#include "BaseSubsystems/FSMAgent.h"
 
 namespace ScriptManager {
 
@@ -498,17 +494,19 @@ bool CScriptManager::open() {
 	// Registramos las funciones de la clase FSMEntity y de la máquina de estados
 	luabind::module(_lua)
 		[
-			luabind::class_<AI::FSMAgent>("FSMAgent")
-			.def("SayHello", &AI::FSMAgent::sayHello)
-			.def("GetFSM", &AI::FSMAgent::getFSM),
-			luabind::class_<AI::StateMachine<AI::FSMAgent> >("StateMachine")
-			.def("ChangeState", &AI::StateMachine<AI::FSMAgent>::changeState)
-			.def("GetCurrentState", &AI::StateMachine<AI::FSMAgent>::getCurrentState)
-			.def("SetCurrentState", &AI::StateMachine<AI::FSMAgent>::setCurrentState)
-		];
+			luabind::class_<AI::FSMAgent>("Crawler")
+			.def("ChangeState", &AI::FSMAgent::changeState)
+			.def("Deactivate", &AI::FSMAgent::deactivate)
+			.def("Activate", &AI::FSMAgent::activate)
+			.def("GetBoolValue", &AI::FSMAgent::getValue<bool>)
+			.def("GetFloatValue", &AI::FSMAgent::getValue<float>)
+			.def("GetStringValue", &AI::FSMAgent::getValue<std::string>),
 
-	/*AI::FSMAgent* agent = new AI::FSMAgent();
-	agent->update();*/
+			luabind::class_<AI::FSM<AI::FSMAgent> >("FSM")
+			.def("ChangeState", &AI::FSM<AI::FSMAgent>::changeState)
+			.def("GetCurrentState", &AI::FSM<AI::FSMAgent>::getCurrentState)
+			.def("SetCurrentState", &AI::FSM<AI::FSMAgent>::setCurrentState)
+		];
 
 	return true;
 

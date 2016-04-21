@@ -115,12 +115,6 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp">
-      <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\ClasePruebas.cpp">
-      <Filter>Entity\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Vision.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
@@ -128,6 +122,18 @@
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MoveController.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Chase.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Alert.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Attack.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.cpp">
@@ -140,6 +146,9 @@
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\EndLevel.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -243,12 +252,6 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h">
-      <Filter>Entity\Components\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\ClasePruebas.h">
-      <Filter>Entity\Components\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Vision.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
@@ -256,6 +259,18 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MoveController.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Chase.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Alert.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Attack.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.h">
@@ -268,6 +283,9 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\EndLevel.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -66,8 +66,11 @@ namespace Logic
 		// consideraremos activados.
 		_activated = true;
 
-		for( it = _components.begin(); it != _components.end(); ++it )
-			_activated = it->second->activate() && _activated;
+		for (it = _components.begin(); it != _components.end(); ++it)
+		{
+			if (it->second->isActive())
+				_activated = it->second->activate() && _activated;
+		}
 
 		return _activated;
 

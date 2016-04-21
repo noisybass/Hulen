@@ -55,19 +55,19 @@ namespace Application {
 
 		// Creamos los estados. La aplicación se hace responsable de
 		// destruirlos.
-		addState("menu", new CMenuState(this));
+		addState(States::MenuState, new CMenuState(this));
 
-		addState("game", new CGameState(this));
+		addState(States::GameState, new CGameState(this));
 
-		addState("pause", new CPauseState(this));
+		addState(States::PauseState, new CPauseState(this));
 
-		addState("options", new COptionsState(this));
+		addState(States::OptionsState, new COptionsState(this));
 
-		addState("loading", new CLoadingState(this));
+		addState(States::LoadingState, new CLoadingState(this));
 
-		addState("exit", new CExitState(this));
+		addState(States::ExitState, new CExitState(this));
 
-		if(!pushState("menu",true))
+		if (!pushState(States::MenuState, true))
 			return false;
 
 		return true;

@@ -153,11 +153,11 @@ namespace Application {
 		{
 		case GUI::Key::ESCAPE:
 			// Pop PauseState
-			_app->popState();
+			_app->addAction(new CPopAction());
 			break;
 		case GUI::Key::RETURN:
 			// Pop PauseState
-			_app->popState();
+			_app->addAction(new CPopAction());
 			break;
 		default:
 			return false;
@@ -195,7 +195,7 @@ namespace Application {
 
 	bool CPauseState::startReleased(const CEGUI::EventArgs& e)
 	{
-		_app->popState();
+		_app->addAction(new CPopAction());
 		return true;
 
 	} // startReleased
@@ -205,16 +205,13 @@ namespace Application {
 	bool CPauseState::exitReleased(const CEGUI::EventArgs& e)
 	{
 		// Pop PauseState
-		_app->popState(true);
+		_app->addAction(new CPopAction(true));
 
 		// Pop GameState
-		_app->popState(true);
-
-		// Pop LoadingState
-		_app->popState(true);
+		_app->addAction(new CPopAction(true));
 
 		// Push MenuState
-		_app->pushState("menu",true);
+		_app->addAction(new CPushAction(States::MenuState, true));
 		return true;
 
 	} // exitReleased

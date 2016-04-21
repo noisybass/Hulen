@@ -172,16 +172,13 @@ namespace Application {
 				return false;
 
 			// Pop MenuState
-			_app->popState(true);
+			_app->addAction(new CPopAction(true));
 
-			// Push GameState
-			_app->pushState("game", true);
+			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+			_app->setLoadingNextState("game");
 
-			// Push PauseState
-			_app->pushState("pause", true);
-
-			// Pop PauseState (deactivation)
-			_app->popState();
+			// Push LoadingState
+			_app->addAction(new CPushAction(States::LoadingState, true));
 
 			return true;
 
@@ -233,15 +230,15 @@ namespace Application {
 		// Intenta cambiar el fichero del mapa a cargar
 		if (!_app->setGameStateMap(mapName))
 			return false;
-	
+
 		// Pop MenuState
-		_app->popState(true);
+		_app->addAction(new CPopAction(true));
 
 		// Le decimos al estado de loading que la siguiente escena a cargar es la de game
 		_app->setLoadingNextState("game");
 
 		// Push LoadingState
-		_app->pushState("loading", true);
+		_app->addAction(new CPushAction(States::LoadingState, true));
 
 		return true;
 
@@ -258,7 +255,7 @@ namespace Application {
 
 	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
 	{
-		_app->pushState("options",true);
+		_app->addAction(new CPushAction(States::OptionsState, true));
 		return true;
 
 	} // exitReleased
