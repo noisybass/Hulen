@@ -5,7 +5,7 @@
 namespace AI
 {
 
-	FSMAgent::FSMAgent(Logic::CEntity* entity) : _seeingPlayer(false), _entity(entity)
+	FSMAgent::FSMAgent(Logic::CEntity* entity, const std::string& initialState) : _seeingPlayer(false), _entity(entity)
 	{
 		_agentValues = new TValues();
 
@@ -17,7 +17,7 @@ namespace AI
 
 		if (luabind::type(states) == LUA_TTABLE)
 		{
-			_FSM->setCurrentState(states["State_Patrol"]);
+			_FSM->setCurrentState(states[initialState]);
 		}
 
 	} // Crawler

@@ -24,7 +24,8 @@ namespace Logic
 		if (!IComponent::spawn(name, entity, map, entityInfo))
 			return false;
 
-		_agent = new AI::FSMAgent(_entity);
+		assert(entityInfo->hasAttribute("fsm_initial_state"));
+		_agent = new AI::FSMAgent(_entity, entityInfo->getStringAttribute("fsm_initial_state"));
 
 		return true;
 
@@ -34,18 +35,6 @@ namespace Logic
 	void CFSMEntity::tick(unsigned int msecs)
 	{
 		IComponent::tick(msecs);
-
-		// Actualizamos los valores que necesita el agente
-		/*CVision* crawlerVision = (CVision*)(_entity->getComponent("CVision"));
-		if (crawlerVision->_seeingEntity && !crawlerVision->_lastSeenEntity->getName().compare("Player_Body"))
-		{
-			_agent->setValue<bool>("SeeingPlayer", true);
-		}
-		else
-		{
-			_agent->setValue<bool>("SeeingPlayer", false);
-		}*/
-			
 
 		_agent->update(msecs);
 

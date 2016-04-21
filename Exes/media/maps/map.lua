@@ -11,7 +11,7 @@ Map_GO = {
 		charge = "Charge_Prefab",
 	},
 
-	Character_GO = {
+	Crawler_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
@@ -225,14 +225,13 @@ Map = {
 	Character_Body = {
 		type = "Body",
 		blueprint = "Crawler",
-		game_object = "Character_GO",
+		game_object = "Crawler_GO",
 		position = {-11, 0, 0},
 		scale = {0.2, 0.2, 0.2},
 		model = "marine.mesh",
 		material = "Red",
 		defaultAnimation = "Idle",
 		walkRightAnimation = "WalkBack",
-		--walkLeftAnimation = "Walk",
 		idleAnimation = "Idle",
 		physic_shape = "capsule",
 		physic_radius = 1,
@@ -240,11 +239,9 @@ Map = {
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 0.005,
-		jump_speed = 0.03,
-		jump_height = 8.0,
-		gravity = 0.01,
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
+		fsm_initial_state = "Crawler_Patrol",
 	},
 
 	Kasai = {

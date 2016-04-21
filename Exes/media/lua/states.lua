@@ -2,33 +2,33 @@
 ------------------------------------------------
 ------------------------------------------------
 
-State_Patrol = {
+Crawler_Patrol = {
 	component = "CPatrol"
 }
 
-State_Patrol["Enter"] = function(agent)
+Crawler_Patrol["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Patrol")
-	agent: Activate(State_Patrol.component)
+	agent: Activate(Crawler_Patrol.component)
 
 end
 
-State_Patrol["Execute"] = function(agent, msecs)
+Crawler_Patrol["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
-		agent: ChangeState(State_Attack)
+		agent: ChangeState(Crawler_Attack)
 	end
 
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
-		agent: ChangeState(State_Chase)
+		agent: ChangeState(Crawler_Chase)
 	end
 
 end
 
-State_Patrol["Exit"] = function(agent)
+Crawler_Patrol["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Patrol")
-	agent: Deactivate(State_Patrol.component)
+	agent: Deactivate(Crawler_Patrol.component)
 
 end
 
@@ -36,33 +36,33 @@ end
 ------------------------------------------------
 ------------------------------------------------
 
-State_Chase = {
+Crawler_Chase = {
 	component = "CChase"
 }
 
-State_Chase["Enter"] = function(agent)
+Crawler_Chase["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Chase")
-	agent: Activate(State_Chase.component)
+	agent: Activate(Crawler_Chase.component)
 
 end
 
-State_Chase["Execute"] = function(agent, msecs)
+Crawler_Chase["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
-		agent: ChangeState(State_Attack)
+		agent: ChangeState(Crawler_Attack)
 	end
 
 	if not agent: GetBoolValue("seeing_entity") or (agent: GetBoolValue("seeing_entity") and not agent: GetStringValue("seen_entity_name") == "Player_Body")then
-		agent: ChangeState(State_Alert)
+		agent: ChangeState(Crawler_Alert)
 	end
 
 end
 
-State_Chase["Exit"] = function(agent)
+Crawler_Chase["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Chase")
-	agent: Deactivate(State_Chase.component)
+	agent: Deactivate(Crawler_Chase.component)
 
 end
 
@@ -70,39 +70,39 @@ end
 ------------------------------------------------
 ------------------------------------------------
 
-State_Alert = {
+Crawler_Alert = {
 	component = "CAlert",
 	wait_time = 5000,
 	accum_time = 0
 }
 
-State_Alert["Enter"] = function(agent)
+Crawler_Alert["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Alert")
-	State_Alert.accum_time = 0
+	Crawler_Alert.accum_time = 0
 
 end
 
-State_Alert["Execute"] = function(agent, msecs)
+Crawler_Alert["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
-		agent: ChangeState(State_Attack)
+		agent: ChangeState(Crawler_Attack)
 	end
 
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
-		agent: ChangeState(State_Chase)
+		agent: ChangeState(Crawler_Chase)
 	end
 
-	State_Alert.accum_time =  State_Alert.accum_time + msecs
+	Crawler_Alert.accum_time =  Crawler_Alert.accum_time + msecs
 
-	if State_Alert.accum_time >= State_Alert.wait_time then
-		State_Alert.accum_time = 0
-		agent: ChangeState(State_Patrol)
+	if Crawler_Alert.accum_time >= Crawler_Alert.wait_time then
+		Crawler_Alert.accum_time = 0
+		agent: ChangeState(Crawler_Patrol)
 	end
 
 end
 
-State_Alert["Exit"] = function(agent)
+Crawler_Alert["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Alert")
 
@@ -112,26 +112,26 @@ end
 ------------------------------------------------
 ------------------------------------------------
 
-State_Attack = {
+Crawler_Attack = {
 	component = "CAttack"
 }
 
-State_Attack["Enter"] = function(agent)
+Crawler_Attack["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Attack")
-	agent: Activate(State_Attack.component)
+	agent: Activate(Crawler_Attack.component)
 
 end
 
-State_Attack["Execute"] = function(agent, msecs)
+Crawler_Attack["Execute"] = function(agent, msecs)
 
 	--print ("[Lua]: Executing State Attack")
 
 end
 
-State_Attack["Exit"] = function(agent)
+Crawler_Attack["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Attack")
-	agent: Deactivate(State_Attack.component)
+	agent: Deactivate(Crawler_Attack.component)
 
 end
