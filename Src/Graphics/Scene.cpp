@@ -26,15 +26,7 @@ namespace Graphics
 		_sceneMgr = _root->createSceneManager(Ogre::ST_INTERIOR, name);
 		_camera = new CCamera(name,this);
 		_name = name;
-		// Luz direccional para debug
-		_directionalLight = _sceneMgr->createLight("directional light");
-		_directionalLight->setDiffuseColour(.5f, .5f, .5f);
-		_directionalLight->setSpecularColour(.5f, .5f, .5f);
-		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
-		_directionalLight->setDirection(0, -150, 0);
-		_directionalLight->setType(Ogre::Light::LT_POINT);
-		_directionalLight->setPosition(0, 0, 0);
-		_directionalLight->setVisible(false);
+		
 
 	} // CScene
 
@@ -137,18 +129,15 @@ namespace Graphics
 						->addViewport(_camera->getCamera());
 		_viewport->setBackgroundColour(Ogre::ColourValue::Black);
 
-		// No hay luz ambiental.
-		//_sceneMgr->setAmbientLight(Ogre::ColourValue(.2f,.2f,.2f));
-		
-		// Además de la luz ambiente creamos una luz direccional que 
-		// hace que se vean mejor los volúmenes de las entidades.
-		/*_directionalLight = _sceneMgr->createLight("directional light");
-		_directionalLight->setDiffuseColour(.5f,.5f,.5f);
-		_directionalLight->setSpecularColour(.5f,.5f,.5f);
+		// Luz direccional para debug
+		_directionalLight = _sceneMgr->createLight("directional light");
+		_directionalLight->setDiffuseColour(.5f, .5f, .5f);
+		_directionalLight->setSpecularColour(.5f, .5f, .5f);
 		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
 		_directionalLight->setDirection(0, -150, 0);
 		_directionalLight->setType(Ogre::Light::LT_POINT);
-		_directionalLight->setPosition(0, 0, 0);*/
+		_directionalLight->setPosition(0, 0, 0);
+		_directionalLight->setVisible(false);
 
 	} // activate
 
