@@ -1,5 +1,9 @@
 ------------------------------------------------
 ------------------------------------------------
+
+------------------CRAWLER-----------------------
+
+------------------------------------------------
 ------------------------------------------------
 
 Crawler_Patrol = {
@@ -15,11 +19,11 @@ end
 
 Crawler_Patrol["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
 		agent: ChangeState(Crawler_Attack)
 	end
 
-	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity") == "Player") then
 		agent: ChangeState(Crawler_Chase)
 	end
 
@@ -49,11 +53,11 @@ end
 
 Crawler_Chase["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
 		agent: ChangeState(Crawler_Attack)
 	end
 
-	if not agent: GetBoolValue("seeing_entity") or (agent: GetBoolValue("seeing_entity") and not agent: GetStringValue("seen_entity_name") == "Player_Body")then
+	if not agent: GetBoolValue("seeing_entity") or (agent: GetBoolValue("seeing_entity") and not agent: GetStringValue("seen_entity") == "Player")then
 		agent: ChangeState(Crawler_Alert)
 	end
 
@@ -85,11 +89,11 @@ end
 
 Crawler_Alert["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_name") == "Player_Body") then
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
 		agent: ChangeState(Crawler_Attack)
 	end
 
-	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_name") == "Player_Body") then
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity") == "Player") then
 		agent: ChangeState(Crawler_Chase)
 	end
 
@@ -133,5 +137,153 @@ Crawler_Attack["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Attack")
 	agent: Deactivate(Crawler_Attack.component)
+
+end
+
+
+
+------------------------------------------------
+------------------------------------------------
+
+-----------------LIGHTBULB----------------------
+
+------------------------------------------------
+------------------------------------------------
+
+Lightbulb_Patrol = {
+	component = "CPatrol"
+}
+
+Lightbulb_Patrol["Enter"] = function(agent)
+
+	print ("[Lua]: Enter State Patrol")
+	agent: Activate(Lightbulb_Patrol.component)
+
+end
+
+Lightbulb_Patrol["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
+		agent: ChangeState(Lightbulb_Attack)
+	end
+
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity") == "Charge") then
+		print ("Estoy viendo una carga")
+	end
+
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity") == "Player") then
+		agent: ChangeState(Lightbulb_Chase)
+	end
+
+end
+
+Lightbulb_Patrol["Exit"] = function(agent)
+
+	print ("[Lua]: Exit State Patrol")
+	agent: Deactivate(Lightbulb_Patrol.component)
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Lightbulb_Chase = {
+	component = "CChase"
+}
+
+Lightbulb_Chase["Enter"] = function(agent)
+
+	print ("[Lua]: Enter State Chase")
+	agent: Activate(Lightbulb_Chase.component)
+
+end
+
+Lightbulb_Chase["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
+		agent: ChangeState(Lightbulb_Attack)
+	end
+
+	if not agent: GetBoolValue("seeing_entity") or (agent: GetBoolValue("seeing_entity") and not agent: GetStringValue("seen_entity") == "Player")then
+		agent: ChangeState(Lighbulb_Alert)
+	end
+
+end
+
+Lightbulb_Chase["Exit"] = function(agent)
+
+	print ("[Lua]: Exit State Chase")
+	agent: Deactivate(Lightbulb_Chase.component)
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Lightbulb_Alert = {
+	component = "CAlert",
+	wait_time = 5000,
+	accum_time = 0
+}
+
+Lightbulb_Alert["Enter"] = function(agent)
+
+	print ("[Lua]: Enter State Alert")
+	Lightbulb_Alert.accum_time = 0
+
+end
+
+Lightbulb_Alert["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity") == "Player") then
+		agent: ChangeState(Lightbulb_Attack)
+	end
+
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity") == "Player") then
+		agent: ChangeState(Lightbulb_Chase)
+	end
+
+	Lightbulb_Alert.accum_time = Lightvulv_Alert.accum_time + msecs
+
+	if Lightbulb_Alert.accum_time >= Lightbulb_Alert.wait_time then
+		Lightbulb_Alert.accum_time = 0
+		agent: ChangeState(Lightbulb_Patrol)
+	end
+
+end
+
+Lightbulb_Alert["Exit"] = function(agent)
+
+	print ("[Lua]: Exit State Alert")
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Lightbulb_Attack = {
+	component = "CAttack"
+}
+
+Lightbulb_Attack["Enter"] = function(agent)
+
+	print ("[Lua]: Enter State Attack")
+	agent: Activate(Lightbulb_Attack.component)
+
+end
+
+Lightbulb_Attack["Execute"] = function(agent, msecs)
+
+	--print ("[Lua]: Executing State Attack")
+
+end
+
+Lightbulb_Attack["Exit"] = function(agent)
+
+	print ("[Lua]: Exit State Attack")
+	agent: Deactivate(Lightbulb_Attack.component)
 
 end

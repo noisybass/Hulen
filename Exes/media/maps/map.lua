@@ -17,6 +17,12 @@ Map_GO = {
 		state = "Body",
 	},
 
+	Lightbulb_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	Kasai_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -222,7 +228,7 @@ Map = {
 		gravity = 0.01,
 	},
 
-	Character_Body = {
+	Crawler_Body = {
 		type = "Body",
 		blueprint = "Crawler",
 		game_object = "Crawler_GO",
@@ -242,6 +248,28 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Crawler_Patrol",
+	},
+
+	Lightbulb_Body = {
+		type = "Body",
+		blueprint = "Crawler",
+		game_object = "Lightbulb_GO",
+		position = {0, -14, 0},
+		scale = {0.2, 0.2, 0.2},
+		model = "marine.mesh",
+		material = "Red",
+		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		idleAnimation = "Idle",
+		physic_shape = "capsule",
+		physic_radius = 1,
+		physic_height = 0.1,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 0.005,
+		patrolPosition1 = {4, -14, 0},
+		patrolPosition2 = {10, -14, 0},
+		fsm_initial_state = "Lightbulb_Patrol",
 	},
 
 	Kasai = {

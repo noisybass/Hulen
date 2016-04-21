@@ -50,8 +50,6 @@ namespace Logic
 		if (_fsm)
 		{
 			_fsm->setValue<bool>("seeing_entity", false);
-
-			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
 		}
 
 		return true;
@@ -94,7 +92,7 @@ namespace Logic
 		if (_fsm)
 		{
 			_fsm->setValue<bool>("seeing_entity", _seeingEntity);
-			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
+			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity", _lastSeenEntity->getBlueprint());
 		}
 		
 	}

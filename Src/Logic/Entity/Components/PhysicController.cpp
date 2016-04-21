@@ -227,6 +227,6 @@ void CPhysicController::onControllerHit (const PxControllersHit &hit)
 		IPhysics *otherComponent = (IPhysics *)hit.other->getActor()->userData;
 
 		_fsm->setValue<bool>("touching_entity", true);
-		_fsm->setValue<std::string>("touched_entity_name", otherComponent->getEntity()->getName());
+		_fsm->setValue<std::string>("touched_entity", otherComponent->getEntity()->getBlueprint());
 	}
 }

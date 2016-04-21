@@ -175,13 +175,21 @@ namespace Logic {
 			{
 				// La propia factoría se encarga de añadir la entidad a su GameObject
 				CEntity* entity = entityFactory->createEntity((*it), _entitiesMap);
-				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+				//assert(entity && "No se pudo crear una entidad perteneciente a un game object" );
+				if (!entity)
+				{
+					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
+				}
 			}
 			else if (!type.compare("GameObject"))
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
 				CGameObject* gameObject = entityFactory->createGameObject((*it), _entitiesMap);
-				assert(gameObject && "No se pudo crear un game object del mapa");
+				//assert(gameObject && "No se pudo crear un game object del mapa");
+				if (!gameObject)
+				{
+					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
+				}
 			}
 		}
 
