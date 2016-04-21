@@ -5,7 +5,7 @@
 /**
 @file AsyncTask.cpp
 
-Contiene la implementación de las tareas asíncronas.
+Contiene la implementación de la clase AsyncTask.
 
 @see Application::CAsyncTask
 
@@ -15,54 +15,54 @@ Contiene la implementación de las tareas asíncronas.
 
 #include "AsyncTask.h"
 
-// Predeclaración de clases para ahorrar tiempo de compilación
-namespace Application
-{
-	class OnAsyncTaskFinished;
-}
-
 namespace Application {
 
-
-
-	AsyncTask::AsyncTask(AsyncTaskData * asyncTaskData){
+	CAsyncTask::CAsyncTask(IAsyncTaskData * asyncTaskData){
 		_asyncTaskData = asyncTaskData;
 		_onAsyncTaskFinishedList = new OnAsyncTaskFinishedList();
-	}
-
-	AsyncTask::~AsyncTask(){
-		delete _onAsyncTaskFinishedList;
-		_onAsyncTaskFinishedList = NULL;
-		delete _thread;
 		_thread = NULL;
 	}
 
-	void AsyncTask::attach(OnAsyncTaskFinished * onAsyncTaskFinished){
+	CAsyncTask::~CAsyncTask(){
+		delete _onAsyncTaskFinishedList;
+		_onAsyncTaskFinishedList = NULL;
+
+		if (_thread != NULL){
+			_thread->detach();
+			delete _thread;
+			_thread = NULL;
+		}
+	}
+
+	void CAsyncTask::attach(IOnAsyncTaskFinished * onAsyncTaskFinished){
 		_onAsyncTaskFinishedList->push_back(onAsyncTaskFinished);
 	}
 
-	void AsyncTask::notify(){
+	void CAsyncTask::join(){
+		if (_thread != NULL)
+			_thread->join();
+	}
+
+	void CAsyncTask::run(){
+		if (!_asyncTaskData == NULL){
+			_thread = new std::thread(&CAsyncTask::runAsyncData, this);
+		}
+	}
+
+	void CAsyncTask::notify(){
 		for (OnAsyncTaskFinishedList::iterator it = _onAsyncTaskFinishedList->begin();
-				it != _onAsyncTaskFinishedList->end(); ++it) {
-			OnAsyncTaskFinished * on = ((OnAsyncTaskFinished*)*it);
+			it != _onAsyncTaskFinishedList->end(); ++it) {
+			IOnAsyncTaskFinished * on = ((IOnAsyncTaskFinished*)*it);
 			on->onAsyncTaskListener();
 		}
 
-		//delete this;
+		// Tras realizar la AsyncTask, se borra así misma
+		this->~CAsyncTask();
 	}
 
-	void AsyncTask::run(){
-		if (!_asyncTaskData == NULL){
-
-			// Creamos el thread
-			_thread = new std::thread(&AsyncTask::runAsyncData, this);
-		}
-	}
-
-	void AsyncTask::runAsyncData(){
+	void CAsyncTask::runAsyncData(){
 		_asyncTaskData->run();
-
 		notify();
 	}
 
-} // namespace Application
+} // CAsyncTask

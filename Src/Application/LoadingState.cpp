@@ -19,13 +19,7 @@ Contiene la implementación del estado de la pantalla de loading.
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
 
-// Incluimos las tareas asíncronas
-#include "AsyncTask.h"
-
 #include <CEGUI/CEGUI.h>
-
-#include <thread>         // std::this_thread::sleep_for
-#include <chrono>         // std::chrono::seconds
 
 namespace Application {
 
@@ -66,25 +60,6 @@ namespace Application {
 		_menuWindow->setVisible(true);
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
-
-		// OGRE Background Load :(
-		// http://www.ogre3d.org/forums/viewtopic.php?f=2&t=42416
-		// http://www.ogre3d.org/forums/viewtopic.php?f=1&t=68539
-
-		/*
-		// Creamos la tarea asíncrona.
-		_asyncTask = new  AsyncTask(this);
-
-		// Nos registramos para cuando la tarea asíncrona acabe se nos notifique.
-		_asyncTask->attach(this);
-
-		// Ejecutamos la tarea asíncrona;
-		_isLoadingAysnc = true;
-
-		_asyncTask->run();
-		*/
-
-
 
 	} // activate
 
@@ -129,26 +104,5 @@ namespace Application {
 	{
 		_nextState = nextState;
 	} // setNextState
-
-	//--------------------------------------------------------
-
-	// Métodos correspondientes para la carga asíncrona de las tareas.
-
-	// Métodos que se va a ejecutar cuando la tarea asíncrona comience.
-
-	void CLoadingState::run(){
-
-		for (int i = 0; i < 10000; i++)
-			std::cout << "Carga asíncrona funcionando " << std::endl;
-	}
-
-	// Métodos que se va a acabar cuando la tarea asíncrona acabe.
-
-	void CLoadingState::onAsyncTaskListener(){
-		_isLoadingAysnc = false;
-
-		std::cout << "Carga asíncrona acabada " << std::endl;
-
-	}
 
 } // namespace Application

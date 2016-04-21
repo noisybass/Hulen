@@ -36,29 +36,20 @@ namespace Application
 {
 	/**
 	Como su nombre indica, esta clase es la clase de la pantalla de carga
-	del juego. Es muy sencilla y lo único que hace es cargar
-	un layout de CEGUI al inicio y activarlo y desactivarlo cuando
-	se activa o desactiva el estado (haciéndo visible/invisible también
-	el puntero del ratón). También asocia los eventos de los botones
-	del menú a las funciones C++ que se deben invocar cuando los botones
-	son pulsados.
-	<p>
-	Este estado es CEGUI dependiente, lo cual no es deseable, la aplicación
-	debería ser independiente de las tecnologías usadas.
+	del juego. 
 
-	@ingroup applicationGroup
-
-	@author David Llansó
-	@date Agosto, 2010
+	@author Daniel Ruiz
+	@date Abril, 2016
 	*/
-	class CLoadingState : public CApplicationState, public AsyncTaskData, public OnAsyncTaskFinished
+	class CLoadingState : public CApplicationState
 	{
 	public:
+
 		/**
 		Constructor de la clase
 		*/
 		CLoadingState(CBaseApplication *app) : CApplicationState(app),
-			_nextState(""), _asyncTask(NULL) , _isLoadingAysnc(false){}
+			_nextState(""){}
 
 		/**
 		Destructor
@@ -101,13 +92,10 @@ namespace Application
 		*/
 		virtual void tick(unsigned int msecs);
 
+		/**
+		Cambia el estado que se va a cargar tras el estado de loading.
+		*/
 		virtual void setNextState(const std::string & nextState);
-
-		// Métodos correspondientes para la carga asíncrona de las tareas.
-
-		virtual void run();
-
-		virtual void onAsyncTaskListener();
 
 	private:
 
@@ -120,16 +108,6 @@ namespace Application
 		Referencia del siguiente estado a cargar.
 		*/
 		std::string _nextState;
-
-		/*
-		Tarea asíncrona que gestiona el estado de Loading.
-		*/
-		AsyncTask * _asyncTask;
-
-		/*
-		Flag que indica si se está realizando la carga asíncrona.
-		*/
-		bool _isLoadingAysnc;
 
 	}; // CLoadingState
 

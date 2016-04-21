@@ -210,6 +210,9 @@ namespace Application {
 		// Pop GameState
 		_app->popState(true);
 
+		// Pop LoadingState
+		_app->popState(true);
+
 		// Push MenuState
 		_app->pushState("menu",true);
 		return true;
