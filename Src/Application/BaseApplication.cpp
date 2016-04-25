@@ -35,7 +35,7 @@ namespace Application {
 		_exit(false),
 		_clock(0),
 		_reloadState(false),
-		_fixedStep(0.01), //1.0f / 60.0f
+		_fixedStep(1000.0f/60.0f), //1.0f / 60.0f
 		_accumulatedTimeDiff(0.0f)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
@@ -263,32 +263,34 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
-
+			// Update clock
+			_clock->updateTime();
 			_accumulatedTimeDiff += _clock->getLastFrameDuration();
-			while (_accumulatedTimeDiff >= _fixedStep && !exitRequested()){
-				
-				// Recargamos el estado actual
-				if (_reloadState){
+			//std::cout << "Fuera: " << _accumulatedTimeDiff << std::endl;
+			//std::cout << "Clock: " << _clock->getLastFrameDuration() << std::endl;
 
-					_currentState->deactivate();
-					_currentState->release();
-					_currentState->init();
-					_currentState->activate();
-					_reloadState = false;
+			// Recargamos el estado actual
+			if (_reloadState){
 
-				}
+				_currentState->deactivate();
+				_currentState->release();
+				_currentState->init();
+				_currentState->activate();
+				_reloadState = false;
 
-				// Execute the pending actions
-				executeActions();
+			}
 
-				if (!_currentState ||
-					_currentState != _states.top())
-					changeState();
+			// Execute the pending actions
+			executeActions();
 
-				_clock->updateTime();
-				//tick(_clock->getLastFrameDuration());
-				tick(_fixedStep);
-				
+			if (!_currentState ||
+				_currentState != _states.top())
+				changeState();
+
+			
+			while (_accumulatedTimeDiff >= _fixedStep){
+				//std::cout << "Dentro: " << _accumulatedTimeDiff << std::endl;
+				tick(_fixedStep/1000);
 				_accumulatedTimeDiff -= _fixedStep;
 			}
 			
