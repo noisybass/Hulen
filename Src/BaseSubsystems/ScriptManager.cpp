@@ -21,6 +21,7 @@
 
 #include "BaseSubsystems/FSM.h"
 #include "BaseSubsystems/FSMAgent.h"
+#include "Logic/Entity/Component.h"
 
 namespace ScriptManager {
 

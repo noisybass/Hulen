@@ -83,8 +83,11 @@ namespace Logic
 		TComponentMap::const_iterator it;
 
 		// Desactivamos los componentes
-		for( it = _components.begin(); it != _components.end(); ++it )
-			it->second->deactivate();
+		for (it = _components.begin(); it != _components.end(); ++it)
+		{
+			if (it->second->isActive())
+				it->second->deactivate();
+		}
 
 		_activated = false;
 

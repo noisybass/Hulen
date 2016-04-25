@@ -202,11 +202,20 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	if(!actor)
 		return;
 
+	IPhysics *otherComponent = (IPhysics *)actor->userData;
+
+	if (_fsm)
+	{
+		_fsm->setValue<bool>("touching_entity", true);
+		_fsm->setValue<std::string>("touched_entity_bp", otherComponent->getEntity()->getBlueprint());
+		_fsm->setValue<std::string>("touched_go_name", otherComponent->getEntity()->getGameObject()->getName());
+	}
+
+
 	// Si chocamos contra una entidad cinemática mandamos
 	// un mensaje a la entidad contra la que nos hemos
 	// chocado
 	if (_server->isKinematic(actor)){
-		IPhysics *otherComponent = (IPhysics *)actor->userData;
 
 		TMessage msg;
 		msg._type = Message::SHAPE_HIT;
@@ -215,7 +224,7 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	}
 	
 	// Aplicar una fuerza a la entidad en la dirección del movimiento
-	actor->addForce(hit.dir * hit.length * 1000.0f);
+	//actor->addForce(hit.dir * hit.length * 1000.0f);
 }
 
 //---------------------------------------------------------
@@ -227,6 +236,7 @@ void CPhysicController::onControllerHit (const PxControllersHit &hit)
 		IPhysics *otherComponent = (IPhysics *)hit.other->getActor()->userData;
 
 		_fsm->setValue<bool>("touching_entity", true);
-		_fsm->setValue<std::string>("touched_entity", otherComponent->getEntity()->getBlueprint());
+		_fsm->setValue<std::string>("touched_entity_bp", otherComponent->getEntity()->getBlueprint());
+		_fsm->setValue<std::string>("touched_go_name", otherComponent->getEntity()->getGameObject()->getName());
 	}
 }

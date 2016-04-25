@@ -56,6 +56,7 @@ namespace Logic
 			INTERACTUABLE,
 			LEVER_INTERACTUABLE,
 			PLAYER_LEVER_INTERACT,
+			CHARGE_ERASED,
 		};
 
 		/**

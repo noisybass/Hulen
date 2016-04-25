@@ -69,7 +69,8 @@ namespace Logic
 			message._type == Message::PLAYER_EVENT ||
 			message._type == Message::PUT_CHARGE ||
 			message._type == Message::PICK_CHARGE ||
-			message._type == Message::PLAYER_LEVER_INTERACT; 
+			message._type == Message::PLAYER_LEVER_INTERACT ||
+			message._type == Message::CHARGE_ERASED; 
 
 	} // accept
 
@@ -105,7 +106,7 @@ namespace Logic
 				// Instanciamos la carga en el mapa
 				Vector3 pos = message.getArg<Vector3>("instancePosition");
 				std::stringstream ss;
-				ss << pos.x << " " << pos.y << " " << pos.z;
+				ss << pos.x << " " << pos.y << " " << 0;
 				std::string chargePosition = ss.str();
 				ss.str(std::string());
 				ss << "Charge" << _chargesOwned;
@@ -134,8 +135,23 @@ namespace Logic
 		case Message::PLAYER_EVENT:
 
 			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
-				    getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
-					->fireEvent(message.getArg<std::string>("playerEvent"));
+				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
+				->fireEvent(message.getArg<std::string>("playerEvent"));
+
+			break;
+		case Message::CHARGE_ERASED:
+
+			std::string chargeName = message.getArg<std::string>("chargeName");
+			CGameObject* charge = _gameObject->_map->getGameObjectByName(chargeName);
+
+			// Buscarla en el vector de referencias
+			std::vector<CGameObject*>::const_iterator it = std::find(_chargesOnMap.begin(), _chargesOnMap.end(), charge);
+
+			// Una vez que la tenemos la borramos del vector
+			if (it != _chargesOnMap.end())
+				_chargesOnMap.erase(it);
+
+			Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(charge);
 
 			break;
 		}

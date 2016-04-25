@@ -11,11 +11,11 @@ Map_GO = {
 		charge = "Charge_Prefab",
 	},
 
-	Crawler_GO = {
+	--[[Crawler_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},
+	},]]
 
 	Lightbulb_GO = {
 		type = "GameObject",
@@ -113,7 +113,7 @@ Map_GO = {
 		state = "Shadow",
 	},
 
-	Lever_GO = {
+	--[[Lever_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
@@ -129,7 +129,7 @@ Map_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},
+	},]]
 
 	--[[Cosa_GO = {
 		type = "GameObject",
@@ -140,7 +140,7 @@ Map_GO = {
 
 Map = {
 
-	FinishLevel_Body = {
+	--[[FinishLevel_Body = {
 		type = "Body",
 		blueprint = "FinishLevel",
 		game_object = "FinishLevel_GO",
@@ -177,7 +177,7 @@ Map = {
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
-	},
+	},]]
 	
 	Player_Body = {
 		type = "Body",
@@ -230,7 +230,7 @@ Map = {
 		gravity = 0.01,
 	},
 
-	Crawler_Body = {
+	--[[Crawler_Body = {
 		type = "Body",
 		blueprint = "Crawler",
 		game_object = "Crawler_GO",
@@ -251,13 +251,14 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Crawler_Patrol",
-	},
+	},]]
 
 	Lightbulb_Body = {
 		type = "Body",
-		blueprint = "Crawler",
+		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
-		position = {0, -14, 0},
+		--position = {0, -14, 0},
+		position = {-11, 0, 0},
 		scale = {0.2, 0.2, 0.2},
 		model = "marine.mesh",
 		material = "Red",
@@ -270,8 +271,10 @@ Map = {
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 0.005,
-		patrolPosition1 = {4, -14, 0},
-		patrolPosition2 = {10, -14, 0},
+		--patrolPosition1 = {4, -14, 0},
+		--patrolPosition2 = {10, -14, 0},
+		patrolPosition1 = {0, 0, 0},
+		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
 	},
 

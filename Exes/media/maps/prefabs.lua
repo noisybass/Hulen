@@ -86,7 +86,7 @@ Prefab = {
 		physic_trigger = false,
 		physic_group = 2,
 		physic_mass = 1,
-		physic_radius = 0.5,
-	},
+		physic_radius = 0.1,
+	}
 
 }
