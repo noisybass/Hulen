@@ -20,7 +20,7 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		void tick(unsigned int msecs) override;
+		void tick(float msecs) override;
 
 		template<typename T>
 		T getValue(const std::string& id) const { return _agent->getValue<T>(id); }

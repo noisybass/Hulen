@@ -18,7 +18,7 @@ namespace Logic
 
 		bool activate() override;
 
-		void tick(unsigned int msecs) override;
+		void tick(float msecs) override;
 
 	protected:
 

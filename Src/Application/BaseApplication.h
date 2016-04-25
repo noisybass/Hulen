@@ -281,7 +281,7 @@ namespace Application
 		la última llamada (o desde la áctivación de la aplicación, 
 		en caso de ser la primera vez...).
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		/**
 		Instancia única de la aplicación.
@@ -335,6 +335,10 @@ namespace Application
 		Acciones que se deben de hacer al inicio del tick.
 		*/
 		std::queue <CStateActions*> _actions;
+
+		// Fixed Loop in miliseconds
+		float _fixedStep;
+		float _accumulatedTimeDiff;
 
 	}; // class BaseApplication
 

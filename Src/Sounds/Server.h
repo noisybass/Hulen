@@ -75,7 +75,7 @@ namespace Sounds{
 		@param secs Millisegundos transcurridos desde la última actualización.
 		@return Valor booleano indicando si todo fue bien.
 		*/
-		bool tick(unsigned int msecs);
+		bool tick(float msecs);
 
 		/**
 		Devuelve la instancia al manejador de sonidos,

@@ -34,7 +34,9 @@ namespace Application {
 		_currentState(nullptr),
 		_exit(false),
 		_clock(0),
-		_reloadState(false)
+		_reloadState(false),
+		_fixedStep(0.01), //1.0f / 60.0f
+		_accumulatedTimeDiff(0.0f)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
 
@@ -261,26 +263,35 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
-			// Recargamos el estado actual
-			if (_reloadState){
 
-				_currentState->deactivate();
-				_currentState->release();
-				_currentState->init();
-				_currentState->activate();
-				_reloadState = false;
+			_accumulatedTimeDiff += _clock->getLastFrameDuration();
+			while (_accumulatedTimeDiff >= _fixedStep && !exitRequested()){
+				
+				// Recargamos el estado actual
+				if (_reloadState){
+
+					_currentState->deactivate();
+					_currentState->release();
+					_currentState->init();
+					_currentState->activate();
+					_reloadState = false;
+
+				}
+
+				// Execute the pending actions
+				executeActions();
+
+				if (!_currentState ||
+					_currentState != _states.top())
+					changeState();
+
+				_clock->updateTime();
+				//tick(_clock->getLastFrameDuration());
+				tick(_fixedStep);
+				
+				_accumulatedTimeDiff -= _fixedStep;
 			}
-
-			// Execute the pending actions
-			executeActions();
-
-			if (!_currentState ||
-				_currentState != _states.top())
-				changeState();
-
-			_clock->updateTime();
-
-			tick(_clock->getLastFrameDuration());
+			
 		}
 
 	} // run
@@ -304,7 +315,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CBaseApplication::tick(unsigned int msecs) 
+	void CBaseApplication::tick(float msecs) 
 	{
 		// Aparentemente esta función es sencilla. Aquí se pueden
 		// añadir otras llamadas que sean comunes a todos los estados

@@ -49,7 +49,7 @@ namespace Logic
 		GUI::CServer::getSingletonPtr()->getObjectsController()->removeControllerObject(_entity->getName());
 	} // deactivate
 
-	void CLeverInteractuable::tick(unsigned int msecs){
+	void CLeverInteractuable::tick(float msecs){
 		IComponent::tick(msecs);
 
 		// If is inside of the interactuable radius (_canInteract) and

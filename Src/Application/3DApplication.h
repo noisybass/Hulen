@@ -83,7 +83,7 @@ namespace Application
 		la última llamada (o desde la activación de la aplicación, 
 		en caso de ser la primera vez...).
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 
 

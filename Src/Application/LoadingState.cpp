@@ -77,7 +77,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CLoadingState::tick(unsigned int msecs)
+	void CLoadingState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 

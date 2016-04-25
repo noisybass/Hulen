@@ -92,7 +92,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::tick(unsigned int msecs) 
+	void CEntity::tick(float msecs)
 	{
 		TComponentMap::const_iterator it;
 

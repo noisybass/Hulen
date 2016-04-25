@@ -17,7 +17,7 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		void tick(unsigned int msecs) override;
+		void tick(float msecs) override;
 
 		bool accept(const TMessage &message) override;
 

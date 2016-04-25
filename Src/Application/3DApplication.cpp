@@ -144,15 +144,15 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void C3DApplication::tick(unsigned int msecs) 
+	void C3DApplication::tick(float msecs) 
 	{
 		CBaseApplication::tick(msecs);
 
 		GUI::CInputManager::getSingletonPtr()->tick();
 
-		Graphics::CServer::getSingletonPtr()->tick(msecs/1000.0f);
+		Graphics::CServer::getSingletonPtr()->tick(msecs);
 
-		Sounds::CServer::getSingletonPtr()->tick(msecs / 1000.0f);
+		Sounds::CServer::getSingletonPtr()->tick(msecs);
 
 	} // tick
 

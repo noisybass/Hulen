@@ -223,7 +223,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CAvatarController::tick(unsigned int msecs)
+	void CAvatarController::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

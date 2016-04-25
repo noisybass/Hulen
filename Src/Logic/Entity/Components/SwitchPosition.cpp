@@ -82,7 +82,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CSwitchPosition::tick(unsigned int msecs)
+	void CSwitchPosition::tick(float msecs)
 	{
 		// Invocamos al método de la clase padre
 		IComponent::tick(msecs);

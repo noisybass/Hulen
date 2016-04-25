@@ -74,7 +74,7 @@ namespace Logic
 		_nextPositionToGo = position;
 	}
 
-	void CMoveController::tick(unsigned int msecs)
+	void CMoveController::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

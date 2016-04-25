@@ -62,7 +62,7 @@ namespace Logic
 
 	}
 
-	void CVision::tick(unsigned int msecs)
+	void CVision::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

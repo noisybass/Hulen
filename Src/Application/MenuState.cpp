@@ -133,7 +133,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::tick(unsigned int msecs) 
+	void CMenuState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 

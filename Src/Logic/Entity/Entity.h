@@ -112,7 +112,7 @@ namespace Logic
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		void tick(unsigned int msecs);
+		void tick(float msecs);
 
 		/**
 		Método que añade un nuevo componente a la lista de la entidad.

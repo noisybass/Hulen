@@ -171,7 +171,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::tick(unsigned int msecs) 
+	void CGameState::tick(float msecs) 
 	{
 		CApplicationState::tick(msecs);
 
@@ -184,7 +184,7 @@ namespace Application {
 		_time += msecs;
 		
 		std::stringstream text;
-		text << "Time: " << _time/1000;
+		text << "Time: " << (int)_time;
 		_timeWindow->setText(text.str());
 
 	} // tick

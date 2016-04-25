@@ -43,7 +43,7 @@ namespace Logic
 
 	} // deactivate
 
-	void CChase::tick(unsigned int msecs)
+	void CChase::tick(float msecs)
 	{
 		if (_active)
 		{

@@ -124,7 +124,7 @@ namespace Physics {
 		@param secs Millisegundos transcurridos desde la última actualización.
 		@return Valor booleano indicando si todo fue bien.
 		*/
-		bool tick(unsigned int msecs);
+		bool tick(float msecs);
 
 
 		//----------------------

@@ -35,7 +35,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void IComponent::tick(unsigned int msecs)
+	void IComponent::tick(float msecs)
 	{
 		processMessages();
 
