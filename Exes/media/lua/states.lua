@@ -163,20 +163,18 @@ end
 
 Lightbulb_Patrol["Execute"] = function(agent, msecs)
 
-	--if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
-		--agent: ChangeState(Lightbulb_Attack)
-	--end
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: ChangeState(Lightbulb_Attack)
 
-	if agent: GetBoolValue("seeing_entity") then
+	elseif agent: GetBoolValue("seeing_entity") then
 		if agent: GetStringValue("seen_entity_bp") == "Charge" then
 			print ("Chasing charge...")
 			agent: ChangeState(Lightbulb_Chase)
-		end
 
-		--if agent: GetStringValue("seen_entity_bp") == "Player" then
-			--print ("Chasing player...")
-			--agent: ChangeState(Lightbulb_Chase)
-		--end
+		elseif agent: GetStringValue("seen_entity_bp") == "Player" then
+			print ("Chasing player...")
+			agent: ChangeState(Lightbulb_Chase)
+		end
 	end
 
 end
@@ -205,12 +203,11 @@ end
 
 Lightbulb_Chase["Execute"] = function(agent, msecs)
 
-	--if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
-		--print ("Touching player...")
-		--agent: ChangeState(Lightbulb_Attack)
-	--end
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		print ("Touching player...")
+		agent: ChangeState(Lightbulb_Attack)
 
-	if agent: GetBoolValue("touching_entity") and agent: GetStringValue("touched_entity_bp") == "Charge" then
+	elseif agent: GetBoolValue("touching_entity") and agent: GetStringValue("touched_entity_bp") == "Charge" then
 		print ("Eating charge...")
 		agent: ChangeState(Lightbulb_EatCharge)
 
@@ -218,11 +215,7 @@ Lightbulb_Chase["Execute"] = function(agent, msecs)
 		agent: ChangeState(Lightbulb_Alert)
 
 	elseif agent:GetBoolValue("seeing_entity") then
-		--if not agent: GetStringValue("seen_entity_bp") == "Player" then
-			--agent: ChangeState(Lightbulb_Alert)
-		--end
-
-		if not agent: GetStringValue("seen_entity_bp") == "Charge" then
+		if not (agent: GetStringValue("seen_entity_bp") == "Player" or agent: GetStringValue("seen_entity_bp") == "Charge") then
 			agent: ChangeState(Lightbulb_Alert)
 		end
 	end
@@ -255,16 +248,15 @@ end
 
 Lightbulb_Alert["Execute"] = function(agent, msecs)
 
-	--if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
-		--agent: ChangeState(Lightbulb_Attack)
-	--end
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: ChangeState(Lightbulb_Attack)
 
-	--if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
-		--agent: ChangeState(Lightbulb_Chase)
-	--end
-
-	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Charge") then
+	elseif agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
 		agent: ChangeState(Lightbulb_Chase)
+
+	elseif agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Charge") then
+		agent: ChangeState(Lightbulb_Chase)
+
 	else
 		Lightbulb_Alert.accum_time = Lightbulb_Alert.accum_time + msecs
 
@@ -335,31 +327,5 @@ Lightbulb_EatCharge["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Eat Charge")
 	agent: Deactivate(Lightbulb_EatCharge.component)
-
-end
-
-------------------------------------------------
-------------------------------------------------
-------------------------------------------------
-
-Lightbulb_Wait = {
-
-}
-
-Lightbulb_Wait["Enter"] = function(agent)
-
-	print ("[Lua]: Enter State Wait")
-
-end
-
-Lightbulb_Wait["Execute"] = function(agent, msecs)
-
-	--agent: ChangeState(Lightbulb_Patrol)
-
-end
-
-Lightbulb_Wait["Exit"] = function(agent)
-
-	print ("[Lua]: Exit State Wait")
 
 end

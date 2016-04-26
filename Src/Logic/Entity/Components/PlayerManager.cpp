@@ -168,7 +168,6 @@ namespace Logic
 			// Cambio de sombra a cuerpo
 			if (state == GameObject::BODY)
 			{
-				std::cout << "Cambiando de sombra a cuerpo" << std::endl;
 				_gameObject->_state = GameObject::BODY;
 				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getBody());
 
@@ -178,7 +177,6 @@ namespace Logic
 			// Cambio de cuerpo a sombra
 			else
 			{
-				std::cout << "Cambiando de cuerpo a sombra" << std::endl;
 				_gameObject->_state = GameObject::SHADOW;
 				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getShadow());
 
