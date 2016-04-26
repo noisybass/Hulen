@@ -34,7 +34,7 @@ namespace Logic
 
 	} // spawn
 
-	void CLeverTargetExample::tick(unsigned int msecs){
+	void CLeverTargetExample::tick(float msecs){
 		IComponent::tick(msecs);
 
 		if (_leverSwitch) _graphics->setMaterial("Purple");

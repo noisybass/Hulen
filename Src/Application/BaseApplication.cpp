@@ -21,6 +21,7 @@ de todo el juego.
 
 #include "Map\MapParser.h"
 #include "GameState.h"
+#include "LoadingState.h"
 
 #include <assert.h>
 
@@ -33,7 +34,9 @@ namespace Application {
 		_currentState(nullptr),
 		_exit(false),
 		_clock(0),
-		_reloadState(false)
+		_reloadState(false),
+		_fixedStep(1000.0f/60.0f), //1.0f / 60.0f
+		_accumulatedTimeDiff(0.0f)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
 
@@ -227,6 +230,25 @@ namespace Application {
 
 	//--------------------------------------------------------
 
+	bool CBaseApplication::setLoadingNextState(const std::string &loadingNextState){
+
+		// Buscamos el estado.
+		TStateTable::const_iterator it;
+
+		it = _stateTable.find(States::LoadingState);
+
+		// Si no hay ningún estado con ese nombre, no hacemos nada.
+		if (it == _stateTable.end())
+			return false;
+
+		//  Cambiamos la escena a cargar del estado loading.
+		((CLoadingState *)it->second)->setNextState(loadingNextState);
+
+		return true;
+	} // setLoadingNextState
+
+	//--------------------------------------------------------
+
 	void CBaseApplication::run() 
 	{
 		assert(_clock && "Asegurate de haber creado un reloj en el init de la clase de tu aplicacion!");
@@ -241,6 +263,12 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
+			// Update clock
+			_clock->updateTime();
+			_accumulatedTimeDiff += _clock->getLastFrameDuration();
+			//std::cout << "Fuera: " << _accumulatedTimeDiff << std::endl;
+			//std::cout << "Clock: " << _clock->getLastFrameDuration() << std::endl;
+
 			// Recargamos el estado actual
 			if (_reloadState){
 
@@ -249,6 +277,7 @@ namespace Application {
 				_currentState->init();
 				_currentState->activate();
 				_reloadState = false;
+
 			}
 
 			// Execute the pending actions
@@ -258,9 +287,13 @@ namespace Application {
 				_currentState != _states.top())
 				changeState();
 
-			_clock->updateTime();
-
-			tick(_clock->getLastFrameDuration());
+			
+			while (_accumulatedTimeDiff >= _fixedStep){
+				//std::cout << "Dentro: " << _accumulatedTimeDiff << std::endl;
+				tick(_fixedStep/1000);
+				_accumulatedTimeDiff -= _fixedStep;
+			}
+			
 		}
 
 	} // run
@@ -284,7 +317,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CBaseApplication::tick(unsigned int msecs) 
+	void CBaseApplication::tick(float msecs) 
 	{
 		// Aparentemente esta función es sencilla. Aquí se pueden
 		// añadir otras llamadas que sean comunes a todos los estados

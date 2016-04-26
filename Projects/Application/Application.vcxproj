@@ -106,11 +106,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Application\3DApplication.cpp" />
+    <ClCompile Include="..\..\Src\Application\AsyncTask.cpp" />
     <ClCompile Include="..\..\Src\Application\BaseApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\Clock.cpp" />
     <ClCompile Include="..\..\Src\Application\Galeon.cpp" />
     <ClCompile Include="..\..\Src\Application\GaleonApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\GameState.cpp" />
+    <ClCompile Include="..\..\Src\Application\LoadingState.cpp" />
     <ClCompile Include="..\..\Src\Application\MenuState.cpp" />
     <ClCompile Include="..\..\Src\Application\OgreClock.cpp" />
     <ClCompile Include="..\..\Src\Application\OptionsState.cpp" />
@@ -122,12 +124,14 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\Application\3DApplication.h" />
     <ClInclude Include="..\..\Src\Application\ApplicationState.h" />
+    <ClInclude Include="..\..\Src\Application\AsyncTask.h" />
     <ClInclude Include="..\..\Src\Application\BaseApplication.h" />
     <ClInclude Include="..\..\Src\Application\Clock.h" />
     <ClInclude Include="..\..\Src\Application\Documentation.h" />
     <ClInclude Include="..\..\Src\Application\ExitState.h" />
     <ClInclude Include="..\..\Src\Application\GaleonApplication.h" />
     <ClInclude Include="..\..\Src\Application\GameState.h" />
+    <ClInclude Include="..\..\Src\Application\LoadingState.h" />
     <ClInclude Include="..\..\Src\Application\MenuState.h" />
     <ClInclude Include="..\..\Src\Application\OgreClock.h" />
     <ClInclude Include="..\..\Src\Application\OptionsState.h" />

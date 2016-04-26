@@ -77,7 +77,7 @@ namespace Logic
 
 	} // process
 
-	void CPatrol::tick(unsigned int msecs)
+	void CPatrol::tick(float msecs)
 	{
 		if (_active)
 		{

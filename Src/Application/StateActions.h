@@ -10,6 +10,7 @@ namespace Application
 		GameState,
 		OptionsState,
 		PauseState,
+		LoadingState,
 		ExitState,
 	};
 

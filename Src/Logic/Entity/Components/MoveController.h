@@ -40,7 +40,7 @@ namespace Logic
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos

@@ -298,7 +298,7 @@ namespace Logic {
 
 	//---------------------------------------------------------
 
-	void CMap::tick(unsigned int msecs) 
+	void CMap::tick(float msecs)
 	{
 		TGameObjectMap::const_iterator it;
 

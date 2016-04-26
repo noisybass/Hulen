@@ -186,7 +186,7 @@ namespace Logic
 		}
 	} // changeState
 
-	void CPlayerManager::tick(unsigned int msecs)
+	void CPlayerManager::tick(float msecs)
 	{
 		// Llamar al método de la clase padre (IMPORTANTE).
 		IComponent::tick(msecs);

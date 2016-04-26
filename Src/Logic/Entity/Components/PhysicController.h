@@ -95,7 +95,7 @@ namespace Logic
 		<li> Mueve el character controller de acuerdo al último mensaje AVATAR_WALK recibido. </li>
 		</ul>
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		/**
 		Se invoca cuando se produce una colisión entre una entidad física y un trigger.

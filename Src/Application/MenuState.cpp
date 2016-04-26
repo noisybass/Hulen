@@ -18,6 +18,7 @@ Contiene la implementación del estado de menú.
 
 #include "GUI/Server.h"
 #include "Sounds\Server.h"
+#include "LoadingState.h"
 
 #include <CEGUI/CEGUI.h>
 
@@ -132,7 +133,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CMenuState::tick(unsigned int msecs) 
+	void CMenuState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 
@@ -173,14 +174,11 @@ namespace Application {
 			// Pop MenuState
 			_app->addAction(new CPopAction(true));
 
-			// Push GameState
-			_app->addAction(new CPushAction(States::GameState, true));
+			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+			_app->setLoadingNextState("game");
 
-			// Push PauseState
-			_app->addAction(new CPushAction(States::PauseState, true));
-
-			// Pop PauseState (deactivation)
-			_app->addAction(new CPopAction());
+			// Push LoadingState
+			_app->addAction(new CPushAction(States::LoadingState, true));
 
 			return true;
 
@@ -232,18 +230,15 @@ namespace Application {
 		// Intenta cambiar el fichero del mapa a cargar
 		if (!_app->setGameStateMap(mapName))
 			return false;
-	
+
 		// Pop MenuState
 		_app->addAction(new CPopAction(true));
 
-		// Push GameState
-		_app->addAction(new CPushAction(States::GameState, true));
+		// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+		_app->setLoadingNextState("game");
 
-		// Push PauseState
-		_app->addAction(new CPushAction(States::PauseState, true));
-
-		// Pop PauseState (deactivation)
-		_app->addAction(new CPopAction());
+		// Push LoadingState
+		_app->addAction(new CPushAction(States::LoadingState, true));
 
 		return true;
 

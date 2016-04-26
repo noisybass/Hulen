@@ -50,7 +50,7 @@ namespace Application {
 			return false;
 
 		// Cargamos el nivel a partir del nombre del mapa. 
-		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "Prefabs.lua"))
+		if (!Logic::CServer::getSingletonPtr()->loadLevel(_mapName, "prefabs.lua"))
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
@@ -171,7 +171,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::tick(unsigned int msecs) 
+	void CGameState::tick(float msecs) 
 	{
 		CApplicationState::tick(msecs);
 
@@ -184,7 +184,7 @@ namespace Application {
 		_time += msecs;
 		
 		std::stringstream text;
-		text << "Time: " << _time/1000;
+		text << "Time: " << (int)_time;
 		_timeWindow->setText(text.str());
 
 	} // tick

@@ -126,7 +126,7 @@ void CPhysicController::process(const TMessage &message)
 
 //---------------------------------------------------------
 
-void CPhysicController::tick(unsigned int msecs) 
+void CPhysicController::tick(float msecs)
 {
 	// Llamar al método de la clase padre (IMPORTANTE).
 	IComponent::tick(msecs);

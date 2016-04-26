@@ -111,7 +111,7 @@ namespace Application
 		la última llamada (o desde la áctivación del estado, en caso
 		de ser la primera vez...).
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		/**
 		Método que cambia el fichero del mapa a cargar. 
@@ -210,7 +210,7 @@ namespace Application
 		/**
 		Tiempo de juego en milisegundos.
 		*/
-		unsigned int _time;
+		float _time;
 
 		/**
 		Player events.

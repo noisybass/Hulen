@@ -266,14 +266,15 @@ void CServer::destroyScene ()
 
 //--------------------------------------------------------
 
-bool CServer::tick(unsigned int msecs) 
+bool CServer::tick(float msecs)
 {
 	assert(_scene);
 
 	// Empezar la simulación física. Actualmente usamos intervalos de tiempo variables,
 	// debemos tener cuidado porque PhysX puede no comportarse bien si el tiempo 
 	// transcurrido es demasiado grande.
-	_scene->simulate(msecs / 1000.0f);
+	//_scene->simulate(msecs / 1000.0f);
+	_scene->simulate(msecs);
 
 	// Esperamos a que la simulación física termine. En principio podríamos utilizar
 	// este intervalo de tiempo para hacer algo más útil. Existe una versión de este

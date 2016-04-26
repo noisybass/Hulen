@@ -183,7 +183,7 @@ namespace Logic
 
 	} // isActivated
 
-	void CGameObject::tick(unsigned int msecs)
+	void CGameObject::tick(float msecs)
 	{
 		TComponentMap::const_iterator it;
 

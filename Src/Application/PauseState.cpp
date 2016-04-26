@@ -131,7 +131,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CPauseState::tick(unsigned int msecs)
+	void CPauseState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 

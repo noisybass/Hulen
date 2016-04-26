@@ -66,7 +66,7 @@ namespace Logic
 		Mueve el componente hacia la posición de destino. Una vez la alcance se para
 		(loop = false) o empieza a moverse hacia la otra posición (loop = true).
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 	protected:
 

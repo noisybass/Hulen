@@ -32,7 +32,7 @@ namespace Logic
 	} // spawn
 
 
-	void CFSMEntity::tick(unsigned int msecs)
+	void CFSMEntity::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

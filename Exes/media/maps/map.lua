@@ -113,7 +113,7 @@ Map_GO = {
 		state = "Shadow",
 	},
 
-	--[[Lever_GO = {
+	Lever_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
@@ -129,7 +129,7 @@ Map_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},]]
+	},
 
 	--[[Cosa_GO = {
 		type = "GameObject",
@@ -140,11 +140,11 @@ Map_GO = {
 
 Map = {
 
-	--[[FinishLevel_Body = {
+	FinishLevel_Body = {
 		type = "Body",
 		blueprint = "FinishLevel",
 		game_object = "FinishLevel_GO",
-		position = {-15, -3, 0},
+		position = {27, -8, 0},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "static",
@@ -157,33 +157,34 @@ Map = {
 		type = "Body",
 		blueprint = "LeverTarget",
 		game_object = "LeverTarget_GO",
-		position = {-20, 5, 0},
+		position = {2, -12, 0},
+		scale = {1, 5, 1},
 		model = "Cube.mesh",
-		position2 = {-20, 10, 0},
-		speed = 0.01,
+		position2 = {2, -7, 0},
+		speed = 10,
 		physic_entity = "rigid",
 		physic_type = "kinematic",
 		physic_mass = 1,
 		physic_shape = "box",
-		physic_dimensions = { 1,1,1 },
+		physic_dimensions = { 1,3,2},
 	},
 
 	Lever_Body = {
 		type = "Body",
 		blueprint = "Lever",
 		game_object = "Lever_GO",
-		position = {-20, -3, 0},
+		position = {0, -14, 0},
 		model = "Cube.mesh",
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
-	},]]
+	},
 	
 	Player_Body = {
 		type = "Body",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {-27.8, 0, 0},
+		position = {-27.8, 0, 0.1},
 		scale = {0.2, 0.2, 0.2},
 		--model = "marine.mesh",
 		model = "Test_Main_character.mesh",
@@ -195,13 +196,12 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
-		physic_group = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.03,
+		speed = 10,
+		jump_speed = 30,
 		jump_height = 8.0,
-		gravity = 0.015,
+		gravity = 15,
 		defaultVision = 5,
 	},
 
@@ -221,13 +221,12 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
-		physic_group = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.03,
+		speed = 10,
+		jump_speed = 30,
 		jump_height = 8.0,
-		gravity = 0.01,
+		gravity = 15,
 	},
 
 	--[[Crawler_Body = {
@@ -244,10 +243,10 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 0.1,
-		physic_group = 1,
+		gravity = 15,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.005,
+		speed = 5,
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Crawler_Patrol",
@@ -268,9 +267,10 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 0.1,
+		gravity = 15,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.005,
+		speed = 2.5,
 		--patrolPosition1 = {4, -14, 0},
 		--patrolPosition2 = {10, -14, 0},
 		patrolPosition1 = {0, 0, 0},

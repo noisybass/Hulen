@@ -45,7 +45,7 @@ namespace Logic
 
 	} // activate
 
-	void CLightingArea::tick(unsigned int msecs)
+	void CLightingArea::tick(float msecs)
 	{
 		CPointLight* light = (CPointLight*)(_entity->getComponent("CPointLight"));
 

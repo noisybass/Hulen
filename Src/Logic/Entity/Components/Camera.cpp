@@ -103,7 +103,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CCamera::tick(unsigned int msecs)
+	void CCamera::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

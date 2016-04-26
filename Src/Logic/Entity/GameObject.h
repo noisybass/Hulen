@@ -43,7 +43,7 @@ namespace Logic
 
 		bool isActivated();
 
-		void tick(unsigned int msecs);
+		void tick(float msecs);
 
 		void addComponent(const std::string& name, IComponent* component);
 

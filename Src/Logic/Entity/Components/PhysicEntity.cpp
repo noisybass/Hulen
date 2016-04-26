@@ -87,7 +87,7 @@ void CPhysicEntity::process(const TMessage &message)
 
 //---------------------------------------------------------
 
-void CPhysicEntity::tick(unsigned int msecs) 
+void CPhysicEntity::tick(float msecs)
 {
 	// Invocar al método de la clase padre (IMPORTANTE)
 	IComponent::tick(msecs);
