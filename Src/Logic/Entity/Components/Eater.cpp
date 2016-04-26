@@ -29,9 +29,6 @@ namespace Logic
 		{
 			std::string chargeName = fsm->getValue<std::string>("touched_go_name");
 
-			fsm->setValue<bool>("touching_entity", false);
-			fsm->setValue<bool>("seeing_entity", false);
-
 			// Tenemos que avisar al player de que hay una carga menos en el mapa
 			TMessage msg;
 			msg._type = Message::CHARGE_ERASED;
@@ -51,6 +48,9 @@ namespace Logic
 		IComponent::deactivate();
 
 		std::cout << "DESACTIVANDO EATER..." << std::endl;
+
+		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+		fsm->setValue<bool>("touching_entity", false);
 
 	} // deactivate
 
