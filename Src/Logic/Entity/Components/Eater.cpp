@@ -15,6 +15,8 @@ namespace Logic
 
 		_active = false;
 
+		return true;
+
 	} // spawn
 
 	bool CEater::activate()

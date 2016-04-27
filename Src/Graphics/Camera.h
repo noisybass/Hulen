@@ -62,14 +62,14 @@ namespace Graphics
 
 		@return Referencia al aspect ratio de la cámara.
 		*/
-		const float &getAspectRatio();
+		float getAspectRatio() const;
 
 		/**
 		Devuelve el campo que abarca el FOV en grados.
 
 		@return Referencia al FOV de la cámara.
 		*/
-		const float &getFOV();
+		float getFOV() const;
 
 		/**
 		Devuelve la orientación de la cámara.
@@ -109,7 +109,7 @@ namespace Graphics
 
 		/**
 		*/
-		Vector3 screenToWorld(unsigned int screenX, unsigned int screenY) const;
+		Vector3 screenToWorld(float screenX, float screenY) const;
 
 	protected:
 		

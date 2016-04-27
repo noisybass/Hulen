@@ -41,7 +41,6 @@ namespace Logic
 
 	void CChargeInteractuable::process(const TMessage &message)
 	{
-		CEntity* other;
 		switch (message._type)
 		{
 		case Message::TOUCHED:

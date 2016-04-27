@@ -76,11 +76,11 @@ namespace Graphics
 		return _targetNode->getPosition();
 	}
 
-	const float &CCamera::getAspectRatio(){
+	float CCamera::getAspectRatio() const {
 		return _camera->getAspectRatio();
 	}
 
-	const float &CCamera::getFOV(){
+	float CCamera::getFOV() const {
 		return _camera->getFOVy().valueDegrees();
 	}
 
@@ -114,7 +114,7 @@ namespace Graphics
 		_camera->setFOVy((Ogre::Radian)Ogre::Math::AngleUnitsToRadians(degree));
 	}
 
-	Vector3 CCamera::screenToWorld(unsigned int screenX, unsigned int screenY) const
+	Vector3 CCamera::screenToWorld(float screenX, float screenY) const
 	{
 		float x = screenX / _camera->getViewport()->getActualWidth();
 		float y = screenY / _camera->getViewport()->getActualHeight();
