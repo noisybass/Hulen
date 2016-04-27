@@ -114,7 +114,7 @@ namespace Graphics
 		_camera->setFOVy((Ogre::Radian)Ogre::Math::AngleUnitsToRadians(degree));
 	}
 
-	Vector3 CCamera::screenToWorld(float screenX, float screenY) const
+	Vector3 CCamera::screenToWorld(unsigned int screenX, unsigned int screenY) const
 	{
 		float x = screenX / _camera->getViewport()->getActualWidth();
 		float y = screenY / _camera->getViewport()->getActualHeight();

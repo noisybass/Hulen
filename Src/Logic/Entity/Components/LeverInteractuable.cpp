@@ -82,7 +82,6 @@ namespace Logic
 
 	void CLeverInteractuable::process(const TMessage &message)
 	{
-		CEntity* other;
 		switch (message._type)
 		{
 		case Message::INTERACTUABLE:

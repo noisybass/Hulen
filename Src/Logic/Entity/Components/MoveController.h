@@ -17,7 +17,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CMoveController() : IComponent(), _speed(0.01), _gravity(0.015) {}
+		CMoveController() : IComponent(), _speed(0.01f), _gravity(0.015f) {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de

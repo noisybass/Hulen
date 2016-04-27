@@ -109,7 +109,7 @@ namespace Graphics
 
 		/**
 		*/
-		Vector3 screenToWorld(float screenX, float screenY) const;
+		Vector3 screenToWorld(unsigned int screenX, unsigned int screenY) const;
 
 	protected:
 		

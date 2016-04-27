@@ -28,8 +28,8 @@ namespace Logic {
 		// Parseamos el fichero de prefab
 		if (!Map::CMapParser::getSingletonPtr()->parseFile(prefabPath, "Prefab"))
 		{
-			assert(!"No se ha podido parsear los prefabs.");
-			return nullptr;
+			assert(!"No se han podido parsear los prefabs.");
+			return false;
 		}
 
 		// Extraemos las entidades del parseo.
@@ -81,6 +81,7 @@ namespace Logic {
 			}
 		}
 
+		return true;
 	}
 
 	CGameObject* CMap::instantiatePrefab(const std::string& prefabToInstantiate, const std::string& nameToNewInstance,

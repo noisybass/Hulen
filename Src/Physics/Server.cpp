@@ -617,7 +617,7 @@ PxCapsuleController* CServer::createCapsuleController(const Vector3 &position, f
 
 //--------------------------------------------------------
 
-unsigned CServer::moveController(PxController *controller, const Vector3 &movement, unsigned int msecs)
+unsigned CServer::moveController(PxController *controller, const Vector3 &movement, float msecs)
 {
 	assert(_scene);
 

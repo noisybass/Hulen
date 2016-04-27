@@ -15,7 +15,7 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CVision() : IComponent(), _fsm(nullptr), _ray(), _defaultVision(5), _xRaySeparation(0.7), _yRaySeparation(0.5),
+		CVision() : IComponent(), _fsm(nullptr), _ray(), _defaultVision(5.0f), _xRaySeparation(0.7f), _yRaySeparation(0.5f),
 			_seeingEntity(false), _lastSeenEntity(nullptr) {}
 		
 		/**

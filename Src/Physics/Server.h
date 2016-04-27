@@ -305,7 +305,7 @@ namespace Physics {
 		@return Flags de colisión, un conjunto de physx::PxControllerFlag.
 		*/
 		unsigned CServer::moveController(physx::PxController *controller, const Vector3 &movement, 
-			                             unsigned int msecs);
+			                             float msecs);
 
 		/**
 		Devuelve la posición del controller.
