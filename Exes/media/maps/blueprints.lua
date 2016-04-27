@@ -4,6 +4,7 @@ Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController
 Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack
 Lightbulb CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
+Centaur CAnimatedGraphics CPhysicController CVision CFSMEntity CAttack CCharger
 Camera CCamera
 Kasai CPointLight CMousePointerFollower CLightingArea
 Charge CGraphics CPointLight CLightingArea CInteractuable CChargeInteractuable CPhysicEntity

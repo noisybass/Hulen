@@ -29,7 +29,7 @@ namespace AI
 
 	} // ~Crawler
 
-	void FSMAgent::update(unsigned int msecs)
+	void FSMAgent::update(float msecs)
 	{
 		_FSM->update(msecs);
 

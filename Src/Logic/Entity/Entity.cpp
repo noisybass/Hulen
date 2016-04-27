@@ -4,7 +4,7 @@ namespace Logic
 {
 	CEntity::CEntity() 
 		: _gameObject(nullptr), _blueprint(""), _name(""), _position(Vector3::ZERO),
-		_activated(false), _changeState(false), _direction(ENTITY_DIRECTION::NONE)
+		_activated(false), _changeState(false), _direction(ENTITY_DIRECTION::RIGHT)
 	{
 
 	} // CEntity
@@ -34,13 +34,21 @@ namespace Logic
 			_position = entityInfo->getVector3Attribute("position");
 		}
 
-		_direction = ENTITY_DIRECTION::RIGHT;
-
 		if (entityInfo->hasAttribute("direction"))
 		{
 			std::string direction = entityInfo->getStringAttribute("direction");
-			if (direction == "right") _direction = ENTITY_DIRECTION::RIGHT;
-			else if (direction == "left") _direction = ENTITY_DIRECTION::LEFT;
+			if (direction == "right")
+			{
+				_direction = ENTITY_DIRECTION::RIGHT;
+			}
+			else if (direction == "left")
+			{
+				_direction = ENTITY_DIRECTION::LEFT;
+				TMessage msg;
+				msg._type = Message::ROLL_ENTITY_NODE;
+				msg.setArg<int>(("degrees"), 180);
+				emitMessage(msg);
+			}
 		}
 
 		// Inicializamos los componentes

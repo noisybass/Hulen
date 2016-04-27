@@ -54,6 +54,7 @@ namespace Logic
 
 			moveController->nextPosition(_target->getPosition());
 		}
-	}
+
+	} // tick
 
 } // namespace Logic

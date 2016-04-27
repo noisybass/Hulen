@@ -17,7 +17,13 @@ Map_GO = {
 		state = "Body",
 	},]]
 
-	Lightbulb_GO = {
+	--[[Lightbulb_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]
+
+	Centaur_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
@@ -252,12 +258,12 @@ Map = {
 		fsm_initial_state = "Crawler_Patrol",
 	},]]
 
-	Lightbulb_Body = {
+	--[[Lightbulb_Body = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
 		--position = {0, -14, 0},
-		position = {-11, 0, 0},
+		position = {3, 0, 0},
 		scale = {0.2, 0.2, 0.2},
 		model = "marine.mesh",
 		material = "Red",
@@ -276,6 +282,29 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
+	},]]
+
+	Centaur_Body = {
+		type = "Body",
+		blueprint = "Centaur",
+		game_object = "Centaur_GO",
+		position = {3, -3.5, 0},
+		scale = {0.2, 0.2, 0.2},
+		direction = "left",
+		model = "marine.mesh",
+		material = "Red",
+		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		idleAnimation = "Idle",
+		physic_shape = "capsule",
+		physic_radius = 1,
+		physic_height = 0.1,
+		gravity = 15,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 12,
+		defaultVision = 10,
+		fsm_initial_state = "Centaur_Idle",
 	},
 
 	Kasai = {

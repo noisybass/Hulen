@@ -1,5 +1,5 @@
-#ifndef MOVECONTROLLER_H
-#define MOVECONTROLLER_H
+#ifndef LOGIC_MOVE_CONTROLLER_H
+#define LOGIC_MOVE_CONTROLLER_H
 
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/Entity.h"
@@ -94,4 +94,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // MOVECONTROLLER_H
+#endif // LOGIC_MOVE_CONTROLLER_H

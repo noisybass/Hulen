@@ -129,8 +129,6 @@ end
 
 Crawler_Attack["Execute"] = function(agent, msecs)
 
-	--print ("[Lua]: Executing State Attack")
-
 end
 
 Crawler_Attack["Exit"] = function(agent)
@@ -234,8 +232,7 @@ end
 ------------------------------------------------
 
 Lightbulb_Alert = {
-	component = "CAlert",
-	wait_time = 5000,
+	wait_time = 5,
 	accum_time = 0
 }
 
@@ -327,5 +324,135 @@ Lightbulb_EatCharge["Exit"] = function(agent)
 
 	print ("[Lua]: Exit State Eat Charge")
 	agent: Deactivate(Lightbulb_EatCharge.component)
+
+end
+
+
+------------------------------------------------
+------------------------------------------------
+
+------------------CENTAUR-----------------------
+
+------------------------------------------------
+------------------------------------------------
+
+Centaur_Idle = {
+}
+
+Centaur_Idle["Enter"] = function(agent)
+
+	print ("[Centaur]: Enter State Idle")
+
+end
+
+Centaur_Idle["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: ChangeState(Centaur_Attack)
+	end
+
+	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
+		agent: ChangeState(Centaur_Hold)
+	end
+
+end
+
+Centaur_Idle["Exit"] = function(agent)
+
+	print ("[Centaur]: Exit State Idle")
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Centaur_Hold = {
+	wait_time = 3,
+	accum_time = 0
+}
+
+Centaur_Hold["Enter"] = function(agent)
+
+	print ("[Centaur]: Enter State Hold")
+	Centaur_Hold.accum_time = 0
+
+end
+
+Centaur_Hold["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: ChangeState(Centaur_Attack)
+	
+	else
+		Centaur_Hold.accum_time = Centaur_Hold.accum_time + msecs
+
+		if Centaur_Hold.accum_time >= Centaur_Hold.wait_time then
+			Centaur_Hold.accum_time = 0
+			agent: ChangeState(Centaur_Charge)
+		end
+	end
+
+end
+
+Centaur_Hold["Exit"] = function(agent)
+
+	print ("[Centaur]: Exit State Hold")
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Centaur_Charge = {
+	component = "CCharger"
+}
+
+Centaur_Charge["Enter"] = function(agent)
+
+	print ("[Centaur]: Enter State Charge")
+	agent: Activate(Centaur_Charge.component)
+
+end
+
+Centaur_Charge["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: ChangeState(Centaur_Attack)
+	end
+
+end
+
+Centaur_Charge["Exit"] = function(agent)
+
+	print ("[Centaur]: Exit State Charge")
+	agent: Deactivate(Centaur_Charge.component)
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Centaur_Attack = {
+	component = "CAttack"
+}
+
+Centaur_Attack["Enter"] = function(agent)
+
+	print ("[Centaur]: Enter State Attack")
+	agent: Activate(Centaur_Attack.component)
+
+end
+
+Centaur_Attack["Execute"] = function(agent, msecs)
+
+end
+
+Centaur_Attack["Exit"] = function(agent)
+
+	print ("[Centaur]: Exit State Attack")
+	agent: Deactivate(Centaur_Attack.component)
 
 end

@@ -105,7 +105,6 @@ namespace Logic
 
 	Logic::CEntity* CVision::visionRay(const float maxDistance)
 	{
-		if (_entity->getDirection() == 0) return nullptr;
 
 		// Inicializamos el rayo
 		Vector3 origin = _entity->getPosition();
@@ -120,8 +119,6 @@ namespace Logic
 
 	Logic::CEntity* CVision::visionRay()
 	{
-		if (_entity->getDirection() == 0) return nullptr;
-
 		// Primero lanzamos un rayo desde los pies
 		Vector3 origin = _entity->getPosition();
 		if (_entity->getDirection() == 1) origin.x += _xRaySeparation;
@@ -139,8 +136,10 @@ namespace Logic
 		origin.y += _yRaySeparation;
 		_ray.setOrigin(origin);
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
+
+		seenEntity = Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
 		
-		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
+		return seenEntity;
 	}
 
 	bool CVision::accept(const TMessage &message)
