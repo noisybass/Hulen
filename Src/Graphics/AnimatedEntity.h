@@ -63,13 +63,12 @@ namespace Graphics
 		@param name Nombre de la entidad.
 		@param mesh Nombre del modelo que debe cargarse.
 		*/
-		CAnimatedEntity(const std::string &name, const std::string &mesh):
-					CEntity(name,mesh), _currentAnimation(0) {}
+		CAnimatedEntity(const std::string &name, const std::string &mesh);
 
 		/**
 		Destructor de la aplicación.
 		*/
-		virtual ~CAnimatedEntity() {}
+		virtual ~CAnimatedEntity();
 
 		/**
 		Activa una animación a partir de su nombre.
@@ -111,6 +110,10 @@ namespace Graphics
 
 		bool getCurrentAnimationLoop() const;
 
+		void dumpAnimsStates();
+
+		void initAnimationStates();
+
 	protected:
 
 		/**
@@ -132,10 +135,26 @@ namespace Graphics
 		*/
 		virtual void tick(float secs);
 
+		struct Animation{
+			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false){};
+
+			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut) :
+				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut){};
+
+			~Animation() = default;
+
+			Ogre::AnimationState* animationState;
+			bool fadingIn;
+			bool fadingOut;
+		};
+
+		std::unordered_map < std::string, Animation* > _animations;
+
+
 		/**
 		Animación que tiene la entidad activada.
 		*/
-		Ogre::AnimationState *_currentAnimation;
+		Animation* _currentAnimation;
 
 	}; // class CAnimatedEntity
 

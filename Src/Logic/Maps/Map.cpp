@@ -175,7 +175,11 @@ namespace Logic {
 			{
 				// La propia factoría se encarga de añadir la entidad a su GameObject
 				CEntity* entity = entityFactory->createEntity((*it), _entitiesMap);
-				assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+
+				/*if ((*it)->getName() == "Character_Body")
+					std::cout << (*it)->getName().c_str() << std::endl;*/
+
+				assert(entity && "No se pudo crear una entidad perteneciente a un game object ");
 			}
 			else if (!type.compare("GameObject"))
 			{

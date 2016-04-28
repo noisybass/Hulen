@@ -14,11 +14,14 @@ namespace Logic
 
 	bool CChase::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
 	{
-		if (!IComponent::spawn(name, entity, map, entityInfo))
+		if (!IComponent::spawn(name, entity, map, entityInfo)){
+			//std::cout << "He petado en el chase" << std::endl;
 			return false;
+		}
 
 		_active = false;
-
+		//std::cout << "No He petado en el chase" << std::endl;
+		return true;
 	} // spawn
 
 	bool CChase::activate()

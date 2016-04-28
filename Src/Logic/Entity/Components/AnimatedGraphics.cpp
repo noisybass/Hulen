@@ -29,9 +29,11 @@ namespace Logic
 	Graphics::CEntity* CAnimatedGraphics::createGraphicsEntity(const Map::CEntity *entityInfo)
 	{
 		_animatedGraphicsEntity = new Graphics::CAnimatedEntity(_entity->getName(),_model);
+		
 		if(!_scene->addEntity(_animatedGraphicsEntity))
 			return 0;
-
+		_animatedGraphicsEntity->dumpAnimsStates();
+		_animatedGraphicsEntity->initAnimationStates();
 		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
 		_animatedGraphicsEntity->setPosition(_entity->getPosition());
 
@@ -94,7 +96,7 @@ namespace Logic
 			// Paramos todas las animaciones antes de poner una nueva.
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
-			_animatedGraphicsEntity->stopAllAnimations();
+			//_animatedGraphicsEntity->stopAllAnimations();
 			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
 				message.getArg<bool>("loop"));
 			break;
@@ -111,7 +113,7 @@ namespace Logic
 			break;
 		case Message::RECEIVE_ANIMATION_STATE:
 			std::cout << "Recibiendo estado..." << std::endl;
-			_animatedGraphicsEntity->stopAllAnimations();
+			//_animatedGraphicsEntity->stopAllAnimations();
 			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
 				message.getArg<bool>("loop"));
 			break;

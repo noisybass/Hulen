@@ -47,9 +47,13 @@ namespace Logic
 		TComponentMap::const_iterator it;
 
 		bool correct = true;
-
-		for( it = _components.begin(); it != _components.end() && correct; ++it )
+		//std::cout << "correct: " << correct << std::endl;
+		for (it = _components.begin(); it != _components.end() && correct; ++it){
 			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
+			//std::cout << "name: " << it->second->_name << std::endl;
+			//std::cout << "correct: " << correct << std::endl;
+		}
+			
 
 		return correct;
 
