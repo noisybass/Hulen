@@ -9,7 +9,7 @@ namespace Graphics
 {
 	
 	CAnimatedEntity::CAnimatedEntity(const std::string &name, const std::string &mesh) : 
-		CEntity(name, mesh), _currentAnimation(nullptr)
+		CEntity(name, mesh), _currentAnimation(nullptr), _fadeInOutVelocity(0)
 	{
 		
 	} // Constructor
@@ -107,7 +107,7 @@ namespace Graphics
 				Animation* animation = anim.second;
 				if (animation->fadingIn)
 				{
-					Ogre::Real newWeight = animation->animationState->getWeight() + secs * 5;
+					Ogre::Real newWeight = animation->animationState->getWeight() + secs * _fadeInOutVelocity;
 					if (newWeight > 1.0f)
 					{
 						newWeight = 1.0f;
@@ -118,7 +118,7 @@ namespace Graphics
 				}
 				else if (animation->fadingOut)
 				{
-					Ogre::Real newWeight = animation->animationState->getWeight() - secs * 5;
+					Ogre::Real newWeight = animation->animationState->getWeight() - secs * _fadeInOutVelocity;
 					if (newWeight < 0.0f)
 					{
 						newWeight = 0.0f;
@@ -172,7 +172,7 @@ namespace Graphics
 
 	} // dumpAnimsStates
 
-	void CAnimatedEntity::initAnimationStates()
+	void CAnimatedEntity::initAnimationStates(int fadeInOutVelocity)
 	{
 		Ogre::AnimationStateSet *allAnimations = _entity->getAllAnimationStates();
 		Ogre::AnimationStateIterator it = allAnimations->getAnimationStateIterator();
@@ -181,6 +181,8 @@ namespace Graphics
 			Ogre::AnimationState *as = it.getNext();
 			_animations.insert({as->getAnimationName(), new Animation(as, false, false)});
 		}
+
+		_fadeInOutVelocity = fadeInOutVelocity;
 
 	} // initAnimationStates
 

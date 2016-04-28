@@ -32,8 +32,14 @@ namespace Logic
 		
 		if(!_scene->addEntity(_animatedGraphicsEntity))
 			return 0;
+
+		if (entityInfo->hasAttribute("fadeInOut_Velocity"))
+		{
+			_fadeInOutvelocity = entityInfo->getIntAttribute("fadeInOut_Velocity");
+		}
+
 		//_animatedGraphicsEntity->dumpAnimsStates();
-		_animatedGraphicsEntity->initAnimationStates();
+		_animatedGraphicsEntity->initAnimationStates(_fadeInOutvelocity);
 		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
 		_animatedGraphicsEntity->setPosition(_entity->getPosition());
 

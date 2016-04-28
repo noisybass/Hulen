@@ -112,7 +112,7 @@ namespace Graphics
 
 		void dumpAnimsStates();
 
-		void initAnimationStates();
+		void initAnimationStates(int fadeInOutVelocity);
 
 	protected:
 
@@ -155,6 +155,8 @@ namespace Graphics
 		Animación que tiene la entidad activada.
 		*/
 		Animation* _currentAnimation;
+
+		int _fadeInOutVelocity;
 
 	}; // class CAnimatedEntity
 

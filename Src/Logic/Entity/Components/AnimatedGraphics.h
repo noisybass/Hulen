@@ -49,7 +49,7 @@ namespace Logic
 		defecto.
 		*/
 		CAnimatedGraphics() : CGraphics(), _animatedGraphicsEntity(0),
-				_defaultAnimation("") {}
+			_defaultAnimation(""), _fadeInOutvelocity(5) {}
 
 		/**
 		Método que activa el componente; invocado cuando se activa
@@ -123,6 +123,8 @@ namespace Logic
 		Animación por defecto de una entidad gráfica animada.
 		*/
 		std::string _defaultAnimation;
+
+		int _fadeInOutvelocity;
 
 	}; // class CAnimatedGraphics
 
