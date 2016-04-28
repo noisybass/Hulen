@@ -76,11 +76,11 @@ namespace Graphics
 		return _targetNode->getPosition();
 	}
 
-	const float &CCamera::getAspectRatio(){
+	float CCamera::getAspectRatio() const {
 		return _camera->getAspectRatio();
 	}
 
-	const float &CCamera::getFOV(){
+	float CCamera::getFOV() const {
 		return _camera->getFOVy().valueDegrees();
 	}
 

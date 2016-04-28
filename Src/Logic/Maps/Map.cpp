@@ -28,8 +28,8 @@ namespace Logic {
 		// Parseamos el fichero de prefab
 		if (!Map::CMapParser::getSingletonPtr()->parseFile(prefabPath, "Prefab"))
 		{
-			assert(!"No se ha podido parsear los prefabs.");
-			return nullptr;
+			assert(!"No se han podido parsear los prefabs.");
+			return false;
 		}
 
 		// Extraemos las entidades del parseo.
@@ -81,6 +81,7 @@ namespace Logic {
 			}
 		}
 
+		return true;
 	}
 
 	CGameObject* CMap::instantiatePrefab(const std::string& prefabToInstantiate, const std::string& nameToNewInstance,
@@ -179,13 +180,22 @@ namespace Logic {
 				/*if ((*it)->getName() == "Character_Body")
 					std::cout << (*it)->getName().c_str() << std::endl;*/
 
+				if (!entity)
+				{
+					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
+				}
+
 				assert(entity && "No se pudo crear una entidad perteneciente a un game object ");
 			}
 			else if (!type.compare("GameObject"))
 			{
 				// La propia factoría se encarga de añadir el GameObject al mapa
 				CGameObject* gameObject = entityFactory->createGameObject((*it), _entitiesMap);
-				assert(gameObject && "No se pudo crear un game object del mapa");
+				//assert(gameObject && "No se pudo crear un game object del mapa");
+				if (!gameObject)
+				{
+					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
+				}
 			}
 		}
 

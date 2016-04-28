@@ -19,7 +19,6 @@ namespace Logic
 		// Init positions
 		_positionToGo = entity->getPosition();
 		_nextPositionToGo = entity->getPosition();
-		_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::NONE);
 
 		if (entityInfo->hasAttribute("positionToGo")){
 			_positionToGo = entityInfo->getVector3Attribute("positionToGo");
@@ -95,20 +94,17 @@ namespace Logic
 		{	
 			// Hemos llegado al destino, solo lo ejecutamos
 			// nada mas llegar al destino.
-			if (_entity->getDirection() != 0)
-			{
-				//_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::NONE);
-				// Idle animation
-				stop();
 
-				// Notificamos que hemos llegado a
-				// la posición objetivo.
-				TMessage msg;
-				msg._type = Message::ARRIVED_TO_DESTINATION;
-				msg.setArg<Vector3>(std::string("arrivedDestination"), _positionToGo);
+			// Idle animation
+			stop();
 
-				_entity->emitMessage(msg);
-			}
+			// Notificamos que hemos llegado a
+			// la posición objetivo.
+			TMessage msg;
+			msg._type = Message::ARRIVED_TO_DESTINATION;
+			msg.setArg<Vector3>(std::string("arrivedDestination"), _positionToGo);
+
+			_entity->emitMessage(msg);
 
 			// Esperamos a recibir una posicion a la que movernos
 			_positionToGo = _nextPositionToGo;

@@ -52,7 +52,6 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
-		physic_group = 1,
 	},
 
 	Spike_Prefab_Shadow = {
@@ -63,7 +62,6 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
-		physic_group = 1,
 		material = "Black",
 	},
 
@@ -85,10 +83,10 @@ Prefab = {
 		physic_entity = "rigid",
 		physic_type = "dynamic",
 		physic_shape = "sphere",
-		physic_trigger = true,
-		physic_group = 1,
+		physic_trigger = false,
+		physic_group = 2,
 		physic_mass = 1,
-		physic_radius = 0.5,
-	},
+		physic_radius = 0.1,
+	}
 
 }

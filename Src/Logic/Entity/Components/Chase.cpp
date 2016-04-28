@@ -1,6 +1,7 @@
 #include "Chase.h"
 
 #include "Logic/Entity/Components/MoveController.h"
+#include "Logic/Entity/Components/FSMEntity.h"
 
 namespace Logic
 {
@@ -20,8 +21,10 @@ namespace Logic
 		}
 
 		_active = false;
+
 		//std::cout << "No He petado en el chase" << std::endl;
 		return true;
+
 	} // spawn
 
 	bool CChase::activate()
@@ -30,7 +33,9 @@ namespace Logic
 
 		std::cout << "ACTIVANDO CHASE..." << std::endl;
 
-		_target = _entity->getGameObject()->getMap()->getGameObjectByName("Player_GO")->getBody();
+		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+		std::string targetName = fsm->getValue<std::string>("seen_go_name");
+		_target = _entity->getGameObject()->getMap()->getGameObjectByName(targetName)->getBody();
 
 		return true;
 
@@ -54,6 +59,7 @@ namespace Logic
 
 			moveController->nextPosition(_target->getPosition());
 		}
-	}
+
+	} // tick
 
 } // namespace Logic

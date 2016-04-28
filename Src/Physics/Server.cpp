@@ -424,7 +424,7 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 	PxTransform pose(Vector3ToPxVec3(position));
 	PxSphereGeometry geom(FloatToPxReal(radius));
 	PxMaterial *material = _defaultMaterial;
-	float density = mass / (4.0/3.0 * Math::PI * radius * radius * radius);
+	float density = mass / (4.0f/3.0f * Math::PI * radius * radius * radius);
 	//PxTransform localPose(PxVec3(0, position.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
 
 	// Crear cubo dinámico o cinemático
@@ -617,7 +617,7 @@ PxCapsuleController* CServer::createCapsuleController(const Vector3 &position, f
 
 //--------------------------------------------------------
 
-unsigned CServer::moveController(PxController *controller, const Vector3 &movement, unsigned int msecs)
+unsigned CServer::moveController(PxController *controller, const Vector3 &movement, float msecs)
 {
 	assert(_scene);
 

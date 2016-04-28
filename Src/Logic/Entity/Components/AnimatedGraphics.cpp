@@ -32,7 +32,7 @@ namespace Logic
 		
 		if(!_scene->addEntity(_animatedGraphicsEntity))
 			return 0;
-		_animatedGraphicsEntity->dumpAnimsStates();
+		//_animatedGraphicsEntity->dumpAnimsStates();
 		_animatedGraphicsEntity->initAnimationStates();
 		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
 		_animatedGraphicsEntity->setPosition(_entity->getPosition());

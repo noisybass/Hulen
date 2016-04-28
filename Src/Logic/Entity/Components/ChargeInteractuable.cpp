@@ -41,14 +41,13 @@ namespace Logic
 
 	void CChargeInteractuable::process(const TMessage &message)
 	{
-		CEntity* other;
 		switch (message._type)
 		{
 		case Message::TOUCHED:
 		case Message::UNTOUCHED:
-			other = message.getArg<CEntity*>("entity");
+			/*other = message.getArg<CEntity*>("entity");
 			if (!(other->getBlueprint().compare("World")))
-				_entity->removeComponent("CPhysicEntity");
+				_entity->removeComponent("CPhysicEntity");*/
 			break;
 		case Message::INTERACTUABLE:
 			

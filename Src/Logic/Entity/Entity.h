@@ -199,8 +199,7 @@ namespace Logic
 		*/
 		enum ENTITY_DIRECTION {
 			RIGHT = 1,
-			LEFT = -1,
-			NONE = 0
+			LEFT = -1
 		};
 
 		int getDirection() { return _direction; };
