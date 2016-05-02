@@ -88,6 +88,16 @@ namespace Sounds{
 		@return si todo fue bien.
 		*/
 		bool setParameterValue(std::string instanceName, std::string parameterName, float parameterValue);
+
+		/**
+		Establece el volumen de la instancia.
+
+		@params instanceName nombre de la instancia.
+		@params volume volumen a estabecer entre 0 y 1. 0 = silencio, 1 = full volume.
+
+		@return si todo fue bien.
+		*/
+		bool setVolume(std::string instanceName, float volume);
 	
 	private:
 

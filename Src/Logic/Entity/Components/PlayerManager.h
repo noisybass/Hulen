@@ -3,6 +3,7 @@
 
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/GameObject.h"
+#include "Sounds/api/SoundsResources.h"
 
 #include <vector>
 
@@ -89,6 +90,11 @@ namespace Logic
 		Número de cargas que puede poner el jugador.
 		*/
 		unsigned int _chargesOwned;
+
+		/**
+		To play sounds
+		*/
+		Sounds::CSoundsResources* _soundsResources;
 
 
 	}; // class CPlayerManager

@@ -53,6 +53,5 @@ namespace Sounds{
 
 		return result == FMOD_OK;
 	}
-
 	
 };

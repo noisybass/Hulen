@@ -19,6 +19,8 @@ Contiene la declaración del estado de juego.
 
 #include "ApplicationState.h"
 #include "Logic\Events\Event.h"
+#include "Sounds\api\SoundsResources.h"
+
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Application 
@@ -70,12 +72,15 @@ namespace Application
 		Constructor de la clase 
 		*/
 		CGameState(CBaseApplication *app) : CApplicationState(app), 
-			_scene(0), _time(0), _isMapLoaded(false), _mapName("map.lua") {}
+			_scene(0), _time(0), _isMapLoaded(false), _mapName("map.lua") 
+		{
+			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
+		}
 
 		/** 
 		Destructor 
 		*/
-		virtual ~CGameState() {}
+		virtual ~CGameState() { _soundResources = nullptr; }
 
 		/**
 		Función llamada cuando se crea el estado (se "engancha" en la
@@ -216,6 +221,11 @@ namespace Application
 		Player events.
 		*/
 		Logic::CEventSystem <Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction> playerEvent;
+
+		/**
+		To play sounds
+		*/
+		Sounds::CSoundsResources* _soundResources;
 
 	}; // CGameState
 

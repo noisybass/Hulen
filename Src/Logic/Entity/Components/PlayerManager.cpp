@@ -9,6 +9,7 @@
 #include "Logic/Entity/Components/LightingArea.h"
 #include "Logic/Entity/Components/ChargeInteractuable.h"
 
+
 namespace Logic
 {
 	IMP_FACTORY(CPlayerManager);
@@ -18,7 +19,8 @@ namespace Logic
 		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
 		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false)
 	{
-
+		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
+		_soundsResources->createSound("ShadowSongChannel", "ShadowSong");
 	} // CPlayerManager
 
 	CPlayerManager::~CPlayerManager()
@@ -26,6 +28,11 @@ namespace Logic
 		if (_kasai)
 		{
 			_kasai = nullptr;
+		}
+		if (_soundsResources)
+		{
+			_soundsResources->deleteSound("ShadowSongChannel");
+			_soundsResources = nullptr;
 		}
 	}
 
@@ -173,6 +180,8 @@ namespace Logic
 
 				_gameObject->getBody()->activate();
 				_gameObject->getShadow()->emitMessage(message);
+
+				_soundsResources->pauseSound("ShadowSongChannel");
 			}
 			// Cambio de cuerpo a sombra
 			else
@@ -182,6 +191,10 @@ namespace Logic
 
 				_gameObject->getShadow()->activate();
 				_gameObject->getBody()->emitMessage(message);
+
+				_soundsResources->playSound("ShadowSongChannel");
+
+				
 			}
 		}
 	} // changeState
@@ -192,7 +205,6 @@ namespace Logic
 		IComponent::tick(msecs);
 
 		_onLight = playerOnLight();
-
 
 		if (_onLight)
 		{
