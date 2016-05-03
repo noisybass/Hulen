@@ -151,7 +151,13 @@ namespace Physics {
 		@param group2 Segundo grupo de colisión
 		@param enable Activar o desactivar las colisiones entre los dos grupos anteriores.
 		*/
-		void setGroupCollisions(int group1, int group2, bool enable);
+		void setGroupCollisions(unsigned int group1, unsigned int group2, bool enable);
+
+		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
+
+		static const unsigned int DEFAULT_COLLISION_GROUP = 0;
+		static const unsigned int CAPSULES_COLLISION_GROUP = 1;
+		static const unsigned int CHARGES_COLLISION_GROUP = 2;
 
 
 		//------------------------------

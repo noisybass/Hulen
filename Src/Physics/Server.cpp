@@ -240,6 +240,10 @@ void CServer::createScene ()
 
 	// Crear PxControllerManager. Es necesario para crear character controllers
 	_controllerManager = PxCreateControllerManager(*_scene);
+
+
+	//Disable collision between differnt groups
+	PxSetGroupCollisionFlag(CAPSULES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
 }
 
 //--------------------------------------------------------
@@ -298,7 +302,8 @@ PxRigidStatic* CServer::createPlane(const Vector3 &point, const Vector3 &normal,
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 	
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -349,7 +354,8 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimens
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	//PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -400,7 +406,8 @@ PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -447,7 +454,8 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 	actor->userData = (void *)component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -500,7 +508,8 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Liberar recursos
 	collection->release();
@@ -612,6 +621,8 @@ PxCapsuleController* CServer::createCapsuleController(const Vector3 &position, f
 	// Anotar el componente lógico asociado al actor dentro del controller (No es automático)
 	controller->getActor()->userData = (void *) component;
 
+	setCollisionGroup(controller->getActor(), CAPSULES_COLLISION_GROUP);
+
 	return controller;
 }
 
@@ -658,10 +669,29 @@ void CServer::setControllerPosition(PxCapsuleController *controller, const Vecto
 
 //--------------------------------------------------------
 
-void CServer::setGroupCollisions(int group1, int group2, bool enable)
+void CServer::setGroupCollisions(unsigned int group1, unsigned int group2, bool enable)
 {
 	// Activar / desactivar colisiones entre grupos
 	PxSetGroupCollisionFlag(group1, group2, enable);
+}
+
+void CServer::setCollisionGroup(PxRigidActor* actor, unsigned int group)
+{
+
+	PxSceneWriteLock scopedLock(*_scene);
+
+	PxU32 nbShapes = actor->getNbShapes();
+	if (nbShapes)
+	{
+		std::vector<PxShape*> shapes(nbShapes);
+		actor->getShapes(&shapes[0], nbShapes);
+		for (PxU32 j = 0; j < nbShapes; j++)
+		{
+			PxFilterData fd = shapes[j]->getSimulationFilterData();
+			fd.word0 = group;
+			shapes[j]->setSimulationFilterData(fd);
+		}
+	}
 }
 
 //--------------------------------------------------------
