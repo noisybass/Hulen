@@ -142,18 +142,7 @@ namespace Physics {
 		*/
 		void destroyScene ();
 
-		/**
-		Establece si debe haber colisiones entre dos grupos de colisión. Al crear los objetos
-		físicos se establece el grupo de colisión al que pertenecen. Usando este método es
-		posible activar / desactivar las colisiones entre grupos.
-
-		@param group1 Primer grupo de colisión.
-		@param group2 Segundo grupo de colisión
-		@param enable Activar o desactivar las colisiones entre los dos grupos anteriores.
-		*/
-		void setGroupCollisions(unsigned int group1, unsigned int group2, bool enable);
-
-		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
+		
 
 		static const unsigned int DEFAULT_COLLISION_GROUP = 0;
 		static const unsigned int CAPSULES_COLLISION_GROUP = 1;
@@ -398,6 +387,8 @@ namespace Physics {
 
 		// Gestion de colisiones
 		CCollisionManager *_collisionManager;
+
+		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
 
 	}; // class CServer
 

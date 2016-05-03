@@ -669,12 +669,6 @@ void CServer::setControllerPosition(PxCapsuleController *controller, const Vecto
 
 //--------------------------------------------------------
 
-void CServer::setGroupCollisions(unsigned int group1, unsigned int group2, bool enable)
-{
-	// Activar / desactivar colisiones entre grupos
-	PxSetGroupCollisionFlag(group1, group2, enable);
-}
-
 void CServer::setCollisionGroup(PxRigidActor* actor, unsigned int group)
 {
 
