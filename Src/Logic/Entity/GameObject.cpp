@@ -309,4 +309,14 @@ namespace Logic
 
 	} // getPosition
 
+	IComponent* CGameObject::getComponent(const std::string& name)
+	{
+		TComponentMap::const_iterator it = _components.find(name);
+
+		if (it != _components.end())
+			return it->second;
+
+		return nullptr;
+	}
+
 } // namespace Logic

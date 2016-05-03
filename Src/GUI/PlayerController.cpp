@@ -118,7 +118,6 @@ namespace GUI {
 		
 	bool CPlayerController::mousePressed(const CMouseState &mouseState)
 	{
-		std::cout << "Hola";
 		if (_controlledAvatar)
 		{
 			Graphics::CCamera* camera;

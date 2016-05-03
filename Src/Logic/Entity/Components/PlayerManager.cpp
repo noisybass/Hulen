@@ -146,6 +146,11 @@ namespace Logic
 				->fireEvent(message.getArg<std::string>("playerEvent"));
 
 			break;
+		case Message::HOW_MANY_CHARGES:
+			m._type = Message::HOW_MANY_CHARGES;
+			m.setArg<int>("how_many_charges", _chargesOwned);
+			_kasai->emitMessage(m);
+			break;
 		case Message::CHARGE_ERASED:
 
 			std::string chargeName = message.getArg<std::string>("chargeName");
@@ -161,6 +166,7 @@ namespace Logic
 			Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(charge);
 
 			break;
+		
 		}
 
 	} // process

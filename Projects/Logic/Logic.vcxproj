@@ -92,6 +92,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Eater.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EndLevel.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\GraphicCharges.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Eater.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EndLevel.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\GraphicCharges.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.h" />

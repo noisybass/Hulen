@@ -15,7 +15,6 @@ namespace Logic
 	void CMousePointerFollower::process(const TMessage& message)
 	{
 		TMessage m;
-		Vector3 newPosition;
 		switch (message._type)
 		{
 		case Message::MOUSE_POINTER_MOVE:

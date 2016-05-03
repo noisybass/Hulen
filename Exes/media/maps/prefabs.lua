@@ -16,6 +16,12 @@ Prefab_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
+	},
+
+	GraphicCharge_Prefab_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
 	}
 
 }
@@ -87,6 +93,16 @@ Prefab = {
 		physic_group = 2,
 		physic_mass = 1,
 		physic_radius = 0.1,
+	},
+
+	GraphicCharge_Prefab = {
+		type = "Body",
+		blueprint = "GraphicCharge",
+		game_object = "GraphicCharge_Prefab_GO",
+		model = "Sphere.mesh",
+		scale = {0.5, 0.5, 0.5},
+		specular_colour = {1,1,1},
+		diffuse_colour = {1,1,1},
 	}
 
 }

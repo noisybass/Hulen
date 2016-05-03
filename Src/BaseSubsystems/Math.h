@@ -28,6 +28,7 @@ Se ofrecen también una serie de funciones auxiliares.
 #include <OgreMatrix3.h>
 #include <OgreMatrix4.h>
 #include <OgreRay.h>
+#include <cmath>
 
 /**
 Definicion de matriz de 4x4. La definición del tipo de datos
@@ -195,6 +196,66 @@ namespace Math
 	static float normaliseVector3(Vector3& vectorToNormalise)
 	{
 		return vectorToNormalise.normalise();
+	}
+
+	static Vector3 rotationVector3YAxis(const Vector3& vector3, float degrees)
+	{
+		float yAxis[3][3] = { { cos(degrees),  0, sin(degrees) },
+							  { 0,			   1, 0 },
+							  { -sin(degrees), 0, cos(degrees) } };
+
+		float vector[3] = { vector3.x, vector3.y, vector3.z };
+		float result[3] = { 0, 0, 0 };
+
+		for (int i = 0; i < 3; ++i)
+		{
+			for (int j = 0; i < 3; ++i)
+			{
+				result[i] += yAxis[i][j] * vector3[i];
+			}
+		}
+
+		return Vector3(result[0], result[1], result[2]);
+	}
+
+	static Vector3 rotationVector3ZAxis(const Vector3& vector3, float degrees)
+	{
+		float zAxis[3][3] = {	{ cos(degrees), -sin(degrees), 0 },
+								{ sin(degrees), cos(degrees),  0 },
+								{ 0,			0,			   1 } };
+
+		float vector[3] = { vector3.x, vector3.y, vector3.z };
+		float result[3] = { 0, 0, 0 };
+
+		for (int i = 0; i < 3; ++i)
+		{
+			for (int j = 0; i < 3; ++i)
+			{
+				result[i] += zAxis[i][j] * vector3[i];
+			}
+		}
+
+		return Vector3(result[0], result[1], result[2]);
+	}
+
+	static Vector3 rotationVector3XAxis(const Vector3& vector3, float degrees)
+	{
+		float xAxis[3][3] = {   { 1,			0, 0 },
+								{ 0, cos(degrees), -sin(degrees) },
+								{ 0, sin(degrees), cos(degrees) } };
+
+		float vector[3] = { vector3.x, vector3.y, vector3.z };
+		float result[3] = { 0, 0, 0 };
+
+		for (int i = 0; i < 3; ++i)
+		{
+			for (int j = 0; i < 3; ++i)
+			{
+				result[i] += xAxis[i][j] * vector3[i];
+			}
+		}
+
+		return Vector3(result[0], result[1], result[2]);
 	}
 
 } // namespace Math

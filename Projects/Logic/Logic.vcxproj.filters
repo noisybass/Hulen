@@ -154,6 +154,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Charger.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\GraphicCharges.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h">
@@ -292,6 +295,9 @@
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Charger.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\GraphicCharges.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

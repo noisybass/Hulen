@@ -32,6 +32,8 @@ namespace Logic
 		void process(const TMessage &message) override;
 
 		void tick(float msecs) override;
+
+		unsigned int howManyCharges() const { return _chargesOwned; };
 	protected:
 
 		/**
@@ -46,6 +48,8 @@ namespace Logic
 		CGameObject* canPickAnyCharge() const;
 
 		CGameObject* nearOfLever() const;
+
+		
 
 	private:
 

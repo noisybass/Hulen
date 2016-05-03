@@ -111,6 +111,11 @@ namespace Logic
 		*/
 		Vector3 getPosition() const;
 
+		/**
+		Devuelve el componente
+		*/
+		IComponent* getComponent(const std::string& name);
+
 	protected:
 
 		/**
