@@ -2,6 +2,8 @@
 // Galeon.cpp
 //---------------------------------------------------------------------------
 
+#include <iostream>
+
 /**
 @file Galeon.cpp
 Contiene el punto de entrada principal del programa Galeon. Según la configuración
@@ -53,14 +55,20 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 {
 #endif // (defined _DEBUG) || !(defined _WIN32)
 
+
+
 	// Aqui llegamos a lo que verdaderamente importa. Lanzamos la aplicación.
-	{
+	try{
 		Application::CGaleonApplication miApp;
 
 		if (miApp.init())
 			miApp.run();
 
 		miApp.release();
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << ex.what() << std::endl;
 	}
 	return 0;
 

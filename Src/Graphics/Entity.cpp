@@ -231,7 +231,7 @@ namespace Graphics
 		_guizmo.XAxis->_entityNode->attachObject(_guizmo.XAxis->_entity);
 		_guizmo.XAxis->_loaded = true;
 		_scene->addEntity(_guizmo.XAxis);
-		_scene->_dynamicEntities.push_back(_guizmo.XAxis);
+		//_scene->_dynamicEntities.push_back(_guizmo.XAxis);
 
 		/**
 		Creating Y Axe (GREEN)
@@ -253,7 +253,7 @@ namespace Graphics
 		_guizmo.YAxis->_entityNode->attachObject(_guizmo.YAxis->_entity);
 		_guizmo.YAxis->_loaded = true;
 		_scene->addEntity(_guizmo.YAxis);
-		_scene->_dynamicEntities.push_back(_guizmo.YAxis);
+		//_scene->_dynamicEntities.push_back(_guizmo.YAxis);
 		
 
 		/**
@@ -276,7 +276,7 @@ namespace Graphics
 		_guizmo.ZAxis->_entityNode->attachObject(_guizmo.ZAxis->_entity);
 		_guizmo.ZAxis->_loaded = true;
 		_scene->addEntity(_guizmo.ZAxis);
-		_scene->_dynamicEntities.push_back(_guizmo.ZAxis);
+		//_scene->_dynamicEntities.push_back(_guizmo.ZAxis);
 		
 	
 	} // drawGuizmo
