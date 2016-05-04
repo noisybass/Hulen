@@ -326,6 +326,8 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
+		graphicChargeVelocity = 8,
+		graphicChargeRadius = 3,
 	},
 
 	Camera = {

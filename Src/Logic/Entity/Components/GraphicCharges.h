@@ -14,7 +14,8 @@ namespace Logic
 		/**
 		Constructor por defecto.
 		*/
-		CGraphicCharges() : IComponent(), _graphicChargeName("GraphicCharge_Prefab"), _numCharges(0) {}
+		CGraphicCharges() : IComponent(), _graphicChargeName("GraphicCharge_Prefab"), _numCharges(0),
+			_graphicChargeVelocity(3), _graphicChargeRadius(3){}
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -36,9 +37,19 @@ namespace Logic
 
 		std::vector<CGameObject*> _graphicCharges;
 
+		std::vector<bool> _graphicChargesLoopingMouse;
+
 		std::string _graphicChargeName;
 
+		bool equilateralTriangle(int chargeNum, float sideOfTriangle);
+
 		unsigned int _numCharges;
+
+		float _graphicChargeVelocity;
+
+		float _graphicChargeRadius;
+
+		float _graphicChargeDistanceBetweenThem;
 
 	}; // class CGraphicCharges
 
