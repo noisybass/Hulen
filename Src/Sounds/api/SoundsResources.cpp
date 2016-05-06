@@ -76,7 +76,7 @@ namespace Sounds {
 		_soundServer->getChannelsPtr()->setVolume(channelName, volume);
 	} // setSoundVolume
 
-	void CSoundsResources::playAndDestroy(std::string soundName, float volume){
+	void CSoundsResources::playAndDestroySound(std::string soundName, float volume){
 		_soundServer->getChannelsPtr()->loadChannelAndDestroy(soundName, volume);
 	} // playAndDestroy
 
@@ -135,6 +135,9 @@ namespace Sounds {
 
 		// Shadow Song
 		_soundServer->getSoundsPtr()->loadSound("ShadowSong", "ShadowSong.mp3", Sounds::Loop_Normal && Sounds::Sound_3D);
+
+		// Shadow deep
+		_soundServer->getSoundsPtr()->loadSound("DeepIntoShadow", "DeepIntoShadow.mp3", Sounds::Loop_Normal && Sounds::Sound_3D);
 		
 	} // loadPrisoner
 
@@ -142,6 +145,9 @@ namespace Sounds {
 
 		// Shadow Song
 		_soundServer->getSoundsPtr()->unloadSound("ShadowSong");
+
+		// Shadow Deep
+		_soundServer->getSoundsPtr()->unloadSound("DeepIntoShadow");
 
 	} // unloadPrisoner
 

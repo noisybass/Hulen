@@ -188,6 +188,7 @@ namespace Logic
 				_gameObject->getShadow()->emitMessage(message);
 
 				_soundsResources->pauseSound("ShadowSongChannel");
+				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 			// Cambio de cuerpo a sombra
 			else
@@ -199,8 +200,7 @@ namespace Logic
 				_gameObject->getBody()->emitMessage(message);
 
 				_soundsResources->playSound("ShadowSongChannel");
-
-				
+				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 		}
 	} // changeState

@@ -29,7 +29,7 @@ namespace Sounds
 		static void playSound(std::string channelName);
 		static void pauseSound(std::string channelName);
 		static void setSoundVolume(std::string channelName, float volume);
-		static void playAndDestroy(std::string soundName, float volume);
+		static void playAndDestroySound(std::string soundName, float volume);
 
 		// Sounds Resources
 		static bool init();
