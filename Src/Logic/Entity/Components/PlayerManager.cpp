@@ -61,9 +61,6 @@ namespace Logic
 	{
 		_kasai = _gameObject->getMap()->getGameObjectByName(_kasaiName);
 
-		//_charge = _gameObject->getMap()->getGameObjectByName(_chargeName);
-		//_charge = Logic::CMap::instantiatePrefab(_chargeName, "Charge0");
-
 		return true;
 
 	} // activate

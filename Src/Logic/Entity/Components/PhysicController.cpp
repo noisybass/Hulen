@@ -64,6 +64,8 @@ bool CPhysicController::spawn(const std::string& name, CEntity* entity, CMap *ma
 
 bool CPhysicController::activate()
 {
+	_server->setCollisionGroup(_controller->getActor(), _server->CONTROLLERS_COLLISION_GROUP);
+
 	// Si tenemos un componente responsable del agente de IA tendremos que actualizar su información
 	_fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
 
@@ -77,7 +79,8 @@ bool CPhysicController::activate()
 
 void CPhysicController::deactivate()
 {
-
+	std::cout << "Desactivando fisica" << std::endl;
+	_server->setCollisionGroup(_controller->getActor(), _server->NON_ACTIVE_COLLISION_GROUP);
 }
 
 //---------------------------------------------------------
@@ -231,10 +234,10 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 
 void CPhysicController::onControllerHit (const PxControllersHit &hit)
 {
-	if (_fsm)
-	{
-		IPhysics *otherComponent = (IPhysics *)hit.other->getActor()->userData;
+	IPhysics *otherComponent = (IPhysics *)hit.other->getActor()->userData;
 
+	if (_fsm && otherComponent->getEntity()->isActivated())
+	{
 		_fsm->setValue<bool>("touching_entity", true);
 		_fsm->setValue<std::string>("touched_entity_bp", otherComponent->getEntity()->getBlueprint());
 		_fsm->setValue<std::string>("touched_go_name", otherComponent->getEntity()->getGameObject()->getName());
