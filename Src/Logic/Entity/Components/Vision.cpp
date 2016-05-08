@@ -80,7 +80,8 @@ namespace Logic
 		// LOGICA DE LA VISION
 		Logic::CEntity* entity = visionRay();
 
-		if (entity){
+		// Important check
+		if (entity && entity->isBody() && entity->isActivated()){
 			_seeingEntity = true;
 			_lastSeenEntity = entity;
 		}
@@ -97,7 +98,6 @@ namespace Logic
 			{
 				_fsm->setValue<std::string>("seen_entity_bp", _lastSeenEntity->getBlueprint());
 				_fsm->setValue<std::string>("seen_go_name", _lastSeenEntity->getGameObject()->getName());
-				//std::cout << _lastSeenEntity->getBlueprint() << std::endl;
 			}
 		}
 		
@@ -132,13 +132,13 @@ namespace Logic
 		if (seenEntity)
 			return seenEntity;
 
-		// Y después unos desde la mitad del personaje
+		// Y después uno desde la mitad del personaje
 		origin.y += _yRaySeparation;
 		_ray.setOrigin(origin);
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
 
 		seenEntity = Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
-		
+
 		return seenEntity;
 	}
 
