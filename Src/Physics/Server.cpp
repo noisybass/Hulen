@@ -243,7 +243,11 @@ void CServer::createScene ()
 
 
 	//Disable collision between differnt groups
-	PxSetGroupCollisionFlag(CAPSULES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(NON_ACTIVE_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(CHARGES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, NON_ACTIVE_COLLISION_GROUP, false);
+	
 }
 
 //--------------------------------------------------------
@@ -621,7 +625,7 @@ PxCapsuleController* CServer::createCapsuleController(const Vector3 &position, f
 	// Anotar el componente lógico asociado al actor dentro del controller (No es automático)
 	controller->getActor()->userData = (void *) component;
 
-	setCollisionGroup(controller->getActor(), CAPSULES_COLLISION_GROUP);
+	setCollisionGroup(controller->getActor(), CONTROLLERS_COLLISION_GROUP);
 
 	return controller;
 }

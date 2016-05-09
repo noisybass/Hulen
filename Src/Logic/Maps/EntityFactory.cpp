@@ -246,11 +246,7 @@ namespace Logic
 
 		if (!ret)
 		{
-			//std::cout << "He petado en ret" << std::endl;
 			return 0;
-		}
-		else{
-			//std::cout << "No He petado en ret" << std::endl;
 		}
 			
 

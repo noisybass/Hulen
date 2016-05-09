@@ -1,10 +1,13 @@
 #include "Entity.h"
 
+#include <cassert>
+
 namespace Logic 
 {
 	CEntity::CEntity() 
-		: _gameObject(nullptr), _blueprint(""), _name(""), _position(Vector3::ZERO),
-		_activated(false), _changeState(false), _direction(ENTITY_DIRECTION::RIGHT)
+		: _gameObject(nullptr), _blueprint(""), _name(""), _type("Body"),
+		_position(Vector3::ZERO), _activated(false), _changeState(false),
+		_direction(ENTITY_DIRECTION::RIGHT)
 	{
 
 	} // CEntity
@@ -22,12 +25,13 @@ namespace Logic
 
 	bool CEntity::spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
 	{
-		// Leemos las propiedades comunes
+		// Common properties
 		_blueprint = entityInfo->getBlueprint();
+		assert(entityInfo->hasAttribute("name") && "An entity has to have a name!!");
+		_name = entityInfo->getStringAttribute("name");
+		assert(entityInfo->hasAttribute("type") && "An entity has to have a type!!");
+		_type = entityInfo->getStringAttribute("type");
 		_gameObject = gameObject;
-
-		if(entityInfo->hasAttribute("name"))
-			_name = entityInfo->getStringAttribute("name");
 
 		if(entityInfo->hasAttribute("position"))
 		{
@@ -51,15 +55,12 @@ namespace Logic
 			}
 		}
 
-		// Inicializamos los componentes
+		// Entity components spawn
 		TComponentMap::const_iterator it;
 
 		bool correct = true;
-		//std::cout << "correct: " << correct << std::endl;
 		for (it = _components.begin(); it != _components.end() && correct; ++it){
 			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
-			//std::cout << "name: " << it->second->_name << std::endl;
-			//std::cout << "correct: " << correct << std::endl;
 		}
 			
 

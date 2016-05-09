@@ -145,8 +145,9 @@ namespace Physics {
 		
 
 		static const unsigned int DEFAULT_COLLISION_GROUP = 0;
-		static const unsigned int CAPSULES_COLLISION_GROUP = 1;
+		static const unsigned int CONTROLLERS_COLLISION_GROUP = 1;
 		static const unsigned int CHARGES_COLLISION_GROUP = 2;
+		static const unsigned int NON_ACTIVE_COLLISION_GROUP = 3;
 
 
 		//------------------------------
@@ -344,6 +345,8 @@ namespace Physics {
 		 */
 		Logic::CEntity* raycastClosest (const Ray& ray, float maxDist, int group) const; 
 
+		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
+
 	private:
 
 		/**
@@ -387,8 +390,6 @@ namespace Physics {
 
 		// Gestion de colisiones
 		CCollisionManager *_collisionManager;
-
-		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
 
 	}; // class CServer
 
