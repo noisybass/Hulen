@@ -37,8 +37,6 @@ namespace Logic
 
 		std::vector<CGameObject*> _graphicCharges;
 
-		std::vector<bool> _graphicChargesLoopingMouse;
-
 		std::string _graphicChargeName;
 
 		bool equilateralTriangle(int chargeNum, float sideOfTriangle);

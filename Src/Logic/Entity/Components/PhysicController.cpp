@@ -216,7 +216,6 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	// un mensaje a la entidad contra la que nos hemos
 	// chocado
 	if (_server->isKinematic(actor)){
-
 		TMessage msg;
 		msg._type = Message::SHAPE_HIT;
 		otherComponent->getEntity()->emitMessage(msg);

@@ -19,6 +19,7 @@ namespace Logic
 		if (entityInfo->hasAttribute("graphicChargeRadius"))
 			_graphicChargeRadius = entityInfo->getFloatAttribute("graphicChargeRadius");
 
+		// if there are 3 charges
 		_graphicChargeDistanceBetweenThem = _graphicChargeRadius + _graphicChargeRadius * 0.5 + _graphicChargeRadius * 0.25;
 
 		return true;
@@ -37,9 +38,8 @@ namespace Logic
 				std::stringstream ss;
 				ss << i << " " << i << " " << i;
 				std::string chargePosition = ss.str();
-				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_graphicChargeName, "GraphicCharge_" + i, chargePosition);
+				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_graphicChargeName, "GraphicCharge_" + std::to_string(i), chargePosition);
 				_graphicCharges.push_back(newCharge);
-				_graphicChargesLoopingMouse.push_back(false);
 			}
 		}
 	
@@ -62,6 +62,7 @@ namespace Logic
 
 			Vector3 directorVector = mousePosition - _graphicCharges[i]->getBody()->getPosition();
 			// Go to Mouse Position
+			float lenght = directorVector.length();
 			if (directorVector.length() > _graphicChargeRadius)
 			{
 				Ogre::Real length = directorVector.length();
@@ -103,20 +104,47 @@ namespace Logic
 
 	bool CGraphicCharges::accept(const TMessage &message)
 	{
-		return message._type == Message::HOW_MANY_CHARGES;
+		return message._type == Message::PICK_CHARGE ||
+			   message._type == Message::PUT_CHARGE;
 	} // accept
 
 	void CGraphicCharges::process(const TMessage &message)
 	{
+		std::string chargePosition;
+		CGameObject* newCharge;
+		int numCharges;
+		Vector3 position;
+		std::stringstream ss;
+
 		switch (message._type)
 		{
-		case Message::HOW_MANY_CHARGES:
+		case Message::PICK_CHARGE:
+			numCharges = _graphicCharges.size();
+			position = message.getArg<Vector3>("position");
+			ss << position.x << " " << position.y << " " << position.z;
+			chargePosition = ss.str();
+			newCharge = Logic::CMap::instantiatePrefab(_graphicChargeName, "GraphicCharge_" + std::to_string(numCharges), chargePosition);
+			_graphicCharges.push_back(newCharge);
+			newCharge->activate();
 
+			if (numCharges + 1 == 3)
+				_graphicChargeDistanceBetweenThem = _graphicChargeRadius + _graphicChargeRadius * 0.5 + _graphicChargeRadius * 0.25;
+
+			break;
+		case Message::PUT_CHARGE:
+			if (!_graphicCharges.empty())
+			{
+				// erase it from map
+				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_graphicCharges.back());
+				_graphicCharges.pop_back();
+
+				if (_graphicCharges.size() == 2)
+					_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;
+			}
+			
 			break;
 		}
 	} // process
 	
-
-
 } // namespace Logic
 

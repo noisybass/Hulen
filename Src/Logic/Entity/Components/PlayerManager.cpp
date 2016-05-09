@@ -77,20 +77,32 @@ namespace Logic
 			message._type == Message::PUT_CHARGE ||
 			message._type == Message::PICK_CHARGE ||
 			message._type == Message::PLAYER_LEVER_INTERACT ||
-			message._type == Message::CHARGE_ERASED; 
+			message._type == Message::CHARGE_ERASED ||
+			message._type == Message::DEATH_PLANE ||
+			message._type == Message::PICK_FROM_DEATH_CHARGE;
 
 	} // accept
 
 	void CPlayerManager::process(const TMessage &message)
 	{
-		CGameObject* chargeInRange;
+		CGameObject* chargeInRange = nullptr;
+		CEntity* deathCharge = nullptr;
 		TMessage m;
+		std::string playerEvent;
+		
 
 		switch (message._type)
 		{
+		case Message::PICK_FROM_DEATH_CHARGE:
+			deathCharge = message.getArg<CEntity*>("entityCharge");
+			// Continue below
 		case Message::PICK_CHARGE:
 			// Comprobamos si hay alguna carga que podamos coger
-			chargeInRange = canPickAnyCharge();
+			if (!deathCharge)
+				chargeInRange = canPickAnyCharge();
+			else
+				chargeInRange = deathCharge->getGameObject();
+
 			if (chargeInRange)
 			{
 				// Buscarla en el vector de referencias
@@ -99,6 +111,12 @@ namespace Logic
 				// Una vez que la tenemos la borramos del vector
 				if (it != _chargesOnMap.end())
 					_chargesOnMap.erase(it);
+
+				// Avisamos a las cargas graficas que se ha cogido una carga
+				TMessage m;
+				m._type = Message::PICK_CHARGE;
+				m.setArg<Vector3>("position", chargeInRange->getPosition());
+				_kasai->emitMessage(m);
 
 				// Destruir y borrar del mapa
 				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(chargeInRange);
@@ -128,6 +146,11 @@ namespace Logic
 
 				// Decrementamos el número de cargas que poseemos
 				_chargesOwned--;
+
+				// Quitamos la carga de luz de las cargas graficas
+				TMessage m;
+				m._type = Message::PUT_CHARGE;
+				_kasai->emitMessage(m);
 			}
 			break;
 		case Message::PLAYER_CHANGE_STATE:
@@ -146,10 +169,12 @@ namespace Logic
 				->fireEvent(message.getArg<std::string>("playerEvent"));
 
 			break;
-		case Message::HOW_MANY_CHARGES:
-			m._type = Message::HOW_MANY_CHARGES;
-			m.setArg<int>("how_many_charges", _chargesOwned);
-			_kasai->emitMessage(m);
+		case Message::DEATH_PLANE:
+			playerEvent = "die";
+			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
+				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
+				->fireEvent(playerEvent);
+
 			break;
 		case Message::CHARGE_ERASED:
 

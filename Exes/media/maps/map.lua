@@ -351,15 +351,15 @@ Map = {
 		
 
 	World1 = {
-		-- Para que sea un DeathPlane
-		physic_type = "kinematic",
-		physic_mass = 1,
-		blueprint = "DeathPlane",
-		-- Fin
 		type = "Body",
+		blueprint = "DeathPlane",
 		game_object = "World1_GO",
-		prefab = "World_Prefab",
 		position = {0, -25, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
 		scale = {60, 1, 10},
 		physic_dimensions = { 65, 1, 10 },
 	},

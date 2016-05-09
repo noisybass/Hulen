@@ -17,19 +17,27 @@ namespace Logic
 
 	bool CDeathPlane::accept(const TMessage &message)
 	{
-		return message._type == Message::SHAPE_HIT;
+		return message._type == Message::TOUCHED;
 
 	} // accept
 
 	void CDeathPlane::process(const TMessage &message)
 	{
+		TMessage msg;
 		switch(message._type)
 		{
-		case Message::SHAPE_HIT:
-			TMessage msg;
+		/*case Message::SHAPE_HIT:
 			msg._type = Message::PLAYER_EVENT;
 			msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
+			break;*/
+		case Message::TOUCHED:
+			CEntity* entity = message.getArg<CEntity*>("entity");
+			msg._type = Message::DEATH_PLANE;
+			if (entity->getBlueprint() == "Player")
+				entity->getGameObject()->emitMessage(msg);
+			else
+				entity->emitMessage(msg);
 			break;
 		}
 

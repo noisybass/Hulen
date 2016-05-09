@@ -98,8 +98,7 @@ void CCollisionManager::onTrigger(PxTriggerPair *pairs, PxU32 count)
 		// Notificar a ambos componentes la colisión
 		triggerComponent->onTrigger(otherComponent, enter);
 		otherComponent->onTrigger(triggerComponent, enter);
-		
-		
+
 	}	
 }
 
