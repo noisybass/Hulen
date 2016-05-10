@@ -12,6 +12,7 @@ GraphicCharge CGraphics
 Spike CGraphics CPhysicEntity CSpike
 Lever CGraphics CInteractuable CLeverInteractuable
 LeverTarget CGraphics CLeverTargetDoor CPhysicEntity CSwitchPosition
+LightLever CGraphics CPhysicEntity CLightLever
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 FinishLevel CGraphics CPhysicEntity CEndLevel
 Empty

@@ -137,6 +137,18 @@ Map_GO = {
 		state = "Body",
 	},
 
+	LightLever_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	LightLeverTarget_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -175,6 +187,22 @@ Map = {
 		physic_dimensions = { 1,3,2},
 	},
 
+	LightLeverTarget_Body = {
+		type = "Body",
+		blueprint = "LeverTarget",
+		game_object = "LightLeverTarget_GO",
+		position = {4, -12, 0},
+		scale = {1, 5, 1},
+		model = "Cube.mesh",
+		position2 = {4, -7, 0},
+		speed = 10,
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,3,2},
+	},
+
 	Lever_Body = {
 		type = "Body",
 		blueprint = "Lever",
@@ -184,6 +212,20 @@ Map = {
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
+	},
+
+	LightLever_Body = {
+		type = "Body",
+		blueprint = "LightLever",
+		game_object = "LightLever_GO",
+		light_lever_GO_target = "LightLeverTarget_GO",
+		position = {0, 0, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,1,1 },
 	},
 	
 	Player_Body = {

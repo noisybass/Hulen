@@ -102,6 +102,8 @@ namespace Logic
 		*/
 		void  onTrigger (IPhysics *otherComponent, bool enter);
 
+		void onContact (IPhysics *otherComponent);
+
 		/**
 		Se invoca cuando se produce una colisión entre un character controller y una entidad física.
 		*/

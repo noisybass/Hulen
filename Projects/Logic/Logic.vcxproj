@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LightLever.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MoveController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Patrol.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LightLever.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MoveController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Patrol.h" />

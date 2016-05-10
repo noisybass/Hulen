@@ -195,6 +195,24 @@ void CServer::Release()
 } 
 
 //--------------------------------------------------------
+static PxFilterFlags PxDefaultSimulationFilterShaderTest(
+	PxFilterObjectAttributes attributes0,
+	PxFilterData filterData0,
+	PxFilterObjectAttributes attributes1,
+	PxFilterData filterData1,
+	PxPairFlags& pairFlags,
+	const void* constantBlock,
+	PxU32 constantBlockSize)
+{
+	//pairFlags = PxPairFlag::eRESOLVE_CONTACTS;
+	//pairFlags |= PxPairFlag::eCCD_LINEAR;
+	//pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	//pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND; 
+	PxFilterFlags flags = PxDefaultSimulationFilterShader(attributes0, filterData0, attributes1, filterData1, pairFlags, constantBlock, constantBlockSize);
+	pairFlags |= PxPairFlag::eRESOLVE_CONTACTS;
+	pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	return flags;
+};
 
 void CServer::createScene ()
 {
@@ -221,7 +239,7 @@ void CServer::createScene ()
 	// Establecer el shader que controla las colisiones entre entidades.
 	// Usamos un shader que emula la gestión de grupos de PhysX 2.8
 	if (!sceneDesc.filterShader)
-		sceneDesc.filterShader = PxDefaultSimulationFilterShader;
+		sceneDesc.filterShader = PxDefaultSimulationFilterShaderTest;
 
 	// Intentar establecer un gestor de tareas por GPU 
 	// Sólo Windows
@@ -232,15 +250,15 @@ void CServer::createScene ()
 	}
 #endif
 
+	/*sceneDesc.flags = PxSceneFlag::eENABLE_CCD;*/
+	//sceneDesc.flags |= PxSceneFlag::eENABLE_KINEMATIC_PAIRS;
+	//sceneDesc.flags |= PxSceneFlag::eENABLE_KINEMATIC_STATIC_PAIRS;
 	// Crear la escena física
 	_scene = _physics->createScene(sceneDesc);
 	assert(_scene && "Error en PxPhysics::createScene");
 
-	//_scene->setFlag(physx::PxSceneFlag::)
-
 	// Crear PxControllerManager. Es necesario para crear character controllers
 	_controllerManager = PxCreateControllerManager(*_scene);
-
 
 	//Disable collision between differnt groups
 	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
@@ -353,7 +371,7 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimens
 		shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, false);
 		shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	}
-
+	
 	// Anotar el componente lógico asociado a la entidad física
 	actor->userData = (void *) component;
 

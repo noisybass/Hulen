@@ -195,6 +195,11 @@ void CPhysicController::onTrigger(IPhysics *otherComponent, bool enter)
 
 }
 
+void CPhysicController::onContact(IPhysics *otherComponent)
+{
+
+}
+
 //---------------------------------------------------------
 
 void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)

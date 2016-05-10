@@ -60,6 +60,7 @@ namespace Logic
 			CHARGE_ERASED,
 			HOW_MANY_CHARGES,
 			DEATH_PLANE,
+			ON_CONTACT,
 		};
 
 		/**

@@ -36,10 +36,15 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::TOUCHED:
+			
 			TMessage msg;
-			msg._type = Message::PLAYER_EVENT;
-			msg.setArg<std::string>(std::string("playerEvent"), std::string("endLevel"));
-			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
+			CEntity* entity = message.getArg<CEntity*>("entity");
+			if (entity->getBlueprint() == "Player")
+			{
+				msg._type = Message::PLAYER_EVENT;
+				msg.setArg<std::string>(std::string("playerEvent"), std::string("endLevel"));
+				Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
+			}
 			break;
 		}
 
