@@ -37,6 +37,31 @@ Map_GO = {
 		blueprint = "Empty",
 		state = "Body"
 	},
+	Tile2_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body"
+	},
+	Tile3_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body"
+	},
+	Tile4_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body"
+	},
+	Tile5_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body"
+	},
+	Tile6_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body"
+	},
 }
 
 Map = {
@@ -106,9 +131,79 @@ Map = {
 		type = "Body",
 		blueprint = "World",
 		game_object = "Tile1_GO",
-		position = {0, 0, 0},
-		scale = {0.4, 0.4, 0.4},
-		model = "tile2.mesh",
+		position = {-10, -10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor1.mesh",
+		material = "TexturaFloor",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = {0.4, 0.4, 0.4},
+	},
+
+	Tile2 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Tile2_GO",
+		position = {0, -10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor2.mesh",
+		material = "TexturaFloor",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = {0.4, 0.4, 0.4},
+	},
+
+	Tile3 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Tile3_GO",
+		position = {10, -10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor3.mesh",
+		material = "TexturaFloor",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = {0.4, 0.4, 0.4},
+	},
+
+	Tile4 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Tile4_GO",
+		position = {-10, 10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor4.mesh",
+		material = "TexturaFloor",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = {0.4, 0.4, 0.4},
+	},
+
+	Tile5 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Tile5_GO",
+		position = {0, 10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor5.mesh",
+		material = "TexturaFloor",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = {0.4, 0.4, 0.4},
+	},
+
+	Tile6 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Tile6_GO",
+		position = {10, 10, 0},
+		scale = {0.5, 0.5, 0.5},
+		model = "floor6.mesh",
 		material = "TexturaFloor",
 		physic_entity = "rigid",
 		physic_type = "static",
