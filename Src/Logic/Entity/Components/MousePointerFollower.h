@@ -14,6 +14,10 @@ namespace Logic
 
 		void process(const TMessage& message) override;
 
+		Vector3 getMousePosition() const { return newPosition; };
+
+		Vector3 newPosition;
+
 	}; // class CMousePointerFollower
 
 	REG_FACTORY(CMousePointerFollower);

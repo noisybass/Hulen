@@ -64,6 +64,17 @@ void CCollisionManager::onSleep(PxActor **actors, PxU32 count)
 void CCollisionManager::onContact(const PxContactPairHeader &pairHeader, const PxContactPair *pairs, PxU32 nbPairs) 
 {
 	// Por ahora ignoramos estos mensajes
+
+	// Obtener el componente lógico asociado al trigger físico
+	IPhysics *triggerComponent = (IPhysics *)pairHeader.actors[0]->userData;
+	assert(triggerComponent);
+
+	// Obtener el componente lógico asociado a la otra entidad física
+	IPhysics *otherComponent = (IPhysics *)pairHeader.actors[1]->userData;
+	assert(otherComponent);
+
+	triggerComponent->onContact(otherComponent);
+	otherComponent->onContact(triggerComponent);
 }
 
 //--------------------------------------------------
@@ -98,8 +109,7 @@ void CCollisionManager::onTrigger(PxTriggerPair *pairs, PxU32 count)
 		// Notificar a ambos componentes la colisión
 		triggerComponent->onTrigger(otherComponent, enter);
 		otherComponent->onTrigger(triggerComponent, enter);
-		
-		
+
 	}	
 }
 

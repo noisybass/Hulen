@@ -47,7 +47,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;../../dependencies/include/lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;../../dependencies/include/lua;../../dependencies/include/fmod/lowlevel;../../dependencies/include/fmod/studio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -67,7 +67,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;../../dependencies/include/lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Src;../../dependencies/include;../../dependencies/include/OGRE;../../dependencies/include/OIS;../../dependencies/include/PhysX;../../dependencies/include/boost;../../dependencies/include/lua;../../dependencies/include/fmod/lowlevel;../../dependencies/include/fmod/studio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -83,20 +83,23 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Logic\Entity\Components\Alert.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Attack.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Charger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Chase.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DamageTrigger.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\DeathPlane.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\Eater.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\EndLevel.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\FSMEntity.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\GraphicCharges.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Interactuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Life.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\LightingArea.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\LightLever.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\MoveController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Patrol.cpp" />
@@ -124,18 +127,21 @@
     <ClCompile Include="..\..\Src\Logic\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Logic\Entity\Components\Alert.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Attack.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Charger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Chase.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\ChargeInteractuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\DeathPlane.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\Eater.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\EndLevel.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\FSMEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\GraphicCharges.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Interactuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverInteractuable.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetDoor.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LeverTargetExample.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\LightingArea.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\LightLever.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MousePointerFollower.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\MoveController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Patrol.h" />

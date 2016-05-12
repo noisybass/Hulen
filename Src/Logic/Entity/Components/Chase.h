@@ -20,7 +20,7 @@ namespace Logic
 
 		void deactivate() override;
 
-		void tick(unsigned int msecs) override;
+		void tick(float msecs) override;
 
 	private:
 

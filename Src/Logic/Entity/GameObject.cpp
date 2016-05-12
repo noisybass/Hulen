@@ -183,7 +183,7 @@ namespace Logic
 
 	} // isActivated
 
-	void CGameObject::tick(unsigned int msecs)
+	void CGameObject::tick(float msecs)
 	{
 		TComponentMap::const_iterator it;
 
@@ -308,5 +308,15 @@ namespace Logic
 		return _body->getPosition();
 
 	} // getPosition
+
+	IComponent* CGameObject::getComponent(const std::string& name)
+	{
+		TComponentMap::const_iterator it = _components.find(name);
+
+		if (it != _components.end())
+			return it->second;
+
+		return nullptr;
+	}
 
 } // namespace Logic

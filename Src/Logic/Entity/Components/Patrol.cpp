@@ -1,4 +1,5 @@
 #include "Patrol.h"
+
 #include "Logic/Entity/Entity.h"
 #include "Physics/Server.h"
 #include "Map/MapEntity.h"
@@ -77,7 +78,7 @@ namespace Logic
 
 	} // process
 
-	void CPatrol::tick(unsigned int msecs)
+	void CPatrol::tick(float msecs)
 	{
 		if (_active)
 		{

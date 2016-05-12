@@ -18,6 +18,7 @@ Contiene la declaración del estado de menú.
 #define __Application_MenuState_H
 
 #include "ApplicationState.h"
+#include "Sounds\api\SoundsResources.h"
 
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Application 
@@ -57,7 +58,9 @@ namespace Application
 		Constructor de la clase 
 		*/
 		CMenuState(CBaseApplication *app) : CApplicationState(app)
-				{}
+		{
+			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
+		}
 
 		/** 
 		Destructor 
@@ -98,7 +101,7 @@ namespace Application
 		la última llamada (o desde la áctivación del estado, en caso
 		de ser la primera vez...).
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		// Métodos de CKeyboardListener
 		
@@ -185,6 +188,11 @@ namespace Application
 		Change the state to the options menu.
 		*/
 		bool optionsReleased(const CEGUI::EventArgs& e);
+
+		/**
+		To play sounds
+		*/
+		Sounds::CSoundsResources* _soundResources;
 
 	}; // CMenuState
 

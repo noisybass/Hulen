@@ -41,6 +41,17 @@ namespace Sounds{
 		bool loadChannel(std::string channelName, std::string soundName, bool sleep = true);
 
 		/**
+		Dejamos que FMOD se encargue de manejar los canales, por lo tanto creamos un 
+		canal y FMOD cuando el vea necesario lo borrara.
+
+		@params soundName nombre del sonido que queremos cargar en el canal.
+		@params volume volumen del sonido que cargamos.
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool loadChannelAndDestroy(std::string soundName, float volume);
+
+		/**
 		Asigna un volumen al canal especificado.
 
 		@params channelName nombre del canal

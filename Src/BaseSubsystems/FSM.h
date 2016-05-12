@@ -38,7 +38,7 @@ namespace AI
 
 		} // setCurrentState
 
-		void update(unsigned int msecs)
+		void update(float msecs)
 		{
 			// Nos aseguramos de que el estado es válido antes de llamar
 			// a execute()

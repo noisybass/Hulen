@@ -55,7 +55,7 @@ namespace Logic
 		En cada tick lanza un rayo en la dirección que mira la entidad para comprobar
 		si hay alguna otra entidad en su rango de percepción.
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 	protected:
 

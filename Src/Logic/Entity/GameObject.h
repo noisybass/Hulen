@@ -43,7 +43,7 @@ namespace Logic
 
 		bool isActivated();
 
-		void tick(unsigned int msecs);
+		void tick(float msecs);
 
 		void addComponent(const std::string& name, IComponent* component);
 
@@ -110,6 +110,11 @@ namespace Logic
 		devuelve la posición del body.
 		*/
 		Vector3 getPosition() const;
+
+		/**
+		Devuelve el componente
+		*/
+		IComponent* getComponent(const std::string& name);
 
 	protected:
 

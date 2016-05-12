@@ -11,7 +11,19 @@ Map_GO = {
 		charge = "Charge_Prefab",
 	},
 
-	Crawler_GO = {
+	--[[Crawler_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]
+
+	--[[Lightbulb_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]
+
+	Centaur_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
@@ -125,6 +137,18 @@ Map_GO = {
 		state = "Body",
 	},
 
+	LightLever_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	LightLeverTarget_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -155,7 +179,23 @@ Map = {
 		scale = {1, 5, 1},
 		model = "Cube.mesh",
 		position2 = {2, -7, 0},
-		speed = 0.01,
+		speed = 10,
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,3,2},
+	},
+
+	LightLeverTarget_Body = {
+		type = "Body",
+		blueprint = "LeverTarget",
+		game_object = "LightLeverTarget_GO",
+		position = {4, -12, 0},
+		scale = {1, 5, 1},
+		model = "Cube.mesh",
+		position2 = {4, -7, 0},
+		speed = 10,
 		physic_entity = "rigid",
 		physic_type = "kinematic",
 		physic_mass = 1,
@@ -173,6 +213,20 @@ Map = {
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
 	},
+
+	LightLever_Body = {
+		type = "Body",
+		blueprint = "LightLever",
+		game_object = "LightLever_GO",
+		light_lever_GO_target = "LightLeverTarget_GO",
+		position = {0, 0, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,1,1 },
+	},
 	
 	Player_Body = {
 		type = "Body",
@@ -187,15 +241,16 @@ Map = {
 		defaultAnimation = "Idle_cycle_1",
 		walkRightAnimation = "Walking_cycle",
 		idleAnimation = "Idle_cycle_1",
+		--fadeInOut_Velocity = 5,
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.03,
+		speed = 10,
+		jump_speed = 30,
 		jump_height = 8.0,
-		gravity = 0.015,
+		gravity = 15,
 		defaultVision = 5,
 	},
 
@@ -212,18 +267,19 @@ Map = {
 		defaultAnimation = "Idle_cycle_1",
 		walkRightAnimation = "Walking_cycle",
 		idleAnimation = "Idle_cycle_1",
+		--fadeInOut_Velocity = 5,
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.01,
-		jump_speed = 0.03,
+		speed = 10,
+		jump_speed = 30,
 		jump_height = 8.0,
-		gravity = 0.01,
+		gravity = 15,
 	},
 
-	Character_Body = {
+	--[[Crawler_Body = {
 		type = "Body",
 		blueprint = "Crawler",
 		game_object = "Crawler_GO",
@@ -237,12 +293,62 @@ Map = {
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 0.1,
+		gravity = 15,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 0.005,
+		speed = 5,
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Crawler_Patrol",
+	},]]
+
+	--[[Lightbulb_Body = {
+		type = "Body",
+		blueprint = "Lightbulb",
+		game_object = "Lightbulb_GO",
+		--position = {0, -14, 0},
+		position = {3, 0, 0},
+		scale = {0.2, 0.2, 0.2},
+		model = "marine.mesh",
+		material = "Red",
+		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		idleAnimation = "Idle",
+		physic_shape = "capsule",
+		physic_radius = 1,
+		physic_height = 0.1,
+		gravity = 15,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 2.5,
+		--patrolPosition1 = {4, -14, 0},
+		--patrolPosition2 = {10, -14, 0},
+		patrolPosition1 = {0, 0, 0},
+		patrolPosition2 = {5, 0, 0},
+		fsm_initial_state = "Lightbulb_Patrol",
+	},]]
+
+	Centaur_Body = {
+		type = "Body",
+		blueprint = "Centaur",
+		game_object = "Centaur_GO",
+		position = {3, -3.5, 0},
+		scale = {0.2, 0.2, 0.2},
+		direction = "left",
+		model = "marine.mesh",
+		material = "Red",
+		defaultAnimation = "Idle",
+		walkRightAnimation = "WalkBack",
+		idleAnimation = "Idle",
+		physic_shape = "capsule",
+		physic_radius = 1,
+		physic_height = 0.1,
+		gravity = 15,
+		guizmo = false,
+		guizmoSize = 10,
+		speed = 12,
+		defaultVision = 10,
+		fsm_initial_state = "Centaur_Idle",
 	},
 
 	Kasai = {
@@ -262,6 +368,8 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
+		graphicChargeVelocity = 8,
+		graphicChargeRadius = 3,
 	},
 
 	Camera = {
@@ -285,15 +393,15 @@ Map = {
 		
 
 	World1 = {
-		-- Para que sea un DeathPlane
-		physic_type = "kinematic",
-		physic_mass = 1,
-		blueprint = "DeathPlane",
-		-- Fin
 		type = "Body",
+		blueprint = "DeathPlane",
 		game_object = "World1_GO",
-		prefab = "World_Prefab",
 		position = {0, -25, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
 		scale = {60, 1, 10},
 		physic_dimensions = { 65, 1, 10 },
 	},

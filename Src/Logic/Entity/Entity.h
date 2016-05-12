@@ -112,7 +112,7 @@ namespace Logic
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		void tick(unsigned int msecs);
+		void tick(float msecs);
 
 		/**
 		Método que añade un nuevo componente a la lista de la entidad.
@@ -199,13 +199,24 @@ namespace Logic
 		*/
 		enum ENTITY_DIRECTION {
 			RIGHT = 1,
-			LEFT = -1,
-			NONE = 0
+			LEFT = -1
 		};
 
 		int getDirection() { return _direction; };
 
 		void setDirection(ENTITY_DIRECTION direction){ _direction = direction;}
+
+		/**
+		True if the entity type is 'Body'
+		False otherwise
+		*/
+		bool isBody() const { return !_type.compare("Body"); }
+
+		/**
+		True if the entity type is 'Shadow'
+		False otherwise
+		*/
+		bool isShadow() const { return !_type.compare("Shadow"); }
 
 	protected:
 
@@ -230,24 +241,25 @@ namespace Logic
 		bool _activated;
 
 		/**
-		Tipo de la entidad declarado en el archivo blueprints.
+		Entity blueprint
 		*/
 		std::string _blueprint;
 
 		/**
-		Nombre de la entidad.
+		Entity name
 		*/
 		std::string _name;
 
 		/**
-		Matriz de transformación de la entidad. Contiene posición y orientación.
+		Entity type ('Body' or 'Shadow')
 		*/
-		//Matrix4 _transform;
+		std::string _type;
+
 
 		bool _changeState;
 
 		/**
-		Entity direction.
+		Entity direction
 		*/
 		ENTITY_DIRECTION _direction;
 

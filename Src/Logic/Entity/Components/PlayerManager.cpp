@@ -9,6 +9,7 @@
 #include "Logic/Entity/Components/LightingArea.h"
 #include "Logic/Entity/Components/ChargeInteractuable.h"
 
+
 namespace Logic
 {
 	IMP_FACTORY(CPlayerManager);
@@ -18,7 +19,8 @@ namespace Logic
 		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
 		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false)
 	{
-
+		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
+		_soundsResources->createSound("ShadowSongChannel", "ShadowSong");
 	} // CPlayerManager
 
 	CPlayerManager::~CPlayerManager()
@@ -26,6 +28,11 @@ namespace Logic
 		if (_kasai)
 		{
 			_kasai = nullptr;
+		}
+		if (_soundsResources)
+		{
+			_soundsResources->deleteSound("ShadowSongChannel");
+			_soundsResources = nullptr;
 		}
 	}
 
@@ -54,9 +61,6 @@ namespace Logic
 	{
 		_kasai = _gameObject->getMap()->getGameObjectByName(_kasaiName);
 
-		//_charge = _gameObject->getMap()->getGameObjectByName(_chargeName);
-		//_charge = Logic::CMap::instantiatePrefab(_chargeName, "Charge0");
-
 		return true;
 
 	} // activate
@@ -69,20 +73,33 @@ namespace Logic
 			message._type == Message::PLAYER_EVENT ||
 			message._type == Message::PUT_CHARGE ||
 			message._type == Message::PICK_CHARGE ||
-			message._type == Message::PLAYER_LEVER_INTERACT; 
+			message._type == Message::PLAYER_LEVER_INTERACT ||
+			message._type == Message::CHARGE_ERASED ||
+			message._type == Message::DEATH_PLANE ||
+			message._type == Message::PICK_FROM_DEATH_CHARGE;
 
 	} // accept
 
 	void CPlayerManager::process(const TMessage &message)
 	{
-		CGameObject* chargeInRange;
+		CGameObject* chargeInRange = nullptr;
+		CEntity* deathCharge = nullptr;
 		TMessage m;
+		std::string playerEvent;
+		
 
 		switch (message._type)
 		{
+		case Message::PICK_FROM_DEATH_CHARGE:
+			deathCharge = message.getArg<CEntity*>("entityCharge");
+			// Continue below
 		case Message::PICK_CHARGE:
 			// Comprobamos si hay alguna carga que podamos coger
-			chargeInRange = canPickAnyCharge();
+			if (!deathCharge)
+				chargeInRange = canPickAnyCharge();
+			else
+				chargeInRange = deathCharge->getGameObject();
+
 			if (chargeInRange)
 			{
 				// Buscarla en el vector de referencias
@@ -91,6 +108,12 @@ namespace Logic
 				// Una vez que la tenemos la borramos del vector
 				if (it != _chargesOnMap.end())
 					_chargesOnMap.erase(it);
+
+				// Avisamos a las cargas graficas que se ha cogido una carga
+				TMessage m;
+				m._type = Message::PICK_CHARGE;
+				m.setArg<Vector3>("position", chargeInRange->getPosition());
+				_kasai->emitMessage(m);
 
 				// Destruir y borrar del mapa
 				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(chargeInRange);
@@ -105,7 +128,7 @@ namespace Logic
 				// Instanciamos la carga en el mapa
 				Vector3 pos = message.getArg<Vector3>("instancePosition");
 				std::stringstream ss;
-				ss << pos.x << " " << pos.y << " " << pos.z;
+				ss << pos.x << " " << pos.y << " " << 0;
 				std::string chargePosition = ss.str();
 				ss.str(std::string());
 				ss << "Charge" << _chargesOwned;
@@ -120,6 +143,11 @@ namespace Logic
 
 				// Decrementamos el número de cargas que poseemos
 				_chargesOwned--;
+
+				// Quitamos la carga de luz de las cargas graficas
+				TMessage m;
+				m._type = Message::PUT_CHARGE;
+				_kasai->emitMessage(m);
 			}
 			break;
 		case Message::PLAYER_CHANGE_STATE:
@@ -134,10 +162,33 @@ namespace Logic
 		case Message::PLAYER_EVENT:
 
 			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
-				    getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
-					->fireEvent(message.getArg<std::string>("playerEvent"));
+				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
+				->fireEvent(message.getArg<std::string>("playerEvent"));
 
 			break;
+		case Message::DEATH_PLANE:
+			playerEvent = "die";
+			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
+				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
+				->fireEvent(playerEvent);
+
+			break;
+		case Message::CHARGE_ERASED:
+
+			std::string chargeName = message.getArg<std::string>("chargeName");
+			CGameObject* charge = _gameObject->_map->getGameObjectByName(chargeName);
+
+			// Buscarla en el vector de referencias
+			std::vector<CGameObject*>::const_iterator it = std::find(_chargesOnMap.begin(), _chargesOnMap.end(), charge);
+
+			// Una vez que la tenemos la borramos del vector
+			if (it != _chargesOnMap.end())
+				_chargesOnMap.erase(it);
+
+			Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(charge);
+
+			break;
+		
 		}
 
 	} // process
@@ -152,33 +203,36 @@ namespace Logic
 			// Cambio de sombra a cuerpo
 			if (state == GameObject::BODY)
 			{
-				std::cout << "Cambiando de sombra a cuerpo" << std::endl;
 				_gameObject->_state = GameObject::BODY;
 				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getBody());
 
 				_gameObject->getBody()->activate();
 				_gameObject->getShadow()->emitMessage(message);
+
+				_soundsResources->pauseSound("ShadowSongChannel");
+				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 			// Cambio de cuerpo a sombra
 			else
 			{
-				std::cout << "Cambiando de cuerpo a sombra" << std::endl;
 				_gameObject->_state = GameObject::SHADOW;
 				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getShadow());
 
 				_gameObject->getShadow()->activate();
 				_gameObject->getBody()->emitMessage(message);
+
+				_soundsResources->playSound("ShadowSongChannel");
+				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 		}
 	} // changeState
 
-	void CPlayerManager::tick(unsigned int msecs)
+	void CPlayerManager::tick(float msecs)
 	{
 		// Llamar al método de la clase padre (IMPORTANTE).
 		IComponent::tick(msecs);
 
 		_onLight = playerOnLight();
-
 
 		if (_onLight)
 		{

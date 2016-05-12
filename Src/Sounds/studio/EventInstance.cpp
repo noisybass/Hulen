@@ -105,4 +105,14 @@ namespace Sounds{
 		return result == FMOD_OK && resultValue == FMOD_OK;
 	}
 	
+	bool CEventInstance::setVolume(std::string instanceName, float volume)
+	{
+		FMOD::Studio::EventInstance* eventInstance = _eventInstances->at(instanceName);
+		assert(eventInstance && "No existe la instancia especificado. Sounds::CEventInstance::setVolume");
+
+		FMOD_RESULT result = eventInstance->setVolume(volume);
+		assert(result == FMOD_OK && "Error al establecer el volumen de la instancia. Sounds::CEventInstance::setVolume");
+
+		return result;
+	}
 };

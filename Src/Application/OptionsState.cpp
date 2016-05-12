@@ -65,7 +65,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void COptionsState::tick(unsigned int msecs)
+	void COptionsState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 

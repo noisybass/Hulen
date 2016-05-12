@@ -142,7 +142,7 @@ namespace Logic {
 
 	//---------------------------------------------------------
 
-	void CServer::tick(unsigned int msecs) 
+	void CServer::tick(float msecs)
 	{
 		// Eliminamos las entidades que se han marcado para ser eliminadas.
 		Logic::CEntityFactory::getSingletonPtr()->deleteDeferredEntities();

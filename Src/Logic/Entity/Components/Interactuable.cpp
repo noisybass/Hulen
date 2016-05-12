@@ -47,7 +47,7 @@ namespace Logic
 
 	} // activate
 
-	void CInteractuable::tick(unsigned int msecs)
+	void CInteractuable::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 

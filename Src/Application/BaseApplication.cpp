@@ -34,7 +34,9 @@ namespace Application {
 		_currentState(nullptr),
 		_exit(false),
 		_clock(0),
-		_reloadState(false)
+		_reloadState(false),
+		_fixedStep(1000.0f/60.0f), //1.0f / 60.0f
+		_accumulatedTimeDiff(0.0f)
 	{
 		assert(!_instance && "No puede crearse más de una aplicación");
 
@@ -261,6 +263,12 @@ namespace Application {
 		// hacerla, ejecutamos la vuelta
 		while (!exitRequested()) 
 		{
+			// Update clock
+			_clock->updateTime();
+			_accumulatedTimeDiff += _clock->getLastFrameDuration();
+			//std::cout << "Fuera: " << _accumulatedTimeDiff << std::endl;
+			//std::cout << "Clock: " << _clock->getLastFrameDuration() << std::endl;
+
 			// Recargamos el estado actual
 			if (_reloadState){
 
@@ -269,6 +277,7 @@ namespace Application {
 				_currentState->init();
 				_currentState->activate();
 				_reloadState = false;
+
 			}
 
 			// Execute the pending actions
@@ -278,9 +287,13 @@ namespace Application {
 				_currentState != _states.top())
 				changeState();
 
-			_clock->updateTime();
-
-			tick(_clock->getLastFrameDuration());
+			
+			while (_accumulatedTimeDiff >= _fixedStep){
+				//std::cout << "Dentro: " << _accumulatedTimeDiff << std::endl;
+				tick(_fixedStep/1000);
+				_accumulatedTimeDiff -= _fixedStep;
+			}
+			
 		}
 
 	} // run
@@ -304,7 +317,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CBaseApplication::tick(unsigned int msecs) 
+	void CBaseApplication::tick(float msecs) 
 	{
 		// Aparentemente esta función es sencilla. Aquí se pueden
 		// añadir otras llamadas que sean comunes a todos los estados

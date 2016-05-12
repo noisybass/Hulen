@@ -49,6 +49,11 @@ namespace Logic
 		*/
 		virtual void onTrigger(IPhysics *otherComponent, bool enter) = 0;
 
+		/**
+		Este método es invocado cuando se produce un contacto entre 2 shapes físicos.
+		*/
+		virtual void onContact(IPhysics *otherComponent) = 0;
+
 	}; // class IPhysics
 
 } // namespace Logic

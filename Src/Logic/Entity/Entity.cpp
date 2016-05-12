@@ -1,10 +1,13 @@
 #include "Entity.h"
 
+#include <cassert>
+
 namespace Logic 
 {
 	CEntity::CEntity() 
-		: _gameObject(nullptr), _blueprint(""), _name(""), _position(Vector3::ZERO),
-		_activated(false), _changeState(false), _direction(ENTITY_DIRECTION::NONE)
+		: _gameObject(nullptr), _blueprint(""), _name(""), _type("Body"),
+		_position(Vector3::ZERO), _activated(false), _changeState(false),
+		_direction(ENTITY_DIRECTION::RIGHT)
 	{
 
 	} // CEntity
@@ -22,34 +25,44 @@ namespace Logic
 
 	bool CEntity::spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
 	{
-		// Leemos las propiedades comunes
+		// Common properties
 		_blueprint = entityInfo->getBlueprint();
+		assert(entityInfo->hasAttribute("name") && "An entity has to have a name!!");
+		_name = entityInfo->getStringAttribute("name");
+		assert(entityInfo->hasAttribute("type") && "An entity has to have a type!!");
+		_type = entityInfo->getStringAttribute("type");
 		_gameObject = gameObject;
-
-		if(entityInfo->hasAttribute("name"))
-			_name = entityInfo->getStringAttribute("name");
 
 		if(entityInfo->hasAttribute("position"))
 		{
 			_position = entityInfo->getVector3Attribute("position");
 		}
 
-		_direction = ENTITY_DIRECTION::RIGHT;
-
 		if (entityInfo->hasAttribute("direction"))
 		{
 			std::string direction = entityInfo->getStringAttribute("direction");
-			if (direction == "right") _direction = ENTITY_DIRECTION::RIGHT;
-			else if (direction == "left") _direction = ENTITY_DIRECTION::LEFT;
+			if (direction == "right")
+			{
+				_direction = ENTITY_DIRECTION::RIGHT;
+			}
+			else if (direction == "left")
+			{
+				_direction = ENTITY_DIRECTION::LEFT;
+				TMessage msg;
+				msg._type = Message::ROLL_ENTITY_NODE;
+				msg.setArg<int>(("degrees"), 180);
+				emitMessage(msg);
+			}
 		}
 
-		// Inicializamos los componentes
+		// Entity components spawn
 		TComponentMap::const_iterator it;
 
 		bool correct = true;
-
-		for( it = _components.begin(); it != _components.end() && correct; ++it )
+		for (it = _components.begin(); it != _components.end() && correct; ++it){
 			correct = it->second->spawn(it->first, this, map, entityInfo) && correct;
+		}
+			
 
 		return correct;
 
@@ -83,8 +96,11 @@ namespace Logic
 		TComponentMap::const_iterator it;
 
 		// Desactivamos los componentes
-		for( it = _components.begin(); it != _components.end(); ++it )
-			it->second->deactivate();
+		for (it = _components.begin(); it != _components.end(); ++it)
+		{
+			if (it->second->isActive())
+				it->second->deactivate();
+		}
 
 		_activated = false;
 
@@ -92,7 +108,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::tick(unsigned int msecs) 
+	void CEntity::tick(float msecs)
 	{
 		TComponentMap::const_iterator it;
 

@@ -99,12 +99,17 @@ namespace Logic
 		     que mueva la entidad de acuerdo al último mensaje KINEMATIC_MOVE recibido. </li>
 		</ul>
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
  
 		/**
 		Se invoca cuando se produce una colisión entre una entidad física y un trigger.
 		*/
 		virtual void onTrigger (IPhysics *otherComponent, bool enter);
+
+		/**
+		Se invoca cuando se produce un contacto entre dos shapes físicos.
+		*/
+		virtual void onContact(IPhysics *otherComponent);
 
 	private:
 

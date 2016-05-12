@@ -3,6 +3,7 @@
 
 #include "Logic/Entity/Component.h"
 #include "Logic/Entity/GameObject.h"
+#include "Sounds/api/SoundsResources.h"
 
 #include <vector>
 
@@ -30,7 +31,9 @@ namespace Logic
 
 		void process(const TMessage &message) override;
 
-		void tick(unsigned int msecs) override;
+		void tick(float msecs) override;
+
+		unsigned int howManyCharges() const { return _chargesOwned; };
 	protected:
 
 		/**
@@ -45,6 +48,8 @@ namespace Logic
 		CGameObject* canPickAnyCharge() const;
 
 		CGameObject* nearOfLever() const;
+
+		
 
 	private:
 
@@ -89,6 +94,11 @@ namespace Logic
 		Número de cargas que puede poner el jugador.
 		*/
 		unsigned int _chargesOwned;
+
+		/**
+		To play sounds
+		*/
+		Sounds::CSoundsResources* _soundsResources;
 
 
 	}; // class CPlayerManager

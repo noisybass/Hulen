@@ -16,6 +16,12 @@ Prefab_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
+	},
+
+	GraphicCharge_Prefab_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
 	}
 
 }
@@ -52,7 +58,6 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
-		physic_group = 1,
 	},
 
 	Spike_Prefab_Shadow = {
@@ -63,7 +68,6 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
-		physic_group = 1,
 		material = "Black",
 	},
 
@@ -85,10 +89,20 @@ Prefab = {
 		physic_entity = "rigid",
 		physic_type = "dynamic",
 		physic_shape = "sphere",
-		physic_trigger = true,
-		physic_group = 1,
+		physic_trigger = false,
+		physic_group = 2,
 		physic_mass = 1,
-		physic_radius = 0.5,
+		physic_radius = 0.1,
 	},
+
+	GraphicCharge_Prefab = {
+		type = "Body",
+		blueprint = "GraphicCharge",
+		game_object = "GraphicCharge_Prefab_GO",
+		model = "Sphere.mesh",
+		scale = {0.5, 0.5, 0.5},
+		specular_colour = {1,1,1},
+		diffuse_colour = {1,1,1},
+	}
 
 }

@@ -221,6 +221,9 @@ namespace Logic
 	{
 		//std::cout << "Creando entidad " << entityInfo->getName() << std::endl;
 
+		/*if (entityInfo->getName() == "Character_Body")
+			std::cout << "START" << std::endl;*/
+
 		if (entityInfo->hasAttribute("prefab")){
 			// Utilizamos una variable auxiliar para guardarnos los valores de la entidad
 			Map::CEntity auxiliarGameObject("Auxiliar");
@@ -242,7 +245,10 @@ namespace Logic
 		CEntity* ret = assembleEntity(entityInfo->getBlueprint());
 
 		if (!ret)
+		{
 			return 0;
+		}
+			
 
 		// Buscamos el game object al que vamos a asociar la entidad
 		std::string name = entityInfo->getStringAttribute("game_object");
@@ -255,10 +261,13 @@ namespace Logic
 			gameObject->setShadow(ret);
 
 		// Y lo inicializamos
-		if (ret->spawn(gameObject, map, entityInfo))
+		if (ret->spawn(gameObject, map, entityInfo)){
+			//std::cout << "return ret" << std::endl;
 			return ret;
+		}	
 		else
 		{
+			//std::cout << "delete ret" << std::endl;
 			delete ret;
 			return 0;
 		}

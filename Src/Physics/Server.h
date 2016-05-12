@@ -124,7 +124,7 @@ namespace Physics {
 		@param secs Millisegundos transcurridos desde la última actualización.
 		@return Valor booleano indicando si todo fue bien.
 		*/
-		bool tick(unsigned int msecs);
+		bool tick(float msecs);
 
 
 		//----------------------
@@ -142,16 +142,12 @@ namespace Physics {
 		*/
 		void destroyScene ();
 
-		/**
-		Establece si debe haber colisiones entre dos grupos de colisión. Al crear los objetos
-		físicos se establece el grupo de colisión al que pertenecen. Usando este método es
-		posible activar / desactivar las colisiones entre grupos.
+		
 
-		@param group1 Primer grupo de colisión.
-		@param group2 Segundo grupo de colisión
-		@param enable Activar o desactivar las colisiones entre los dos grupos anteriores.
-		*/
-		void setGroupCollisions(int group1, int group2, bool enable);
+		static const unsigned int DEFAULT_COLLISION_GROUP = 0;
+		static const unsigned int CONTROLLERS_COLLISION_GROUP = 1;
+		static const unsigned int CHARGES_COLLISION_GROUP = 2;
+		static const unsigned int NON_ACTIVE_COLLISION_GROUP = 3;
 
 
 		//------------------------------
@@ -305,7 +301,7 @@ namespace Physics {
 		@return Flags de colisión, un conjunto de physx::PxControllerFlag.
 		*/
 		unsigned CServer::moveController(physx::PxController *controller, const Vector3 &movement, 
-			                             unsigned int msecs);
+			                             float msecs);
 
 		/**
 		Devuelve la posición del controller.
@@ -348,6 +344,8 @@ namespace Physics {
 		 @return Primera entidad lógica alcanzada de ese grupo o NULL.
 		 */
 		Logic::CEntity* raycastClosest (const Ray& ray, float maxDist, int group) const; 
+
+		void setCollisionGroup(physx::PxRigidActor* actor, unsigned int group);
 
 	private:
 

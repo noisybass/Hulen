@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Sounds\api\SoundsResources.cpp" />
     <ClCompile Include="..\..\Src\Sounds\lowLevel\Channel.cpp" />
     <ClCompile Include="..\..\Src\Sounds\lowLevel\Sound.cpp" />
     <ClCompile Include="..\..\Src\Sounds\Server.cpp" />
@@ -19,6 +20,7 @@
     <ClCompile Include="..\..\Src\Sounds\studio\EventInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Sounds\api\SoundsResources.h" />
     <ClInclude Include="..\..\Src\Sounds\lowLevel\Channel.h" />
     <ClInclude Include="..\..\Src\Sounds\lowLevel\Sound.h" />
     <ClInclude Include="..\..\Src\Sounds\Server.h" />

@@ -33,10 +33,10 @@ namespace Logic
 			_defaultVision = entityInfo->getFloatAttribute("defaultVision");
 
 		if (entityInfo->hasAttribute("xRaySeparation"))
-			_xRaySeparation = entityInfo->getIntAttribute("xRaySeparation");
+			_xRaySeparation = entityInfo->getFloatAttribute("xRaySeparation");
 
 		if (entityInfo->hasAttribute("yRaySeparation"))
-			_yRaySeparation = entityInfo->getIntAttribute("yRaySeparation");
+			_yRaySeparation = entityInfo->getFloatAttribute("yRaySeparation");
 
 		return true;
 
@@ -50,8 +50,6 @@ namespace Logic
 		if (_fsm)
 		{
 			_fsm->setValue<bool>("seeing_entity", false);
-
-			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
 		}
 
 		return true;
@@ -62,7 +60,7 @@ namespace Logic
 
 	}
 
-	void CVision::tick(unsigned int msecs)
+	void CVision::tick(float msecs)
 	{
 		IComponent::tick(msecs);
 
@@ -82,26 +80,31 @@ namespace Logic
 		// LOGICA DE LA VISION
 		Logic::CEntity* entity = visionRay();
 
-		if (entity){
+		// Important check
+		if (entity && entity->isBody() && entity->isActivated()){
 			_seeingEntity = true;
 			_lastSeenEntity = entity;
 		}
 		else
 		{
 			_seeingEntity = false;
+			_lastSeenEntity = nullptr;
 		}
 
 		if (_fsm)
 		{
 			_fsm->setValue<bool>("seeing_entity", _seeingEntity);
-			if (_lastSeenEntity) _fsm->setValue<std::string>("seen_entity_name", _lastSeenEntity->getName());
+			if (_lastSeenEntity)
+			{
+				_fsm->setValue<std::string>("seen_entity_bp", _lastSeenEntity->getBlueprint());
+				_fsm->setValue<std::string>("seen_go_name", _lastSeenEntity->getGameObject()->getName());
+			}
 		}
 		
 	}
 
 	Logic::CEntity* CVision::visionRay(const float maxDistance)
 	{
-		if (_entity->getDirection() == 0) return nullptr;
 
 		// Inicializamos el rayo
 		Vector3 origin = _entity->getPosition();
@@ -116,17 +119,27 @@ namespace Logic
 
 	Logic::CEntity* CVision::visionRay()
 	{
-		if (_entity->getDirection() == 0) return nullptr;
-
-		// Inicializamos el rayo
+		// Primero lanzamos un rayo desde los pies
 		Vector3 origin = _entity->getPosition();
 		if (_entity->getDirection() == 1) origin.x += _xRaySeparation;
 		else if (_entity->getDirection() == -1) origin.x -= _xRaySeparation;
+		origin.y += 0;
+		_ray.setOrigin(origin);
+		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
+
+		CEntity* seenEntity = Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
+
+		if (seenEntity)
+			return seenEntity;
+
+		// Y después uno desde la mitad del personaje
 		origin.y += _yRaySeparation;
 		_ray.setOrigin(origin);
 		_ray.setDirection(Vector3(_entity->getDirection(), 0, 0));
-		
-		return Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
+
+		seenEntity = Physics::CServer::getSingletonPtr()->raycastClosest(_ray, _defaultVision);
+
+		return seenEntity;
 	}
 
 	bool CVision::accept(const TMessage &message)

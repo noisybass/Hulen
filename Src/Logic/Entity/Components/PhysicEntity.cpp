@@ -87,7 +87,7 @@ void CPhysicEntity::process(const TMessage &message)
 
 //---------------------------------------------------------
 
-void CPhysicEntity::tick(unsigned int msecs) 
+void CPhysicEntity::tick(float msecs)
 {
 	// Invocar al método de la clase padre (IMPORTANTE)
 	IComponent::tick(msecs);
@@ -250,5 +250,15 @@ void CPhysicEntity::onTrigger(IPhysics *otherComponent, bool enter)
 	}
 	msg.setArg<CEntity*>(std::string("entity"), otherComponent->getEntity());
 
+	_entity->emitMessage(msg);
+}
+
+void CPhysicEntity::onContact(IPhysics *otherComponent)
+{
+	std::cout << "onContact entre: " << _entity->getName() << " y " << otherComponent->getEntity()->getName() << std::endl;
+
+	TMessage msg;
+	msg._type = Message::ON_CONTACT;
+	msg.setArg<CEntity*>(std::string("entity"), otherComponent->getEntity());
 	_entity->emitMessage(msg);
 }

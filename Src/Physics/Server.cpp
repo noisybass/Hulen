@@ -195,6 +195,24 @@ void CServer::Release()
 } 
 
 //--------------------------------------------------------
+static PxFilterFlags PxDefaultSimulationFilterShaderTest(
+	PxFilterObjectAttributes attributes0,
+	PxFilterData filterData0,
+	PxFilterObjectAttributes attributes1,
+	PxFilterData filterData1,
+	PxPairFlags& pairFlags,
+	const void* constantBlock,
+	PxU32 constantBlockSize)
+{
+	//pairFlags = PxPairFlag::eRESOLVE_CONTACTS;
+	//pairFlags |= PxPairFlag::eCCD_LINEAR;
+	//pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	//pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND; 
+	PxFilterFlags flags = PxDefaultSimulationFilterShader(attributes0, filterData0, attributes1, filterData1, pairFlags, constantBlock, constantBlockSize);
+	pairFlags |= PxPairFlag::eRESOLVE_CONTACTS;
+	pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	return flags;
+};
 
 void CServer::createScene ()
 {
@@ -221,7 +239,7 @@ void CServer::createScene ()
 	// Establecer el shader que controla las colisiones entre entidades.
 	// Usamos un shader que emula la gestión de grupos de PhysX 2.8
 	if (!sceneDesc.filterShader)
-		sceneDesc.filterShader = PxDefaultSimulationFilterShader;
+		sceneDesc.filterShader = PxDefaultSimulationFilterShaderTest;
 
 	// Intentar establecer un gestor de tareas por GPU 
 	// Sólo Windows
@@ -232,14 +250,22 @@ void CServer::createScene ()
 	}
 #endif
 
+	/*sceneDesc.flags = PxSceneFlag::eENABLE_CCD;*/
+	//sceneDesc.flags |= PxSceneFlag::eENABLE_KINEMATIC_PAIRS;
+	//sceneDesc.flags |= PxSceneFlag::eENABLE_KINEMATIC_STATIC_PAIRS;
 	// Crear la escena física
 	_scene = _physics->createScene(sceneDesc);
 	assert(_scene && "Error en PxPhysics::createScene");
 
-	//_scene->setFlag(physx::PxSceneFlag::)
-
 	// Crear PxControllerManager. Es necesario para crear character controllers
 	_controllerManager = PxCreateControllerManager(*_scene);
+
+	//Disable collision between differnt groups
+	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(NON_ACTIVE_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(CHARGES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, NON_ACTIVE_COLLISION_GROUP, false);
+	
 }
 
 //--------------------------------------------------------
@@ -266,14 +292,15 @@ void CServer::destroyScene ()
 
 //--------------------------------------------------------
 
-bool CServer::tick(unsigned int msecs) 
+bool CServer::tick(float msecs)
 {
 	assert(_scene);
 
 	// Empezar la simulación física. Actualmente usamos intervalos de tiempo variables,
 	// debemos tener cuidado porque PhysX puede no comportarse bien si el tiempo 
 	// transcurrido es demasiado grande.
-	_scene->simulate(msecs / 1000.0f);
+	//_scene->simulate(msecs / 1000.0f);
+	_scene->simulate(msecs);
 
 	// Esperamos a que la simulación física termine. En principio podríamos utilizar
 	// este intervalo de tiempo para hacer algo más útil. Existe una versión de este
@@ -297,7 +324,8 @@ PxRigidStatic* CServer::createPlane(const Vector3 &point, const Vector3 &normal,
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 	
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -343,12 +371,13 @@ PxRigidStatic* CServer::createStaticBox(const Vector3 &position, Vector3 &dimens
 		shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, false);
 		shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	}
-
+	
 	// Anotar el componente lógico asociado a la entidad física
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	//PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -399,7 +428,8 @@ PxRigidDynamic* CServer::createDynamicBox(const Vector3 &position, const Vector3
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -423,7 +453,7 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 	PxTransform pose(Vector3ToPxVec3(position));
 	PxSphereGeometry geom(FloatToPxReal(radius));
 	PxMaterial *material = _defaultMaterial;
-	float density = mass / (4.0/3.0 * Math::PI * radius * radius * radius);
+	float density = mass / (4.0f/3.0f * Math::PI * radius * radius * radius);
 	//PxTransform localPose(PxVec3(0, position.y, 0)); // Transformación de coordenadas lógicas a coodenadas de PhysX
 
 	// Crear cubo dinámico o cinemático
@@ -446,7 +476,8 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 	actor->userData = (void *)component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Añadir el actor a la escena
 	_scene->addActor(*actor);
@@ -499,7 +530,8 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	actor->userData = (void *) component;
 
 	// Establecer el grupo de colisión
-	PxSetGroup(*actor, group);
+	// PxSetGroup(*actor, group);
+	setCollisionGroup(actor, group);
 
 	// Liberar recursos
 	collection->release();
@@ -611,12 +643,14 @@ PxCapsuleController* CServer::createCapsuleController(const Vector3 &position, f
 	// Anotar el componente lógico asociado al actor dentro del controller (No es automático)
 	controller->getActor()->userData = (void *) component;
 
+	setCollisionGroup(controller->getActor(), CONTROLLERS_COLLISION_GROUP);
+
 	return controller;
 }
 
 //--------------------------------------------------------
 
-unsigned CServer::moveController(PxController *controller, const Vector3 &movement, unsigned int msecs)
+unsigned CServer::moveController(PxController *controller, const Vector3 &movement, float msecs)
 {
 	assert(_scene);
 
@@ -657,10 +691,23 @@ void CServer::setControllerPosition(PxCapsuleController *controller, const Vecto
 
 //--------------------------------------------------------
 
-void CServer::setGroupCollisions(int group1, int group2, bool enable)
+void CServer::setCollisionGroup(PxRigidActor* actor, unsigned int group)
 {
-	// Activar / desactivar colisiones entre grupos
-	PxSetGroupCollisionFlag(group1, group2, enable);
+
+	PxSceneWriteLock scopedLock(*_scene);
+
+	PxU32 nbShapes = actor->getNbShapes();
+	if (nbShapes)
+	{
+		std::vector<PxShape*> shapes(nbShapes);
+		actor->getShapes(&shapes[0], nbShapes);
+		for (PxU32 j = 0; j < nbShapes; j++)
+		{
+			PxFilterData fd = shapes[j]->getSimulationFilterData();
+			fd.word0 = group;
+			shapes[j]->setSimulationFilterData(fd);
+		}
+	}
 }
 
 //--------------------------------------------------------

@@ -36,6 +36,20 @@ namespace Sounds{
 		return result == FMOD_OK;
 	}
 
+	bool CChannel::loadChannelAndDestroy(std::string soundName, float volume)
+	{
+		FMOD::Channel* channel;
+		FMOD::Sound* sound = CServer::getSingletonPtr()->_sounds->getSound(soundName);
+
+		FMOD_RESULT result = _fmod_lowLevel_system->playSound(sound, 0, false, &channel);
+		assert(result == FMOD_OK && "Error al cargar el canal. Sounds::CChannel::loadChannelAndDestroy");
+
+		FMOD_RESULT result1 = channel->setVolume(volume);
+		assert(result == FMOD_OK && "Error al ajustar el volumen del canal. Sounds::CChannel::loadChannelAndDestroy");
+
+		return result == FMOD_OK && result1 == FMOD_OK;
+	}
+
 	bool CChannel::setVolume(std::string channelName, float volume)
 	{
 		FMOD::Channel* channel = _channels->at(channelName);

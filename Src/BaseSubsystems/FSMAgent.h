@@ -58,7 +58,7 @@ namespace AI
 
 		~FSMAgent();
 
-		void update(unsigned int msecs);
+		void update(float msecs);
 
 		void changeState(const luabind::object& newState);
 

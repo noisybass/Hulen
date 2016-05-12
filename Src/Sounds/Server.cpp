@@ -79,7 +79,7 @@ namespace Sounds{
 
 	}
 
-	bool CServer::tick(unsigned int msecs)
+	bool CServer::tick(float msecs)
 	{
 		
 		// LLamamos al tick de fmod

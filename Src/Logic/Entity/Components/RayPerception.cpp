@@ -52,7 +52,7 @@ bool CRayPerception::spawn(const std::string& name, CEntity *entity, CMap *map, 
 	
 //---------------------------------------------------------
 
-void CRayPerception::tick(unsigned int msecs)
+void CRayPerception::tick(float msecs)
 {
 	// Invocar al método de la clase padre (IMPORTANTE)
 	IComponent::tick(msecs);

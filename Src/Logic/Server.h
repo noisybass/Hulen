@@ -60,7 +60,7 @@ namespace Logic
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		void tick(unsigned int msecs);
+		void tick(float msecs);
 
 		/**
 		Función que activa el mapa en curso.

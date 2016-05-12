@@ -17,7 +17,6 @@ Contiene la implementación del estado de menú.
 #include "MenuState.h"
 
 #include "GUI/Server.h"
-#include "Sounds\Server.h"
 #include "LoadingState.h"
 
 #include <CEGUI/CEGUI.h>
@@ -26,8 +25,9 @@ Contiene la implementación del estado de menú.
 
 namespace Application {
 
-	CMenuState::~CMenuState() 
+	CMenuState::~CMenuState()
 	{
+		_soundResources = nullptr;
 	} // ~CMenuState
 
 	//--------------------------------------------------------
@@ -53,19 +53,8 @@ namespace Application {
 			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
 
 		// Sonido en el menu principal
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
-		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
-	
-		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->loadInstance("MainMenuInstance", "MainMenuEvent");
-		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
-		//soundServer->getEventInstancesPtr()->setParameterValue("Instancia1", "Intensidad", 50);
-		soundServer->getEventInstancesPtr()->start("MainMenuInstance");
-		/**/
+		_soundResources->createInstance("MainMenuInstance", "MainMenuEvent");
+		
 		return true;
 
 	} // init
@@ -74,15 +63,7 @@ namespace Application {
 
 	void CMenuState::release() 
 	{
-
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->stop("CanalMenu");
-		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
-		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->stop("MainMenuInstance");
-		/**/
+		_soundResources->deleteInstance("MainMenuInstance");
 
 		CApplicationState::release();
 
@@ -100,14 +81,7 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", false);
-
-		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", false);
-		/**/
+		_soundResources->playInstance("MainMenuInstance");
 
 	} // activate
 
@@ -120,20 +94,12 @@ namespace Application {
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
 		
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->setPaused("CanalMenu", true);
-		/*/
-		//Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		//soundServer->getEventInstancesPtr()->setPaused("MainMenuInstance", true);
-		/**/
-		
 		CApplicationState::deactivate();
 	} // deactivate
 
 	//--------------------------------------------------------
 
-	void CMenuState::tick(unsigned int msecs) 
+	void CMenuState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 

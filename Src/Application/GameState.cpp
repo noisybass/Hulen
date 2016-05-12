@@ -29,8 +29,6 @@ Contiene la implementación del estado de juego.
 
 #include "Physics/Server.h"
 
-#include "Sounds\Server.h"
-
 #include <CEGUI/System.h>
 #include <CEGUI/WindowManager.h>
 #include <CEGUI/Window.h>
@@ -62,11 +60,8 @@ namespace Application {
 		_isMapLoaded = true;
 
 		// Start the sound
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->loadInstance("GameInstance", "MainMenuEvent");
-		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
-		soundServer->getEventInstancesPtr()->setParameterValue("GameInstance", "Intensidad", 80);
-		soundServer->getEventInstancesPtr()->start("GameInstance");
+		_soundResources->createInstance("GameInstance", "MainMenuEvent");
+		_soundResources->setInstanceParameterValue("GameInstance", "Intensidad", 80);
 
 		return true;
 
@@ -83,9 +78,8 @@ namespace Application {
 		// Liberamos la escena física.
 		Physics::CServer::getSingletonPtr()->destroyScene();
 
-		// Erase the MainMenuInstance
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->stop("GameInstance");
+		// Erase the gameSound
+		_soundResources->deleteInstance("GameInstance");
 
 		// Liberamos el evento
 		playerEvent.clearEvents();
@@ -121,16 +115,8 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getSoundsPtr()->loadSound("TemaPrincipal", "Hulen-Textura1.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
-		soundServer->getChannelsPtr()->loadChannel("CanalMenu", "TemaPrincipal");
-		soundServer->getChannelsPtr()->setVolume("CanalMenu", 0.3);
-		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setPaused("GameInstance", false);
+		_soundResources->playInstance("GameInstance");
 		
-		/**/
 
 	} // activate
 
@@ -138,16 +124,8 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
-		/*
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getChannelsPtr()->stop("CanalMenu");
-		soundServer->getSoundsPtr()->unloadSound("TemaPrincipal");
-		/*/
-		Sounds::CServer* soundServer = Sounds::CServer::getSingletonPtr();
-		soundServer->getEventInstancesPtr()->setPaused("GameInstance", true);
-		/**/
+		_soundResources->pauseInstance("GameInstance");
 		
-
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();
 		_timeWindow->setVisible(false);
@@ -171,7 +149,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void CGameState::tick(unsigned int msecs) 
+	void CGameState::tick(float msecs) 
 	{
 		CApplicationState::tick(msecs);
 
@@ -184,7 +162,7 @@ namespace Application {
 		_time += msecs;
 		
 		std::stringstream text;
-		text << "Time: " << _time/1000;
+		text << "Time: " << (int)_time;
 		_timeWindow->setText(text.str());
 
 	} // tick

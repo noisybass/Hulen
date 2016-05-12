@@ -121,7 +121,7 @@ namespace Logic
 
 		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		virtual void tick(unsigned int msecs);
+		virtual void tick(float msecs);
 
 		/**
 		Método que devuelve la entidad a la que pertenece el componente.

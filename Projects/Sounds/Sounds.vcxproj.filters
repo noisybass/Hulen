@@ -23,6 +23,9 @@
     <Filter Include="studio\Source Files">
       <UniqueIdentifier>{8d491648-7c8f-4b01-b4fb-83e22bf02074}</UniqueIdentifier>
     </Filter>
+    <Filter Include="api">
+      <UniqueIdentifier>{350c2491-5ddd-4b79-b5aa-704f3a7cd7f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Sounds\lowLevel\Channel.cpp">
@@ -41,6 +44,9 @@
       <Filter>studio\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Sounds\Server.cpp" />
+    <ClCompile Include="..\..\Src\Sounds\api\SoundsResources.cpp">
+      <Filter>api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Sounds\lowLevel\Channel.h">
@@ -59,5 +65,8 @@
       <Filter>studio\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Sounds\Server.h" />
+    <ClInclude Include="..\..\Src\Sounds\api\SoundsResources.h">
+      <Filter>api</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

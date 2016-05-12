@@ -3,12 +3,16 @@ Background CGraphics
 Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController
 Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack
+Lightbulb CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
+Centaur CAnimatedGraphics CPhysicController CVision CFSMEntity CAttack CCharger
 Camera CCamera
-Kasai CPointLight CMousePointerFollower CLightingArea
+Kasai CPointLight CMousePointerFollower CLightingArea CGraphicCharges
 Charge CGraphics CPointLight CLightingArea CInteractuable CChargeInteractuable CPhysicEntity
+GraphicCharge CGraphics
 Spike CGraphics CPhysicEntity CSpike
 Lever CGraphics CInteractuable CLeverInteractuable
 LeverTarget CGraphics CLeverTargetDoor CPhysicEntity CSwitchPosition
+LightLever CGraphics CPhysicEntity CLightLever
 DeathPlane CGraphics CPhysicEntity CDeathPlane
 FinishLevel CGraphics CPhysicEntity CEndLevel
 Empty
