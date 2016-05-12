@@ -109,6 +109,11 @@ namespace Application
 		*/
 		std::string _nextState;
 
+		/**
+		Flag que indica si el LoadingState está cargando algo. Se usa para no bloquear la pantalla de loading.
+		*/
+		bool _isLoading;
+
 	}; // CLoadingState
 
 } // namespace Application
