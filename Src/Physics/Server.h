@@ -227,7 +227,7 @@ namespace Physics {
 		@return actor físico creado
 		*/
 		physx::PxRigidActor* createFromFile(const std::string &file, int group, 
-			                                const Logic::IPhysics *component,
+											bool changeCoords, const Logic::IPhysics *component,
 											const Vector3& position);
 
 		/**

@@ -231,8 +231,12 @@ PxRigidActor* CPhysicEntity::createFromFile(const Map::CEntity *entityInfo)
 	if (entityInfo->hasAttribute("physic_group"))
 		group = entityInfo->getIntAttribute("physic_group");
 
+	bool changeCoords = false;
+	if (entityInfo->hasAttribute("physic_change_coords"))
+		changeCoords = entityInfo->getBoolAttribute("physic_change_coords");
+
 	// Crear el actor a partir del fichero RepX
-	return _server->createFromFile(file, group, this, _entity->getPosition());
+	return _server->createFromFile(file, group, changeCoords, this, _entity->getPosition());
 }
 
 
