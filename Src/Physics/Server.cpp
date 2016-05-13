@@ -487,7 +487,7 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 
 //--------------------------------------------------------
 
-PxRigidActor* CServer::createFromFile(const std::string &file, int group, const IPhysics *component, const Vector3& position)
+PxRigidActor* CServer::createFromFile(const std::string &file, int group, bool changeCoords, const IPhysics *component, const Vector3& position)
 {
 	assert(_scene);
 
@@ -519,10 +519,13 @@ PxRigidActor* CServer::createFromFile(const std::string &file, int group, const 
 	
 	// Obtenemos la transformacion del actor.
 	PxTransform transform = actor->getGlobalPose();
-	// Mosificamos su posicion
+	// Modificamos su posicion
 	transform.p = Vector3ToPxVec3(position);
+
 	// Modificamos su rotacion 90 grados para que quede bien
-	transform.q = PxQuat(-0.707106829, 0, 0, 0.707106829);
+	if (changeCoords)
+		transform.q = PxQuat(-0.707106829, 0, 0, 0.707106829);
+
 	// Posicionamos al actor con su nueva posicion y su nueva rotacion.
 	actor->setKinematicTarget(transform);
 	
