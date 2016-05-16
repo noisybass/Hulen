@@ -6,11 +6,11 @@
 		<Speed >0</Speed>
 	</Scale>
 	<PxConvexMesh >
-		<Id >2147907547760</Id>
+		<Id >1994171359616</Id>
 		<points > -5.16417 8.27339 -1.21268 -2.13857 8.36327 1.34766&#x0A;&#x09;&#x09;&#x09;-2.29729 8.37468 1.56213 -4.9237 8.39426 1.45041&#x0A;&#x09;&#x09;&#x09;-5.07358 8.39406 1.41547 -5.36341 8.38766 1.21807&#x0A;&#x09;&#x09;&#x09;-3.48799 10.2039 1.52757 -2.24745 10.2039 1.35203&#x0A;&#x09;&#x09;&#x09;-1.77083 10.2039 1.20617 -1.77083 10.2039 -1.21268&#x0A;&#x09;&#x09;&#x09;-5.38169 10.2039 -1.21268 -5.38169 10.2039 1.20283&#x0A;&#x09;&#x09;&#x09;-5.03793 10.2039 1.43611 -4.71464 10.2039 1.47282&#x0A;&#x09;&#x09;&#x09;-4.73886 9.7399 1.64394 -4.85457 9.84397 1.62861&#x0A;&#x09;&#x09;&#x09;-5.07512 9.88679 1.58202 -1.77083 8.37798 -1.21268&#x0A;&#x09;&#x09;&#x09;-5.38169 8.39809 -1.21268 -1.77083 8.39575 1.20617&#x0A;&#x09;&#x09;&#x09;-2.18086 9.83911 1.62499 -2.1269 8.40189 1.56987&#x0A;&#x09;&#x09;&#x09;-5.38169 8.39809 1.20559 -1.77083 8.37496 1.08078&#x0A;&#x09;&#x09;&#x09;-3.36064 10.1031 1.58757 -4.50232 9.96766 1.60961&#x0A;&#x09;&#x09;&#x09;-2.17766 8.39419 1.57003</points>
 	</PxConvexMesh>
 	<PxMaterial >
-		<Id >2147886965936</Id>
+		<Id >1994148226000</Id>
 		<DynamicFriction >0.5</DynamicFriction>
 		<StaticFriction >0.5</StaticFriction>
 		<Restitution >1</Restitution>
@@ -18,15 +18,15 @@
 		<RestitutionCombineMode >eMIN</RestitutionCombineMode>
 	</PxMaterial>
 	<PxMaterial >
-		<Id >2147886966944</Id>
-		<DynamicFriction >0.2</DynamicFriction>
-		<StaticFriction >0.2</StaticFriction>
-		<Restitution >0.6</Restitution>
+		<Id >1994148226336</Id>
+		<DynamicFriction >0</DynamicFriction>
+		<StaticFriction >0</StaticFriction>
+		<Restitution >0</Restitution>
 		<FrictionCombineMode >eAVERAGE</FrictionCombineMode>
 		<RestitutionCombineMode >eAVERAGE</RestitutionCombineMode>
 	</PxMaterial>
 	<PxMaterial >
-		<Id >2147886967168</Id>
+		<Id >1994148225888</Id>
 		<DynamicFriction >0.5</DynamicFriction>
 		<StaticFriction >0.5</StaticFriction>
 		<Restitution >0.1</Restitution>
@@ -34,7 +34,7 @@
 		<RestitutionCombineMode >eAVERAGE</RestitutionCombineMode>
 	</PxMaterial>
 	<PxRigidStatic >
-		<Id >2147887012544</Id>
+		<Id >1994171357328</Id>
 		<Name >groundPlane</Name>
 		<ActorFlags >eVISUALIZATION</ActorFlags>
 		<DominanceGroup >0</DominanceGroup>
@@ -49,7 +49,7 @@
 				<SimulationFilterData >4294967295 4294967295 4294967295 4294967295</SimulationFilterData>
 				<QueryFilterData >0 0 0 0</QueryFilterData>
 				<Materials >
-					<PxMaterialRef >2147886965936</PxMaterialRef>
+					<PxMaterialRef >1994148226000</PxMaterialRef>
 				</Materials>
 				<ContactOffset >0.025</ContactOffset>
 				<RestOffset >0</RestOffset>
@@ -59,7 +59,7 @@
 		</Shapes>
 	</PxRigidStatic>
 	<PxRigidDynamic >
-		<Id >2147907538608</Id>
+		<Id >1994171494528</Id>
 		<Name >polySurface5</Name>
 		<ActorFlags >eVISUALIZATION</ActorFlags>
 		<DominanceGroup >0</DominanceGroup>
@@ -73,14 +73,14 @@
 							<Scale >1 1 1</Scale>
 							<Rotation >0 0 0 1</Rotation>
 						</Scale>
-						<ConvexMesh >2147907547760</ConvexMesh>
+						<ConvexMesh >1994171359616</ConvexMesh>
 					</PxConvexMeshGeometry>
 				</Geometry>
 				<LocalPose >0 0 0 1 3.57626 -9.23884 -0.215023</LocalPose>
 				<SimulationFilterData >1 0 1 0</SimulationFilterData>
 				<QueryFilterData >0 0 0 0</QueryFilterData>
 				<Materials >
-					<PxMaterialRef >2147886966944</PxMaterialRef>
+					<PxMaterialRef >1994148226336</PxMaterialRef>
 				</Materials>
 				<ContactOffset >0.130936</ContactOffset>
 				<RestOffset >0</RestOffset>
