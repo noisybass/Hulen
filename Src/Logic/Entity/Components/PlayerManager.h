@@ -100,6 +100,9 @@ namespace Logic
 		*/
 		Sounds::CSoundsResources* _soundsResources;
 
+		// Animations
+		std::string _pickObjectAnimation;
+
 
 	}; // class CPlayerManager
 

@@ -9,6 +9,7 @@ Map_GO = {
 		playerCanDie = false,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
+		pickObjectAnimation = "pick_object",
 	},
 
 	--[[Crawler_GO = {
@@ -233,15 +234,10 @@ Map = {
 		blueprint = "Player",
 		game_object = "Player_GO",
 		position = {-27.8, 0, 0.1},
-		scale = {0.3, 0.3, 0.3},
+		scale = {3, 3, 3},
 		--model = "marine.mesh",
-		model = "Test_Main_character.mesh",
+		model = "Main_character.mesh",
 		material = "Player",
-		--defaultAnimation = "Idle",
-		defaultAnimation = "Idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "Idle_cycle_1",
-		--fadeInOut_Velocity = 5,
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
@@ -249,9 +245,19 @@ Map = {
 		guizmoSize = 10,
 		speed = 10,
 		jump_speed = 30,
-		jump_height = 8.0,
-		gravity = 15,
+		jump_height = 12.0,
+		gravity = 8,
 		defaultVision = 5,
+
+		--Animations
+		--fadeInOut_Velocity = 1,
+		defaultAnimation = "idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		idleAnimation = "idle_cycle_1",
+		-- Pick object este en el GO por el momento
+		jumpAnimation = "Jump_movement",
+		fallAnimation = "fall",
+		landAnimation = "landing",
 	},
 
 	Player_Shadow = {
@@ -259,15 +265,10 @@ Map = {
 		blueprint = "Player",
 		game_object = "Player_GO",
 		position = {-27.8, 0, -3.5},
-		scale = {0.3, 0.3, 0.3},
+		scale = {3, 3, 3},
 		--model = "marine.mesh",
-		model = "Test_Main_character.mesh",
+		model = "Main_character.mesh",
 		material = "Black",
-		--defaultAnimation = "Idle",
-		defaultAnimation = "Idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "Idle_cycle_1",
-		--fadeInOut_Velocity = 5,
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,
@@ -277,6 +278,16 @@ Map = {
 		jump_speed = 30,
 		jump_height = 8.0,
 		gravity = 15,
+
+		---Animations
+		--fadeInOut_Velocity = 5,
+		defaultAnimation = "idle_cycle_1",
+		walkRightAnimation = "Walking_cycle",
+		idleAnimation = "idle_cycle_1",
+		-- Pick object este en el GO por el momento
+		jumpAnimation = "Jump_movement",
+		fallAnimation = "fall",
+		landAnimation = "landing",
 	},
 
 	--[[Crawler_Body = {
@@ -368,8 +379,11 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
-		graphicChargeVelocity = 8,
+		graphicChargeVelocity = 5.5,
 		graphicChargeRadius = 3,
+		graphicChargeRotationBar = 0.2,
+		graphicChargesDeltaSeparation = 0.15,
+		graphicChargesDeltaSeparationToFirstCharge = 0.85,
 	},
 
 	Camera = {

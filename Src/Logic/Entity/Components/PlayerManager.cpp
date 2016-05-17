@@ -17,7 +17,8 @@ namespace Logic
 	CPlayerManager::CPlayerManager()
 		: IComponent(), _onLight(false), _deathTimeElapsed(0.0),
 		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
-		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false)
+		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false), 
+		_pickObjectAnimation("")
 	{
 		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
 		_soundsResources->createSound("ShadowSongChannel", "ShadowSong");
@@ -52,6 +53,9 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("playerCanDie"))
 			_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
+
+		if (entityInfo->hasAttribute("pickObjectAnimation"))
+			_pickObjectAnimation = entityInfo->getStringAttribute("pickObjectAnimation"); 
 
 		return true;
 
@@ -114,6 +118,13 @@ namespace Logic
 				m._type = Message::PICK_CHARGE;
 				m.setArg<Vector3>("position", chargeInRange->getPosition());
 				_kasai->emitMessage(m);
+
+				// Animamos al player
+				TMessage mAnim;
+				mAnim._type = Message::SET_ANIMATION;
+				mAnim.setArg<std::string>(std::string("animation"), std::string(_pickObjectAnimation));
+				mAnim.setArg<bool>(std::string("loop"), false);
+				_gameObject->emitMessage(mAnim, this);
 
 				// Destruir y borrar del mapa
 				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(chargeInRange);

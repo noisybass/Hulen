@@ -99,7 +99,6 @@ namespace Map {
 
 	} // getVector3Attribute
 
-
 	void CEntity::copyAttributes(const CEntity *entity)
 	{
 		if (entity->_type != "")

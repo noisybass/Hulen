@@ -34,6 +34,8 @@ namespace Graphics
 		*/
 		virtual void animationFinished(const std::string &animation) {}
 
+		virtual void animationWithoutLoopStarted(const std::string &animation) {}
+
 	}; // CAnimatedEntityListener
 
 	/**

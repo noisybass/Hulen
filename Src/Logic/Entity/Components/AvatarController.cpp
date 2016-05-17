@@ -42,11 +42,23 @@ namespace Logic
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");
 
+		/**
+		Animations
+		*/
 		if (entityInfo->hasAttribute("walkRightAnimation"))
 			_walkRightAnimation = entityInfo->getStringAttribute("walkRightAnimation");
 
 		if (entityInfo->hasAttribute("idleAnimation"))
 			_idleAnimation = entityInfo->getStringAttribute("idleAnimation");
+
+		if (entityInfo->hasAttribute("jumpAnimation"))
+			_jumpAnimation = entityInfo->getStringAttribute("jumpAnimation");
+
+		if (entityInfo->hasAttribute("fallAnimation"))
+			_fallAnimation = entityInfo->getStringAttribute("fallAnimation");
+
+		if (entityInfo->hasAttribute("landAnimation"))
+			_landAnimation = entityInfo->getStringAttribute("landAnimation");
 
 		return true;
 
@@ -72,7 +84,10 @@ namespace Logic
 	{
 		return message._type == Message::CONTROL ||
 			message._type == Message::SEND_STATE ||
-			message._type == Message::RECEIVE_AVATAR_STATE;
+			message._type == Message::RECEIVE_AVATAR_STATE ||
+			message._type == Message::ANIMATION_WITHOUT_LOOP_STARTED ||
+			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED ||
+			message._type == Message::GROUND_COLLISION;
 
 	} // accept
 	
@@ -85,20 +100,45 @@ namespace Logic
 		TMessage m;
 		switch(message._type)
 		{
-		case Message::CONTROL:
-			arg = message.getArg<std::string>("control");
-
-			if (!arg.compare("walkLeft"))
-				walkLeft();
-			else if (!arg.compare("walkRight"))
-				walkRight();
-			else if (!arg.compare("stopWalkingRight"))
-				stopWalkingRight();
-			else if (!arg.compare("stopWalkingLeft"))
-				stopWalkingLeft();
-			else if (!arg.compare("jump"))
-				jump();
+		case Message::GROUND_COLLISION:
+			_falling = false;
 			break;
+		case Message::ANIMATION_WITHOUT_LOOP_STARTED:
+			if (message.getArg<std::string>("name") == "pick_object" ||
+				message.getArg<std::string>("name") == _landAnimation)
+				_blockedAnimationWithoutLoopStarted = true;
+			break;
+
+		case Message::ANIMATION_WITHOUT_LOOP_FINISHED:
+			_blockedAnimationWithoutLoopStarted = false;
+			if (message.getArg<std::string>("name") == _jumpAnimation)
+			{
+				m._type = Message::SET_ANIMATION;
+				m.setArg<std::string>(std::string("animation"), std::string(_fallAnimation));
+				m.setArg<bool>(std::string("loop"), true);
+
+				_entity->emitMessage(m);
+			}
+			break;
+		
+		case Message::CONTROL:
+			if (!_blockedAnimationWithoutLoopStarted)
+			{
+				arg = message.getArg<std::string>("control");
+
+				if (!arg.compare("walkLeft"))
+					walkLeft();
+				else if (!arg.compare("walkRight"))
+					walkRight();
+				else if (!arg.compare("stopWalkingRight"))
+					stopWalkingRight();
+				else if (!arg.compare("stopWalkingLeft"))
+					stopWalkingLeft();
+				else if (!arg.compare("jump"))
+					jump();
+			}
+				break;
+			
 		case Message::SEND_STATE:
 			std::cout << "Mandando estado..." << std::endl;
 			m._type = Message::RECEIVE_AVATAR_STATE;
@@ -115,8 +155,9 @@ namespace Logic
 			_walkingLeft = message.getArg<bool>("walkingLeft");
 			_jump = message.getArg<bool>("jump");
 			_currentHeight = message.getArg<float>("currentHeight");
-			
+
 			break;
+			
 		}
 
 	} // process
@@ -128,7 +169,8 @@ namespace Logic
 
 		_walkingLeft = true;
 
-		walkAnimation();
+		if (!_jumping)
+			walkAnimation();
 
 		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
 		{
@@ -144,7 +186,8 @@ namespace Logic
 	{
 		_walkingRight = true;
 
-		walkAnimation();
+		if (!_jumping)
+			walkAnimation();
 
 		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
 		{
@@ -218,7 +261,17 @@ namespace Logic
 	{
 		CPhysicController* controller = (CPhysicController*)(_entity->getComponent("CPhysicController"));
 		if (!controller->_falling)
+		{
 			_jump = true;
+
+			TMessage message;
+			message._type = Message::SET_ANIMATION;
+			message.setArg<std::string>(std::string("animation"), std::string(_jumpAnimation));
+			message.setArg<bool>(std::string("loop"), false);
+
+			_entity->emitMessage(message, this);
+		}
+			
 	}
 	
 	//---------------------------------------------------------
@@ -229,21 +282,49 @@ namespace Logic
 
 		Vector3 movement(Vector3::ZERO);
 
-		if (_walkingRight)  movement += Vector3(1, 0, 0) * _speed * msecs;
-		else if (_walkingLeft)   movement += Vector3(-1, 0, 0) * _speed * msecs;
-
-		if (_jump)
+		if (!_blockedAnimationWithoutLoopStarted)
 		{
-			movement += Vector3::UNIT_Y * _jumpSpeed * msecs;
-			_currentHeight += _jumpSpeed * msecs;
-			if (_currentHeight >= _jumpHeight)
+			if (_initJumpTime == 0 || _initJumpTime == 0.5)
 			{
-				_jump = false;
-				_currentHeight = 0;
+				if (_walkingRight)  movement += Vector3(1, 0, 0) * _speed * msecs;
+				else if (_walkingLeft)   movement += Vector3(-1, 0, 0) * _speed * msecs;
 			}
+			
+			if (_jump) // Jump to max height
+			{
+				_jumping = true;
+				_initJumpTime += msecs;
+				if (_initJumpTime >= 0.5)
+				{
+					_initJumpTime = 0.5;
+					movement += Vector3::UNIT_Y * _jumpSpeed * msecs;
+					_currentHeight += _jumpSpeed * msecs;
+					if (_currentHeight >= _jumpHeight)
+					{
+						_jump = false;
+						_currentHeight = 0;
+						_initJumpTime = 0;
+						_falling = true;
+					}
+				}
+			}
+			else if (_falling) //Falling from max height or falling without jump
+			{
+				//_jumping = true;
+			}
+			else if (!_falling && _jumping) // falling on ground
+			{
+				_jumping = false;
+				TMessage message;
+				message._type = Message::SET_ANIMATION;
+				message.setArg<std::string>(std::string("animation"), std::string(_landAnimation));
+				message.setArg<bool>(std::string("loop"), false);
 
+				_entity->emitMessage(message, this);
+			}
+			
 		}
-
+		
 		// Acción de la gravedad
 		movement += msecs * Vector3(0.0f, -_gravity, 0.0f);
 

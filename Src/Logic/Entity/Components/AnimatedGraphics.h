@@ -102,6 +102,8 @@ namespace Logic
 		*/
 		void animationFinished(const std::string &animation);
 
+		void animationWithoutLoopStarted(const std::string &animation);
+
 	protected:
 
 		/**
