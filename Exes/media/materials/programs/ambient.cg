@@ -1,0 +1,9 @@
+void ambient_vs(float4 position : POSITION,
+				out float4 oPosition : POSITION,
+				out float4 color : COLOR,
+				uniform float4x4 ViewProjectionMatrix,
+				uniform float4 ambient)
+{
+	oPosition = mul(ViewProjectionMatrix, position);
+	color = ambient;
+}
