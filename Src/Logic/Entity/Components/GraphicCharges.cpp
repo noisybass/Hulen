@@ -22,6 +22,12 @@ namespace Logic
 		if (entityInfo->hasAttribute("graphicChargeRotationBar"))
 			_graphicChargeRotationBar = entityInfo->getFloatAttribute("graphicChargeRotationBar");
 
+		if (entityInfo->hasAttribute("graphicChargesDeltaSeparation"))
+			_graphicChargesDeltaSeparation = entityInfo->getFloatAttribute("graphicChargesDeltaSeparation");
+
+		if (entityInfo->hasAttribute("graphicChargesDeltaSeparationToFirstCharge"))
+			_graphicChargesDeltaSeparationToFirstCharge = entityInfo->getFloatAttribute("graphicChargesDeltaSeparationToFirstCharge");
+
 		// if there are 3 charges
 		_graphicChargeDistanceBetweenThem = _graphicChargeRadius + _graphicChargeRadius * 0.5 + _graphicChargeRadius * 0.25;
 
@@ -108,12 +114,12 @@ namespace Logic
 		if (chargeNum > 0)
 		{
 			Vector3 distance = _graphicCharges[chargeNum]->getBody()->getPosition() - _graphicCharges[chargeNum - 1]->getBody()->getPosition();
-			result = result && sideOfTriangle + 0.15 > distance.length() && sideOfTriangle - 0.15 < distance.length();
+			result = result && sideOfTriangle + _graphicChargesDeltaSeparation > distance.length() && sideOfTriangle - _graphicChargesDeltaSeparation < distance.length();
 
 			if (_numCharges >= 3 && chargeNum == _numCharges - 1)
 			{
 				Vector3 distance = _graphicCharges[chargeNum]->getBody()->getPosition() - _graphicCharges[0]->getBody()->getPosition();
-				result = result && sideOfTriangle + 0.85 > distance.length() && sideOfTriangle - 0.85 < distance.length();
+				result = result && sideOfTriangle + _graphicChargesDeltaSeparationToFirstCharge > distance.length() && sideOfTriangle - _graphicChargesDeltaSeparationToFirstCharge < distance.length();
 			}
 		}
 		

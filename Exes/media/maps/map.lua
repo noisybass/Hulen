@@ -382,6 +382,8 @@ Map = {
 		graphicChargeVelocity = 5.5,
 		graphicChargeRadius = 3,
 		graphicChargeRotationBar = 0.2,
+		graphicChargesDeltaSeparation = 0.15,
+		graphicChargesDeltaSeparationToFirstCharge = 0.85,
 	},
 
 	Camera = {
