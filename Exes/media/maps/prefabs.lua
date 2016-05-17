@@ -58,6 +58,7 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
+		physic_change_coords = true,
 	},
 
 	Spike_Prefab_Shadow = {
@@ -68,6 +69,7 @@ Prefab = {
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/Spike.RepX",
+		physic_change_coords = true,
 		material = "Black",
 	},
 

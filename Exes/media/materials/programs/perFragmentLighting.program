@@ -1,0 +1,34 @@
+vertex_program perFragmentLighting_vs cg
+{
+	source perFragmentLighting.cg
+	entry_point perFragmentLighting_vs
+	profiles vs_2_0 arbvp1
+
+	default_params
+	{
+		param_named_auto ViewProjectionMatrix worldviewproj_matrix
+		param_named_auto normalMat inverse_transpose_world_matrix
+	}
+}
+
+fragment_program perFragmentLighting_ps cg
+{
+	source perFragmentLighting.cg
+	entry_point perFragmentLighting_ps
+	profiles ps_2_0 arbfp1
+
+	default_params
+	{
+		param_named_auto globalAmbient ambient_light_colour
+		param_named_auto lightDiffuse0 light_diffuse_colour 0
+		param_named_auto lightSpecular0 light_specular_colour 0
+		param_named_auto lightPosition0 light_position_object_space 0
+		param_named_auto eyePosition camera_position_object_space
+		param_named_auto ke surface_emissive_colour
+		param_named_auto ka surface_ambient_colour
+		param_named_auto kd surface_diffuse_colour
+		param_named_auto ks surface_specular_colour
+		param_named_auto shininess surface_shininess
+		param_named_auto normalMat inverse_transpose_world_matrix
+	}
+}

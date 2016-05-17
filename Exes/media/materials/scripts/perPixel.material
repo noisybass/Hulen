@@ -1,0 +1,18 @@
+material perPixel
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+		}
+	}
+}

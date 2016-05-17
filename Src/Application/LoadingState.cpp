@@ -36,6 +36,9 @@ namespace Application {
 		// Cargamos la ventana que muestra el menú
 		_menuWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Loading.layout");
 
+		// Reajustamos flag _isLoading
+		_isLoading = false;
+
 		return true;
 
 	} // init
@@ -46,6 +49,9 @@ namespace Application {
 	{
 
 		CApplicationState::release();
+
+		// Reajustamos flag _isLoading
+		_isLoading = false;
 
 	} // release
 
@@ -81,20 +87,24 @@ namespace Application {
 	{
 		CApplicationState::tick(msecs);
 
-		// Pop LoadingState
-		_app->addAction(new CPopAction());
+		if (!_isLoading){
+			_isLoading = true;
 
-		if (_nextState == "game"){
+			// Pop LoadingState
+			_app->addAction(new CPopAction());
 
-			// Push GameState
-			_app->addAction(new CPushAction(States::GameState, true));
+			if (_nextState == "game"){
 
-			// Push PauseState
-			_app->addAction(new CPushAction(States::PauseState, true));
+				// Push GameState
+				_app->addAction(new CPushAction(States::GameState, true));
+
+				// Push PauseState
+				_app->addAction(new CPushAction(States::PauseState, true));
+			}
+
+			// Pop PauseState (deactivation)
+			_app->addAction(new CPopAction());
 		}
-
-		// Pop PauseState (deactivation)
-		_app->addAction(new CPopAction());
 
 	} // tick
 

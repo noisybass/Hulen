@@ -238,7 +238,6 @@ Map = {
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
 		material = "Yellow",
-		
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 1,

@@ -1,0 +1,61 @@
+// First pass
+
+void apply_outline(
+		uniform float outline,
+		
+        // Vertex Inputs
+        float4 position        : POSITION,    // Vertex position in model space
+        float2 texCoord0    : TEXCOORD0,    // Texture UV set 0
+		float3 normal : NORMAL,   // Normals of the model
+
+        // Outputs
+        out float4 oPosition    : POSITION,    // Transformed vertex position
+        out float2 uv0        : TEXCOORD0,    // UV0
+ 
+        // Model Level Inputs (projection matrix)
+        uniform float4x4 worldViewProj)
+{
+    // Calculate output position
+    oPosition = mul(worldViewProj, position);
+	// Calculate the normals
+	float3 norm = mul (float3x3(worldViewProj), normal);
+
+	// Apply the increase of scale deppending of the outline
+	oPosition.xy += norm.xy * outline;
+
+    // Copy the input vertex UV to the output
+    uv0 = texCoord0;
+}
+
+// Second pass
+
+void displace_body(
+        // Vertex Inputs
+        float4 position        : POSITION,    // Vertex position in model space
+        float2 texCoord0    : TEXCOORD0,    // Texture UV set 0
+		float3 normal : NORMAL,   // Normals of the model
+
+        // Outputs
+        out float4 oPosition    : POSITION,    // Transformed vertex position
+        out float2 uv0        : TEXCOORD0,    // UV0
+ 
+        // Model Level Inputs (projection matrix)
+        uniform float4x4 worldViewProj)
+{
+    // Calculate output position
+    oPosition = mul(worldViewProj, position);
+	
+	// Move slightly the z position of the object
+	oPosition.z += -0.5;
+
+    // Copy the input vertex UV to the output
+    uv0 = texCoord0;
+}
+
+// The object is colored in a custom color
+ 
+float4 paint(uniform float4 customColor : COLOR) : COLOR
+{
+    return customColor;
+}
+
