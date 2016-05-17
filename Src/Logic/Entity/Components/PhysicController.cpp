@@ -147,13 +147,22 @@ void CPhysicController::tick(float msecs)
 	unsigned flags = _server->moveController(_controller, _movement, msecs);
 
 	// Actualizamos el flag que indica si estamos cayendo
-	_falling =  !(flags & PxControllerFlag::eCOLLISION_DOWN);
+	_falling = !(flags & PxControllerFlag::eCOLLISION_DOWN);
 
 	if (flags & PxControllerFlag::eCOLLISION_UP)
 	{
 		CAvatarController* controller = (CAvatarController*)(_entity->getComponent("CAvatarController"));
 		controller->_jump = false;
 		controller->_currentHeight = 0.0f;
+		controller->_falling = true;
+	}
+
+	if (flags & PxControllerFlag::eCOLLISION_DOWN)
+	{
+
+		TMessage m;
+		m._type = Message::GROUND_COLLISION;
+		_entity->emitMessage(m);
 	}
 
 	// Ponemos el movimiento a cero

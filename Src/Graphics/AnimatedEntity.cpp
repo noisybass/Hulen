@@ -35,6 +35,7 @@ namespace Graphics
 			// If there are an animation yet, we set to true the fading out.
 			// We disable the animation when its weight arrived to zero on tick method.
 			//_animations.at(_currentAnimation.animationState->getAnimationName());
+			//_currentAnimation->animationState->setTimePosition(0); // To reset animation
 			_currentAnimation->fadingIn = false;
 			_currentAnimation->fadingOut = true;
 			
@@ -46,9 +47,16 @@ namespace Graphics
 		//if (!_currentAnimation.fadingOut)
 		//	_currentAnimation.animationState->setWeight(0); // Reset weight
 		newAnimation->animationState->setLoop(loop);
+		newAnimation->animationState->setWeight(0.0f);
+		newAnimation->animationState->setTimePosition(0.0f);
 		newAnimation->fadingIn = true;
 		newAnimation->fadingOut = false;
 		_currentAnimation = newAnimation;
+
+		if (!loop)
+		{
+			_observer->animationWithoutLoopStarted(getCurrentAnimationName());
+		}
 
 		return true;
 
@@ -107,8 +115,10 @@ namespace Graphics
 				Animation* animation = anim.second;
 				if (animation->fadingIn)
 				{
+					//std::cout << animation->animationState->getAnimationName() << " IN: ";
 					Ogre::Real newWeight = animation->animationState->getWeight() + secs * _fadeInOutVelocity;
-					if (newWeight > 1.0f)
+					//std::cout << newWeight << std::endl;
+					if (newWeight >= 1.0f)
 					{
 						newWeight = 1.0f;
 						animation->fadingIn = false;
@@ -118,8 +128,10 @@ namespace Graphics
 				}
 				else if (animation->fadingOut)
 				{
+					//std::cout << animation->animationState->getAnimationName() << " OUT: ";
 					Ogre::Real newWeight = animation->animationState->getWeight() - secs * _fadeInOutVelocity;
-					if (newWeight < 0.0f)
+					//std::cout << newWeight << std::endl;
+					if (newWeight <= 0.0f)
 					{
 						newWeight = 0.0f;
 						animation->fadingOut = false;

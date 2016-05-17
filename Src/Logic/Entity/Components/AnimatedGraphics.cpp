@@ -38,7 +38,7 @@ namespace Logic
 			_fadeInOutvelocity = entityInfo->getIntAttribute("fadeInOut_Velocity");
 		}
 
-		//_animatedGraphicsEntity->dumpAnimsStates();
+		_animatedGraphicsEntity->dumpAnimsStates();
 		_animatedGraphicsEntity->initAnimationStates(_fadeInOutvelocity);
 		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
 		_animatedGraphicsEntity->setPosition(_entity->getPosition());
@@ -132,9 +132,24 @@ namespace Logic
 	void CAnimatedGraphics::animationFinished(const std::string &animation)
 	{
 		// Si acaba una animación y tenemos una por defecto la ponemos
-		_animatedGraphicsEntity->stopAllAnimations();
-		_animatedGraphicsEntity->setAnimation(_defaultAnimation,true);
-	}
+		//_animatedGraphicsEntity->stopAllAnimations();
+
+		Logic::TMessage m;
+		m._type = Logic::Message::ANIMATION_WITHOUT_LOOP_FINISHED;
+		m.setArg<std::string>("name", animation);
+		_entity->emitMessage(m);
+		
+		_animatedGraphicsEntity->setAnimation(_defaultAnimation, true);
+		
+	} // animationFinished
+
+	void CAnimatedGraphics::animationWithoutLoopStarted(const std::string &animation)
+	{
+		Logic::TMessage m;
+		m._type = Logic::Message::ANIMATION_WITHOUT_LOOP_STARTED;
+		m.setArg<std::string>("name", animation);
+		_entity->emitMessage(m);
+	} // animationWithoutLoopStarted
 
 } // namespace Logic
 

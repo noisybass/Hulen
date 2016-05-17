@@ -43,7 +43,8 @@ namespace Logic
 		defecto.
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
-			_speed(0.05f), _walkRightAnimation(""), _idleAnimation("") {}
+			_speed(0.05f), _walkRightAnimation(""), _idleAnimation(""), _blockedAnimationWithoutLoopStarted(false),
+			_initJumpTime(0.0f), _jumping (false){}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -153,8 +154,24 @@ namespace Logic
 
 		/**
 		Atributo para saber si la entidad esta saltando.
+		false indica que no esta saltado.
+		true que ha llegado al punto mas alto del salto.
 		*/
 		bool _jump;
+
+		/**
+		Atributo que indica el proceso de saltar.
+		True significa que el personaje esta saltando (saltar, caer, tocar el suelo)
+		false significa que no esta saltando.
+		*/
+		bool _jumping;
+
+		/**
+		Atributo para saber si la entidad esta cayendo.
+		true indica que esta cayendo.
+		false indica que esta en el suelo.
+		*/
+		bool _falling;
 
 		/**
 		Atributo que indica la magnitud de velocidad de la entidad.
@@ -176,9 +193,14 @@ namespace Logic
 		/**
 		Animations
 		*/
+		bool _blockedAnimationWithoutLoopStarted;
+		float _initJumpTime;
+
 		std::string _walkRightAnimation;
-		//std::string _walkLeftAnimation;
 		std::string _idleAnimation;
+		std::string _jumpAnimation;
+		std::string _fallAnimation;
+		std::string _landAnimation;
 
 	private: 
 		float _currentHeight = 0.0f;
