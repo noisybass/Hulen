@@ -33,6 +33,7 @@ ps_Output perFragmentLighting_ps(float4 position : TEXCOORD0,
 								uniform float3 lightDiffuse0,
 								uniform float3 lightSpecular0,
 								uniform float3 lightPosition0,
+								uniform float4 lightAttenuation0,
 								uniform float3 eyePosition,
 								uniform float3 ke,
 								uniform float3 ka,
@@ -72,7 +73,8 @@ ps_Output perFragmentLighting_ps(float4 position : TEXCOORD0,
 	
 	float3 specular = ks * lightSpecular0 * specularLight;
 
-	if (distance(P, lightPosition0) >= 6.5)
+	float range = lightAttenuation0.x;
+	if (distance(P, lightPosition0) >= range)
 	{
 		diffuse = 0;
 		specular = 0;	
