@@ -19,6 +19,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("graphicChargeRadius"))
 			_graphicChargeRadius = entityInfo->getFloatAttribute("graphicChargeRadius");
 
+		if (entityInfo->hasAttribute("graphicChargeRotationBar"))
+			_graphicChargeRotationBar = entityInfo->getFloatAttribute("graphicChargeRotationBar");
+
 		// if there are 3 charges
 		_graphicChargeDistanceBetweenThem = _graphicChargeRadius + _graphicChargeRadius * 0.5 + _graphicChargeRadius * 0.25;
 
@@ -54,9 +57,8 @@ namespace Logic
 	void CGraphicCharges::tick(float msecs)
 	{
 		IComponent::tick(msecs);
-
-		//for (CGameObject* go : _graphicCharges)
-		for (int i = 0; i < _graphicCharges.size(); ++i)
+		unsigned int size = _graphicCharges.size();
+		for (int i = 0; i < size; ++i)
 		{
 			Vector3 mousePosition = ((CMousePointerFollower*)_entity->getComponent("CMousePointerFollower"))->getMousePosition();
 
@@ -72,6 +74,14 @@ namespace Logic
 				_graphicCharges[i]->getBody()->setPosition(newPosition);
 			}
 			// Loop around mouse position
+			else if (directorVector.length() < _graphicChargeRadius - _graphicChargeRotationBar)
+			{
+				Ogre::Real length = directorVector.length();
+				directorVector.normalise();
+				directorVector *= msecs * _graphicChargeVelocity * length / 2;
+				Vector3 newPosition = _graphicCharges[i]->getBody()->getPosition() - directorVector;
+				_graphicCharges[i]->getBody()->setPosition(newPosition);
+			}
 			else {
 				directorVector = Math::rotationVector3ZAxis(directorVector, -90);
 				directorVector.normalise();
@@ -79,7 +89,9 @@ namespace Logic
 				if (equilateralTriangle(i, _graphicChargeDistanceBetweenThem))
 					directorVector *= msecs * _graphicChargeVelocity;
 				else
-					directorVector *= msecs * _graphicChargeVelocity/2;
+				{
+					directorVector *= msecs * _graphicChargeVelocity / 2;
+				}
 					
 				Vector3 newPosition = _graphicCharges[i]->getBody()->getPosition() + directorVector;
 				_graphicCharges[i]->getBody()->setPosition(newPosition);
@@ -95,10 +107,17 @@ namespace Logic
 		
 		if (chargeNum > 0)
 		{
-			Vector3 distance = _graphicCharges[chargeNum-1]->getBody()->getPosition() - _graphicCharges[chargeNum]->getBody()->getPosition();
-			result = result && sideOfTriangle + 0.2 > distance.length() && sideOfTriangle - 0.2 < distance.length();
+			Vector3 distance = _graphicCharges[chargeNum]->getBody()->getPosition() - _graphicCharges[chargeNum - 1]->getBody()->getPosition();
+			result = result && sideOfTriangle + 0.15 > distance.length() && sideOfTriangle - 0.15 < distance.length();
+
+			if (_numCharges >= 3 && chargeNum == _numCharges - 1)
+			{
+				Vector3 distance = _graphicCharges[chargeNum]->getBody()->getPosition() - _graphicCharges[0]->getBody()->getPosition();
+				result = result && sideOfTriangle + 0.85 > distance.length() && sideOfTriangle - 0.85 < distance.length();
+			}
 		}
-			
+		
+		
 		return result;
 	} // equilateralTriangle
 
@@ -112,22 +131,22 @@ namespace Logic
 	{
 		std::string chargePosition;
 		CGameObject* newCharge;
-		int numCharges;
 		Vector3 position;
 		std::stringstream ss;
 
 		switch (message._type)
 		{
 		case Message::PICK_CHARGE:
-			numCharges = _graphicCharges.size();
+			
 			position = message.getArg<Vector3>("position");
 			ss << position.x << " " << position.y << " " << position.z;
 			chargePosition = ss.str();
-			newCharge = Logic::CMap::instantiatePrefab(_graphicChargeName, "GraphicCharge_" + std::to_string(numCharges), chargePosition);
+			newCharge = Logic::CMap::instantiatePrefab(_graphicChargeName, "GraphicCharge_" + std::to_string(_numCharges), chargePosition);
 			_graphicCharges.push_back(newCharge);
 			newCharge->activate();
+			++_numCharges;
 
-			if (numCharges + 1 == 3)
+			if (_numCharges == 3)
 				_graphicChargeDistanceBetweenThem = _graphicChargeRadius + _graphicChargeRadius * 0.5 + _graphicChargeRadius * 0.25;
 
 			break;
@@ -137,6 +156,7 @@ namespace Logic
 				// erase it from map
 				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_graphicCharges.back());
 				_graphicCharges.pop_back();
+				--_numCharges;
 
 				if (_graphicCharges.size() == 2)
 					_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;

@@ -15,7 +15,7 @@ namespace Logic
 		Constructor por defecto.
 		*/
 		CGraphicCharges() : IComponent(), _graphicChargeName("GraphicCharge_Prefab"), _numCharges(0),
-			_graphicChargeVelocity(3), _graphicChargeRadius(3){}
+			_graphicChargeVelocity(3), _graphicChargeRadius(3), _graphicChargeRotationBar(0.2f){}
 		
 		/**
 		Inicialización del componente usando la descripción de la entidad que hay en 
@@ -48,6 +48,8 @@ namespace Logic
 		float _graphicChargeRadius;
 
 		float _graphicChargeDistanceBetweenThem;
+
+		float _graphicChargeRotationBar;
 
 	}; // class CGraphicCharges
 
