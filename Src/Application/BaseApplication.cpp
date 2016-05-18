@@ -277,19 +277,23 @@ namespace Application {
 				_currentState->init();
 				_currentState->activate();
 				_reloadState = false;
-
 			}
 
 			// Execute the pending actions
 			executeActions();
 
 			if (!_currentState ||
-				_currentState != _states.top())
+				_currentState != _states.top()){
 				changeState();
-
+				// OJO: We put two updates times to restart the time when 
+				// load a new state.
+				_clock->updateTime();
+				_clock->updateTime();
+				_accumulatedTimeDiff = _clock->getLastFrameDuration();
+			}
 			
 			while (_accumulatedTimeDiff >= _fixedStep){
-				//std::cout << "Dentro: " << _accumulatedTimeDiff << std::endl;
+				//std::cout << "Dentro: "  << _accumulatedTimeDiff << std::endl;
 				tick(_fixedStep/1000);
 				_accumulatedTimeDiff -= _fixedStep;
 			}

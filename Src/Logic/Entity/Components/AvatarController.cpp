@@ -119,6 +119,12 @@ namespace Logic
 
 				_entity->emitMessage(m);
 			}
+			else if (message.getArg<std::string>("name") == _landAnimation)
+			{
+				// we have to call again to walk to run de animation
+				if (_walkingLeft) walkLeft();
+				else if (_walkingRight) walkRight();
+			}
 			break;
 		
 		case Message::CONTROL:
@@ -166,17 +172,18 @@ namespace Logic
 
 	void CAvatarController::walkLeft() 
 	{
+		//if (!_walkingRight)
+		//{
+			_walkingLeft = true;
 
-		_walkingLeft = true;
+			if (!_jumping)
+				walkAnimation();
 
-		if (!_jumping)
-			walkAnimation();
-
-		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
-		{
-			changeDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
-		}
-		
+			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
+			{
+				changeDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
+			}
+		//}
 
 	} // walk
 	
@@ -184,16 +191,18 @@ namespace Logic
 
 	void CAvatarController::walkRight() 
 	{
-		_walkingRight = true;
+		//if (!_walkingLeft)
+		//{
+			_walkingRight = true;
 
-		if (!_jumping)
-			walkAnimation();
+			if (!_jumping)
+				walkAnimation();
 
-		if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
-		{
-			changeDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
-		}
-
+			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
+			{
+				changeDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
+			}
+		//}
 	} // walkRight
 
 	void CAvatarController::changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction)
