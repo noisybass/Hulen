@@ -116,7 +116,7 @@ namespace Graphics
 				if (animation->fadingIn)
 				{
 					//std::cout << animation->animationState->getAnimationName() << " IN: ";
-					Ogre::Real newWeight = animation->animationState->getWeight() + secs * _fadeInOutVelocity;
+					Ogre::Real newWeight = animation->animationState->getWeight() + secs * animation->animationVelocity;
 					//std::cout << newWeight << std::endl;
 					if (newWeight >= 1.0f)
 					{
@@ -129,7 +129,7 @@ namespace Graphics
 				else if (animation->fadingOut)
 				{
 					//std::cout << animation->animationState->getAnimationName() << " OUT: ";
-					Ogre::Real newWeight = animation->animationState->getWeight() - secs * _fadeInOutVelocity;
+					Ogre::Real newWeight = animation->animationState->getWeight() - secs * animation->animationVelocity;
 					//std::cout << newWeight << std::endl;
 					if (newWeight <= 0.0f)
 					{
@@ -184,17 +184,23 @@ namespace Graphics
 
 	} // dumpAnimsStates
 
-	void CAnimatedEntity::initAnimationStates(int fadeInOutVelocity)
+	void CAnimatedEntity::initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues)
 	{
 		Ogre::AnimationStateSet *allAnimations = _entity->getAllAnimationStates();
 		Ogre::AnimationStateIterator it = allAnimations->getAnimationStateIterator();
 
 		while (it.hasMoreElements()) {
 			Ogre::AnimationState *as = it.getNext();
-			_animations.insert({as->getAnimationName(), new Animation(as, false, false)});
+
+			float animationVelocity;
+			if (animationValues.find(as->getAnimationName()) != animationValues.end())
+				animationVelocity = animationValues.at(as->getAnimationName());
+			else
+				animationVelocity = defaultVelocity;
+			_animations.insert({as->getAnimationName(), new Animation(as, false, false, animationVelocity)});
 		}
 
-		_fadeInOutVelocity = fadeInOutVelocity;
+		//_fadeInOutVelocity = fadeInOutVelocity;
 
 	} // initAnimationStates
 

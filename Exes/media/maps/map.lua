@@ -250,14 +250,20 @@ Map = {
 		defaultVision = 5,
 
 		--Animations
-		--fadeInOut_Velocity = 1,
 		defaultAnimation = "idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "idle_cycle_1",
-		-- Pick object este en el GO por el momento
-		jumpAnimation = "Jump_movement",
-		fallAnimation = "fall",
-		landAnimation = "landing",
+		defaultAnimationVelocity = 5,
+		idle1Animation = { "idle_cycle_1", 2, "null"},
+		idle2Animation = { "idle_cycle_2", 2, "null"},
+		walkAnimation  = { "Walking_cycle", 5, "null"},
+		runAnimation   = { "Running_cycle", 2, "null"},
+		deathAnimation = { "death", 2, "null"},
+		jump1Animation = { "Jump_movement", 2, "null"},
+		fall1Animation = { "fall", 2, "null"},
+		land1Animation = { "landing", 2, "null"},
+		--jump2Animation = { "", 2, "null"},
+		--fall2Animation = { "", 2, "null"},
+		--land2Animation = { "", 2, "null"},
+		pickObjectAnimation = { "pick_object", 2, "null"},
 	},
 
 	Player_Shadow = {
@@ -280,14 +286,20 @@ Map = {
 		gravity = 15,
 
 		---Animations
-		--fadeInOut_Velocity = 5,
 		defaultAnimation = "idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "idle_cycle_1",
-		-- Pick object este en el GO por el momento
-		jumpAnimation = "Jump_movement",
-		fallAnimation = "fall",
-		landAnimation = "landing",
+		defaultAnimationVelocity = 5,
+		idle1Animation = { "idle_cycle_1", 2, "null"},
+		idle2Animation = { "idle_cycle_2", 2, "null"},
+		walkAnimation  = { "Walking_cycle", 2, "null"},
+		runAnimation   = { "Running_cycle", 2, "null"},
+		deathAnimation = { "death", 2, "null"},
+		jump1Animation = { "Jump_movement", 2, "null"},
+		fall1Animation = { "fall", 2, "null"},
+		land1Animation = { "landing", 2, "null"},
+		--jump2Animation = { "", 2, "null"},
+		--fall2Animation = { "", 2, "null"},
+		--land2Animation = { "", 2, "null"},
+		pickObjectAnimation = { "pick_object", 2, "null"},
 	},
 
 	--[[Crawler_Body = {
@@ -351,12 +363,6 @@ Map = {
 		--walkRightAnimation = "WalkBack",
 		--idleAnimation = "Idle",
 
-		--model = "Centaur.mesh",
-		--material = "Centaur",
-		--defaultAnimation = "idle",
-		--walkRightAnimation = "walking_cycle",
-		--idleAnimation = "idle",
-
 		model = "Centaur_animations_v2.mesh",
 		material = "blinn1",
 		defaultAnimation = "idle",
@@ -372,6 +378,17 @@ Map = {
 		speed = 12,
 		defaultVision = 10,
 		fsm_initial_state = "Centaur_Idle",
+
+		--Animations
+		defaultAnimation = "idle",
+		defaultAnimationVelocity = 5,
+		idle1Animation =           {"idle", 2, "null"},
+		walkAnimation =            {"walking_cycle", 2, "null"},
+		runAnimation =             {"running_cycle", 2, "null"},
+		changeDirectionAnimation = {"change_direction", 2, "null"},
+		startRunAnimation =        {"start_run", 2, "null"},
+		preparationAnimation =     {"preparation", 2, "null"},
+		killScreamAnimation =      {"kill_scream", 2, "null"},
 	},
 
 	Kasai = {

@@ -49,7 +49,7 @@ namespace Logic
 		defecto.
 		*/
 		CAnimatedGraphics() : CGraphics(), _animatedGraphicsEntity(0),
-			_defaultAnimation(""), _fadeInOutvelocity(5) {}
+			_defaultAnimation(""), _defaultAnimationVelocity(5) {}
 
 		/**
 		Método que activa el componente; invocado cuando se activa
@@ -126,7 +126,11 @@ namespace Logic
 		*/
 		std::string _defaultAnimation;
 
-		int _fadeInOutvelocity;
+		float _defaultAnimationVelocity;
+
+	private:
+
+		void setAnimationsValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& animationValues);
 
 	}; // class CAnimatedGraphics
 
