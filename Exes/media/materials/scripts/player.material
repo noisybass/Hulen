@@ -51,7 +51,7 @@ material Player
 		    // Make this pass use the vertex shader defined above
 			vertex_program_ref OutlineVertex  
 			{
-				param_named outline float 0.5
+				param_named outline float 0.05
 			}
             fragment_program_ref PaintShader
             {

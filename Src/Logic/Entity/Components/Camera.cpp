@@ -22,6 +22,8 @@ de una escena.
 #include "Graphics/Scene.h"
 #include "Graphics/Camera.h"
 
+#include "BaseSubsystems/Math.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CCamera);
@@ -36,15 +38,6 @@ namespace Logic
 		_graphicsCamera = _entity->getGameObject()->getMap()->getScene()->getCamera();
 		if(!_graphicsCamera)
 			return false;
-
-		if(entityInfo->hasAttribute("distance"))
-			_distance = entityInfo->getFloatAttribute("distance");
-
-		if(entityInfo->hasAttribute("height"))
-			_height = entityInfo->getFloatAttribute("height");
-
-		if(entityInfo->hasAttribute("targetDistance"))
-			_targetDistance = entityInfo->getFloatAttribute("targetDistance");
 
 		if(entityInfo->hasAttribute("fixed"))
 			_fixed = entityInfo->getBoolAttribute("fixed");
@@ -62,7 +55,6 @@ namespace Logic
 
 			_graphicsCamera->setAspectRatio(ratio);
 
-			
 		}
 
 		if (entityInfo->hasAttribute("fov"))
@@ -77,6 +69,8 @@ namespace Logic
 			_graphicsCamera->setTargetCameraPosition(Vector3::ZERO);
 		}
 
+		startPosition = _graphicsCamera->getCameraPosition();
+
 		return true;
 
 	} // spawn
@@ -85,20 +79,33 @@ namespace Logic
 
 	bool CCamera::activate()
 	{
-		// Lo comento para que la camara no se centre en el player.
-		//_target = CServer::getSingletonPtr()->getPlayer();
-		_target = nullptr;
+		_isZoomedIn = _isZoomingOut = _isZoomingIn = false;
+
+		// parámetros cableados en el código.
+		_offsetX = _offsetY = 0;
+		_offsetZ = 7; 
+		_zoomSpeed = 1;
+
+		if (_fixed){
+
+			_graphicsCamera->setCameraPosition(_entity->getPosition());
+			_graphicsCamera->setTargetCameraPosition(Vector3::ZERO);
+		}
+
+		CServer::getSingletonPtr()->setCamera(this);
 
 		return true;
-
 	} // activate
 	
 	//---------------------------------------------------------
 
 	void CCamera::deactivate()
 	{
-		_target = 0;
+		_isZoomedIn = _isZoomingOut = _isZoomingIn = false;
+		_offsetX = _offsetY = _offsetZ = 0;
+		_zoomSpeed = 1;
 
+		CServer::getSingletonPtr()->setCamera(nullptr);
 	} // deactivate
 	
 	//---------------------------------------------------------
@@ -107,21 +114,71 @@ namespace Logic
 	{
 		IComponent::tick(msecs);
 
-		if(_target)
-		{
-			// Actualizamos la posición de la cámara.
-			Vector3 position = _target->getPosition();
-			//Vector3 direction = -_distance * Math::getDirection(_target->getOrientation());
-			//direction.y = _height;
-			_graphicsCamera->setCameraPosition(position /*+ direction*/);
+		if (_isZoomingIn && !_isZoomedIn){
 
-			// Y la posición hacia donde mira la cámara.
-			//direction = _targetDistance * Math::getDirection(_target->getOrientation());
-			//direction.y = _targetHeight;
-			_graphicsCamera->setTargetCameraPosition(position /*+ direction*/);
+			// Posición de la Cámara
+			Vector3 position = _graphicsCamera->getCameraPosition();
+
+			// Player Moved Position
+			Vector3 playerMovedPosition = CServer::getSingletonPtr()->getPlayer()->getPosition() + 
+				Vector3(_offsetX,_offsetY,_offsetZ);
+
+			/*
+			// Interpolación de Targets ( Target Actual con la Posición del Player)
+			Vector3 interpolatedTargets = Math::lerp(
+				_graphicsCamera->getTargetCameraPosition(), playerMovedPosition , msecs * 3);
+			_graphicsCamera->setTargetCameraPosition(interpolatedTargets);
+			*/
+
+			// Interpolación de Posiciones (Posición Actual con la Posición del Target => Desplazamiento)
+			Vector3 interpolatedPosition = Math::lerp(
+				position, playerMovedPosition, msecs * _zoomSpeed);
+			_graphicsCamera->setCameraPosition(interpolatedPosition);
+
+			// Detectar que hemos llegado a la posición final
+			if (abs((interpolatedPosition - playerMovedPosition).x) < 0.1){
+
+				_isZoomingIn = false;
+
+				_isZoomedIn = true;
+
+				// Cambiar esto si se quiere separar el Zoom In del Zoom Out
+				zoomOut();
+			}
 		}
 
+		if (_isZoomingOut && _isZoomedIn){
+
+			// Posición de la Cámara
+			Vector3 position = _graphicsCamera->getCameraPosition();
+
+			// Interpolación de Posiciones (Posición Actual con la Posición de Start => Desplazamiento)
+			Vector3 interpolatedPosition = Math::lerp(
+				position, startPosition, msecs * _zoomSpeed);
+			_graphicsCamera->setCameraPosition(interpolatedPosition);
+
+			// Detectar que hemos llegado a la posición final
+			if (abs((interpolatedPosition - startPosition).x) < 0.1){
+
+				_isZoomingOut = false;
+
+				_isZoomedIn = false;
+			}
+
+		}
 	} // tick
+
+	//---------------------------------------------------------
+
+	void CCamera::zoomIn()
+	{
+		_isZoomingIn = true;
+	} // zoomIn
+
+	void CCamera::zoomOut()
+	{
+		_isZoomingOut = true;
+	} // zoomOut
 
 } // namespace Logic
 

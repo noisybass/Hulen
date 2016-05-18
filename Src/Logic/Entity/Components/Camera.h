@@ -51,8 +51,9 @@ namespace Logic
 		/**
 		Constructor por defecto; en la clase base no hace nada.
 		*/
-		CCamera() : IComponent(), _graphicsCamera(0), _distance(10), _height(7),
-			_targetDistance(7), _targetHeight(3) {}
+		CCamera() : IComponent(), _graphicsCamera(0), _zoomSpeed(1), 
+			_isZoomedIn(false), _isZoomingIn(false), _isZoomingOut(false),
+			_offsetX(0), _offsetY(0), _offsetZ(0){}
 		
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -96,6 +97,20 @@ namespace Logic
 		*/
 		virtual void tick(float msecs);
 
+		/**
+		Metodo que sirve para hacer el zoomIn sobre el personaje.
+		Solo lo hace cuando no se ha hecho un zoomIn anteriormente.
+		Hace el zoomIn sobre el player.
+		*/
+		void zoomIn();
+
+		/**
+		Metodo que sirve para hacer el zoomIn sobre el personaje.
+		Solo lo hace cuando no se ha hecho un zoomIn anteriormente.
+		Hace el zoomIn sobre el player.
+		*/
+		void zoomOut();
+
 	protected:
 		
 		/**
@@ -104,38 +119,52 @@ namespace Logic
 		Graphics::CCamera *_graphicsCamera;
 
 		/**
-		Entidad que se usa como objetivo
-		*/
-		CEntity *_target;
-
-		/**
-		Distancia de la cámara respecto a la entidad objetivo. Es distancia
-		sobre el plano XZ, la altura tiene su propio atributo.
-		*/
-		float _distance;
-		
-		/**
-		altura de la cámara respecto del suelo o plano XZ.
-		*/
-		float _height;
-
-		/**
 		Indica si la camara debe seguir al target o no. 
 		Esto implica que la posición del target no debe actualizarse en cada tick.
 		*/
 		bool _fixed;
 
+		// Parámetros del zoom de la cámara
+
 		/**
-		Distancia del punto al que mirará la cámara respecto a la entidad 
-		objetivo. Es distancia sobre el plano XZ, la altura tiene su propio 
-		atributo.
+		Posicion inicial de la cámara.
 		*/
-		float _targetDistance;
-		
+		Vector3 startPosition;
+
 		/**
-		altura del punto al que mirará la cámara respecto del suelo o plano XZ.
+		Velocidad a la que hace el Zoom In y Zoom Out.
 		*/
-		float _targetHeight;
+		float _zoomSpeed;
+
+		/**
+		Indica si la cámara está haciendo un Zoom In.
+		*/
+		bool _isZoomingIn;
+
+		/**
+		Indica si se ha hecho un Zoom In.
+		*/
+		bool _isZoomedIn;
+
+		/**
+		Indica si está haciendo un Zoom Out.
+		*/
+		bool _isZoomingOut;
+
+		/**
+		Coordenada X que se le suma a la posición del player sobre la ue hacer zoom.
+		*/
+		float _offsetX;
+
+		/**
+		Coordenada Y que se le suma a la posición del player sobre la ue hacer zoom.
+		*/
+		float _offsetY;
+
+		/**
+		Coordenada > que se le suma a la posición del player sobre la ue hacer zoom.
+		*/
+		float _offsetZ;
 
 	}; // class CCamera
 
