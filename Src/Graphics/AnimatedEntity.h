@@ -138,7 +138,7 @@ namespace Graphics
 		virtual void tick(float secs);
 
 		struct Animation{
-			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false){};
+			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false) {};
 
 			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut) :
 				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut){};
@@ -151,7 +151,6 @@ namespace Graphics
 		};
 
 		std::unordered_map < std::string, Animation* > _animations;
-
 
 		/**
 		Animación que tiene la entidad activada.
