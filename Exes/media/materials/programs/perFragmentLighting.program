@@ -1,3 +1,16 @@
+vertex_program Ambient cg
+{
+	source ambient.cg
+	entry_point ambient_vs
+	profiles vs_2_0 arbvp1
+
+	default_params
+	{
+		param_named_auto ViewProjectionMatrix worldviewproj_matrix
+		param_named ambient float4 0.0 0.0 0.0 1.0
+	}
+}
+
 vertex_program perFragmentLighting_vs cg
 {
 	source perFragmentLighting.cg
@@ -23,6 +36,7 @@ fragment_program perFragmentLighting_ps cg
 		param_named_auto lightDiffuse0 light_diffuse_colour 0
 		param_named_auto lightSpecular0 light_specular_colour 0
 		param_named_auto lightPosition0 light_position_object_space 0
+		param_named_auto lightAttenuation0 light_attenuation 0
 		param_named_auto eyePosition camera_position_object_space
 		param_named_auto ke surface_emissive_colour
 		param_named_auto ka surface_ambient_colour

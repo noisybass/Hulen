@@ -4,6 +4,16 @@ material perPixel
 	{
 		pass
 		{
+			vertex_program_ref Ambient
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
 			vertex_program_ref perFragmentLighting_vs
 			{
 

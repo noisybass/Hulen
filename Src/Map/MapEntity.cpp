@@ -99,6 +99,17 @@ namespace Map {
 
 	} // getVector3Attribute
 
+	const std::pair<std::string, float> CEntity::getPairStringFloat(const std::string &attr) const
+	{
+		// Recuperamos el par
+		std::string position = (*_attributes.find(attr)).second;
+		int space1 = position.find(' ');
+		std::string string = position.substr(0, space1);
+		float f = (float)atof(position.substr(space1 + 1, position.size() - (space1 + 1)).c_str());
+
+		return std::pair<std::string, float>(string, f);
+	} // getPairStringFloat
+
 	void CEntity::copyAttributes(const CEntity *entity)
 	{
 		if (entity->_type != "")

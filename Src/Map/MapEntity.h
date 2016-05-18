@@ -113,6 +113,11 @@ namespace Map
 		const Vector3 getVector3Attribute(const std::string &attr) const;
 
 		/**
+		Recupera un par de objetos construidos como si fuesen un vector3.
+		*/
+		const std::pair<std::string, float> getPairStringFloat(const std::string &attr) const;
+
+		/**
 		Devuelve un string con el tipo de la entidad.
 
 		@return Tipo de la entidad.

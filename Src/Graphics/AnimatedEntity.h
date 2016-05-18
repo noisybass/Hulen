@@ -114,7 +114,7 @@ namespace Graphics
 
 		void dumpAnimsStates();
 
-		void initAnimationStates(int fadeInOutVelocity);
+		void initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues);
 
 	protected:
 
@@ -138,20 +138,20 @@ namespace Graphics
 		virtual void tick(float secs);
 
 		struct Animation{
-			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false){};
+			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false), animationVelocity(0.0f) {};
 
-			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut) :
-				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut){};
+			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut, float animationVelocity) :
+				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut), animationVelocity(animationVelocity){};
 
 			~Animation() = default;
 
 			Ogre::AnimationState* animationState;
+			float animationVelocity;
 			bool fadingIn;
 			bool fadingOut;
 		};
 
 		std::unordered_map < std::string, Animation* > _animations;
-
 
 		/**
 		Animación que tiene la entidad activada.

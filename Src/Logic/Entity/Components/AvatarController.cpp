@@ -45,20 +45,20 @@ namespace Logic
 		/**
 		Animations
 		*/
-		if (entityInfo->hasAttribute("walkRightAnimation"))
-			_walkRightAnimation = entityInfo->getStringAttribute("walkRightAnimation");
+		if (entityInfo->hasAttribute("walkAnimation"))
+			_walkRightAnimation = (entityInfo->getPairStringFloat("walkAnimation")).first;
 
-		if (entityInfo->hasAttribute("idleAnimation"))
-			_idleAnimation = entityInfo->getStringAttribute("idleAnimation");
+		if (entityInfo->hasAttribute("idle1Animation"))
+			_idleAnimation = (entityInfo->getPairStringFloat("idle1Animation")).first;
 
-		if (entityInfo->hasAttribute("jumpAnimation"))
-			_jumpAnimation = entityInfo->getStringAttribute("jumpAnimation");
+		if (entityInfo->hasAttribute("jump1Animation"))
+			_jumpAnimation = entityInfo->getPairStringFloat("jump1Animation").first;
 
-		if (entityInfo->hasAttribute("fallAnimation"))
-			_fallAnimation = entityInfo->getStringAttribute("fallAnimation");
+		if (entityInfo->hasAttribute("fall1Animation"))
+			_fallAnimation = entityInfo->getPairStringFloat("fall1Animation").first;
 
-		if (entityInfo->hasAttribute("landAnimation"))
-			_landAnimation = entityInfo->getStringAttribute("landAnimation");
+		if (entityInfo->hasAttribute("land1Animation"))
+			_landAnimation = entityInfo->getPairStringFloat("land1Animation").first;
 
 		return true;
 
