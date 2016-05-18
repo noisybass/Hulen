@@ -24,9 +24,9 @@ namespace Graphics
 		_targetNode = scene->getSceneMgr()->getRootSceneNode()->
 			createChildSceneNode(name + "_target_node");
 
-		// Hacemos que el nodo de la cámara siempre esté mirando al nodo
-		// objetivo.
-		_cameraNode->setAutoTracking(true, _targetNode);
+		// Hacemos que el nodo de la cámara no este mirando siempre al nodo objetivo.
+		// Importante que esté esto así para el Zoom In y Zoom Out de la cámara.
+		_cameraNode->setAutoTracking(false, _targetNode);
 		// Fijamos el viraje de la cámara para se mantenga paralelo al
 		// suelo.
 		_cameraNode->setFixedYawAxis(true);

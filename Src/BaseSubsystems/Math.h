@@ -265,6 +265,23 @@ namespace Math
 		return Vector3(result[0], result[1], result[2]);
 	}
 
+	static float clamp(float value, float min, float max){
+		if (value <= min) return min;
+		else if (value >= max) return max;
+		else return value;
+	}
+
+	static float lerp(float a, float b, float f){
+		return a + clamp(f,0,1) * (b - a);
+	}
+
+	static Vector3 lerp(const Vector3 & a, const Vector3 & b, float f){
+
+		return Vector3(lerp(a.x, b.x, f),
+			lerp(a.y, b.y, f),
+			lerp(a.z, b.z, f));
+	}
+
 } // namespace Math
 
 #endif // __BaseSubsystems_Math_H

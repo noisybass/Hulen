@@ -2,6 +2,7 @@
 #define LOGIC_SERVER_H
 
 #include "Logic/Entity/GameObject.h"
+#include "Logic/Entity/Components/Camera.h"
 #include "Logic/Maps/Map.h"
 
 #include <string>
@@ -96,6 +97,20 @@ namespace Logic
 		void setPlayer(CGameObject *player) {_player = player;}
 
 		/**
+		Devuelve la cámara del juego.
+
+		@return Cámara del juego.
+		*/
+		CCamera *getCamera() { return _camera; }
+
+		/**
+		Establece la cámara del juego.
+
+		@param camera Cámara del juego.
+		*/
+		void setCamera(CCamera *camera) { _camera = camera; }
+
+		/**
 		Carga un nuevo nivel a partir del nombre del mapa que se
 		desea cargar. Si ya existía un mapa este se borra, solo
 		permitimos un nivel activo.
@@ -154,6 +169,11 @@ namespace Logic
 		Entidad del jugador.
 		*/
 		CGameObject *_player;
+
+		/**
+		Cámara del juego.
+		*/
+		CCamera * _camera;
 
 	private:
 		/**
