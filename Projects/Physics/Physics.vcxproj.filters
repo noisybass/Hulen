@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\Src\Physics\CollisionManager.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Physics\HulenControllerFilterCallback.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Physics\Conversions.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Physics\CollisionManager.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Physics\HulenControllerFilterCallback.h">
+      <Filter>Archivos de código fuente</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
