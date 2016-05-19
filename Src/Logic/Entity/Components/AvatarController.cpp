@@ -175,6 +175,7 @@ namespace Logic
 		//if (!_walkingRight)
 		//{
 			_walkingLeft = true;
+			_walkingRight = false;
 
 			if (!_jumping)
 				walkAnimation();
@@ -194,6 +195,7 @@ namespace Logic
 		//if (!_walkingLeft)
 		//{
 			_walkingRight = true;
+			_walkingLeft = false;
 
 			if (!_jumping)
 				walkAnimation();
