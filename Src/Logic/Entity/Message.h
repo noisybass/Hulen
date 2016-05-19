@@ -64,6 +64,7 @@ namespace Logic
 			ANIMATION_WITHOUT_LOOP_STARTED,
 			ANIMATION_WITHOUT_LOOP_FINISHED,
 			GROUND_COLLISION,
+			PLAYER_DEATH,
 		};
 
 		/**
@@ -123,6 +124,11 @@ namespace Logic
 		void setArg(const std::string& id, const T& value)
 		{
 			_args.emplace(std::make_pair(id, value));
+		}
+
+		bool existArg(const std::string& id) const
+		{
+			return _args.find(id) != _args.end();
 		}
 
 	} TMessage;

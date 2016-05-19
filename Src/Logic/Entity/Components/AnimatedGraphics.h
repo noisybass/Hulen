@@ -99,8 +99,10 @@ namespace Logic
 		Las animaciones en cíclicas no invocarán nunca este método.
 
 		@param animation Nombre de la animación terminada.
+		@param nextAnimation indica si vamos a reproducir la animacion
+		por defecto cuando se acabe de reproducir la animacion o no.
 		*/
-		void animationFinished(const std::string &animation);
+		void animationFinished(const std::string &animation, const bool nextAnimation);
 
 		void animationWithoutLoopStarted(const std::string &animation);
 

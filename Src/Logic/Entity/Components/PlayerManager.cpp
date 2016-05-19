@@ -79,7 +79,6 @@ namespace Logic
 			message._type == Message::PICK_CHARGE ||
 			message._type == Message::PLAYER_LEVER_INTERACT ||
 			message._type == Message::CHARGE_ERASED ||
-			message._type == Message::DEATH_PLANE ||
 			message._type == Message::PICK_FROM_DEATH_CHARGE;
 
 	} // accept
@@ -175,13 +174,6 @@ namespace Logic
 			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
 				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
 				->fireEvent(message.getArg<std::string>("playerEvent"));
-
-			break;
-		case Message::DEATH_PLANE:
-			playerEvent = "die";
-			Logic::CEventSystem<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>::
-				getInstance<Logic::Events::GameStateClass, Logic::Events::PlayerEventFunction>()
-				->fireEvent(playerEvent);
 
 			break;
 		case Message::CHARGE_ERASED:

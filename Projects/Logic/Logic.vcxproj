@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Patrol.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicController.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PhysicEntity.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerDeath.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerManager.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PointLight.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RayPerception.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Life.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicController.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PhysicEntity.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerDeath.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerManager.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PointLight.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RayPerception.h" />

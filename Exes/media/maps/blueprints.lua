@@ -1,7 +1,7 @@
 World CGraphics CPhysicEntity
 Background CGraphics
 Player_GO CPlayerManager
-Player CAvatarController CAnimatedGraphics CPhysicController
+Player CAvatarController CAnimatedGraphics CPhysicController CPlayerDeath
 Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack
 Lightbulb CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
 Centaur CAnimatedGraphics CPhysicController CVision CFSMEntity CAttack CCharger

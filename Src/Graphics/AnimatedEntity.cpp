@@ -9,7 +9,7 @@ namespace Graphics
 {
 	
 	CAnimatedEntity::CAnimatedEntity(const std::string &name, const std::string &mesh) : 
-		CEntity(name, mesh), _currentAnimation(nullptr), _fadeInOutVelocity(0)
+		CEntity(name, mesh), _currentAnimation(nullptr), _nextAnimation(true)
 	{
 		
 	} // Constructor
@@ -23,9 +23,9 @@ namespace Graphics
 		_animations.clear();
 	} // Destructor
 
-	bool CAnimatedEntity::setAnimation(const std::string &anim, bool loop)
+	bool CAnimatedEntity::setAnimation(const std::string &anim, bool loop, bool nextAnimation)
 	{
-
+		_nextAnimation = nextAnimation;
 		if (_currentAnimation != nullptr)
 		{
 			// if anim is the same animation, don't do nothing.
@@ -144,7 +144,7 @@ namespace Graphics
 
 			// Comprobamos si la animación ha terminado para avisar
 			if (_observer && _currentAnimation->animationState->hasEnded())
-				_observer->animationFinished(_currentAnimation->animationState->getAnimationName());
+				_observer->animationFinished(_currentAnimation->animationState->getAnimationName(), _nextAnimation);
 		}
 
 	} // tick

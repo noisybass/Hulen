@@ -33,11 +33,22 @@ namespace Logic
 			break;*/
 		case Message::TOUCHED:
 			CEntity* entity = message.getArg<CEntity*>("entity");
-			msg._type = Message::DEATH_PLANE;
+			
+			// If the player hits to death plane, we send
+			// a player event to PlayerManager
 			if (entity->getBlueprint() == "Player")
-				entity->getGameObject()->emitMessage(msg);
-			else
+			{
+				msg._type = Message::PLAYER_DEATH;
 				entity->emitMessage(msg);
+			}
+			// Else qwe notify that another thing that isn't 
+			// the player hit the death plane
+			else
+			{
+				msg._type = Message::DEATH_PLANE;
+				entity->emitMessage(msg);
+			}
+				
 			break;
 		}
 

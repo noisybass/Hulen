@@ -25,8 +25,7 @@ namespace Logic
 		std::cout << "ACTIVANDO ATTACK..." << std::endl;
 
 		TMessage msg;
-		msg._type = Message::PLAYER_EVENT;
-		msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
+		msg._type = Message::PLAYER_DEATH;
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
 
 		return true;

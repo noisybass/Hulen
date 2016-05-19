@@ -155,15 +155,20 @@ namespace Logic
 		CGraphics::process(message);
 
 		TMessage m;
-		switch(message._type)
+		switch (message._type)
 		{
 		case Message::SET_ANIMATION:
 			// Paramos todas las animaciones antes de poner una nueva.
 			// Un control más sofisticado debería permitir interpolación
 			// de animaciones. Galeon no lo plantea.
 			//_animatedGraphicsEntity->stopAllAnimations();
-			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
-				message.getArg<bool>("loop"));
+
+			if (message.existArg("nextAnimation"))
+				_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
+					message.getArg<bool>("loop"), message.getArg<bool>("nextAnimation"));
+			else
+				_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
+					message.getArg<bool>("loop"));
 			break;
 		case Message::STOP_ANIMATION:
 			_animatedGraphicsEntity->stopAnimation(message.getArg<std::string>("animation"));
@@ -188,7 +193,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 	
-	void CAnimatedGraphics::animationFinished(const std::string &animation)
+	void CAnimatedGraphics::animationFinished(const std::string &animation, bool nextAnimation)
 	{
 		// Si acaba una animación y tenemos una por defecto la ponemos
 		//_animatedGraphicsEntity->stopAllAnimations();
@@ -197,8 +202,9 @@ namespace Logic
 		m._type = Logic::Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 		m.setArg<std::string>("name", animation);
 		_entity->emitMessage(m);
-		
-		_animatedGraphicsEntity->setAnimation(_defaultAnimation, true);
+
+		if (nextAnimation)
+			_animatedGraphicsEntity->setAnimation(_defaultAnimation, true);
 		
 	} // animationFinished
 

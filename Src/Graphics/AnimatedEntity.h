@@ -32,7 +32,7 @@ namespace Graphics
 
 		@param animation Nombre de la animación terminada.
 		*/
-		virtual void animationFinished(const std::string &animation) {}
+		virtual void animationFinished(const std::string &animation, const bool nextAnimation) {}
 
 		virtual void animationWithoutLoopStarted(const std::string &animation) {}
 
@@ -77,9 +77,12 @@ namespace Graphics
 
 		@param anim Nombre de la animación a activar.
 		@param loop true si la animación debe reproducirse cíclicamente.
+		@param nextAnimation por defecto siempre vamos a querer que se reproduzca despues de 
+		acabar, la animacion por defecto, pero en algun caso como la muerte del personaje
+		que no queramos que se reproduzca ninguna animación más, basta con activar el flag a false.
 		@return true si la animación solicitada fue correctamente activada.
 		*/
-		bool setAnimation(const std::string &anim, bool loop);
+		bool setAnimation(const std::string &anim, bool loop, bool nextAnimation = true);
 		
 		/**
 		Desactiva una animación a partir de su nombre.
@@ -158,7 +161,11 @@ namespace Graphics
 		*/
 		Animation* _currentAnimation;
 
-		int _fadeInOutVelocity;
+		/**
+		Indica que cuando se acaba una animacion, se reproduzca la
+		animación por defecto o no.
+		*/
+		bool _nextAnimation;
 
 	}; // class CAnimatedEntity
 
