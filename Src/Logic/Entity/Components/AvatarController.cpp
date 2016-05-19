@@ -60,6 +60,12 @@ namespace Logic
 		if (entityInfo->hasAttribute("land1Animation"))
 			_landAnimation = entityInfo->getPairStringFloat("land1Animation").first;
 
+		if (entityInfo->hasAttribute("deathAnimation"))
+			_deathAnimation = entityInfo->getPairStringFloat("deathAnimation").first;
+
+		if (entityInfo->hasAttribute("pickObjectAnimation"))
+			_pickObjectAnimation = entityInfo->getPairStringFloat("pickObjectAnimation").first;
+
 		return true;
 
 	} // spawn
@@ -104,8 +110,9 @@ namespace Logic
 			_falling = false;
 			break;
 		case Message::ANIMATION_WITHOUT_LOOP_STARTED:
-			if (message.getArg<std::string>("name") == "pick_object" ||
-				message.getArg<std::string>("name") == _landAnimation)
+			if (message.getArg<std::string>("name") == _pickObjectAnimation ||
+				message.getArg<std::string>("name") == _landAnimation ||
+				message.getArg<std::string>("name") == _deathAnimation)
 				_blockedAnimationWithoutLoopStarted = true;
 			break;
 

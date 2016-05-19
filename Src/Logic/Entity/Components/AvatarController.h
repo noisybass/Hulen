@@ -201,6 +201,8 @@ namespace Logic
 		std::string _jumpAnimation;
 		std::string _fallAnimation;
 		std::string _landAnimation;
+		std::string _deathAnimation;
+		std::string _pickObjectAnimation;
 
 	private: 
 		float _currentHeight = 0.0f;
