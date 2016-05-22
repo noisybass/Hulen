@@ -14,6 +14,7 @@ Contiene la implementación del servidor de física.
 #include "ErrorManager.h"
 #include "CollisionManager.h"
 #include "Logic/Entity/Components/Physics.h"
+#include "Physics/HulenControllerFilterCallback.h"
 
 #include <assert.h>
 #include <algorithm>
@@ -661,7 +662,8 @@ unsigned CServer::moveController(PxController *controller, const Vector3 &moveme
 	PxVec3 disp = Vector3ToPxVec3(movement);
 	float minDist = 0.01f;
 	float elapsedTime = msecs / 1000.0f;
-	PxControllerFilters filters;
+	HulenControllerFilterCallback* filterCallback = new HulenControllerFilterCallback();
+	PxControllerFilters filters = PxControllerFilters(nullptr, nullptr, (PxControllerFilterCallback*)filterCallback);
 	PxObstacleContext *obstacles = NULL;
 	return controller->move(disp, minDist, elapsedTime, filters, obstacles);
 }

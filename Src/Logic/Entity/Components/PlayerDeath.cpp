@@ -39,9 +39,12 @@ namespace Logic
 
 			// When finish the death animation,
 			// we send a message to the state.
-			msg._type = Message::PLAYER_EVENT;
-			msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
-			_entity->getGameObject()->emitMessage(msg);
+			if (message.getArg<std::string>("name") == _deathAnimation)
+			{
+				msg._type = Message::PLAYER_EVENT;
+				msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
+				_entity->getGameObject()->emitMessage(msg);
+			}
 			break;
 		default:
 			break;

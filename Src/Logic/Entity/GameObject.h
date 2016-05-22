@@ -116,6 +116,8 @@ namespace Logic
 		*/
 		IComponent* getComponent(const std::string& name);
 
+		GameObject::TState getState() const { return _state;  }
+
 	protected:
 
 		/**
