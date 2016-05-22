@@ -10,6 +10,7 @@
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
+#include <OgreMeshManager.h>
 
 namespace Graphics 
 {
@@ -227,6 +228,25 @@ namespace Graphics
 		}
 
 		return _debugDrawing;
+	}
+
+	void CServer::createPlane(const Ogre::Vector3& upVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile)
+	{
+		Ogre::Plane plane(upVector, 0);
+
+		Ogre::MeshManager::getSingleton().createPlane(
+			planeName, 
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+			plane,
+			width,
+			height,
+			xSegments,
+			ySegments,
+			true,
+			1,
+			uTile,
+			vTile,
+			upVector);
 	}
 
 } // namespace Graphics

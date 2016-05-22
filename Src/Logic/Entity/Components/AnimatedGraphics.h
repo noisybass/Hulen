@@ -116,7 +116,7 @@ namespace Logic
 			fichero de disco.
 		@return Entidad gráfica creada, NULL si hubo algún problema.
 		*/
-		virtual Graphics::CEntity* createGraphicsEntity(const Map::CEntity *entityInfo);
+		virtual Graphics::CEntity* createGraphicsEntityFromFile(const Map::CEntity *entityInfo);
 		
 		/**
 		Entidad gráfica animada.

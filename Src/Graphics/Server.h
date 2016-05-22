@@ -3,6 +3,8 @@
 
 #include <map>
 
+#include <OgreVector3.h>
+
 // Predeclaración de clases para ahorrar tiempo de compilación
 namespace Ogre 
 {
@@ -169,6 +171,8 @@ namespace Graphics
 		escena activa.
 		*/
 		void setScene(const std::string& name);
+
+		void createPlane(const Ogre::Vector3& upVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile);
 
 	protected:
 

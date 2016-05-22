@@ -21,6 +21,7 @@ gráfica de la entidad.
 #include "Graphics/Scene.h"
 #include "Graphics/Entity.h"
 #include "Graphics/StaticEntity.h"
+#include "Graphics/Server.h"
 
 namespace Logic 
 {
@@ -49,10 +50,24 @@ namespace Logic
 		_scene = _entity->getGameObject()->getMap()->getScene();
 		_gameObject = _entity->getGameObject();
 
-		if(entityInfo->hasAttribute("model"))
-			_model = entityInfo->getStringAttribute("model");
+		bool fromFile = true;
+		if (entityInfo->hasAttribute("graphic_file"))
+			fromFile = entityInfo->getBoolAttribute("graphic_file");
 
-		_graphicsEntity = createGraphicsEntity(entityInfo);
+		if (fromFile)
+		{
+			assert(entityInfo->hasAttribute("model") && "No se ha especificado modelo para la entidad gráfica");
+			_model = entityInfo->getStringAttribute("model");
+			_graphicsEntity = createGraphicsEntityFromFile(entityInfo);
+		}
+		else
+		{
+			// En caso de no tener modelo el nombre que se le va a dar a la malla es el mismo que el de la entidad
+			_model = _entity->getName();
+			_graphicsEntity = createGraphicsEntity(entityInfo);
+		}
+
+
 		if(!_graphicsEntity)
 			return false;
 
@@ -80,14 +95,11 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	Graphics::CEntity* CGraphics::createGraphicsEntity(const Map::CEntity *entityInfo)
+	Graphics::CEntity* CGraphics::createGraphicsEntityFromFile(const Map::CEntity *entityInfo)
 	{
 		bool isStatic = false;
 		if(entityInfo->hasAttribute("static"))
 			isStatic = entityInfo->getBoolAttribute("static");
-
-		if (entityInfo->hasAttribute("scale"))
-			_scale = entityInfo->getVector3Attribute("scale");
 
 		if(isStatic)
 		{
@@ -111,12 +123,59 @@ namespace Logic
 			_graphicsEntity->setScale(_scale);
 		}
 
-		//_graphicsEntity->setTransform(_entity->getTransform());
 		_graphicsEntity->setPosition(_entity->getPosition());
 		
 		return _graphicsEntity;
 
 	} // createGraphicsEntity
+
+	Graphics::CEntity* CGraphics::createGraphicsEntity(const Map::CEntity *entityInfo)
+	{
+		assert(entityInfo->hasAttribute("graphic_type") && "No se ha especificado tipo para la malla");
+
+		std::string type = entityInfo->getStringAttribute("graphic_type");
+
+		if (type == "plane")
+		{
+			assert(entityInfo->hasAttribute("graphic_up_vector") && "No se ha especificado vector perpendicular al plano");
+			Vector3 upVector = entityInfo->getVector3Attribute("graphic_up_vector");
+
+			assert(entityInfo->hasAttribute("graphic_width") && "No se ha especificado el ancho del plano");
+			float width = entityInfo->getFloatAttribute("graphic_width");
+
+			assert(entityInfo->hasAttribute("graphic_height") && "No se ha especificado el alto del plano");
+			float height = entityInfo->getFloatAttribute("graphic_height");
+
+			int xSegments = 1;
+			if (entityInfo->hasAttribute("graphic_x_segments"))
+				xSegments = entityInfo->getIntAttribute("graphic_x_segments");
+
+			int ySegments = 1;
+			if (entityInfo->hasAttribute("graphic_y_segments"))
+				ySegments = entityInfo->getIntAttribute("graphic_y_segments");
+
+			bool normals = true;
+			if (entityInfo->hasAttribute("graphic_normals"))
+				normals = entityInfo->getBoolAttribute("graphic_normals");
+
+			float uTile = 1.0f;
+			if (entityInfo->hasAttribute("graphic_u_tile"))
+				uTile = entityInfo->getFloatAttribute("graphic_u_tile");
+
+			float vTile = 1.0f;
+			if (entityInfo->hasAttribute("graphic_v_tile"))
+				vTile = entityInfo->getFloatAttribute("graphic_v_tile");
+
+			Graphics::CServer::getSingletonPtr()->createPlane(upVector, _model, width, height, xSegments, ySegments, normals, uTile, vTile);
+			_graphicsEntity = new Graphics::CStaticEntity(_entity->getName(), _model);
+
+			if (!_scene->addStaticEntity((Graphics::CStaticEntity*)_graphicsEntity))
+				return 0;
+		}
+
+		_graphicsEntity->setPosition(_entity->getPosition());
+		return _graphicsEntity;
+	}
 
 	//---------------------------------------------------------
 

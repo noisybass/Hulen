@@ -26,7 +26,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	Graphics::CEntity* CAnimatedGraphics::createGraphicsEntity(const Map::CEntity *entityInfo)
+	Graphics::CEntity* CAnimatedGraphics::createGraphicsEntityFromFile(const Map::CEntity *entityInfo)
 	{
 		_animatedGraphicsEntity = new Graphics::CAnimatedEntity(_entity->getName(),_model);
 		

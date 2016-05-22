@@ -10,8 +10,8 @@ gráfica de la entidad.
 @author David Llansó
 @date Agosto, 2010
 */
-#ifndef __Logic_Graphics_H
-#define __Logic_Graphics_H
+#ifndef LOGIC_GRAPHICS_H
+#define LOGIC_GRAPHICS_H
 
 #include "Logic/Entity/Component.h"
 
@@ -98,6 +98,8 @@ namespace Logic
 			fichero de disco.
 		@return Entidad gráfica creada, NULL si hubo algún problema.
 		*/
+		virtual Graphics::CEntity* createGraphicsEntityFromFile(const Map::CEntity *entityInfo);
+
 		virtual Graphics::CEntity* createGraphicsEntity(const Map::CEntity *entityInfo);
 
 		/**
@@ -147,4 +149,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // __Logic_Graphics_H
+#endif // LOGIC_GRAPHICS_H
