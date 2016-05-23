@@ -97,10 +97,22 @@ Map = {
 	World0 = {
 		type = "Body",
 		game_object = "World0_GO",
-		prefab = "World_Prefab",
+		--prefab = "World_Prefab",
+		--position = {30, 0, 0},
+		--scale = {1, 35, 10},
+		--physic_dimensions = { 1, 35, 10 },
+
+		blueprint = "Background",
 		position = {30, 0, 0},
-		scale = {1, 35, 10},
-		physic_dimensions = { 1, 35, 10 },
+		-- Graphic Entity
+		--model = "Plane.mesh",
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {-1, 0, 0},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 10,
+		graphic_height = 50,
+		material = "Wall",
 	},
 		
 
@@ -121,19 +133,43 @@ Map = {
 	World2 = {
 		type = "Body",
 		game_object = "World2_GO",
-		prefab = "World_Prefab",
+		--prefab = "World_Prefab",
+		--position = {0, 17, 0},
+		--scale = {60, 1, 10},
+		--physic_dimensions = { 65, 1, 10 },
+
+		blueprint = "Background",
 		position = {0, 17, 0},
-		scale = {60, 1, 10},
-		physic_dimensions = { 65, 1, 10 },
+		-- Graphic Entity
+		--model = "Plane.mesh",
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, -1, 0},
+		graphic_parallel_vector = {1, 0, 0},
+		graphic_width = 10,
+		graphic_height = 60,
+		material = "Wall",
 	},
 
 	World3 = {
 		type = "Body",
 		game_object = "World3_GO",
-		prefab = "World_Prefab",
+		--prefab = "World_Prefab",
+		--position = {-30, 0, 0},
+		--scale = {1, 35, 10},
+		--physic_dimensions = { 1, 35, 10 },
+
+		blueprint = "Background",
 		position = {-30, 0, 0},
-		scale = {1, 35, 10},
-		physic_dimensions = { 1, 35, 10 },
+		-- Graphic Entity
+		--model = "Plane.mesh",
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {1, 0, 0},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 10,
+		graphic_height = 50,
+		material = "Wall",
 	},
 
 	World4 = {
@@ -141,8 +177,15 @@ Map = {
 		blueprint = "Background",
 		game_object = "World4_GO",
 		position = {0, 0, -3.5},
-		model = "Plane.mesh",
-		material = "perPixel",
+		-- Graphic Entity
+		--model = "Plane.mesh",
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, 0, 1},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 65,
+		graphic_height = 50,
+		material = "Wall",
 	},
 
 	Tile1 = {
