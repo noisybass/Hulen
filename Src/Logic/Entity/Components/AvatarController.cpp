@@ -120,6 +120,7 @@ namespace Logic
 				m._type = Message::SET_ANIMATION;
 				m.setArg<std::string>(std::string("animation"), std::string(_fallAnimation));
 				m.setArg<bool>(std::string("loop"), true);
+				m.setArg<bool>(std::string("nextAnimation"), false); // Not play default animation 
 
 				_entity->emitMessage(m);
 			}
@@ -279,6 +280,7 @@ namespace Logic
 			message._type = Message::SET_ANIMATION;
 			message.setArg<std::string>(std::string("animation"), std::string(_jumpAnimation));
 			message.setArg<bool>(std::string("loop"), false);
+			message.setArg<bool>(std::string("nextAnimation"), false); // Not play default animation 
 
 			_entity->emitMessage(message, this);
 		}
@@ -327,7 +329,19 @@ namespace Logic
 			}
 			else if (falling) //Falling from max height or falling without jump
 			{
-				//_jumping = true;
+				// if player don't jump and fall from a height.
+				if (!_jumping)
+				{
+					_jumping = true;
+					TMessage m;
+					m._type = Message::SET_ANIMATION;
+					m.setArg<std::string>(std::string("animation"), std::string(_fallAnimation));
+					m.setArg<bool>(std::string("loop"), true);
+					m.setArg<bool>(std::string("nextAnimation"), false); // Not play default animation 
+
+					_entity->emitMessage(m);
+				}
+
 			}
 			else if (!falling && _jumping) // falling on ground
 			{
