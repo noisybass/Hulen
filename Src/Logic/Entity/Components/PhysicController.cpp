@@ -160,15 +160,6 @@ void CPhysicController::tick(float msecs)
 		CAvatarController* controller = (CAvatarController*)(_entity->getComponent("CAvatarController"));
 		controller->_jump = false;
 		controller->_currentHeight = 0.0f;
-		controller->_falling = true;
-	}
-
-	if (flags & PxControllerFlag::eCOLLISION_DOWN)
-	{
-
-		TMessage m;
-		m._type = Message::GROUND_COLLISION;
-		_entity->emitMessage(m);
 	}
 
 	// Ponemos el movimiento a cero

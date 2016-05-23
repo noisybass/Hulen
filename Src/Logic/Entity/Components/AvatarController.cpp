@@ -92,8 +92,7 @@ namespace Logic
 			message._type == Message::SEND_STATE ||
 			message._type == Message::RECEIVE_AVATAR_STATE ||
 			message._type == Message::ANIMATION_WITHOUT_LOOP_STARTED ||
-			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED ||
-			message._type == Message::GROUND_COLLISION;
+			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 
 	} // accept
 	
@@ -106,9 +105,6 @@ namespace Logic
 		TMessage m;
 		switch(message._type)
 		{
-		case Message::GROUND_COLLISION:
-			_falling = false;
-			break;
 		case Message::ANIMATION_WITHOUT_LOOP_STARTED:
 			if (message.getArg<std::string>("name") == _pickObjectAnimation ||
 				message.getArg<std::string>("name") == _landAnimation ||
@@ -179,8 +175,6 @@ namespace Logic
 
 	void CAvatarController::walkLeft() 
 	{
-		//if (!_walkingRight)
-		//{
 			_walkingLeft = true;
 			_walkingRight = false;
 
@@ -191,7 +185,6 @@ namespace Logic
 			{
 				changeDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
 			}
-		//}
 
 	} // walk
 	
@@ -199,8 +192,6 @@ namespace Logic
 
 	void CAvatarController::walkRight() 
 	{
-		//if (!_walkingLeft)
-		//{
 			_walkingRight = true;
 			_walkingLeft = false;
 
@@ -211,7 +202,6 @@ namespace Logic
 			{
 				changeDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
 			}
-		//}
 	} // walkRight
 
 	void CAvatarController::changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction)
@@ -300,6 +290,13 @@ namespace Logic
 
 		Vector3 movement(Vector3::ZERO);
 
+		/**
+		Attribute to know if the entity is falling.
+		true indicates the entity is falling.
+		false in the other case.
+		*/
+		bool falling = ((CPhysicController*) _entity->getComponent("CPhysicController"))->_falling;
+
 		if (!_blockedAnimationWithoutLoopStarted)
 		{
 			if (_initJumpTime == 0 || _initJumpTime == 0.5)
@@ -322,15 +319,15 @@ namespace Logic
 						_jump = false;
 						_currentHeight = 0;
 						_initJumpTime = 0;
-						_falling = true;
+						//_falling = true;
 					}
 				}
 			}
-			else if (_falling) //Falling from max height or falling without jump
+			else if (falling) //Falling from max height or falling without jump
 			{
 				//_jumping = true;
 			}
-			else if (!_falling && _jumping) // falling on ground
+			else if (!falling && _jumping) // falling on ground
 			{
 				_jumping = false;
 				TMessage message;

@@ -167,13 +167,6 @@ namespace Logic
 		bool _jumping;
 
 		/**
-		Atributo para saber si la entidad esta cayendo.
-		true indica que esta cayendo.
-		false indica que esta en el suelo.
-		*/
-		bool _falling;
-
-		/**
 		Atributo que indica la magnitud de velocidad de la entidad.
 		*/
 		float _speed;
