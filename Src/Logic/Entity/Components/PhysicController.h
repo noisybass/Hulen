@@ -102,6 +102,9 @@ namespace Logic
 		*/
 		void  onTrigger (IPhysics *otherComponent, bool enter);
 
+		/**
+		When two objects collides.
+		*/
 		void onContact (IPhysics *otherComponent);
 
 		/**
@@ -113,6 +116,11 @@ namespace Logic
 		Se invoca cuando se produce una colisión entre dos character controllers.
 		*/
 		void onControllerHit (const physx::PxControllersHit &hit);
+
+		/**
+		Returns if the player is falling or not.
+		*/
+		bool playerFalling() const { return _falling; };
 
 		
 

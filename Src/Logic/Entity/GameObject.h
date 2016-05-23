@@ -116,6 +116,11 @@ namespace Logic
 		*/
 		IComponent* getComponent(const std::string& name);
 
+		/**
+		Devuelve el componente de los hijos, siendo state SHADOW o BODY.
+		*/
+		IComponent* getComponentInChildren(const GameObject::TState state, const std::string& name);
+
 		GameObject::TState getState() const { return _state;  }
 
 	protected:

@@ -8,6 +8,7 @@
 
 #include "Logic/Entity/Components/LightingArea.h"
 #include "Logic/Entity/Components/ChargeInteractuable.h"
+#include "Logic/Entity/Components/PhysicController.h"
 
 
 namespace Logic
@@ -89,6 +90,7 @@ namespace Logic
 		CEntity* deathCharge = nullptr;
 		TMessage m;
 		std::string playerEvent;
+		bool falling;
 		
 
 		switch (message._type)
@@ -103,7 +105,12 @@ namespace Logic
 			else
 				chargeInRange = deathCharge->getGameObject();
 
-			if (chargeInRange)
+			/**
+			If charge is in range and the player is 
+			on ground, we can pick the charge.
+			*/
+			falling = ((CPhysicController*)_gameObject->getComponentInChildren(GameObject::BODY ,"CPhysicController"))->playerFalling();
+			if (chargeInRange && !falling)
 			{
 				// Buscarla en el vector de referencias
 				std::vector<CGameObject*>::const_iterator it = std::find(_chargesOnMap.begin(), _chargesOnMap.end(), chargeInRange);

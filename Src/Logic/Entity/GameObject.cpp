@@ -317,6 +317,30 @@ namespace Logic
 			return it->second;
 
 		return nullptr;
-	}
+	} // getComponent
+
+	IComponent* CGameObject::getComponentInChildren(const GameObject::TState state, const std::string& name)
+	{
+		TComponentMap::const_iterator it;
+
+		if (state == GameObject::SHADOW)
+		{
+			it = _shadow->_components.find(name);
+
+			if (it != _shadow->_components.end())
+				return it->second;
+		}
+		else if (state == GameObject::BODY)
+		{
+			it = _body->_components.find(name);
+			if (it != _body->_components.end())
+				return it->second;
+		}
+		else{
+			assert("Error in getComponentInChildren. You must put an shadow or body state.");
+		}
+
+		return nullptr;
+	} // getComponentInChildren
 
 } // namespace Logic
