@@ -44,7 +44,7 @@ namespace Logic
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
 			_speed(0.05f), _walkRightAnimation(""), _idleAnimation(""), _blockedAnimationWithoutLoopStarted(false),
-			_initJumpTime(0.0f), _jumping (false){}
+			_initJumpTime(0.0f), _jumping (false), _delayinitJump(1.0f){}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -188,6 +188,7 @@ namespace Logic
 		*/
 		bool _blockedAnimationWithoutLoopStarted;
 		float _initJumpTime;
+		float _delayinitJump;
 
 		std::string _walkRightAnimation;
 		std::string _idleAnimation;

@@ -164,7 +164,7 @@ namespace Logic
 		if (nextAnimation)
 			_animatedGraphicsEntity->setAnimation(_defaultAnimation, true);
 		
-	} // animationFinished
+	} // animationFinisheda
 
 	void CAnimatedGraphics::animationWithoutLoopStarted(const std::string &animation)
 	{

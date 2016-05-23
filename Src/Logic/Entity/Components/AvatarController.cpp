@@ -42,6 +42,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");
 
+		if (entityInfo->hasAttribute("delayinitJump"))
+			_delayinitJump = entityInfo->getFloatAttribute("delayinitJump");
+
 		/**
 		Animations
 		*/
@@ -106,9 +109,7 @@ namespace Logic
 		switch(message._type)
 		{
 		case Message::ANIMATION_WITHOUT_LOOP_STARTED:
-			if (message.getArg<std::string>("name") == _pickObjectAnimation ||
-				message.getArg<std::string>("name") == _landAnimation ||
-				message.getArg<std::string>("name") == _deathAnimation)
+			if (message.getArg<std::string>("name") == _deathAnimation)
 				_blockedAnimationWithoutLoopStarted = true;
 			break;
 
@@ -139,13 +140,15 @@ namespace Logic
 					walkLeft();
 				else if (!arg.compare("walkRight"))
 					walkRight();
-				else if (!arg.compare("stopWalkingRight"))
-					stopWalkingRight();
-				else if (!arg.compare("stopWalkingLeft"))
-					stopWalkingLeft();
 				else if (!arg.compare("jump"))
 					jump();
 			}
+				
+			if (!arg.compare("stopWalkingRight"))
+				stopWalkingRight();
+			else if (!arg.compare("stopWalkingLeft"))
+				stopWalkingLeft();
+			
 				break;
 			
 		case Message::SEND_STATE:
@@ -299,7 +302,7 @@ namespace Logic
 
 		if (!_blockedAnimationWithoutLoopStarted)
 		{
-			if (_initJumpTime == 0 || _initJumpTime == 0.5)
+			if (_initJumpTime == 0 || _initJumpTime == _delayinitJump)
 			{
 				if (_walkingRight)  movement += Vector3(1, 0, 0) * _speed * msecs;
 				else if (_walkingLeft)   movement += Vector3(-1, 0, 0) * _speed * msecs;
@@ -309,9 +312,9 @@ namespace Logic
 			{
 				_jumping = true;
 				_initJumpTime += msecs;
-				if (_initJumpTime >= 0.5)
+				if (_initJumpTime >= _delayinitJump)
 				{
-					_initJumpTime = 0.5;
+					_initJumpTime = _delayinitJump;
 					movement += Vector3::UNIT_Y * _jumpSpeed * msecs;
 					_currentHeight += _jumpSpeed * msecs;
 					if (_currentHeight >= _jumpHeight)
@@ -319,7 +322,6 @@ namespace Logic
 						_jump = false;
 						_currentHeight = 0;
 						_initJumpTime = 0;
-						//_falling = true;
 					}
 				}
 			}

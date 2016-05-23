@@ -92,6 +92,7 @@ namespace GUI {
 			case GUI::Key::A:
 				m._type = Logic::Message::CONTROL;
 				m.setArg<std::string>(std::string("control"), std::string("stopWalkingLeft"));
+				break;
 			case GUI::Key::D:
 				m._type = Logic::Message::CONTROL;
 				m.setArg<std::string>(std::string("control"), std::string("stopWalkingRight"));
