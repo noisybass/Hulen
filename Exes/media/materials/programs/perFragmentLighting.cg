@@ -1,12 +1,14 @@
 struct vs_Output
 {
 	float4 position  : POSITION;
-	float3 objectPos : TEXCOORD0;
-	float3 normal    : TEXCOORD1;
+	float2 uv0       : TEXCOORD0;
+	float3 objectPos : TEXCOORD1;
+	float3 normal    : TEXCOORD2;
 };
 
 vs_Output perFragmentLighting_vs(float4 position : POSITION,
 								float3 normal : NORMAL,
+								float2 texCoord0 : TEXCOORD0,
 								uniform float4x4 ViewProjectionMatrix,
 								uniform float4x4 normalMat)
 {
@@ -14,10 +16,8 @@ vs_Output perFragmentLighting_vs(float4 position : POSITION,
 
 	OUT.position  = mul(ViewProjectionMatrix, position);
 	OUT.objectPos = position.xyz;
-	//OUT.normal    = mul((float3x3)normalMat, normal);
 	OUT.normal	  = normal;
-	//OUT.normal    = normalize(normal);
-	//OUT.normal = mul(normalMat, normal).xyz;
+	OUT.uv0	      = texCoord0;
 
 	return OUT;
 }
@@ -27,8 +27,9 @@ struct ps_Output {
 	float4 color : COLOR;
 };
 
-ps_Output perFragmentLighting_ps(float4 position : TEXCOORD0,
-								float3 normal : TEXCOORD1,
+ps_Output perFragmentLighting_ps(float2 uv0 : TEXCOORD0,
+								float4 position : TEXCOORD1,
+								float3 normal : TEXCOORD2,
 								uniform float3 globalAmbient,
 								uniform float3 lightDiffuse0,
 								uniform float3 lightSpecular0,
@@ -39,8 +40,8 @@ ps_Output perFragmentLighting_ps(float4 position : TEXCOORD0,
 								uniform float3 ka,
 								uniform float3 kd,
 								uniform float3 ks,
-								uniform float shininess
-								)
+								uniform float shininess,
+								uniform sampler2D texture)
 {
 	ps_Output OUT;
 
@@ -74,15 +75,22 @@ ps_Output perFragmentLighting_ps(float4 position : TEXCOORD0,
 	float3 specular = ks * lightSpecular0 * specularLight;
 
 	float range = lightAttenuation0.x;
+	float4 texColor;
 	if (distance(P, lightPosition0) >= range)
 	{
 		diffuse = 0;
-		specular = 0;	
+		specular = 0;
+		texColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	}
+	else
+	{
+		texColor = tex2D(texture, uv0);
 	}
 
-	//OUT.color = color;
 	OUT.color.xyz = emissive + ambient + diffuse + specular;
 	OUT.color.w = 1;
+
+	OUT.color = OUT.color + texColor;
 
 	return OUT;
 }

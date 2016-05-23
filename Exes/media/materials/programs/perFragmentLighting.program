@@ -1,4 +1,4 @@
-vertex_program Ambient cg
+vertex_program ambient_vs cg
 {
 	source ambient.cg
 	entry_point ambient_vs

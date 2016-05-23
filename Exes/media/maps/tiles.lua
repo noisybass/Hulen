@@ -79,6 +79,7 @@ Map_GO = {
 		playerCanDie = false,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
+		pickObjectAnimation = "pick_object",
 	},
 }
 
@@ -112,7 +113,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 10,
 		graphic_height = 50,
-		material = "Wall",
+		material = "perPixel",
 	},
 		
 
@@ -148,7 +149,7 @@ Map = {
 		graphic_parallel_vector = {1, 0, 0},
 		graphic_width = 10,
 		graphic_height = 60,
-		material = "Wall",
+		material = "perPixel",
 	},
 
 	World3 = {
@@ -169,7 +170,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 10,
 		graphic_height = 50,
-		material = "Wall",
+		material = "perPixel",
 	},
 
 	World4 = {
@@ -185,7 +186,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 65,
 		graphic_height = 50,
-		material = "Wall",
+		material = "perPixel",
 	},
 
 	Tile1 = {
@@ -277,15 +278,18 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
-		graphicChargeVelocity = 8,
+		graphicChargeVelocity = 5.5,
 		graphicChargeRadius = 3,
+		graphicChargeRotationBar = 0.2,
+		graphicChargesDeltaSeparation = 0.15,
+		graphicChargesDeltaSeparationToFirstCharge = 0.85,
 	},
 
 	Player_Body = {
 		type = "Body",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {0, 0, 0.},
+		position = {0, 0, 0},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -296,27 +300,49 @@ Map = {
 		guizmo = false,
 		guizmoSize = 10,
 		speed = 10,
-		jump_speed = 30,
-		jump_height = 12.0,
+		jump_speed = 20,
+		jump_height = 8,
 		gravity = 8,
 		defaultVision = 5,
 
 		--Animations
-		--fadeInOut_Velocity = 1,
 		defaultAnimation = "idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "idle_cycle_1",
-		-- Pick object este en el GO por el momento
-		jumpAnimation = "Jump_movement",
-		fallAnimation = "fall",
-		landAnimation = "landing",
+		defaultAnimationVelocity = 5,
+		idle1Animation = { "idle_cycle_1", 1, "null"},
+		idle2Animation = { "idle_cycle_2", 1, "null"},
+		walkAnimation  = { "Walking_cycle", 1, "null"},
+		runAnimation   = { "Running_cycle", 1, "null"},
+		deathAnimation = { "death", 1, "null"},
+		delayinitJump  = 0.3,
+		jump1Animation = { "Jump_movement", 2, "null"},
+		fall1Animation = { "fall", 2, "null"},
+		land1Animation = { "landing", 4.5 , "null"},
+		--jump2Animation = { "", 2, "null"},
+		--fall2Animation = { "", 2, "null"},
+		--land2Animation = { "", 2, "null"},
+		pickObjectAnimation = { "pick_object",1, "null"},
+
+		--Blending
+		defaultBlendingVelocity = 5,
+		idle1Blending = { "idle_cycle_1", 2, "null"},
+		idle2Blending = { "idle_cycle_2", 2, "null"},
+		walkBlending  = { "Walking_cycle", 5, "null"},
+		runBlending   = { "Running_cycle", 2, "null"},
+		deathBlending = { "death", 2, "null"},
+		jump1Blending = { "Jump_movement", 2, "null"},
+		fall1Blending = { "fall", 2, "null"},
+		land1Blending = { "landing", 2, "null"},
+		--jump2Blending = { "", 2, "null"},
+		--fall2Blending = { "", 2, "null"},
+		--land2Blending = { "", 2, "null"},
+		pickObjectBlending = { "pick_object", 2, "null"},
 	},
 
 	Player_Shadow = {
 		type = "Shadow",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {0, 0, 0},
+		position = {0, 0, -3.5},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -332,13 +358,34 @@ Map = {
 		gravity = 15,
 
 		---Animations
-		--fadeInOut_Velocity = 5,
 		defaultAnimation = "idle_cycle_1",
-		walkRightAnimation = "Walking_cycle",
-		idleAnimation = "idle_cycle_1",
-		-- Pick object este en el GO por el momento
-		jumpAnimation = "Jump_movement",
-		fallAnimation = "fall",
-		landAnimation = "landing",
+		defaultAnimationVelocity = 5,
+		idle1Animation = { "idle_cycle_1", 1, "null"},
+		idle2Animation = { "idle_cycle_2", 1, "null"},
+		walkAnimation  = { "Walking_cycle", 1, "null"},
+		runAnimation   = { "Running_cycle", 1, "null"},
+		deathAnimation = { "death", 1, "null"},
+		jump1Animation = { "Jump_movement", 1, "null"},
+		fall1Animation = { "fall", 1, "null"},
+		land1Animation = { "landing", 1, "null"},
+		--jump2Animation = { "", 2, "null"},
+		--fall2Animation = { "", 2, "null"},
+		--land2Animation = { "", 2, "null"},
+		pickObjectAnimation = { "pick_object",1, "null"},
+
+		--Blending
+		defaultBlendingVelocity = 5,
+		idle1Blending = { "idle_cycle_1", 2, "null"},
+		idle2Blending = { "idle_cycle_2", 2, "null"},
+		walkBlending  = { "Walking_cycle", 5, "null"},
+		runBlending   = { "Running_cycle", 2, "null"},
+		deathBlending = { "death", 2, "null"},
+		jump1Blending = { "Jump_movement", 2, "null"},
+		fall1Blending = { "fall", 2, "null"},
+		land1Blending = { "landing", 2, "null"},
+		--jump2Blending = { "", 2, "null"},
+		--fall2Blending = { "", 2, "null"},
+		--land2Blending = { "", 2, "null"},
+		pickObjectBlending = { "pick_object", 2, "null"},
 	},
 }
