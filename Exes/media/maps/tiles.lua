@@ -112,7 +112,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 10,
 		graphic_height = 50,
-		material = "perPixel",
+		material = "Wall",
 	},
 		
 
@@ -148,7 +148,7 @@ Map = {
 		graphic_parallel_vector = {1, 0, 0},
 		graphic_width = 10,
 		graphic_height = 60,
-		material = "perPixel",
+		material = "Wall",
 	},
 
 	World3 = {
@@ -169,7 +169,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 10,
 		graphic_height = 50,
-		material = "perPixel",
+		material = "Wall",
 	},
 
 	World4 = {
@@ -185,7 +185,7 @@ Map = {
 		graphic_parallel_vector = {0, 1, 0},
 		graphic_width = 65,
 		graphic_height = 50,
-		material = "perPixel",
+		material = "Wall",
 	},
 
 	Tile1 = {

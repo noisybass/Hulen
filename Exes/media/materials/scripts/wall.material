@@ -1,0 +1,13 @@
+material Wall
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture "wall1.jpg"
+			}
+		}
+	}
+}
