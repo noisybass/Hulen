@@ -44,7 +44,7 @@ namespace Logic
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
 			_speed(0.05f), _walkRightAnimation(""), _idleAnimation(""), _blockedAnimationWithoutLoopStarted(false),
-			_initJumpTime(0.0f), _jumping (false){}
+			_initJumpTime(0.0f), _jumping (false), _delayinitJump(1.0f){}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -167,13 +167,6 @@ namespace Logic
 		bool _jumping;
 
 		/**
-		Atributo para saber si la entidad esta cayendo.
-		true indica que esta cayendo.
-		false indica que esta en el suelo.
-		*/
-		bool _falling;
-
-		/**
 		Atributo que indica la magnitud de velocidad de la entidad.
 		*/
 		float _speed;
@@ -195,6 +188,7 @@ namespace Logic
 		*/
 		bool _blockedAnimationWithoutLoopStarted;
 		float _initJumpTime;
+		float _delayinitJump;
 
 		std::string _walkRightAnimation;
 		std::string _idleAnimation;

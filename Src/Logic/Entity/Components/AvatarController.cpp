@@ -42,6 +42,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");
 
+		if (entityInfo->hasAttribute("delayinitJump"))
+			_delayinitJump = entityInfo->getFloatAttribute("delayinitJump");
+
 		/**
 		Animations
 		*/
@@ -92,8 +95,7 @@ namespace Logic
 			message._type == Message::SEND_STATE ||
 			message._type == Message::RECEIVE_AVATAR_STATE ||
 			message._type == Message::ANIMATION_WITHOUT_LOOP_STARTED ||
-			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED ||
-			message._type == Message::GROUND_COLLISION;
+			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 
 	} // accept
 	
@@ -106,13 +108,8 @@ namespace Logic
 		TMessage m;
 		switch(message._type)
 		{
-		case Message::GROUND_COLLISION:
-			_falling = false;
-			break;
 		case Message::ANIMATION_WITHOUT_LOOP_STARTED:
-			if (message.getArg<std::string>("name") == _pickObjectAnimation ||
-				message.getArg<std::string>("name") == _landAnimation ||
-				message.getArg<std::string>("name") == _deathAnimation)
+			if (message.getArg<std::string>("name") == _deathAnimation)
 				_blockedAnimationWithoutLoopStarted = true;
 			break;
 
@@ -143,13 +140,15 @@ namespace Logic
 					walkLeft();
 				else if (!arg.compare("walkRight"))
 					walkRight();
-				else if (!arg.compare("stopWalkingRight"))
-					stopWalkingRight();
-				else if (!arg.compare("stopWalkingLeft"))
-					stopWalkingLeft();
 				else if (!arg.compare("jump"))
 					jump();
 			}
+				
+			if (!arg.compare("stopWalkingRight"))
+				stopWalkingRight();
+			else if (!arg.compare("stopWalkingLeft"))
+				stopWalkingLeft();
+			
 				break;
 			
 		case Message::SEND_STATE:
@@ -179,8 +178,6 @@ namespace Logic
 
 	void CAvatarController::walkLeft() 
 	{
-		//if (!_walkingRight)
-		//{
 			_walkingLeft = true;
 			_walkingRight = false;
 
@@ -191,7 +188,6 @@ namespace Logic
 			{
 				changeDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
 			}
-		//}
 
 	} // walk
 	
@@ -199,8 +195,6 @@ namespace Logic
 
 	void CAvatarController::walkRight() 
 	{
-		//if (!_walkingLeft)
-		//{
 			_walkingRight = true;
 			_walkingLeft = false;
 
@@ -211,7 +205,6 @@ namespace Logic
 			{
 				changeDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
 			}
-		//}
 	} // walkRight
 
 	void CAvatarController::changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction)
@@ -300,9 +293,16 @@ namespace Logic
 
 		Vector3 movement(Vector3::ZERO);
 
+		/**
+		Attribute to know if the entity is falling.
+		true indicates the entity is falling.
+		false in the other case.
+		*/
+		bool falling = ((CPhysicController*) _entity->getComponent("CPhysicController"))->_falling;
+
 		if (!_blockedAnimationWithoutLoopStarted)
 		{
-			if (_initJumpTime == 0 || _initJumpTime == 0.5)
+			if (_initJumpTime == 0 || _initJumpTime == _delayinitJump)
 			{
 				if (_walkingRight)  movement += Vector3(1, 0, 0) * _speed * msecs;
 				else if (_walkingLeft)   movement += Vector3(-1, 0, 0) * _speed * msecs;
@@ -312,9 +312,9 @@ namespace Logic
 			{
 				_jumping = true;
 				_initJumpTime += msecs;
-				if (_initJumpTime >= 0.5)
+				if (_initJumpTime >= _delayinitJump)
 				{
-					_initJumpTime = 0.5;
+					_initJumpTime = _delayinitJump;
 					movement += Vector3::UNIT_Y * _jumpSpeed * msecs;
 					_currentHeight += _jumpSpeed * msecs;
 					if (_currentHeight >= _jumpHeight)
@@ -322,15 +322,14 @@ namespace Logic
 						_jump = false;
 						_currentHeight = 0;
 						_initJumpTime = 0;
-						_falling = true;
 					}
 				}
 			}
-			else if (_falling) //Falling from max height or falling without jump
+			else if (falling) //Falling from max height or falling without jump
 			{
 				//_jumping = true;
 			}
-			else if (!_falling && _jumping) // falling on ground
+			else if (!falling && _jumping) // falling on ground
 			{
 				_jumping = false;
 				TMessage message;

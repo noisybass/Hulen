@@ -117,7 +117,7 @@ namespace Graphics
 
 		void dumpAnimsStates();
 
-		void initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues);
+		void initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues, float defaultBlending, std::unordered_map<std::string, float>& blendingValues);
 
 	protected:
 
@@ -141,15 +141,16 @@ namespace Graphics
 		virtual void tick(float secs);
 
 		struct Animation{
-			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false), animationVelocity(0.0f) {};
+			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false), animationVelocity(0.0f), blendingVelocity(0.0f) {};
 
-			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut, float animationVelocity) :
-				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut), animationVelocity(animationVelocity){};
+			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut, float animationVelocity, float blendingVelocity) :
+				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut), animationVelocity(animationVelocity), blendingVelocity(blendingVelocity) {};
 
 			~Animation() = default;
 
 			Ogre::AnimationState* animationState;
 			float animationVelocity;
+			float blendingVelocity;
 			bool fadingIn;
 			bool fadingOut;
 		};

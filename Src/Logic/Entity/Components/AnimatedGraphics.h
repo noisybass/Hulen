@@ -129,10 +129,12 @@ namespace Logic
 		std::string _defaultAnimation;
 
 		float _defaultAnimationVelocity;
+		float _defaultBlendingVelocity;
 
 	private:
 
 		void setAnimationsValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& animationValues);
+		void setBlendingValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& blendingValues);
 
 	}; // class CAnimatedGraphics
 

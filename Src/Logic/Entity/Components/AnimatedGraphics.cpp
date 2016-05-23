@@ -38,12 +38,21 @@ namespace Logic
 			_defaultAnimationVelocity = entityInfo->getFloatAttribute("defaultAnimationVelocity");
 		}
 
-		std::unordered_map<std::string, float> animationValues;
+		if (entityInfo->hasAttribute("defaultBlendingVelocity"))
+		{
+			_defaultBlendingVelocity = entityInfo->getFloatAttribute("defaultBlendingVelocity");
+		}
 
+		std::unordered_map<std::string, float> animationValues;
 		setAnimationsValues(entityInfo, animationValues);
 
+		std::unordered_map<std::string, float> blendingValues;
+		setBlendingValues(entityInfo, blendingValues);
+#ifdef _DEBUG
 		_animatedGraphicsEntity->dumpAnimsStates();
-		_animatedGraphicsEntity->initAnimationStates(_defaultAnimationVelocity, animationValues);
+#endif
+		_animatedGraphicsEntity->initAnimationStates(_defaultAnimationVelocity, animationValues,
+													 _defaultBlendingVelocity, blendingValues);
 		//_animatedGraphicsEntity->setTransform(_entity->getTransform());
 		_animatedGraphicsEntity->setPosition(_entity->getPosition());
 
@@ -66,58 +75,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CAnimatedGraphics::setAnimationsValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& animationValues)
-	{
-		
-		if (entityInfo->hasAttribute("idle1Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("idle1Animation"));
-
-		if (entityInfo->hasAttribute("idle2Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("idle2Animation"));
-
-		if (entityInfo->hasAttribute("walkAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("walkAnimation"));
-
-		if (entityInfo->hasAttribute("runAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("runAnimation"));
-
-		if (entityInfo->hasAttribute("deathAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("deathAnimation"));
-
-		if (entityInfo->hasAttribute("jump1Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("jump1Animation"));
-
-		if (entityInfo->hasAttribute("fall1Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("fall1Animation"));
-
-		if (entityInfo->hasAttribute("land1Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("land1Animation"));
-
-		if (entityInfo->hasAttribute("jump2Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("jump2Animation"));
-
-		if (entityInfo->hasAttribute("fall2Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("fall2Animation"));
-
-		if (entityInfo->hasAttribute("land2Animation"))
-			animationValues.insert(entityInfo->getPairStringFloat("land2Animation"));
-
-		if (entityInfo->hasAttribute("pickObjectAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("pickObjectAnimation"));
-
-		if (entityInfo->hasAttribute("changeDirectionAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("changeDirectionAnimation"));
-
-		if (entityInfo->hasAttribute("startRunAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("startRunAnimation"));
-
-		if (entityInfo->hasAttribute("preparationAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("preparationAnimation"));
-
-		if (entityInfo->hasAttribute("killScreamAnimation"))
-			animationValues.insert(entityInfo->getPairStringFloat("killScreamAnimation"));
-
-	} // setAnimationsValues
+	
 
 	//---------------------------------------------------------
 	
@@ -206,7 +164,7 @@ namespace Logic
 		if (nextAnimation)
 			_animatedGraphicsEntity->setAnimation(_defaultAnimation, true);
 		
-	} // animationFinished
+	} // animationFinisheda
 
 	void CAnimatedGraphics::animationWithoutLoopStarted(const std::string &animation)
 	{
@@ -215,6 +173,112 @@ namespace Logic
 		m.setArg<std::string>("name", animation);
 		_entity->emitMessage(m);
 	} // animationWithoutLoopStarted
+
+	void CAnimatedGraphics::setAnimationsValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& animationValues)
+	{
+
+		if (entityInfo->hasAttribute("idle1Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("idle1Animation"));
+
+		if (entityInfo->hasAttribute("idle2Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("idle2Animation"));
+
+		if (entityInfo->hasAttribute("walkAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("walkAnimation"));
+
+		if (entityInfo->hasAttribute("runAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("runAnimation"));
+
+		if (entityInfo->hasAttribute("deathAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("deathAnimation"));
+
+		if (entityInfo->hasAttribute("jump1Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("jump1Animation"));
+
+		if (entityInfo->hasAttribute("fall1Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("fall1Animation"));
+
+		if (entityInfo->hasAttribute("land1Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("land1Animation"));
+
+		if (entityInfo->hasAttribute("jump2Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("jump2Animation"));
+
+		if (entityInfo->hasAttribute("fall2Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("fall2Animation"));
+
+		if (entityInfo->hasAttribute("land2Animation"))
+			animationValues.insert(entityInfo->getPairStringFloat("land2Animation"));
+
+		if (entityInfo->hasAttribute("pickObjectAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("pickObjectAnimation"));
+
+		if (entityInfo->hasAttribute("changeDirectionAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("changeDirectionAnimation"));
+
+		if (entityInfo->hasAttribute("startRunAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("startRunAnimation"));
+
+		if (entityInfo->hasAttribute("preparationAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("preparationAnimation"));
+
+		if (entityInfo->hasAttribute("killScreamAnimation"))
+			animationValues.insert(entityInfo->getPairStringFloat("killScreamAnimation"));
+
+	} // setAnimationsValues
+
+	void CAnimatedGraphics::setBlendingValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& blendingValues)
+	{
+
+		if (entityInfo->hasAttribute("idle1Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("idle1Blending"));
+
+		if (entityInfo->hasAttribute("idle2Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("idle2Blending"));
+
+		if (entityInfo->hasAttribute("walkBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("walkBlending"));
+
+		if (entityInfo->hasAttribute("runBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("runBlending"));
+
+		if (entityInfo->hasAttribute("deathBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("deathBlending"));
+
+		if (entityInfo->hasAttribute("jump1Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("jump1Blending"));
+
+		if (entityInfo->hasAttribute("fall1Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("fall1Blending"));
+
+		if (entityInfo->hasAttribute("land1Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("land1Blending"));
+
+		if (entityInfo->hasAttribute("jump2Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("jump2Blending"));
+
+		if (entityInfo->hasAttribute("fall2Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("fall2Blending"));
+
+		if (entityInfo->hasAttribute("land2Blending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("land2Blending"));
+
+		if (entityInfo->hasAttribute("pickObjectBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("pickObjectBlending"));
+
+		if (entityInfo->hasAttribute("changeDirectionBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("changeDirectionBlending"));
+
+		if (entityInfo->hasAttribute("startRunBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("startRunBlending"));
+
+		if (entityInfo->hasAttribute("preparationBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("preparationBlending"));
+
+		if (entityInfo->hasAttribute("killScreamBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("killScreamBlending"));
+
+	} // setAnimationsValues
 
 } // namespace Logic
 
