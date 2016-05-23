@@ -107,7 +107,7 @@ namespace Graphics
 		if (_currentAnimation->animationState)
 		{
 			// Add time to the main animation
-			_currentAnimation->animationState->addTime(secs);
+			_currentAnimation->animationState->addTime(secs * _currentAnimation->animationVelocity);
 
 			// Do fadeIn/fadeOut
 			for (std::pair<std::string, Animation*> anim : _animations)
@@ -116,7 +116,7 @@ namespace Graphics
 				if (animation->fadingIn)
 				{
 					//std::cout << animation->animationState->getAnimationName() << " IN: ";
-					Ogre::Real newWeight = animation->animationState->getWeight() + secs * animation->animationVelocity;
+					Ogre::Real newWeight = animation->animationState->getWeight() + secs * animation->blendingVelocity;
 					//std::cout << newWeight << std::endl;
 					if (newWeight >= 1.0f)
 					{
@@ -129,7 +129,7 @@ namespace Graphics
 				else if (animation->fadingOut)
 				{
 					//std::cout << animation->animationState->getAnimationName() << " OUT: ";
-					Ogre::Real newWeight = animation->animationState->getWeight() - secs * animation->animationVelocity;
+					Ogre::Real newWeight = animation->animationState->getWeight() - secs * animation->blendingVelocity;
 					//std::cout << newWeight << std::endl;
 					if (newWeight <= 0.0f)
 					{
@@ -184,7 +184,8 @@ namespace Graphics
 
 	} // dumpAnimsStates
 
-	void CAnimatedEntity::initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues)
+	void CAnimatedEntity::initAnimationStates(float defaultVelocity, std::unordered_map<std::string, float>& animationValues, 
+											  float defaultBlending, std::unordered_map<std::string, float>& blendingValues)
 	{
 		Ogre::AnimationStateSet *allAnimations = _entity->getAllAnimationStates();
 		Ogre::AnimationStateIterator it = allAnimations->getAnimationStateIterator();
@@ -197,7 +198,14 @@ namespace Graphics
 				animationVelocity = animationValues.at(as->getAnimationName());
 			else
 				animationVelocity = defaultVelocity;
-			_animations.insert({as->getAnimationName(), new Animation(as, false, false, animationVelocity)});
+
+			float blendingVelocity;
+			if (blendingValues.find(as->getAnimationName()) != blendingValues.end())
+				blendingVelocity = blendingValues.at(as->getAnimationName());
+			else
+				blendingVelocity = defaultBlending;
+				
+			_animations.insert({as->getAnimationName(), new Animation(as, false, false, animationVelocity, blendingVelocity)});
 		}
 
 		//_fadeInOutVelocity = fadeInOutVelocity;
