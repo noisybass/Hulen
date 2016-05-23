@@ -172,7 +172,7 @@ namespace Graphics
 		*/
 		void setScene(const std::string& name);
 
-		void createPlane(const Ogre::Vector3& upVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile);
+		void createPlane(const Ogre::Vector3& upVector, const Ogre::Vector3& parallelVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile);
 
 	protected:
 

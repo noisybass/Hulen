@@ -140,6 +140,9 @@ namespace Logic
 			assert(entityInfo->hasAttribute("graphic_up_vector") && "No se ha especificado vector perpendicular al plano");
 			Vector3 upVector = entityInfo->getVector3Attribute("graphic_up_vector");
 
+			assert(entityInfo->hasAttribute("graphic_parallel_vector") && "No se ha especificado vector paralelo al plano");
+			Vector3 parallelVector = entityInfo->getVector3Attribute("graphic_parallel_vector");
+
 			assert(entityInfo->hasAttribute("graphic_width") && "No se ha especificado el ancho del plano");
 			float width = entityInfo->getFloatAttribute("graphic_width");
 
@@ -166,7 +169,7 @@ namespace Logic
 			if (entityInfo->hasAttribute("graphic_v_tile"))
 				vTile = entityInfo->getFloatAttribute("graphic_v_tile");
 
-			Graphics::CServer::getSingletonPtr()->createPlane(upVector, _model, width, height, xSegments, ySegments, normals, uTile, vTile);
+			Graphics::CServer::getSingletonPtr()->createPlane(upVector, parallelVector, _model, width, height, xSegments, ySegments, normals, uTile, vTile);
 			_graphicsEntity = new Graphics::CStaticEntity(_entity->getName(), _model);
 
 			if (!_scene->addStaticEntity((Graphics::CStaticEntity*)_graphicsEntity))

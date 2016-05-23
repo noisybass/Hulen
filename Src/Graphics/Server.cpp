@@ -230,7 +230,7 @@ namespace Graphics
 		return _debugDrawing;
 	}
 
-	void CServer::createPlane(const Ogre::Vector3& upVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile)
+	void CServer::createPlane(const Ogre::Vector3& upVector, const Ogre::Vector3& parallelVector, const std::string& planeName, float width, float height, int xSegments, int ySegments, bool normals, float uTile, float vTile)
 	{
 		Ogre::Plane plane(upVector, 0);
 
@@ -246,7 +246,7 @@ namespace Graphics
 			1,
 			uTile,
 			vTile,
-			upVector);
+			parallelVector);
 	}
 
 } // namespace Graphics
