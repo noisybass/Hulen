@@ -36,6 +36,9 @@ namespace AI
 		{
 			_currentState = state;
 
+			// Llamamos al método de entrada del nuevo estado
+			_currentState["Enter"](_owner);
+
 		} // setCurrentState
 
 		void update(float msecs)

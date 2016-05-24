@@ -1,6 +1,8 @@
 #include "FSMAgent.h"
 
-#include "BaseSubsystems\ScriptManager.h"
+#include "BaseSubsystems/ScriptManager.h"
+
+#include "Logic/Entity/Components/State.h"
 
 namespace AI
 {
@@ -43,13 +45,17 @@ namespace AI
 
 	void FSMAgent::activate(const std::string& component)
 	{
-		_entity->getComponent(component)->activate();
+		Logic::CState* stateComponent = (Logic::CState*)_entity->getComponent(component);
+
+		stateComponent->enterState();
 
 	} // activate
 
 	void FSMAgent::deactivate(const std::string& component)
 	{
-		_entity->getComponent(component)->deactivate();
+		Logic::CState* stateComponent = (Logic::CState*)_entity->getComponent(component);
+
+		stateComponent->exitState();
 
 	} // deactivate
 
