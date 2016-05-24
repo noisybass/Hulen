@@ -81,7 +81,6 @@ namespace Logic
 
 		for (it = _components.begin(); it != _components.end(); ++it)
 		{
-			if (it->second->isActive())
 				_activated = it->second->activate() && _activated;
 		}
 
@@ -98,7 +97,6 @@ namespace Logic
 		// Desactivamos los componentes
 		for (it = _components.begin(); it != _components.end(); ++it)
 		{
-			if (it->second->isActive())
 				it->second->deactivate();
 		}
 

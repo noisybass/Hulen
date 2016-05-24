@@ -5,7 +5,7 @@ namespace Logic
 
 	IMP_FACTORY(CCharger);
 
-	CCharger::CCharger() : IComponent(), _speed(0.0f), _gravity(0.0f)
+	CCharger::CCharger() : CState(), _speed(0.0f), _gravity(0.0f)
 	{
 
 	} // CCharger
@@ -14,8 +14,6 @@ namespace Logic
 	{
 		if (!IComponent::spawn(name, entity, map, entityInfo))
 			return false;
-
-		_active = false;
 
 		if (entityInfo->hasAttribute("speed"))
 			_speed = entityInfo->getFloatAttribute("speed");
@@ -27,28 +25,26 @@ namespace Logic
 
 	} // spawn
 
-	bool CCharger::activate()
+	void CCharger::enterState()
 	{
-		IComponent::activate();
-
 		std::cout << "ACTIVANDO CHARGER..." << std::endl;
 
-		return true;
+		CState::enterState();
 
-	} // activate
+	} // enterState
 
-	void CCharger::deactivate()
+	void CCharger::exitState()
 	{
-		IComponent::deactivate();
-
 		std::cout << "DESACTIVANDO CHASE..." << std::endl;
 
-	} // deactivate
+		CState::exitState();
+
+	} // exitState
 
 	void CCharger::tick(float msecs)
 	{
 		IComponent::tick(msecs);
-		if (_active)
+		if (_executing)
 		{
 			Vector3 movement = Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
 			// Acción de la gravedad

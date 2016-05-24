@@ -11,7 +11,7 @@ namespace Logic
 {
 	IMP_FACTORY(CPatrol);
 
-	CPatrol::CPatrol() : IComponent(), _arrivedToDestination(true), _patrolPosition1(Vector3::ZERO),
+	CPatrol::CPatrol() : CState(), _arrivedToDestination(true), _patrolPosition1(Vector3::ZERO),
 		_patrolPosition2(Vector3::ZERO), _arrivedDestination(Vector3::ZERO)
 	{
 
@@ -39,26 +39,24 @@ namespace Logic
 
 	} // spawn
 
-	bool CPatrol::activate()
+	void CPatrol::enterState()
 	{
-		IComponent::activate();
-
 		std::cout << "ACTIVANDO PATROL..." << std::endl;
+
+		CState::enterState();
 
 		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
 		moveController->nextPosition(_patrolPosition1);
 
-		return true;
+	} // enterState
 
-	} // activate
-
-	void CPatrol::deactivate()
+	void CPatrol::exitState()
 	{
-		IComponent::deactivate();
-
 		std::cout << "DESACTIVANDO PATROL..." << std::endl;
 
-	} // deactivate
+		CState::exitState();
+
+	} // exitState
 
 	bool CPatrol::accept(const TMessage &message)
 	{
@@ -80,7 +78,7 @@ namespace Logic
 
 	void CPatrol::tick(float msecs)
 	{
-		if (_active)
+		if (_executing)
 		{
 			IComponent::tick(msecs);
 

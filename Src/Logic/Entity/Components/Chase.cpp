@@ -8,52 +8,36 @@ namespace Logic
 
 	IMP_FACTORY(CChase);
 
-	CChase::CChase() : IComponent(), _target(nullptr)
+	CChase::CChase() : CState(), _target(nullptr)
 	{
 
 	} // CChase
 
-	bool CChase::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
+	void CChase::enterState()
 	{
-		if (!IComponent::spawn(name, entity, map, entityInfo)){
-			//std::cout << "He petado en el chase" << std::endl;
-			return false;
-		}
-
-		_active = false;
-
-		//std::cout << "No He petado en el chase" << std::endl;
-		return true;
-
-	} // spawn
-
-	bool CChase::activate()
-	{
-		IComponent::activate();
-
 		std::cout << "ACTIVANDO CHASE..." << std::endl;
+
+		CState::enterState();
 
 		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
 		std::string targetName = fsm->getValue<std::string>("seen_go_name");
 		_target = _entity->getGameObject()->getMap()->getGameObjectByName(targetName)->getBody();
 
-		return true;
+	} // enterState
 
-	} // activate
-
-	void CChase::deactivate()
+	void CChase::exitState()
 	{
-		IComponent::deactivate();
-
 		std::cout << "DESACTIVANDO CHASE..." << std::endl;
+
+		CState::exitState();
 
 		_target = nullptr;
 
-	} // deactivate
+	} // exitState
 
 	void CChase::tick(float msecs)
 	{
-		if (_active)
+		if (_executing)
 		{
 			CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
 

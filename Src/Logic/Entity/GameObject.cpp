@@ -111,7 +111,6 @@ namespace Logic
 
 		for (it = _components.begin(); it != _components.end(); ++it)
 		{
-			if (it->second->isActive())
 				_activated = it->second->activate() && _activated;
 		}
 

@@ -1,20 +1,18 @@
 #ifndef LOGIC_ATTACK_H
 #define LOGIC_ATTACK_H
 
-#include "Logic/Entity/Component.h"
+#include "State.h"
 
 namespace Logic
 {
 
-	class CAttack : public IComponent
+	class CAttack : public CState
 	{
 		DEC_FACTORY(CAttack);
 
-		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+		void enterState() override;
 
-		bool activate() override;
-
-		void deactivate() override;
+		void exitState() override;
 
 	}; // class CAttack
 

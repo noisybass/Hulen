@@ -8,22 +8,11 @@ namespace Logic
 
 	IMP_FACTORY(CEater);
 
-	bool CEater::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
+	void CEater::enterState()
 	{
-		if (!IComponent::spawn(name, entity, map, entityInfo))
-			return false;
-
-		_active = false;
-
-		return true;
-
-	} // spawn
-
-	bool CEater::activate()
-	{
-		IComponent::activate();
-
 		std::cout << "ACTIVANDO EATER..." << std::endl;
+
+		CState::enterState();
 
 		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
 
@@ -36,25 +25,20 @@ namespace Logic
 			msg._type = Message::CHARGE_ERASED;
 			msg.setArg<std::string>(std::string("chargeName"), chargeName);
 			Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
-
-
-			return true;
 		}
 
-		return false;
+	} // enterState
 
-	} // activate
-
-	void CEater::deactivate()
+	void CEater::exitState()
 	{
-		IComponent::deactivate();
-
 		std::cout << "DESACTIVANDO EATER..." << std::endl;
+
+		CState::exitState();
 
 		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
 		fsm->setValue<bool>("touching_entity", false);
 
-	} // deactivate
+	} // exitState
 
 
 } // namespace Logic

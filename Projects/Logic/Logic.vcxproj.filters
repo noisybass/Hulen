@@ -312,5 +312,8 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerDeath.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\State.h">
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

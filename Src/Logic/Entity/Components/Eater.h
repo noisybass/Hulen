@@ -1,20 +1,18 @@
 #ifndef LOGIC_EATER_H
 #define LOGIC_EATER_H
 
-#include "Logic/Entity/Component.h"
+#include "State.h"
 
 namespace Logic
 {
 
-	class CEater : public IComponent
+	class CEater : public CState
 	{
 		DEC_FACTORY(CEater);
 
-		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+		void enterState() override;
 
-		bool activate() override;
-
-		void deactivate() override;
+		void exitState() override;
 
 	}; // class CEater
 
