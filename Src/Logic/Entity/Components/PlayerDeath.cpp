@@ -1,4 +1,5 @@
 #include "PlayerDeath.h"
+#include "Logic/Server.h"
 
 namespace Logic
 {
@@ -33,6 +34,13 @@ namespace Logic
 			msg.setArg<bool>(std::string("loop"), false);
 			msg.setArg<bool>(std::string("nextAnimation"), false);
 			_entity->emitMessage(msg);
+
+			/*
+			Cuando se pulsa un interruptor hace el zoomIn. Al acabar el zoomIn hace un zoomOut.
+			Por ahora se deja así para demostrar que funciona. En el caso de que se desee separar el
+			zoomIn del zoomOut, se debe cambiar un poco la función zoomIn.
+			*/
+			CServer::getSingletonPtr()->getCamera()->zoomIn();
 			
 			break;
 		case Message::ANIMATION_WITHOUT_LOOP_FINISHED:
