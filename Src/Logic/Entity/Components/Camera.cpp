@@ -82,7 +82,8 @@ namespace Logic
 		_isZoomedIn = _isZoomingOut = _isZoomingIn = false;
 
 		// parámetros cableados en el código.
-		_offsetX = _offsetY = 0;
+		_offsetX = 2;
+		_offsetY = 0;
 		_offsetZ = 7; 
 		_zoomSpeed = 1;
 
