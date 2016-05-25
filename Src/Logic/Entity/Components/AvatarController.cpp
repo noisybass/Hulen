@@ -155,6 +155,7 @@ namespace Logic
 		case Message::SEND_STATE:
 			std::cout << "Mandando estado..." << std::endl;
 			m._type = Message::RECEIVE_AVATAR_STATE;
+			m.setArg<int>("direction", _entity->getDirection());
 			m.setArg<bool>("walkingRight", _walkingRight);
 			m.setArg<bool>("walkingLeft", _walkingLeft);
 			m.setArg<bool>("jump", _jump);
@@ -164,6 +165,7 @@ namespace Logic
 			break;
 		case Message::RECEIVE_AVATAR_STATE:
 			std::cout << "Recibiendo estado..." << std::endl;
+			changeDirection((Logic::CEntity::ENTITY_DIRECTION)message.getArg<int>("direction"));
 			_walkingRight = message.getArg<bool>("walkingRight");
 			_walkingLeft = message.getArg<bool>("walkingLeft");
 			_jump = message.getArg<bool>("jump");
@@ -210,13 +212,17 @@ namespace Logic
 
 	void CAvatarController::changeDirection(const Logic::CEntity::ENTITY_DIRECTION direction)
 	{
-		TMessage msg;
-		msg._type = Message::ROLL_ENTITY_NODE;
-		msg.setArg<int>(("degrees"), 180);
+		if (direction != _entity->getDirection())
+		{
+			TMessage msg;
+			msg._type = Message::ROLL_ENTITY_NODE;
+			msg.setArg<int>(("degrees"), 180);
 
-		_entity->setDirection(direction);
+			_entity->setDirection(direction);
 
-		_entity->emitMessage(msg, this);
+			_entity->emitMessage(msg, this);
+		}
+		
 	}
 
 
