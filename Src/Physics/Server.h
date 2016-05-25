@@ -25,6 +25,7 @@ namespace Logic {
 namespace Physics {
 	class CCollisionManager;
 	class CErrorManager;
+	class HulenControllerFilterCallback;
 };
 
 namespace physx {
@@ -46,6 +47,7 @@ namespace physx {
 	class PxRigidStatic;
 	class PxScene;
 	class PxCudaContextManager;
+	class PxControllerFilters;
 
 	namespace debugger {
 		namespace comm {
@@ -374,6 +376,9 @@ namespace Physics {
 		physx::PxCudaContextManager *_cudaContextManager;
 		physx::debugger::comm::PvdConnection *_pvdConnection;
 		physx::PxCooking *_cooking;
+
+		HulenControllerFilterCallback* _controllerFilterCallback;
+		physx::PxControllerFilters* _controllerMoveFilters;
 
 		// SDK de PhysX
 		physx::PxPhysics *_physics;
