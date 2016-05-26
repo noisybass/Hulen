@@ -163,6 +163,9 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerDeath.cpp">
       <Filter>Entity\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\RibbonTrail.cpp">
+      <Filter>Entity\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Logic\Maps\ComponentFactory.h">
@@ -312,7 +315,11 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerDeath.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\RibbonTrail.h">
+=======
     <ClInclude Include="..\..\Src\Logic\Entity\Components\State.h">
+>>>>>>> ca3ece2d78e2dcebabb1ec4522b5deb8c32b321a
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

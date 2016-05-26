@@ -88,6 +88,7 @@
     <ClCompile Include="..\..\Src\Graphics\Entity.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Light.cpp" />
     <ClCompile Include="..\..\Src\Graphics\PointLight.cpp" />
+    <ClCompile Include="..\..\Src\Graphics\RibbonTrail.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Scene.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Server.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Spotlight.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="..\..\Src\Graphics\Entity.h" />
     <ClInclude Include="..\..\Src\Graphics\Light.h" />
     <ClInclude Include="..\..\Src\Graphics\PointLight.h" />
+    <ClInclude Include="..\..\Src\Graphics\RibbonTrail.h" />
     <ClInclude Include="..\..\Src\Graphics\Scene.h" />
     <ClInclude Include="..\..\Src\Graphics\Server.h" />
     <ClInclude Include="..\..\Src\Graphics\Spotlight.h" />

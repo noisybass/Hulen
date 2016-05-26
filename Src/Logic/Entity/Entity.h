@@ -218,6 +218,10 @@ namespace Logic
 		*/
 		bool isShadow() const { return !_type.compare("Shadow"); }
 
+		Ogre::SceneNode* getNode(){ return _node; }
+
+		void setNode(Ogre::SceneNode* node){ _node = node; }
+
 	protected:
 
 		/**
@@ -257,6 +261,8 @@ namespace Logic
 
 
 		bool _changeState;
+
+		Ogre::SceneNode* _node;
 
 		/**
 		Entity direction

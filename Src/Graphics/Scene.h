@@ -13,8 +13,9 @@ namespace Ogre
 	class SceneManager;
 	class StaticGeometry;
 	class Light;
-	class ManualObject;
+	//typedef map<String, String>::type NameValuePairList;
 }
+
 namespace Graphics 
 {
 	class CCamera;
@@ -22,6 +23,7 @@ namespace Graphics
 	class CStaticEntity;
 	class CLight;
 	class CDebugDrawing;
+	class CRibbonTrail;
 }
 
 namespace Graphics 
@@ -104,6 +106,8 @@ namespace Graphics
 
 		void addLight(CLight* light);
 
+		void addRibbonTrail(CRibbonTrail* ribbonTrail);
+
 		/**
 		Elimina una entidad gráfica de la escena. 
 		<p>
@@ -126,6 +130,8 @@ namespace Graphics
 		void removeStaticEntity(CStaticEntity* entity);
 
 		void removeLight(CLight* light);
+
+		void removeRibbonTrail(CRibbonTrail* ribbonTrail);
 
 		/**
 		cambia la luz ambiental de un estado a otro dependiendo en el
@@ -188,6 +194,7 @@ namespace Graphics
 		gestor de la escena de Ogre.
 		*/
 		friend class CEntity;
+		friend class CRibbonTrail; // To can access to _sceneMgr
 		friend class CCamera;
 		friend class CLight;
 
@@ -266,6 +273,11 @@ namespace Graphics
 		typedef std::list<CLight*> TLightList;
 
 		/**
+		Tipo para la lista de movable objects
+		*/
+		typedef std::list<CRibbonTrail*> TRibbonTrail;
+
+		/**
 		Lista de entidades estáticas.
 		*/
 		TStaticEntityList _staticEntities;
@@ -279,6 +291,11 @@ namespace Graphics
 		Lista de luces.
 		*/
 		TLightList _lights;
+
+		/**
+		Lista de movable Objects.
+		*/
+		TRibbonTrail _ribbonTrails;
 		
 		/**
 		Geometría estática de la escena.
