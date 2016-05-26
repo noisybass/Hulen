@@ -283,6 +283,17 @@ Map = {
 		graphicChargeRotationBar = 0.2,
 		graphicChargesDeltaSeparation = 0.15,
 		graphicChargesDeltaSeparationToFirstCharge = 0.85,
+
+		-- Ribbon Trail
+		ribbonTrail_material          = "LightRibbonTrail",
+		ribbonTrail_lenght            = 500,
+		ribbonTrail_maxChainElements  = 500,
+		ribbonTrail_initialRGBColor   = {1.0,1.0,1.0},
+		ribbonTrail_initialAlphaColor = 1,
+		ribbonTrail_ChangeRGBColor    = {0.5,0.5,0.5},
+		ribbonTrail_ChangelAlphaColor = 0.5,
+		ribbonTrail_initialWidth      = 1,
+		ribbonTrail_fadedTime         = 0.4,
 	},
 
 	Player_Body = {
