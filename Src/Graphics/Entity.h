@@ -49,6 +49,9 @@ namespace Graphics
 	{
 	public:
 
+
+		CEntity(const std::string &name);
+
 		/**
 		Constructor de la clase.
 
@@ -153,6 +156,8 @@ namespace Graphics
 		Roll the entity Node some degrees.
 		*/
 		void rollEntityNode(int degrees);
+
+		Ogre::SceneNode* getNode(){ return _entityNode; };
 
 
 	protected:

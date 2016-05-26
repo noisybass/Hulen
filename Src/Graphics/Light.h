@@ -51,6 +51,8 @@ namespace Graphics
 		*/
 		void setVisible(bool visible);
 
+		Ogre::SceneNode* getNode() { return _node; }
+
 	protected:
 
 		friend class CScene;

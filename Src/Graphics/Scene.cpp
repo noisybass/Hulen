@@ -3,6 +3,8 @@
 #include "Graphics/Camera.h"
 #include "Graphics/StaticEntity.h"
 #include "Graphics/Light.h"
+#include "Graphics/PointLight.h"
+#include "Graphics/RibbonTrail.h"
 #include "BaseSubsystems/Server.h"
 #include "Logic/Entity/Entity.h"
 
@@ -15,6 +17,11 @@
 #include <OgreStaticGeometry.h>
 #include <OgreColourValue.h>
 #include <OgreManualObject.h>
+#include <OgreRibbonTrail.h>
+#include <OgreBillboard.h>
+#include <OgreBillboardSet.h>
+#include <OgreColourValue.h>
+#include <OgreSceneNode.h>
 
 namespace Graphics 
 {
@@ -74,6 +81,15 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	void CScene::addRibbonTrail(CRibbonTrail* ribbonTrail)
+	{
+		ribbonTrail->attachToScene(this);
+		_ribbonTrails.push_back(ribbonTrail);
+
+	} // addRibbonTrail
+
+	//--------------------------------------------------------
+
 	void CScene::removeEntity(CEntity* entity)
 	{
 		entity->deattachFromScene();
@@ -98,6 +114,12 @@ namespace Graphics
 		_lights.remove(light);
 
 	} // addStaticEntity
+
+	void CScene::removeRibbonTrail(CRibbonTrail* ribbonTrail)
+	{
+		ribbonTrail->deattachFromScene();
+		_ribbonTrails.remove(ribbonTrail);
+	} // removeRibbonTrail
 
 	//--------------------------------------------------------
 

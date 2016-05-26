@@ -13,6 +13,9 @@
 
 namespace Graphics 
 {
+
+	CEntity::CEntity(const std::string &name) : _name(name), _entity(nullptr), _entityNode(nullptr), _scene(nullptr), _loaded(false) {}
+
 	CEntity::CEntity(const std::string &name, const std::string &mesh)
 		: _entity(nullptr), _entityNode(nullptr), _scene(nullptr), _loaded(false), _guizmo()
 	{

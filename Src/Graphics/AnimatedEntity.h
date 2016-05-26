@@ -59,6 +59,7 @@ namespace Graphics
 	{
 	public:
 
+
 		/**
 		Constructor de la clase.
 

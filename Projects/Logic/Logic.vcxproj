@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PlayerManager.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\PointLight.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\RayPerception.cpp" />
+    <ClCompile Include="..\..\Src\Logic\Entity\Components\RibbonTrail.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\Spike.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchPosition.cpp" />
     <ClCompile Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerManager.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PointLight.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RayPerception.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\RibbonTrail.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Spike.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />

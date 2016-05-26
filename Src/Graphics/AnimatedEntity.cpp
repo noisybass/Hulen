@@ -7,7 +7,7 @@
 
 namespace Graphics 
 {
-	
+
 	CAnimatedEntity::CAnimatedEntity(const std::string &name, const std::string &mesh) : 
 		CEntity(name, mesh), _currentAnimation(nullptr), _nextAnimation(true)
 	{

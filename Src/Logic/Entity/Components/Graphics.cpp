@@ -71,6 +71,8 @@ namespace Logic
 		if(!_graphicsEntity)
 			return false;
 
+		//_entity->setNode(_graphicsEntity->getNode());
+
 		if (entityInfo->hasAttribute("material"))
 			setMaterial(entityInfo->getStringAttribute("material"));
 			

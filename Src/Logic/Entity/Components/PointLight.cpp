@@ -32,6 +32,8 @@ namespace Logic
 		_light = new Graphics::CPointLight(_entity->getName());
 		_scene->addLight(_light);
 
+		_entity->setNode(_light->getNode());
+
 		Vector3 colour;
 
 		if (entityInfo->hasAttribute("diffuse_colour")){
