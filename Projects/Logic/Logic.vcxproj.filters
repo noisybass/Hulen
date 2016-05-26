@@ -315,11 +315,10 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\PlayerDeath.h">
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RibbonTrail.h">
-=======
+      <Filter>Entity\Components\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\Logic\Entity\Components\State.h">
->>>>>>> ca3ece2d78e2dcebabb1ec4522b5deb8c32b321a
       <Filter>Entity\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

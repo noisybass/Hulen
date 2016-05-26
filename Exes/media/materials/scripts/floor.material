@@ -1,4 +1,4 @@
-material Wall
+material Floor
 {
 	technique
 	{
@@ -26,9 +26,8 @@ material Wall
 
 			texture_unit
 			{
-				texture "wall1.jpg" 2d
+				texture "FloortexturaCremaMAs clara.jpg" 2d
 			}
 		}
 	}
 }
-

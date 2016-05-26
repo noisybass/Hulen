@@ -83,14 +83,14 @@ namespace Logic
 		}
 		
 
-		if (entityInfo->hasAttribute("guizmoSize"))
+		/*if (entityInfo->hasAttribute("guizmoSize"))
 			_guizmoSize = entityInfo->getIntAttribute("guizmoSize");
 
 		if (entityInfo->hasAttribute("guizmo")){
 			_guizmo= entityInfo->getBoolAttribute("guizmo");
 			_graphicsEntity->drawGuizmo(_guizmoSize);
 		}
-
+*/
 		return true;
 
 	} // spawn
