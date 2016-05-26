@@ -18,17 +18,17 @@ Map_GO = {
 		state = "Body",
 	},]]
 
-	--[[Lightbulb_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},]]
-
-	Centaur_GO = {
+	Lightbulb_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
 	},
+
+	--[[Centaur_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]
 
 	Kasai_GO = {
 		type = "GameObject",
@@ -220,7 +220,7 @@ Map = {
 		blueprint = "LightLever",
 		game_object = "LightLever_GO",
 		light_lever_GO_target = "LightLeverTarget_GO",
-		position = {0, 0, 0},
+		position = {10, 0, 0},
 		model = "Cube.mesh",
 		physic_entity = "rigid",
 		physic_type = "kinematic",
@@ -356,18 +356,16 @@ Map = {
 		fsm_initial_state = "Crawler_Patrol",
 	},]]
 
-	--[[Lightbulb_Body = {
+	Lightbulb_Body = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
 		--position = {0, -14, 0},
 		position = {3, 0, 0},
-		scale = {0.2, 0.2, 0.2},
-		model = "marine.mesh",
+		direction = "left",
+		scale = {3, 3, 3},
+		model = "sphere.mesh",
 		material = "Red",
-		defaultAnimation = "Idle",
-		walkRightAnimation = "WalkBack",
-		idleAnimation = "Idle",
 		physic_shape = "capsule",
 		physic_radius = 1,
 		physic_height = 0.1,
@@ -380,13 +378,13 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
-	},]]
+	},
 
-	Centaur_Body = {
+	--[[Centaur_Body = {
 		type = "Body",
 		blueprint = "Centaur",
 		game_object = "Centaur_GO",
-		position = {3, -3.5, 0},
+		position = {3, -3.9, 0},
 		direction = "left",
 		--model = "marine.mesh",
 		--material = "Red",
@@ -430,7 +428,7 @@ Map = {
 		startRunBlending =        {"start_run", 2, "null"},
 		preparationBlending =     {"preparation", 2, "null"},
 		killScreamBlending =      {"kill_scream", 2, "null"},
-	},
+	},]]
 
 	Kasai = {
 		type = "Body",
@@ -440,9 +438,9 @@ Map = {
 		light_position = {0,0,0},
 		specular_colour = {1,1,1},
 		diffuse_colour = {1,1,1},
-		flare_material = "Flare",
-		flare_colour = {1,1,1},
-		flare_size = 10,
+		--flare_material = "Flare",
+		--flare_colour = {1,1,1},
+		--flare_size = 10,
 		light_attenuation_range = 6.5,
 		light_attenuation_constant = 1.0,
 		light_attenuation_linear = 0.2,

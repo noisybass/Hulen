@@ -75,7 +75,7 @@ namespace Logic
 		endPosition.y += _yRaySeparation;
 		endPosition.x += _defaultVision * _entity->getDirection();
 
-		Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
+		//Graphics::CServer::getSingletonPtr()->getDebugDrawing()->drawLine(_entity->getName() + "_Line", startPosition, endPosition, Ogre::ColourValue::Green);
 
 		// LOGICA DE LA VISION
 		Logic::CEntity* entity = visionRay();

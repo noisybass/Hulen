@@ -36,7 +36,7 @@ Prefab = {
 		physic_entity = "rigid",
 		physic_type = "static",
 		physic_shape = "box",
-		material = "Rocky",
+		material = "White",
 	},
 
 	World_Prefab_Shadow = {

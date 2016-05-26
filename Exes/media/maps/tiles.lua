@@ -177,7 +177,7 @@ Map = {
 		type = "Body",
 		blueprint = "Background",
 		game_object = "World4_GO",
-		position = {0, 0, -1.5},
+		position = {0, 0, -2.6},
 		-- Graphic Entity
 		--model = "Plane.mesh",
 		graphic_file = false,
@@ -196,6 +196,18 @@ Map = {
 		position = {-3.5, -10.1, 0},
 		model = "floor1.mesh",
 		material = "Floor",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/floor1.RepX",
+	},
+
+	Tile1_Shadow = {
+		type = "Shadow",
+		blueprint = "World",
+		game_object = "Tile1_GO",
+		position = {-3.5, -10.1, -2.6},
+		model = "floor1.mesh",
+		material = "Black",
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/floor1.RepX",
