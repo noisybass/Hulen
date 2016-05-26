@@ -127,13 +127,11 @@ namespace Graphics
 	
 		// Si hay luz ambiental, la quitamos
 		if (_isAmbientalLight){
-			_sceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
 			_directionalLight->setVisible(false);
 			_isAmbientalLight = false;
 		}
 		// Viceversa
 		else{
-			_sceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
 			_directionalLight->setVisible(true);
 			_isAmbientalLight = true;
 		}
@@ -153,11 +151,10 @@ namespace Graphics
 
 		// Luz direccional para debug
 		_directionalLight = _sceneMgr->createLight("directional light");
-		_directionalLight->setDiffuseColour(.5f, .5f, .5f);
-		_directionalLight->setSpecularColour(.5f, .5f, .5f);
+		_directionalLight->setDiffuseColour(.75f, .75f, .75f);
+		_directionalLight->setSpecularColour(.75f, .75f, .75f);
 		_directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
 		_directionalLight->setDirection(0, -150, 0);
-		_directionalLight->setType(Ogre::Light::LT_POINT);
 		_directionalLight->setPosition(0, 0, 0);
 		_directionalLight->setVisible(false);
 

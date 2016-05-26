@@ -64,12 +64,6 @@ bool CPhysicController::spawn(const std::string& name, CEntity* entity, CMap *ma
 
 bool CPhysicController::activate()
 {
-
-	std::cout << "Activando componente de fisica de: " << _entity->getName() << std::endl;
-	IComponent::activate();
-
-	_server->setCollisionGroup(_controller->getActor(), _server->CONTROLLERS_COLLISION_GROUP);
-
 	// Si tenemos un componente responsable del agente de IA tendremos que actualizar su información
 	_fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
 
@@ -83,10 +77,7 @@ bool CPhysicController::activate()
 
 void CPhysicController::deactivate()
 {
-	std::cout << "Desactivando componente de fisica de: " << _entity->getName() << std::endl;
-	IComponent::deactivate();
 
-	_server->setCollisionGroup(_controller->getActor(), _server->NON_ACTIVE_COLLISION_GROUP);
 }
 
 //---------------------------------------------------------

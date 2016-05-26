@@ -41,7 +41,7 @@ namespace Graphics
 		this->addNode(anotherNode);
 
 		// Change the function to control the fading
-		kasaiFunction = new CKasaiControllerFunction(fadedValue);
+		kasaiFunction = OGRE_NEW CKasaiControllerFunction(fadedValue);
 		Ogre::SharedPtr<Ogre::ControllerFunction<Ogre::Real>> func = Ogre::SharedPtr<CKasaiControllerFunction>();
 		func.bind(kasaiFunction);
 		this->mFadeController->setFunction(func);
@@ -50,10 +50,16 @@ namespace Graphics
 
 	} // init
 
+	bool CRibbonTrail::load()
+	{
+		_loaded = true;
+		return true;
+	} // load
+
 	CRibbonTrail::~CRibbonTrail()
 	{
-		delete ribbonTrail;
-		delete kasaiFunction;
+		// Don't delete Kasai controller because 
+		// Ogre::Ribbontrail do it for us.
 	}
 
 } // namespace Graphics

@@ -16,6 +16,9 @@ namespace Logic
 	CRibbonTrail::~CRibbonTrail()
 	{
 		_scene->removeRibbonTrail(_ribbonTrail);
+		_scene = nullptr;
+		delete _ribbonTrail;
+		_ribbonTrail = nullptr;
 	}
 
 	bool CRibbonTrail::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)

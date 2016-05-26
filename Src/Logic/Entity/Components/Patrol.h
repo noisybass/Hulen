@@ -1,11 +1,11 @@
 #ifndef LOGIC_PATROL_H
 #define LOGIC_PATROL_H
 
-#include "Logic/Entity/Component.h"
+#include "State.h"
 
 namespace Logic 
 {
-	class CPatrol : public IComponent
+	class CPatrol : public CState
 	{
 		DEC_FACTORY(CPatrol);
 	public:
@@ -21,9 +21,9 @@ namespace Logic
 		*/
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		bool activate() override;
+		void enterState() override;
 
-		void deactivate() override;
+		void exitState() override;
 		
 		bool accept(const TMessage &message) override;
 		

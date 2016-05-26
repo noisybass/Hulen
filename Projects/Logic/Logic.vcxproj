@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RayPerception.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\RibbonTrail.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Spike.h" />
+    <ClInclude Include="..\..\Src\Logic\Entity\Components\State.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchPosition.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\SwitchTrigger.h" />
     <ClInclude Include="..\..\Src\Logic\Entity\Components\Vision.h" />

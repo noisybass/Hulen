@@ -7,37 +7,24 @@ namespace Logic
 
 	IMP_FACTORY(CAttack);
 
-	bool CAttack::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
+	void CAttack::enterState()
 	{
-		if (!IComponent::spawn(name, entity, map, entityInfo))
-			return false;
-
-		_active = false;
-
-		return true;
-
-	} // spawn
-
-	bool CAttack::activate()
-	{
-		IComponent::activate();
-
 		std::cout << "ACTIVANDO ATTACK..." << std::endl;
+
+		CState::enterState();
 
 		TMessage msg;
 		msg._type = Message::PLAYER_DEATH;
 		Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(msg);
 
-		return true;
+	} // enterState
 
-	} // activate
-
-	void CAttack::deactivate()
+	void CAttack::exitState()
 	{
-		IComponent::deactivate();
-
 		std::cout << "DESACTIVANDO ATTACK..." << std::endl;
 
-	} // deactivate
+		CState::exitState();
+
+	} // exitState
 
 } // namespace Logic

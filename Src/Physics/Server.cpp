@@ -44,6 +44,12 @@ CServer::CServer() : _cudaContextManager(NULL), _scene(NULL)
 	// Crear gestor de colisiones
 	_collisionManager = new CCollisionManager();
 
+	// Controller filter callback
+	_controllerFilterCallback = new HulenControllerFilterCallback();
+
+	// Moving controller filters
+	_controllerMoveFilters = new PxControllerFilters(nullptr, nullptr, (PxControllerFilterCallback*)_controllerFilterCallback);
+
 	// Crear PxFoundation. Es necesario para instanciar el resto de objetos de PhysX
 	_foundation = PxCreateFoundation(PX_PHYSICS_VERSION, *_allocator, *_errorManager);
 	assert(_foundation && "Error en PxCreateFoundation");
@@ -172,6 +178,19 @@ CServer::~CServer()
 		delete _errorManager;
 		_errorManager = NULL;
 	}
+
+	if (_controllerFilterCallback)
+	{
+		delete _controllerFilterCallback;
+		_controllerFilterCallback = nullptr;
+	}
+
+	if (_controllerMoveFilters)
+	{
+		delete _controllerMoveFilters;
+		_controllerMoveFilters = nullptr;
+	}
+		
 } 
 
 //--------------------------------------------------------
@@ -263,9 +282,7 @@ void CServer::createScene ()
 
 	//Disable collision between differnt groups
 	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
-	PxSetGroupCollisionFlag(NON_ACTIVE_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
 	PxSetGroupCollisionFlag(CHARGES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
-	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, NON_ACTIVE_COLLISION_GROUP, false);
 	
 }
 
@@ -662,10 +679,8 @@ unsigned CServer::moveController(PxController *controller, const Vector3 &moveme
 	PxVec3 disp = Vector3ToPxVec3(movement);
 	float minDist = 0.01f;
 	float elapsedTime = msecs / 1000.0f;
-	HulenControllerFilterCallback* filterCallback = new HulenControllerFilterCallback();
-	PxControllerFilters filters = PxControllerFilters(nullptr, nullptr, (PxControllerFilterCallback*)filterCallback);
 	PxObstacleContext *obstacles = NULL;
-	return controller->move(disp, minDist, elapsedTime, filters, obstacles);
+	return controller->move(disp, minDist, elapsedTime, *_controllerMoveFilters, obstacles);
 }
 
 //--------------------------------------------------------

@@ -1,12 +1,12 @@
 #ifndef LOGIC_CHARGER_H
 #define LOGIC_CHARGER_H
 
-#include "Logic/Entity/Component.h"
+#include "State.h"
 
 namespace Logic
 {
 
-	class CCharger : public IComponent
+	class CCharger : public CState
 	{
 		DEC_FACTORY(CCharger);
 	public:
@@ -15,9 +15,9 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
-		bool activate() override;
+		void enterState() override;
 
-		void deactivate() override;
+		void exitState() override;
 
 		void tick(float msecs) override;
 

@@ -1,12 +1,12 @@
 #ifndef LOGIC_CHASE_H
 #define LOGIC_CHASE_H
 
-#include "Logic/Entity/Component.h"
+#include "State.h"
 
 namespace Logic
 {
 
-	class CChase : public IComponent
+	class CChase : public CState
 	{
 		DEC_FACTORY(CChase);
 
@@ -14,11 +14,9 @@ namespace Logic
 
 		CChase();
 
-		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+		void enterState() override;
 
-		bool activate() override;
-
-		void deactivate() override;
+		void exitState() override;
 
 		void tick(float msecs) override;
 

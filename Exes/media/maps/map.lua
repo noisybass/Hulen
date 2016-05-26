@@ -524,8 +524,15 @@ Map = {
 		blueprint = "Background",
 		game_object = "World4_GO",
 		position = {0, 0, -3.5},
-		model = "Plane.mesh",
-		material = "Rocky",
+		-- Graphic Entity
+		--model = "Plane.mesh",
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, 0, 1},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 65,
+		graphic_height = 50,
+		material = "perPixel",
 	},
 
 	Platform1_Body = {

@@ -12,8 +12,8 @@ componentes físicos.
 @date Noviembre, 2012
 */
 
-#ifndef __Logic_Physics_H
-#define __Logic_Physics_H
+#ifndef LOGIC_PHYSICS_H
+#define LOGIC_PHYSICS_H
 //
 #include "Logic/Entity/Component.h"
 
@@ -58,4 +58,4 @@ namespace Logic
 
 } // namespace Logic
 
-#endif // __Logic_Physics_H
+#endif // LOGIC_PHYSICS_H

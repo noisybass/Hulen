@@ -46,10 +46,9 @@ namespace Graphics
 		void init(Ogre::SceneNode* anotherNode, std::string& materialName, float lenght, float maxChain,
 			Vector3& initialRGB, float initialAlpha, Vector3& changeRGB, float changeAlpha, float initialWidth, float fadedValue);
 
-	protected:
-		
+		bool load() override;
 
-		Ogre::RibbonTrail* ribbonTrail;			// RibbonTrail reference
+	protected:
 		CKasaiControllerFunction* kasaiFunction;// RibbonTrail function
 
 	}; // class CAnimatedEntity
