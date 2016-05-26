@@ -43,6 +43,7 @@ namespace Graphics
 
 		assert(_animations.find(anim) != _animations.end() && "The animation that you want play don't exist. SetAnimation");
 		Animation* newAnimation = _animations.at(anim);
+		//std::cout << "Set Animation: " << newAnimation->animationState->getAnimationName() << std::endl;
 		newAnimation->animationState->setEnabled(true); // Enable the new animation
 		//if (!_currentAnimation.fadingOut)
 		//	_currentAnimation.animationState->setWeight(0); // Reset weight

@@ -244,7 +244,7 @@ namespace Logic
 		_walkingRight = false;
 
 		// Si tampoco estamos moviendonos hacia la izquierda cambiamos la animacion
-		if (!_walkingLeft)
+		if (!_walkingLeft && !_jumping)
 		{
 			TMessage message;
 			message._type = Message::SET_ANIMATION;
@@ -262,7 +262,7 @@ namespace Logic
 		_walkingLeft = false;
 
 		// Si tampoco estamos moviendonos hacia la derecha cambiamos la animacion
-		if (!_walkingRight)
+		if (!_walkingRight && !_jumping)
 		{
 			TMessage message;
 			message._type = Message::SET_ANIMATION;
