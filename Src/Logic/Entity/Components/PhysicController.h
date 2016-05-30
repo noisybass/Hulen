@@ -122,7 +122,7 @@ namespace Logic
 		*/
 		bool playerFalling() const { return _falling; };
 
-		
+		void sendState(CPhysicController* receiver);
 
 	private:
 

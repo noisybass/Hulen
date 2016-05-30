@@ -131,23 +131,19 @@ namespace Logic
 		case Message::STOP_ANIMATION:
 			_animatedGraphicsEntity->stopAnimation(message.getArg<std::string>("animation"));
 			break;
-		case Message::SEND_STATE:
-			std::cout << "Mandando estado..." << std::endl;
-			m._type = Message::RECEIVE_ANIMATION_STATE;
-			m.setArg<std::string>(std::string("animation"), _animatedGraphicsEntity->getCurrentAnimationName());
-			m.setArg<bool>(std::string("loop"), _animatedGraphicsEntity->getCurrentAnimationLoop());
-
-			message.getArg<CEntity*>("receiver")->emitMessage(m);
-			break;
-		case Message::RECEIVE_ANIMATION_STATE:
-			std::cout << "Recibiendo estado..." << std::endl;
-			//_animatedGraphicsEntity->stopAllAnimations();
-			_animatedGraphicsEntity->setAnimation(message.getArg<std::string>("animation"),
-				message.getArg<bool>("loop"));
-			break;
 		}
 
 	} // process
+
+	void CAnimatedGraphics::sendState(CAnimatedGraphics* receiver)
+	{
+		std::cout << "AnimatedGraphics mandando estado..." << std::endl;
+		receiver->_animatedGraphicsEntity->setPosition(Vector3(_entity->getPosition().x,
+															   _entity->getPosition().y,
+															   receiver->_entity->getPosition().z)); // La z no cambia
+		receiver->_animatedGraphicsEntity->setAnimation(_animatedGraphicsEntity->getCurrentAnimationName(),
+														_animatedGraphicsEntity->getCurrentAnimationLoop());
+	}
 	
 	//---------------------------------------------------------
 	

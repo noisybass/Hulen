@@ -106,6 +106,8 @@ namespace Logic
 
 		void animationWithoutLoopStarted(const std::string &animation);
 
+		void sendState(CAnimatedGraphics* receiver);
+
 	protected:
 
 		/**

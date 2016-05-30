@@ -9,6 +9,8 @@
 #include "Logic/Entity/Components/LightingArea.h"
 #include "Logic/Entity/Components/ChargeInteractuable.h"
 #include "Logic/Entity/Components/PhysicController.h"
+#include "Logic/Entity/Components/AvatarController.h"
+#include "Logic/Entity/Components/AnimatedGraphics.h"
 
 
 namespace Logic
@@ -207,35 +209,66 @@ namespace Logic
 	{
 		if (_gameObject->_state != state)
 		{
-			TMessage message;
-			message._type = Message::SEND_STATE;
+			//TMessage message;
+			//message._type = Message::SEND_STATE;
 
 			// Cambio de sombra a cuerpo
 			if (state == GameObject::BODY)
 			{
+				// Establecemos el estado nuevo del game object
 				_gameObject->_state = GameObject::BODY;
-				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getBody());
 
-				_gameObject->getBody()->activate();
-				_gameObject->getShadow()->emitMessage(message);
+				// Le decimos a la sombra que mande su estado al cuerpo
+				sendState(_gameObject->_shadow, _gameObject->_body);
 
+				// Sonido de inmersion
 				_soundsResources->pauseSound("ShadowSongChannel");
 				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 			// Cambio de cuerpo a sombra
 			else
 			{
+				// Establecemos el estado nuevo del game object
 				_gameObject->_state = GameObject::SHADOW;
-				message.setArg<CEntity*>(std::string("receiver"), _gameObject->getShadow());
 
-				_gameObject->getShadow()->activate();
-				_gameObject->getBody()->emitMessage(message);
+				// Le decimos al cuerpo que mande su estado a la sombra
+				sendState(_gameObject->_body, _gameObject->_shadow);
 
-				_soundsResources->playSound("ShadowSongChannel");
+				// Sonido de inmersion
+				_soundsResources->pauseSound("ShadowSongChannel");
 				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
 			}
 		}
 	} // changeState
+
+	void CPlayerManager::sendState(Logic::CEntity* emitter, Logic::CEntity* receiver)
+	{
+		// Mandamos la posición de la entidad
+		Vector3 emitterPos = emitter->getPosition();
+		Vector3 receiverPos = receiver->getPosition();
+		receiver->setPosition(Vector3(emitterPos.x, emitterPos.y, receiverPos.z)); // La z se mantiene
+
+		// CAvatarController
+		CAvatarController* emitterAvatarController = (CAvatarController*)emitter->getComponent("CAvatarController");
+		CAvatarController* receiverAvatarController = (CAvatarController*)receiver->getComponent("CAvatarController");
+		emitterAvatarController->sendState(receiverAvatarController);
+		
+		// CPhysicController
+		CPhysicController* emitterPhysicController = (CPhysicController*)emitter->getComponent("CPhysicController");
+		CPhysicController* receiverPhysicController = (CPhysicController*)receiver->getComponent("CPhysicController");
+		emitterPhysicController->sendState(receiverPhysicController);
+
+		// CAnimatedGraphics
+		CAnimatedGraphics* emitterAnimatedGraphics = (CAnimatedGraphics*)emitter->getComponent("CAnimatedGraphics");
+		CAnimatedGraphics* receiverAnimatedGraphics = (CAnimatedGraphics*)receiver->getComponent("CAnimatedGraphics");
+		emitterAnimatedGraphics->sendState(receiverAnimatedGraphics);
+
+		// Desactivamos el emitter
+		emitter->deactivate();
+
+		// Activamos el receiver
+		receiver->activate();
+	}
 
 	void CPlayerManager::tick(float msecs)
 	{

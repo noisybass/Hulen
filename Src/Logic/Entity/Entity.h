@@ -259,9 +259,6 @@ namespace Logic
 		*/
 		std::string _type;
 
-
-		bool _changeState;
-
 		Ogre::SceneNode* _node;
 
 		/**

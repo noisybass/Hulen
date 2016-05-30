@@ -134,6 +134,8 @@ namespace Logic
 		*/
 		void jump();
 
+		void sendState(CAvatarController* receiver);
+
 	protected:
 
 		void walkAnimation();

@@ -43,6 +43,8 @@ namespace Logic
 
 		void changeState(GameObject::TState state);
 
+		void sendState(Logic::CEntity* emitter, Logic::CEntity* receiver);
+
 		bool playerOnLight() const;
 
 		CGameObject* canPickAnyCharge() const;

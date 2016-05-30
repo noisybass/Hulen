@@ -6,8 +6,7 @@ namespace Logic
 {
 	CEntity::CEntity() 
 		: _gameObject(nullptr), _blueprint(""), _name(""), _type("Body"),
-		_position(Vector3::ZERO), _activated(false), _changeState(false),
-		_direction(ENTITY_DIRECTION::RIGHT)
+		_position(Vector3::ZERO), _activated(false), _direction(ENTITY_DIRECTION::RIGHT)
 	{
 
 	} // CEntity
@@ -27,10 +26,13 @@ namespace Logic
 	{
 		// Common properties
 		_blueprint = entityInfo->getBlueprint();
+
 		assert(entityInfo->hasAttribute("name") && "An entity has to have a name!!");
 		_name = entityInfo->getStringAttribute("name");
+
 		assert(entityInfo->hasAttribute("type") && "An entity has to have a type!!");
 		_type = entityInfo->getStringAttribute("type");
+
 		_gameObject = gameObject;
 
 		if(entityInfo->hasAttribute("position"))
@@ -113,12 +115,6 @@ namespace Logic
 		for( it = _components.begin(); it != _components.end(); ++it )
 			it->second->tick(msecs);
 
-		if (_changeState)
-		{
-			_changeState = false;
-			deactivate();
-		}
-
 	} // tick
 
 	//---------------------------------------------------------
@@ -177,18 +173,6 @@ namespace Logic
 		{
 		case Message::SET_POSITION:
 			_position = message.getArg<Vector3>("newPosition");
-			break;
-		case Message::SEND_STATE:
-			m._type = Message::RECEIVE_ENTITY_STATE;
-			receiverPosition = message.getArg<CEntity*>("receiver")->getPosition();
-			senderPosition = getPosition();
-			m.setArg<Vector3>("entityPosition", Vector3(senderPosition.x, senderPosition.y, receiverPosition.z));
-
-			message.getArg<CEntity*>("receiver")->emitMessage(m);
-			_changeState = true;
-			break;
-		case Message::RECEIVE_ENTITY_STATE:
-			setPosition(message.getArg<Vector3>("entityPosition"));
 			break;
 		}
 

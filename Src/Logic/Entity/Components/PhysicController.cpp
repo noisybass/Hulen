@@ -103,26 +103,19 @@ void CPhysicController::process(const TMessage &message)
 		// en el mismo ciclo sólo tendremos en cuenta el último.
 		_movement = message.getArg<Vector3>("movement");
 		break;
-	case Message::SEND_STATE:
-		std::cout << "Mandando estado..." << std::endl;
-		m._type = Message::RECEIVE_PHYSIC_STATE;
-		m.setArg<Vector3>("movement", _movement);
-		m.setArg<bool>("falling", _falling);
-		receiverPosition = message.getArg<CEntity*>("receiver")->getPosition();
-		senderPosition = Physics::PxExtendedVec3ToVector3(_controller->getPosition());
-		m.setArg<Vector3>("controllerPosition", Vector3(senderPosition.x, senderPosition.y, receiverPosition.z));
-
-		message.getArg<CEntity*>("receiver")->emitMessage(m);
-		break;
-	case Message::RECEIVE_PHYSIC_STATE:
-		std::cout << "Recibiendo estado..." << std::endl;
-		_movement = message.getArg<Vector3>("movement");
-		_falling = message.getArg<bool>("falling");
-		_controller->setPosition(Physics::Vector3ToPxExtendedVec3(message.getArg<Vector3>("controllerPosition")));
-		break;
 	}
 
 } 
+
+void CPhysicController::sendState(CPhysicController* receiver)
+{
+	std::cout << "PhysicController mandando estado..." << std::endl;
+	receiver->_movement = _movement;
+	receiver->_falling = _falling;
+	receiver->_controller->setPosition(PxExtendedVec3(_controller->getPosition().x,
+													  _controller->getPosition().y,
+													  receiver->_controller->getPosition().z)); // La z no cambia
+}
 
 //---------------------------------------------------------
 

@@ -151,31 +151,24 @@ namespace Logic
 				stopWalkingLeft();
 			
 				break;
-			
-		case Message::SEND_STATE:
-			std::cout << "Mandando estado..." << std::endl;
-			m._type = Message::RECEIVE_AVATAR_STATE;
-			m.setArg<int>("direction", _entity->getDirection());
-			m.setArg<bool>("walkingRight", _walkingRight);
-			m.setArg<bool>("walkingLeft", _walkingLeft);
-			m.setArg<bool>("jump", _jump);
-			m.setArg<float>("currentHeight", _currentHeight);
-
-			message.getArg<CEntity*>("receiver")->emitMessage(m);
-			break;
-		case Message::RECEIVE_AVATAR_STATE:
-			std::cout << "Recibiendo estado..." << std::endl;
-			changeDirection((Logic::CEntity::ENTITY_DIRECTION)message.getArg<int>("direction"));
-			_walkingRight = message.getArg<bool>("walkingRight");
-			_walkingLeft = message.getArg<bool>("walkingLeft");
-			_jump = message.getArg<bool>("jump");
-			_currentHeight = message.getArg<float>("currentHeight");
-
-			break;
-			
 		}
 
 	} // process
+
+	void CAvatarController::sendState(CAvatarController* receiver)
+	{
+		std::cout << "AvatarController mandando estado..." << std::endl;
+		receiver->changeDirection((Logic::CEntity::ENTITY_DIRECTION)_entity->getDirection());
+		receiver->_walkingRight = _walkingRight;
+		receiver->_walkingLeft = _walkingLeft;
+		receiver->_jump = _jump;
+		receiver->_currentHeight = _currentHeight;
+
+		_walkingRight = false;
+		_walkingLeft = false;
+		_jump = false;
+		_currentHeight = 0.0f;
+	}
 	
 	//---------------------------------------------------------
 
