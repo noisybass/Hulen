@@ -16,6 +16,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("graphicChargeVelocity"))
 			_graphicChargeVelocity = entityInfo->getFloatAttribute("graphicChargeVelocity");
 
+		if (entityInfo->hasAttribute("thrownChargeVelocity"))
+			_thrownChargeVelocity = entityInfo->getFloatAttribute("thrownChargeVelocity");
+
 		if (entityInfo->hasAttribute("graphicChargeRadius"))
 			_graphicChargeRadius = entityInfo->getFloatAttribute("graphicChargeRadius");
 
@@ -70,24 +73,22 @@ namespace Logic
 
 			Vector3 directorVector = mousePosition - _graphicCharges[i]->getBody()->getPosition();
 			// Go to Mouse Position
-			float lenght = directorVector.length();
-			if (directorVector.length() > _graphicChargeRadius)
+			float length = directorVector.length();
+			if (length > _graphicChargeRadius)
 			{
-				Ogre::Real length = directorVector.length();
 				directorVector.normalise();
-				directorVector *= msecs * _graphicChargeVelocity * length/2;
+				directorVector *= msecs * _graphicChargeVelocity * length / 2;
 				Vector3 newPosition = _graphicCharges[i]->getBody()->getPosition() + directorVector;
 				_graphicCharges[i]->getBody()->setPosition(newPosition);
 			}
-			// Loop around mouse position
-			else if (directorVector.length() < _graphicChargeRadius - _graphicChargeRotationBar)
+			else if (length < _graphicChargeRadius - _graphicChargeRotationBar)
 			{
-				Ogre::Real length = directorVector.length();
 				directorVector.normalise();
 				directorVector *= msecs * _graphicChargeVelocity * length / 2;
 				Vector3 newPosition = _graphicCharges[i]->getBody()->getPosition() - directorVector;
 				_graphicCharges[i]->getBody()->setPosition(newPosition);
 			}
+			// Loop around mouse position
 			else {
 				directorVector = Math::rotationVector3ZAxis(directorVector, -90);
 				directorVector.normalise();
@@ -101,6 +102,37 @@ namespace Logic
 					
 				Vector3 newPosition = _graphicCharges[i]->getBody()->getPosition() + directorVector;
 				_graphicCharges[i]->getBody()->setPosition(newPosition);
+			}
+		}
+
+		// Put Charges
+		size = _thrownOutCharges.size();
+		for (int i = 0; i < size; ++i)
+		{
+			Vector3 mousePosition = ((CMousePointerFollower*)_entity->getComponent("CMousePointerFollower"))->getMousePosition();
+
+			Vector3 directorVector = mousePosition - _thrownOutCharges[i]->getBody()->getPosition();
+			// Go to Mouse Position
+			float length = directorVector.length();
+			if (length > 0.1)
+			{
+				Ogre::Real length = directorVector.length();
+				directorVector.normalise();
+				directorVector *= msecs * _thrownChargeVelocity * length / 2;
+				Vector3 newPosition = _thrownOutCharges[i]->getBody()->getPosition() + directorVector;
+				_thrownOutCharges[i]->getBody()->setPosition(newPosition);
+			}
+			else
+			{
+				TMessage m;
+				m._type = Message::PUT_CHARGE;
+				m.setArg<bool>("chargeOnMouseposition", true);
+				m.setArg<Vector3>(std::string("instancePosition"), mousePosition);
+				Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
+				
+				// erase it from map
+				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_thrownOutCharges.back());
+				_thrownOutCharges.pop_back();
 			}
 		}
 		
@@ -157,17 +189,13 @@ namespace Logic
 
 			break;
 		case Message::PUT_CHARGE:
-			if (!_graphicCharges.empty())
-			{
-				// erase it from map
-				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_graphicCharges.back());
-				_graphicCharges.pop_back();
-				--_numCharges;
+			_thrownOutCharges.push_back(_graphicCharges.back());
+			_graphicCharges.pop_back();
 
-				if (_graphicCharges.size() == 2)
-					_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;
-			}
-			
+			--_numCharges;
+
+			if (_graphicCharges.size() == 2)
+				_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;
 			break;
 		}
 	} // process

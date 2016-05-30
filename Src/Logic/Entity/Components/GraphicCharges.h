@@ -36,7 +36,14 @@ namespace Logic
 
 	protected:
 
+
 		std::vector<CGameObject*> _graphicCharges;
+
+		/**
+		Guardamos las cargas que vamos a poner en la escena aquí
+		para que hagan la animacion de ir a la posicion del ratón.
+		*/
+		std::vector<CGameObject*> _thrownOutCharges;
 
 		std::string _graphicChargeName;
 
@@ -55,6 +62,12 @@ namespace Logic
 		Velocidad de la carga
 		*/
 		float _graphicChargeVelocity;
+
+		/**
+		Velocidad de la carga desde su sitio hasta
+		el centro del raton (PUT_CHARGE)
+		*/
+		float _thrownChargeVelocity;
 
 		/**
 		Radio al que van a girar las cargas de Kasai
