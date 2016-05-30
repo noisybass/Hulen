@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset version="2" name="HulenMenuAssets" imagefile="HulenMenusAssets.png" nativeHorzRes="1280" nativeVertRes="720" autoScaled="true" >
+    <Image name="facebook" xPos="0" yPos="0" width="250" height="250" />
+    <Image name="facebookMouseOver" xPos="250" yPos="0" width="270" height="250" />
+    <Image name="facebookMouseClick" xPos="520" yPos="0" width="253" height="250" />
+
+    <Image name="twitter" xPos="773" yPos="0" width="262" height="250" />
+    <Image name="twitterMouseOver" xPos="1035" yPos="0" width="248" height="250" />
+    <Image name="twitterMouseClick" xPos="1283" yPos="0" width="256" height="250" />
+
+    <Image name="creditsButton" xPos="0" yPos="260" width="453" height="219" />
+    <Image name="exitButton" xPos="453" yPos="260" width="305" height="219" />
+    <Image name="optionsButton" xPos="758" yPos="260" width="460" height="219" />
+    <Image name="playButton" xPos="1223" yPos="260" width="340" height="219" />
+
+    <Image name="creditsButtonMouseOver" xPos="0" yPos="475" width="457" height="220" />
+    <Image name="exitButtonMouseOver" xPos="460" yPos="460" width="305" height="220" />
+    <Image name="optionsButtonMouseOver" xPos="755" yPos="469" width="460" height="220" />
+    <Image name="playButtonMouseOver" xPos="1230" yPos="460" width="340" height="220" />
+
+    <Image name="creditsButtonMouseClick" xPos="0" yPos="465" width="453" height="224" />
+    <Image name="exitButtonMouseClick" xPos="460" yPos="450" width="305" height="224" />
+    <Image name="optionsButtonMouseClick" xPos="755" yPos="680" width="460" height="224" />
+    <Image name="playButtonMouseClick" xPos="1230" yPos="660" width="340" height="224" />
+</Imageset>

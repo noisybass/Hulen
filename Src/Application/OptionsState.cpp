@@ -19,10 +19,6 @@ namespace Application {
 		_menuWindow->getChildElement("Back")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
 			CEGUI::SubscriberSlot(&COptionsState::backReleased, this));
-		
-		_menuWindow->getChildElement("Controls")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, 
-			CEGUI::SubscriberSlot(&COptionsState::controlsMenu, this));
 
 		return true;
 

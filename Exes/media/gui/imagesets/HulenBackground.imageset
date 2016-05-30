@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset version="2" name="HulenImages" imagefile="HulenBackground.png" nativeHorzRes="1280" nativeVertRes="720" autoScaled="true" >
+    <Image name="background" xPos="0" yPos="0" width="1919" height="1079" />
+</Imageset>

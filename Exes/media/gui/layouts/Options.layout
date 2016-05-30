@@ -16,18 +16,20 @@
                 <Property name="AlwaysOnTop" value="True" />
             </Window>
         </Window>
+
+      <Window type="Hulen/ImageBackground" name="ControlsBackground" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="NormalImage" value="HulenKeyboardControls/Controls" />
+      </Window>
         
-        <Window type="AlfiskoSkin/Button" name="Controls" >
-            <Property name="Area" value="{{0.6,0},{0.6,0},{0.9,0},{0.7,0}}" />
-            <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="Controls" />
+      
+        <Window type="Hulen/ImageButton" name="Back" >
+            <Property name="Area" value="{{0.7,0},{0.85,0},{0.85,0},{1,0}}" />
             <Property name="AlwaysOnTop" value="True" />
+            <Property name="NormalImage" value="HulenMenuAssets/exitButton" />
+            <Property name="HoverImage" value="HulenMenuAssets/exitButtonMouseOver" />
+            <Property name="PushedImage" value="HulenMenuAssets/exitButtonMouseClick" />
         </Window>
-        <Window type="AlfiskoSkin/Button" name="Back" >
-            <Property name="Area" value="{{0.3,0},{0.8,0},{0.7,0},{0.9,0}}" />
-            <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="Back" />
-            <Property name="AlwaysOnTop" value="True" />
-        </Window>
+      
     </Window>
 </GUILayout>

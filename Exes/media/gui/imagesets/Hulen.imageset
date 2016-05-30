@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Imageset version="2" name="HulenImages" imagefile="HulenBackground.jpg" nativeHorzRes="1280" nativeVertRes="720" autoScaled="vertical" >
+<Imageset version="2" name="HulenImages" imagefile="HulenBackground.png" nativeHorzRes="1280" nativeVertRes="720" autoScaled="vertical" >
     <Image name="background" xPos="0" yPos="0" width="723" height="428" />
 </Imageset>
