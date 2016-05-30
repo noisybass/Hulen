@@ -48,7 +48,7 @@ namespace Logic
 		{
 		case Message::ON_CONTACT:
 			contactEntity = message.getArg<CEntity*>("entity");
-			if (contactEntity->getBlueprint() == "World")
+			if (contactEntity->getBlueprint() == "World" || contactEntity->getBlueprint() == "LightLever")
 			{
 				msg._type = Message::DISABLE_SIMULATION;
 				_entity->emitMessage(msg);
