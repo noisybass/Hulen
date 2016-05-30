@@ -92,8 +92,6 @@ namespace Logic
 	bool CAvatarController::accept(const TMessage &message)
 	{
 		return message._type == Message::CONTROL ||
-			message._type == Message::SEND_STATE ||
-			message._type == Message::RECEIVE_AVATAR_STATE ||
 			message._type == Message::ANIMATION_WITHOUT_LOOP_STARTED ||
 			message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 

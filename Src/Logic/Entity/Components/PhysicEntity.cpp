@@ -69,7 +69,8 @@ bool CPhysicEntity::spawn(const std::string& name, CEntity *entity, CMap *map, c
 
 bool CPhysicEntity::accept(const TMessage &message)
 {
-	return message._type == Message::KINEMATIC_MOVE;
+	return message._type == Message::KINEMATIC_MOVE ||
+		message._type == Message::DISABLE_SIMULATION;
 }
 
 //---------------------------------------------------------
@@ -81,6 +82,11 @@ void CPhysicEntity::process(const TMessage &message)
 		// Acumulamos el vector de desplazamiento para usarlo posteriormente en 
 		// el método tick.
 		_movement += message.getArg<Vector3>("movement");
+		break;
+	case Message::DISABLE_SIMULATION:
+		_actor->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, true);
+		break;
+	default:
 		break;
 	}
 }

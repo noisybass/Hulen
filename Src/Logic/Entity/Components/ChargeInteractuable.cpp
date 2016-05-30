@@ -34,8 +34,7 @@ namespace Logic
 	bool CChargeInteractuable::accept(const TMessage &message)
 	{
 		//std::cout << "Message type: " << message._type << std::endl;
-		return message._type == Message::TOUCHED ||
-			message._type == Message::UNTOUCHED ||
+		return message._type == Message::ON_CONTACT ||
 			message._type == Message::INTERACTUABLE ||
 			message._type == Message::DEATH_PLANE;
 
@@ -44,13 +43,16 @@ namespace Logic
 	void CChargeInteractuable::process(const TMessage &message)
 	{
 		TMessage msg;
+		CEntity* contactEntity;
 		switch (message._type)
 		{
-		case Message::TOUCHED:
-		case Message::UNTOUCHED:
-			/*other = message.getArg<CEntity*>("entity");
-			if (!(other->getBlueprint().compare("World")))
-				_entity->removeComponent("CPhysicEntity");*/
+		case Message::ON_CONTACT:
+			contactEntity = message.getArg<CEntity*>("entity");
+			if (contactEntity->getBlueprint() == "World")
+			{
+				msg._type = Message::DISABLE_SIMULATION;
+				_entity->emitMessage(msg);
+			}
 			break;
 		case Message::INTERACTUABLE:
 			

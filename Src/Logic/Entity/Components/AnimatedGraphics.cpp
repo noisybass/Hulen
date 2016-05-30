@@ -100,9 +100,7 @@ namespace Logic
 	{
 		return CGraphics::accept(message) ||
 			   message._type == Message::SET_ANIMATION ||
-			   message._type == Message::STOP_ANIMATION ||
-			   message._type == Message::SEND_STATE ||
-			   message._type == Message::RECEIVE_ANIMATION_STATE;
+			   message._type == Message::STOP_ANIMATION;
 
 	} // accept
 	

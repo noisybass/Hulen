@@ -84,9 +84,7 @@ void CPhysicController::deactivate()
 
 bool CPhysicController::accept(const TMessage &message)
 {
-	return message._type == Message::AVATAR_WALK ||
-		message._type == Message::SEND_STATE ||
-		message._type == Message::RECEIVE_PHYSIC_STATE;
+	return message._type == Message::AVATAR_WALK;
 } 
 
 //---------------------------------------------------------
