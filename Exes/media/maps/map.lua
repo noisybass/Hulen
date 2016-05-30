@@ -221,12 +221,11 @@ Map = {
 		game_object = "LightLever_GO",
 		light_lever_GO_target = "LightLeverTarget_GO",
 		position = {10, 0, 0},
-		model = "Cube.mesh",
-		physic_entity = "rigid",
-		physic_type = "kinematic",
-		physic_mass = 1,
-		physic_shape = "box",
-		physic_dimensions = { 1,1,1 },
+		model = "LightSwitch.mesh",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/LightSwitch.RepX",
+		physic_change_coords = true,
 	},
 	
 	Player_Body = {
