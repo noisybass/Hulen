@@ -6,7 +6,7 @@ Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity C
 Lightbulb CGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
 Centaur CAnimatedGraphics CPhysicController CVision CFSMEntity CAttack CCharger
 Camera CCamera
-Kasai CPointLight CMousePointerFollower CLightingArea CGraphicCharges CRibbonTrail
+Kasai CGraphics CPointLight CMousePointerFollower CLightingArea CGraphicCharges CRibbonTrail
 Charge CGraphics CPointLight CLightingArea CInteractuable CChargeInteractuable CPhysicEntity 
 GraphicCharge CGraphics
 Spike CGraphics CPhysicEntity CSpike

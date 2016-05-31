@@ -1,0 +1,6 @@
+fragment_program passthrough_ps cg
+{
+	source passthrough.cg
+	entry_point passthrough_ps
+	profiles ps_2_0 arbfp1
+}

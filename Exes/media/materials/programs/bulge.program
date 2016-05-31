@@ -1,0 +1,14 @@
+vertex_program bulge_vs cg
+{
+	source bulge.cg
+	entry_point bulge_vs
+	profiles vs_2_0 arbvp1
+
+	default_params
+	{
+		param_named_auto ViewProjectionMatrix worldviewproj_matrix
+		param_named_auto time time
+		param_named scaleFactor float 0.1
+		param_named frequency float 2
+	}
+}

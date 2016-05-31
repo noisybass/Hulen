@@ -1,6 +1,11 @@
-void ambient_vs(float4 position : POSITION,
+void ambient_vs(// IN
+				float4 position : POSITION,
+
+				// OUT
 				out float4 oPosition : POSITION,
 				out float4 color : COLOR,
+
+				// OGRE
 				uniform float4x4 ViewProjectionMatrix,
 				uniform float4 ambient)
 {

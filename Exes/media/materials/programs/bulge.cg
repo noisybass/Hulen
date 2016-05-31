@@ -1,0 +1,20 @@
+void bulge_vs ( // IN
+				float4 position : POSITION,
+				float3 normal   : NORMAL,
+
+				// OUT
+				out float4 oPosition : POSITION,
+
+				// OGRE
+				uniform float4x4 ViewProjectionMatrix,
+				uniform float time,
+				uniform float scaleFactor,
+				uniform float frequency
+				)
+{
+	float displacement = scaleFactor * (sin(frequency * time) + 1); 
+
+	float4 newPosition = position + float4(normalize(normal), 0.0f) * displacement;
+
+	oPosition = mul(ViewProjectionMatrix, newPosition);
+}
