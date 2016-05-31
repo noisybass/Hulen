@@ -449,7 +449,10 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
+
+		-- Graphic Charge
 		graphicChargeVelocity = 5.5,
+		thrownChargeVelocity = 10,
 		graphicChargeRadius = 3,
 		graphicChargeRotationBar = 0.2,
 		graphicChargesDeltaSeparation = 0.15,

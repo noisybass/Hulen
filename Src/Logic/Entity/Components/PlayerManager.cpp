@@ -144,29 +144,36 @@ namespace Logic
 		case Message::PUT_CHARGE:
 			if (_chargesOwned > 0)
 			{
-				// Instanciamos la carga en el mapa
-				Vector3 pos = message.getArg<Vector3>("instancePosition");
-				std::stringstream ss;
-				ss << pos.x << " " << pos.y << " " << 0;
-				std::string chargePosition = ss.str();
-				ss.str(std::string());
-				ss << "Charge" << _chargesOwned;
-				std::string chargeName = ss.str();
-				CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, chargeName, chargePosition);
+				// Si la carga grafica ha llegado al centro del raton
+				if (message.existArg("chargeOnMouseposition"))
+				{
+					// Instanciamos la carga en el mapa
+					Vector3 pos = message.getArg<Vector3>("instancePosition");
+					std::stringstream ss;
+					ss << pos.x << " " << pos.y << " " << 0;
+					std::string chargePosition = ss.str();
+					ss.str(std::string());
+					ss << "Charge" << _chargesOwned;
+					std::string chargeName = ss.str();
+					CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, chargeName, chargePosition);
 
-				// La metemos en el vector de referencias
-				_chargesOnMap.push_back(newCharge);
+					// La metemos en el vector de referencias
+					_chargesOnMap.push_back(newCharge);
 
-				// La activamos
-				newCharge->activate();
+					// La activamos
+					newCharge->activate();
 
-				// Decrementamos el número de cargas que poseemos
-				_chargesOwned--;
-
-				// Quitamos la carga de luz de las cargas graficas
-				TMessage m;
-				m._type = Message::PUT_CHARGE;
-				_kasai->emitMessage(m);
+					// Decrementamos el número de cargas que poseemos
+					_chargesOwned--;
+				}
+				// Si la carga que queremos lanzar no esta en el centro del 
+				// raton, enviamos un mensaje para que lo haga
+				else
+				{
+					TMessage m;
+					m._type = Message::PUT_CHARGE;
+					_kasai->emitMessage(m);
+				}
 			}
 			break;
 		case Message::PLAYER_CHANGE_STATE:
