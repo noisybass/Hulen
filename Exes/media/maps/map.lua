@@ -18,11 +18,11 @@ Map_GO = {
 		state = "Body",
 	},]]
 
-	--[[Lightbulb_GO = {
+	Lightbulb_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},]]
+	},
 
 	--[[Centaur_GO = {
 		type = "GameObject",
@@ -362,7 +362,7 @@ Map = {
 		fsm_initial_state = "Crawler_Patrol",
 	},]]
 
-	--[[Lightbulb_Body = {
+	Lightbulb_Body = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
@@ -384,7 +384,7 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
-	},]]
+	},
 
 	--[[Centaur_Body = {
 		type = "Body",

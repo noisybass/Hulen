@@ -38,7 +38,7 @@ namespace Logic
 			// a player event to PlayerManager
 			if (entity->getBlueprint() == "Player")
 			{
-				msg._type = Message::PLAYER_DEATH;
+				msg._type = Message::PLAYER_DEATH_BY_DEATH_PLANE;
 				entity->emitMessage(msg);
 			}
 			// Else qwe notify that another thing that isn't 

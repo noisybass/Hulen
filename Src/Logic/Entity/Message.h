@@ -66,6 +66,7 @@ namespace Logic
 			GROUND_COLLISION,
 			PLAYER_DEATH,
 			DISABLE_SIMULATION,
+			PLAYER_DEATH_BY_DEATH_PLANE,
 		};
 
 		/**

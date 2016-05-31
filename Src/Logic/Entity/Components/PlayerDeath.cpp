@@ -18,6 +18,7 @@ namespace Logic
 	bool CPlayerDeath::accept(const TMessage &message)
 	{
 		return message._type == Message::PLAYER_DEATH ||
+			   message._type == Message::PLAYER_DEATH_BY_DEATH_PLANE ||
 			   message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 	} // accept
 
@@ -26,6 +27,13 @@ namespace Logic
 		TMessage msg;
 		switch (message._type)
 		{
+		case Message::PLAYER_DEATH_BY_DEATH_PLANE:
+
+			msg._type = Message::PLAYER_EVENT;
+			msg.setArg<std::string>(std::string("playerEvent"), std::string("die"));
+			_entity->getGameObject()->emitMessage(msg);
+
+			break;
 		case Message::PLAYER_DEATH:
 
 			// death animation
