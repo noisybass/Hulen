@@ -9,7 +9,7 @@ namespace Ogre
 {
 	class AnimationState;
 }
-	
+
 namespace Graphics 
 {
 	/**
@@ -57,6 +57,22 @@ namespace Graphics
 	*/
 	class CAnimatedEntity : public CEntity
 	{
+
+		struct Animation{
+			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false), animationVelocity(0.0f), blendingVelocity(0.0f) {};
+
+			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut, float animationVelocity, float blendingVelocity) :
+				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut), animationVelocity(animationVelocity), blendingVelocity(blendingVelocity) {};
+
+			~Animation() = default;
+
+			Ogre::AnimationState* animationState;
+			float animationVelocity;
+			float blendingVelocity;
+			bool fadingIn;
+			bool fadingOut;
+		};
+
 	public:
 
 
@@ -114,6 +130,10 @@ namespace Graphics
 
 		std::string getCurrentAnimationName() const;
 
+		Animation* getCurrentAnimation() { return _currentAnimation; };
+
+		void copyCurrentAnimationsValues(Animation* animation);
+
 		bool getCurrentAnimationLoop() const;
 
 		void dumpAnimsStates();
@@ -140,21 +160,6 @@ namespace Graphics
 		llamada.
 		*/
 		virtual void tick(float secs);
-
-		struct Animation{
-			Animation() : animationState(nullptr), fadingIn(false), fadingOut(false), animationVelocity(0.0f), blendingVelocity(0.0f) {};
-
-			Animation(Ogre::AnimationState* as, bool fadingIn, bool fadingOut, float animationVelocity, float blendingVelocity) :
-				animationState(as), fadingIn(fadingIn), fadingOut(fadingOut), animationVelocity(animationVelocity), blendingVelocity(blendingVelocity) {};
-
-			~Animation() = default;
-
-			Ogre::AnimationState* animationState;
-			float animationVelocity;
-			float blendingVelocity;
-			bool fadingIn;
-			bool fadingOut;
-		};
 
 		std::unordered_map < std::string, Animation* > _animations;
 

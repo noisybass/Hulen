@@ -124,6 +124,8 @@ namespace Logic
 
 		void sendState(CPhysicController* receiver);
 
+		void setMovement(const Vector3& movement);
+
 	private:
 
 		friend class CAvatarController;

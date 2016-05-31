@@ -103,11 +103,16 @@ void CPhysicController::process(const TMessage &message)
 		break;
 	}
 
-} 
+}
+
+void CPhysicController::setMovement(const Vector3& movement)
+{
+	_movement = movement;
+}
 
 void CPhysicController::sendState(CPhysicController* receiver)
 {
-	std::cout << "PhysicController mandando estado..." << std::endl;
+	//std::cout << "PhysicController mandando estado..." << std::endl;
 	receiver->_movement = _movement;
 	receiver->_falling = _falling;
 	receiver->_controller->setPosition(PxExtendedVec3(_controller->getPosition().x,

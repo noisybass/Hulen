@@ -113,7 +113,7 @@ namespace Logic
 
 		case Message::ANIMATION_WITHOUT_LOOP_FINISHED:
 			_blockedAnimationWithoutLoopStarted = false;
-			if (message.getArg<std::string>("name") == _jumpAnimation)
+			if (message.getArg<std::string>("name") == _jumpAnimation && _jumping)
 			{
 				m._type = Message::SET_ANIMATION;
 				m.setArg<std::string>(std::string("animation"), std::string(_fallAnimation));
@@ -155,17 +155,21 @@ namespace Logic
 
 	void CAvatarController::sendState(CAvatarController* receiver)
 	{
-		std::cout << "AvatarController mandando estado..." << std::endl;
+		//std::cout << "AvatarController mandando estado..." << std::endl;
 		receiver->changeDirection((Logic::CEntity::ENTITY_DIRECTION)_entity->getDirection());
 		receiver->_walkingRight = _walkingRight;
 		receiver->_walkingLeft = _walkingLeft;
 		receiver->_jump = _jump;
+		receiver->_jumping = _jumping;
+		receiver->_initJumpTime = _initJumpTime;
 		receiver->_currentHeight = _currentHeight;
-
-		_walkingRight = false;
-		_walkingLeft = false;
-		_jump = false;
-		_currentHeight = 0.0f;
+		receiver->_blockedAnimationWithoutLoopStarted = _blockedAnimationWithoutLoopStarted;
+		
+		//_walkingRight = false;
+		//_walkingLeft = false;
+		//_jump = false;
+		//_jumping = false;
+		//_currentHeight = 0.0f;
 	}
 	
 	//---------------------------------------------------------
@@ -309,6 +313,7 @@ namespace Logic
 			
 			if (_jump) // Jump to max height
 			{
+				//std::cout << "[" << _entity->getName() << "] currentHeight : " << _entity->getPosition().y << std::endl;
 				_jumping = true;
 				_initJumpTime += msecs;
 				if (_initJumpTime >= _delayinitJump)
@@ -326,6 +331,7 @@ namespace Logic
 			}
 			else if (falling) //Falling from max height or falling without jump
 			{
+				//std::cout << "[" << _entity->getName() << "] currentHeight : " << _entity->getPosition().y << std::endl;
 				// if player don't jump and fall from a height.
 				if (!_jumping)
 				{
@@ -342,6 +348,7 @@ namespace Logic
 			}
 			else if (!falling && _jumping) // falling on ground
 			{
+				//std::cout << "[" << _entity->getName() << "] currentHeight : " << _entity->getPosition().y << std::endl;
 				_jumping = false;
 				TMessage message;
 				message._type = Message::SET_ANIMATION;
@@ -356,11 +363,13 @@ namespace Logic
 		// Acción de la gravedad
 		movement += msecs * Vector3(0.0f, -_gravity, 0.0f);
 
-		TMessage message;
+		/*TMessage message;
 		message._type = Message::AVATAR_WALK;
 		message.setArg<Vector3>(std::string("movement"), movement);
 
-		_entity->emitMessage(message);
+		_entity->emitMessage(message);*/
+
+		static_cast<CPhysicController*>(_entity->getComponent(std::string("CPhysicController")))->setMovement(movement);
 
 	} // tick
 

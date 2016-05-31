@@ -18,11 +18,11 @@ Map_GO = {
 		state = "Body",
 	},]]
 
-	Lightbulb_GO = {
+	--[[Lightbulb_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},
+	},]]
 
 	--[[Centaur_GO = {
 		type = "GameObject",
@@ -209,7 +209,7 @@ Map = {
 		blueprint = "Lever",
 		game_object = "Lever_GO",
 		position = {0, -14, 0},
-		model = "Cube.mesh",
+		model = "Lever.mesh",
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
@@ -242,11 +242,15 @@ Map = {
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
+		defaultVision = 5,
+
+
+		-- Avatar controller
 		speed = 10,
 		jump_speed = 20,
 		jump_height = 8,
 		gravity = 8,
-		defaultVision = 5,
+		
 
 		--Animations
 		defaultAnimation = "idle_cycle_1",
@@ -295,12 +299,14 @@ Map = {
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 10,
-		jump_speed = 30,
-		jump_height = 8.0,
-		gravity = 15,
 
-		---Animations
+		-- Avatar controller
+		speed = 10,
+		jump_speed = 20,
+		jump_height = 8,
+		gravity = 8,
+
+		--Animations
 		defaultAnimation = "idle_cycle_1",
 		defaultAnimationVelocity = 5,
 		idle1Animation = { "idle_cycle_1", 1, "null"},
@@ -308,9 +314,10 @@ Map = {
 		walkAnimation  = { "Walking_cycle", 1, "null"},
 		runAnimation   = { "Running_cycle", 1, "null"},
 		deathAnimation = { "death", 1, "null"},
-		jump1Animation = { "Jump_movement", 1, "null"},
-		fall1Animation = { "fall", 1, "null"},
-		land1Animation = { "landing", 1, "null"},
+		delayinitJump  = 0.3,
+		jump1Animation = { "Jump_movement", 2, "null"},
+		fall1Animation = { "fall", 2, "null"},
+		land1Animation = { "landing", 4.5 , "null"},
 		--jump2Animation = { "", 2, "null"},
 		--fall2Animation = { "", 2, "null"},
 		--land2Animation = { "", 2, "null"},
@@ -355,7 +362,7 @@ Map = {
 		fsm_initial_state = "Crawler_Patrol",
 	},]]
 
-	Lightbulb_Body = {
+	--[[Lightbulb_Body = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
@@ -377,7 +384,7 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
-	},
+	},]]
 
 	--[[Centaur_Body = {
 		type = "Body",

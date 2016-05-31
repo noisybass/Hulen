@@ -43,7 +43,7 @@ namespace Graphics
 
 		assert(_animations.find(anim) != _animations.end() && "The animation that you want play don't exist. SetAnimation");
 		Animation* newAnimation = _animations.at(anim);
-		//std::cout << "Set Animation: " << newAnimation->animationState->getAnimationName() << std::endl;
+		//std::cout << "[" << _entity->getName() << "] Set Animation: " << newAnimation->animationState->getAnimationName() << std::endl;
 		newAnimation->animationState->setEnabled(true); // Enable the new animation
 		//if (!_currentAnimation.fadingOut)
 		//	_currentAnimation.animationState->setWeight(0); // Reset weight
@@ -107,6 +107,8 @@ namespace Graphics
 	{
 		if (_currentAnimation->animationState)
 		{
+			
+			//std::cout << "[" << _entity->getName() << "] " << _currentAnimation->animationState->getAnimationName() << " : " << _currentAnimation->animationState->getTimePosition() << std::endl;
 			// Add time to the main animation
 			_currentAnimation->animationState->addTime(secs * _currentAnimation->animationVelocity);
 
@@ -162,6 +164,13 @@ namespace Graphics
 		return _currentAnimation->animationState->getLoop();
 
 	} // getCurrentAnimationLopp
+
+	void CAnimatedEntity::copyCurrentAnimationsValues(Animation* animation)
+	{
+		_currentAnimation->animationState->setTimePosition(animation->animationState->getTimePosition());
+		_currentAnimation->animationState->setWeight(animation->animationState->getWeight());
+		_currentAnimation->animationState->setEnabled(animation->animationState->getEnabled());
+	} //copyCurrentAnimationsValues
 
 	void CAnimatedEntity::dumpAnimsStates() {
 

@@ -135,12 +135,17 @@ namespace Logic
 
 	void CAnimatedGraphics::sendState(CAnimatedGraphics* receiver)
 	{
-		std::cout << "AnimatedGraphics mandando estado..." << std::endl;
+		//std::cout << "AnimatedGraphics mandando estado..." << std::endl;
 		receiver->_animatedGraphicsEntity->setPosition(Vector3(_entity->getPosition().x,
 															   _entity->getPosition().y,
 															   receiver->_entity->getPosition().z)); // La z no cambia
+
 		receiver->_animatedGraphicsEntity->setAnimation(_animatedGraphicsEntity->getCurrentAnimationName(),
-														_animatedGraphicsEntity->getCurrentAnimationLoop());
+			_animatedGraphicsEntity->getCurrentAnimationLoop());
+
+		receiver->_animatedGraphicsEntity->copyCurrentAnimationsValues(_animatedGraphicsEntity->getCurrentAnimation());
+
+		
 	}
 	
 	//---------------------------------------------------------
