@@ -1,0 +1,5 @@
+float4 passthrough_ps (// IN
+					   float4 color : COLOR) : COLOR
+{
+	return color;
+}

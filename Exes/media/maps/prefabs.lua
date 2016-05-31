@@ -103,8 +103,9 @@ Prefab = {
 		game_object = "GraphicCharge_Prefab_GO",
 		model = "Sphere.mesh",
 		scale = {0.5, 0.5, 0.5},
-		specular_colour = {1,1,1},
-		diffuse_colour = {1,1,1},
+		--specular_colour = {1,1,1},
+		--diffuse_colour = {1,1,1},
+		material = "Charge_on",
 
 		-- Ribbon Trail
 		ribbonTrail_material          = "LightRibbonTrail",

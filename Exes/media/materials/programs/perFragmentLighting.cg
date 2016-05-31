@@ -41,7 +41,11 @@ ps_Output perFragmentLighting_ps(float2 uv0 : TEXCOORD0,
 								uniform float3 kd,
 								uniform float3 ks,
 								uniform float shininess,
-								uniform sampler2D texture)
+								uniform sampler2D texture,
+								uniform float time,
+								uniform float scaleFactor,
+								uniform float frequency
+								)
 {
 	ps_Output OUT;
 
@@ -74,7 +78,7 @@ ps_Output perFragmentLighting_ps(float2 uv0 : TEXCOORD0,
 	
 	float3 specular = ks * lightSpecular0 * specularLight;
 
-	float range = lightAttenuation0.x;
+	float range = lightAttenuation0.x + scaleFactor * (sin(frequency * time) + 1);
 	float4 texColor;
 	if (distance(P, lightPosition0) >= range)
 	{
