@@ -26,7 +26,12 @@ namespace Logic
 		T getValue(const std::string& id) const { return _agent->getValue<T>(id); }
 
 		template<typename T>
-		void setValue(const std::string& id, const T& value) { _agent->setValue<T>(id, value); }
+		void setValue(const std::string& id, const T& value) { _agent->setValue<T>(id, value);}
+
+		void setAnimation(const std::string& animationName, bool loop, bool nextAnimation) { _agent->setAnimation(animationName, loop, nextAnimation); };
+
+	private:
+		void setAnimationNames(const Map::CEntity *entityInfo);
 
 	}; // class CFSMEntity
 

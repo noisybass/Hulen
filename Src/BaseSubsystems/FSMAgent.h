@@ -9,7 +9,10 @@
 #include <boost/variant/variant.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/get.hpp>
+#include <boost/lexical_cast.hpp>
 
+#include <iostream>
+#include <typeinfo>
 namespace AI
 {
 
@@ -70,7 +73,9 @@ namespace AI
 		T getValue(const std::string& id) const { return _agentValues->getValue<T>(id); }
 
 		template<typename T>
-		void setValue(const std::string& id, const T& value) { _agentValues->setValue<T>(id, value); }
+		void setValue(const std::string& id, const T& value){_agentValues->setValue<T>(id, value);};
+
+		void setAnimation(const std::string& animationName, bool loop, bool nextAnimation);
 
 	}; // class FSMAgent
 

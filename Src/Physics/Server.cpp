@@ -490,6 +490,12 @@ PxRigidDynamic* CServer::createDynamicSphere(const Vector3 &position, float radi
 		shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	}
 
+	// Lock some axis
+	//PxD6Joint* mJoint = PxD6JointCreate(*_physics, actor, PxTransform::createIdentity(), nullptr, actor->getGlobalPose());
+
+	//mJoint->setMotion(PxD6Axis::eZ, PxD6Motion::eLOCKED);
+
+
 	// Anotar el componente lógico asociado a la entidad física
 	actor->userData = (void *)component;
 

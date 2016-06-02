@@ -20,15 +20,25 @@ gráfica de una entidad estática.
 #include "Graphics/Scene.h"
 #include "Logic/Entity/GameObject.h"
 
+#include "Logic/Entity/Components/FSMEntity.h"
+
 namespace Logic 
 {
 	IMP_FACTORY(CAnimatedGraphics);
+
+	CAnimatedGraphics::~CAnimatedGraphics()
+	{
+		_animationNames->clear();
+		delete _animationNames;
+		_animationNames = nullptr;
+	} // ~CAnimatedGraphics
 	
 	//---------------------------------------------------------
 
 	Graphics::CEntity* CAnimatedGraphics::createGraphicsEntityFromFile(const Map::CEntity *entityInfo)
 	{
 		_animatedGraphicsEntity = new Graphics::CAnimatedEntity(_entity->getName(),_model);
+		_animationNames = new std::unordered_map<std::string, std::string>();
 		
 		if(!_scene->addEntity(_animatedGraphicsEntity))
 			return 0;
@@ -155,6 +165,13 @@ namespace Logic
 		// Si acaba una animación y tenemos una por defecto la ponemos
 		//_animatedGraphicsEntity->stopAllAnimations();
 
+		// Send value to LUA FSM if isn't the player.
+		if (_entity->getName() != "Player_Body" && _entity->getName() != "Player_Shadow")
+		{
+			Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+			fsm->setValue<bool>(_animationNames->at(animation) + "Finish", true);
+		}
+		
 		Logic::TMessage m;
 		m._type = Logic::Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 		m.setArg<std::string>("name", animation);
@@ -177,53 +194,101 @@ namespace Logic
 	{
 
 		if (entityInfo->hasAttribute("idle1Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("idle1Animation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("idle1Animation").first, std::string("idle1Animation") });
+		}	
+			
 		if (entityInfo->hasAttribute("idle2Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("idle2Animation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("idle2Animation").first, std::string("idle2Animation") });
+		}	
+			
 		if (entityInfo->hasAttribute("walkAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("walkAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("walkAnimation").first, std::string("walkAnimation") });
+		}	
+			
 		if (entityInfo->hasAttribute("runAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("runAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("runAnimation").first, std::string("runAnimation") });
+		}	
+			
 		if (entityInfo->hasAttribute("deathAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("deathAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("deathAnimation").first, std::string("deathAnimation") });
+		}
+			
 		if (entityInfo->hasAttribute("jump1Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("jump1Animation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("jump1Animation").first, std::string("jump1Animation") });
+		}	
+			
 		if (entityInfo->hasAttribute("fall1Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("fall1Animation"));
+			_animationNames->insert({ entityInfo->getPairStringFloat("fall1Animation").first, std::string("fall1Animation") });
+		}	
 
 		if (entityInfo->hasAttribute("land1Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("land1Animation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("land1Animation").first, std::string("land1Animation") });
+		}
+				
 		if (entityInfo->hasAttribute("jump2Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("jump2Animation"));
+			_animationNames->insert({ entityInfo->getPairStringFloat("jump2Animation").first, std::string("jump2Animation") });
+		}	
 
 		if (entityInfo->hasAttribute("fall2Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("fall2Animation"));
+			_animationNames->insert({ entityInfo->getPairStringFloat("fall2Animation").first, std::string("fall2Animation") });
+		}
 
 		if (entityInfo->hasAttribute("land2Animation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("land2Animation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("land2Animation").first, std::string("land2Animation") });
+		}
+			
 		if (entityInfo->hasAttribute("pickObjectAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("pickObjectAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("pickObjectAnimation").first, std::string("pickObjectAnimation") });
+		}
+				
 		if (entityInfo->hasAttribute("changeDirectionAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("changeDirectionAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("changeDirectionAnimation").first, std::string("changeDirectionAnimation") });
+		}
+			
 		if (entityInfo->hasAttribute("startRunAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("startRunAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("startRunAnimation").first, std::string("startRunAnimation") });
+		}
+			
 		if (entityInfo->hasAttribute("preparationAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("preparationAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("preparationAnimation").first, std::string("preparationAnimation") });
+		}
+			
 		if (entityInfo->hasAttribute("killScreamAnimation"))
+		{
 			animationValues.insert(entityInfo->getPairStringFloat("killScreamAnimation"));
-
+			_animationNames->insert({ entityInfo->getPairStringFloat("killScreamAnimation").first, std::string("killScreamAnimation") });
+		}
+			
 	} // setAnimationsValues
 
 	void CAnimatedGraphics::setBlendingValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& blendingValues)

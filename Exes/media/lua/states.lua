@@ -348,10 +348,12 @@ end
 Centaur_Idle["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: SetAnimation("killScreamAnimation", false, true)
 		agent: ChangeState(Centaur_Attack)
 	end
 
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
+		agent: SetAnimation("killScreamAnimation", false, false)
 		agent: ChangeState(Centaur_Hold)
 	end
 
@@ -368,20 +370,21 @@ end
 ------------------------------------------------
 
 Centaur_Hold = {
-	wait_time = 3,
-	accum_time = 0
+	--wait_time = 3,
+	--accum_time = 0
 }
 
 Centaur_Hold["Enter"] = function(agent)
 
 	print ("[Centaur]: Enter State Hold")
-	Centaur_Hold.accum_time = 0
+	--Centaur_Hold.accum_time = 0
 
 end
 
 Centaur_Hold["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+	--[[if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		SetBoolValue("killScreamAnimationFinish", false)
 		agent: ChangeState(Centaur_Attack)
 	
 	else
@@ -389,8 +392,25 @@ Centaur_Hold["Execute"] = function(agent, msecs)
 
 		if Centaur_Hold.accum_time >= Centaur_Hold.wait_time then
 			Centaur_Hold.accum_time = 0
+			--SetAnimation("runAnimation", false, false)
 			agent: ChangeState(Centaur_Charge)
 		end
+	end]]
+
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: SetAnimation("killScreamAnimation", false, true)
+		agent: ChangeState(Centaur_Attack)
+	end
+
+	if agent: GetBoolValue("killScreamAnimationFinish") then
+		agent: SetAnimation("startRunAnimation", false, false)
+		agent: SetBoolValue("killScreamAnimationFinish", false)
+	end
+
+	if agent: GetBoolValue("startRunAnimationFinish") then
+		agent: SetAnimation("runAnimation", true, false)
+		agent: SetBoolValue("startRunAnimationFinish", false)
+		agent: ChangeState(Centaur_Charge)
 	end
 
 end
@@ -419,6 +439,7 @@ end
 Centaur_Charge["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: SetAnimation("killScreamAnimation", false, true)
 		agent: ChangeState(Centaur_Attack)
 	end
 

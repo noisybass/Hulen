@@ -51,6 +51,9 @@ namespace Logic
 		CAnimatedGraphics() : CGraphics(), _animatedGraphicsEntity(0),
 			_defaultAnimation(""), _defaultAnimationVelocity(5) {}
 
+		// Destructor
+		~CAnimatedGraphics();
+
 		/**
 		Método que activa el componente; invocado cuando se activa
 		el mapa donde está la entidad a la que pertenece el componente.
@@ -135,7 +138,7 @@ namespace Logic
 		float _defaultBlendingVelocity;
 
 	private:
-
+		std::unordered_map<std::string, std::string> * _animationNames;
 		void setAnimationsValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& animationValues);
 		void setBlendingValues(const Map::CEntity *entityInfo, std::unordered_map<std::string, float>& blendingValues);
 

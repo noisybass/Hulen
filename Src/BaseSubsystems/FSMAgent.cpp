@@ -4,6 +4,8 @@
 
 #include "Logic/Entity/Components/State.h"
 
+#include "Logic/Entity/Message.h"
+
 namespace AI
 {
 
@@ -58,5 +60,16 @@ namespace AI
 		stateComponent->exitState();
 
 	} // deactivate
+
+	void FSMAgent::setAnimation(const std::string& animationName, bool loop, bool nextAnimation)
+	{
+		Logic::TMessage message;
+		message._type = Logic::Message::SET_ANIMATION;
+		message.setArg<std::string>("animation", getValue<std::string>(animationName));
+		message.setArg<bool>("loop", loop);
+		message.setArg<bool>("nextAnimation", nextAnimation);
+		_entity->emitMessage(message);
+
+	} // setAnimation
 
 } // namespace AI
