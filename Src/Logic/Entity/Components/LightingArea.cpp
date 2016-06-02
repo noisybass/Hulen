@@ -53,12 +53,12 @@ namespace Logic
 		if (dist < _radius*_radius)
 		{
 			_playerInside = true;
-			light->setColor(Vector3(0, 0, 0));
+			light->setColor(Vector3(0.0, 0.0, 0.0));
 		}
 		else
 		{
 			_playerInside = false;
-			light->setColor(Vector3(0.3, 0, 0));
+			light->setColor(Vector3(0.5, 0, 0));
 		}
 	} // tick
 

@@ -79,22 +79,18 @@ ps_Output perFragmentLighting_ps(float2 uv0 : TEXCOORD0,
 	float3 specular = ks * lightSpecular0 * specularLight;
 
 	float range = lightAttenuation0.x + scaleFactor * (sin(frequency * time) + 1);
-	float4 texColor;
-	if (distance(P, lightPosition0) >= range)
-	{
-		diffuse = 0;
-		specular = 0;
-		texColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
-	}
-	else
-	{
-		texColor = tex2D(texture, uv0);
-	}
-
+	float4 texColor = tex2D(texture, uv0);
 	OUT.color.xyz = emissive + ambient + diffuse + specular;
 	OUT.color.w = 1;
-
 	OUT.color = OUT.color + texColor;
+
+	if (distance(P, lightPosition0) >= range)
+	{
+		// Attenuation factor
+		float k = clamp(lerp(0, 1, (1.2*range) - distance(P, lightPosition0)), 0, 1);
+		OUT.color *= k;
+	}
+
 
 	return OUT;
 }
