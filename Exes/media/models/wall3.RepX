@@ -1,0 +1,102 @@
+<PhysX30Collection version="3.3.1" >
+	<UpVector >0 0 0</UpVector>
+	<Scale >
+		<Length >0</Length>
+		<Mass >0</Mass>
+		<Speed >0</Speed>
+	</Scale>
+	<PxConvexMesh >
+		<Id >1521987234096</Id>
+		<points > -14.8526 14.7333 -1.78286 -14.8526 12.2087 -1.78286&#x0A;&#x09;&#x09;&#x09;-14.8526 14.6014 -0.946106 -11.994 13.109 0.102539&#x0A;&#x09;&#x09;&#x09;-11.994 14.8474 1.5062 -11.994 14.3305 1.74838&#x0A;&#x09;&#x09;&#x09;-11.994 11.5419 1.52445 -14.5468 15.6092 -1.78286&#x0A;&#x09;&#x09;&#x09;-12.4206 15.6092 -1.78286 -12.1347 12.3687 -1.78286&#x0A;&#x09;&#x09;&#x09;-12.2855 9.34775 -1.78286 -14.3915 9.34775 -1.78286&#x0A;&#x09;&#x09;&#x09;-14.8094 10.3477 -1.78286 -13.6012 13.4634 2.06566&#x0A;&#x09;&#x09;&#x09;-13.5838 13.3802 2.06566 -13.065 14.9796 2.06566&#x0A;&#x09;&#x09;&#x09;-13.0697 14.9854 2.06566 -12.0937 15.6079 1.20772&#x0A;&#x09;&#x09;&#x09;-14.3716 15.6078 1.41031 -13.2652 15.6076 1.88761&#x0A;&#x09;&#x09;&#x09;-12.1116 9.34775 1.37738 -13.566 9.34775 1.73745&#x0A;&#x09;&#x09;&#x09;-14.1739 9.34775 1.49585 -14.5975 10.3477 1.41059&#x0A;&#x09;&#x09;&#x09;-14.6514 13.3111 1.63557 -14.6979 14.6732 1.41031</points>
+	</PxConvexMesh>
+	<PxMaterial >
+		<Id >1521979959104</Id>
+		<DynamicFriction >0.5</DynamicFriction>
+		<StaticFriction >0.5</StaticFriction>
+		<Restitution >1</Restitution>
+		<FrictionCombineMode >eMIN</FrictionCombineMode>
+		<RestitutionCombineMode >eMIN</RestitutionCombineMode>
+	</PxMaterial>
+	<PxMaterial >
+		<Id >1521979959440</Id>
+		<DynamicFriction >1</DynamicFriction>
+		<StaticFriction >1</StaticFriction>
+		<Restitution >0</Restitution>
+		<FrictionCombineMode >eAVERAGE</FrictionCombineMode>
+		<RestitutionCombineMode >eAVERAGE</RestitutionCombineMode>
+	</PxMaterial>
+	<PxRigidStatic >
+		<Id >1521987226544</Id>
+		<Name >groundPlane</Name>
+		<ActorFlags >eVISUALIZATION</ActorFlags>
+		<DominanceGroup >0</DominanceGroup>
+		<OwnerClient >0</OwnerClient>
+		<GlobalPose >0 0 0 1 0 0 0</GlobalPose>
+		<Shapes >
+			<PxShape >
+				<Geometry >
+					<PxPlaneGeometry />
+				</Geometry>
+				<LocalPose >0 0 0.707107 0.707107 0 0 0</LocalPose>
+				<SimulationFilterData >4294967295 4294967295 4294967295 4294967295</SimulationFilterData>
+				<QueryFilterData >0 0 0 0</QueryFilterData>
+				<Materials >
+					<PxMaterialRef >1521979959104</PxMaterialRef>
+				</Materials>
+				<ContactOffset >0.025</ContactOffset>
+				<RestOffset >0</RestOffset>
+				<Flags >eSIMULATION_SHAPE|eSCENE_QUERY_SHAPE|eVISUALIZATION</Flags>
+				<Name >Ground</Name>
+			</PxShape>
+		</Shapes>
+	</PxRigidStatic>
+	<PxRigidDynamic >
+		<Id >1521987232752</Id>
+		<Name >polySurface84</Name>
+		<ActorFlags >eVISUALIZATION</ActorFlags>
+		<DominanceGroup >0</DominanceGroup>
+		<OwnerClient >0</OwnerClient>
+		<GlobalPose >0 1.60071e-010 -1.16415e-010 1 3.60273e-005 2.97949e-005 3.05474e-005</GlobalPose>
+		<Shapes >
+			<PxShape >
+				<Geometry >
+					<PxConvexMeshGeometry >
+						<Scale >
+							<Scale >1 1 1</Scale>
+							<Rotation >0 0 0 1</Rotation>
+						</Scale>
+						<ConvexMesh >1521987234096</ConvexMesh>
+					</PxConvexMeshGeometry>
+				</Geometry>
+				<LocalPose >0 0 0 1 13.4186 -12.4785 -0.141489</LocalPose>
+				<SimulationFilterData >1 0 1 0</SimulationFilterData>
+				<QueryFilterData >0 0 0 0</QueryFilterData>
+				<Materials >
+					<PxMaterialRef >1521979959440</PxMaterialRef>
+				</Materials>
+				<ContactOffset >0.130936</ContactOffset>
+				<RestOffset >0</RestOffset>
+				<Flags >eSIMULATION_SHAPE|eSCENE_QUERY_SHAPE|eVISUALIZATION</Flags>
+				<Name >polySurface84RigidBodyShape1</Name>
+			</PxShape>
+		</Shapes>
+		<CMassLocalPose >0.0161822 0.0670653 0.00607936 0.997599 0.0196838 0.0578146 -0.156815</CMassLocalPose>
+		<Mass >56.6737</Mass>
+		<MassSpaceInertiaTensor >232.619 90.018 203.518</MassSpaceInertiaTensor>
+		<LinearVelocity >0 0 0</LinearVelocity>
+		<AngularVelocity >0 0 0</AngularVelocity>
+		<MinCCDAdvanceCoefficient >0.15</MinCCDAdvanceCoefficient>
+		<MaxDepenetrationVelocity >1e+032</MaxDepenetrationVelocity>
+		<LinearDamping >0</LinearDamping>
+		<AngularDamping >0</AngularDamping>
+		<MaxAngularVelocity >7</MaxAngularVelocity>
+		<SleepThreshold >0.005</SleepThreshold>
+		<StabilizationThreshold >9.62361</StabilizationThreshold>
+		<WakeCounter >0.4</WakeCounter>
+		<SolverIterationCounts >
+			<minPositionIters >8</minPositionIters>
+			<minVelocityIters >4</minVelocityIters>
+		</SolverIterationCounts>
+		<ContactReportThreshold >3.40282e+038</ContactReportThreshold>
+	</PxRigidDynamic>
+</PhysX30Collection>
