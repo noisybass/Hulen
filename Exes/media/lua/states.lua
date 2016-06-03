@@ -403,13 +403,13 @@ Centaur_Hold["Execute"] = function(agent, msecs)
 	end
 
 	if agent: GetBoolValue("killScreamAnimationFinish") then
-		agent: SetAnimation("startRunAnimation", false, false)
+		agent: SetAnimation("preparationAnimation", false, false)
 		agent: SetBoolValue("killScreamAnimationFinish", false)
 	end
 
-	if agent: GetBoolValue("startRunAnimationFinish") then
-		agent: SetAnimation("runAnimation", true, false)
-		agent: SetBoolValue("startRunAnimationFinish", false)
+	if agent: GetBoolValue("preparationAnimationFinish") then
+		agent: SetAnimation("startRunAnimation", false, false)
+		agent: SetBoolValue("preparationFinish", false)
 		agent: ChangeState(Centaur_Charge)
 	end
 
@@ -441,6 +441,11 @@ Centaur_Charge["Execute"] = function(agent, msecs)
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
 		agent: SetAnimation("killScreamAnimation", false, true)
 		agent: ChangeState(Centaur_Attack)
+	end
+
+	if agent: GetBoolValue("startRunAnimationFinish") then
+		agent: SetAnimation("runAnimation", true, false)
+		agent: SetBoolValue("startRunAnimationFinish", false)
 	end
 
 end

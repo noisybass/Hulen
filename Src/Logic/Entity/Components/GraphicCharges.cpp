@@ -106,8 +106,10 @@ namespace Logic
 		}
 
 		// Put Charges
-		size = _thrownOutCharges.size();
-		for (int i = 0; i < size; ++i)
+		unsigned int throughtOutSize = _thrownOutCharges.size();
+		bool deleteCharges[3] = {false, false, false};
+
+		for (int i = 0; i < throughtOutSize; ++i)
 		{
 			Vector3 mousePosition = ((CMousePointerFollower*)_entity->getComponent("CMousePointerFollower"))->getMousePosition();
 
@@ -130,6 +132,16 @@ namespace Logic
 				m.setArg<Vector3>(std::string("instancePosition"), mousePosition);
 				Logic::CServer::getSingletonPtr()->getPlayer()->emitMessage(m);
 				
+				deleteCharges[i] = true;
+			}
+		}
+
+		// We do another for because we won't delete the charges in the same
+		// could give some bugs.
+		for (int i = 0; i < throughtOutSize; ++i)
+		{
+			if (deleteCharges[i])
+			{
 				// erase it from map
 				Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_thrownOutCharges.back());
 				_thrownOutCharges.pop_back();
@@ -189,13 +201,16 @@ namespace Logic
 
 			break;
 		case Message::PUT_CHARGE:
-			_thrownOutCharges.push_back(_graphicCharges.back());
-			_graphicCharges.pop_back();
+			if (_numCharges > 0)
+			{
+				_thrownOutCharges.push_back(_graphicCharges.back());
+				_graphicCharges.pop_back();
 
-			--_numCharges;
+				--_numCharges;
 
-			if (_graphicCharges.size() == 2)
-				_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;
+				if (_graphicCharges.size() == 2)
+					_graphicChargeDistanceBetweenThem = (_graphicChargeRadius * 2) * 0.97;
+			}
 			break;
 		}
 	} // process
