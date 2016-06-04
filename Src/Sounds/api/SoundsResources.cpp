@@ -100,11 +100,13 @@ namespace Sounds {
 	void CSoundsResources::loadAll(){
 		loadMainMenu();
 		loadPrisoner();
+		loadCentaur();
 	} // loadAll
 
 	void CSoundsResources::unloadAll(){
 		unloadMainMenu();
 		unloadPrisoner();
+		unloadCentaur();
 	} // unloadAll
 
 
@@ -150,5 +152,24 @@ namespace Sounds {
 		_soundServer->getSoundsPtr()->unloadSound("DeepIntoShadow");
 
 	} // unloadPrisoner
+
+
+	//
+	// Centaur Resources
+	//-----------
+
+	void CSoundsResources::loadCentaur(){
+
+		// Centaur Screeches
+		_soundServer->getSoundsPtr()->loadSound("CentaurScreeches", "CentaurScreeches.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
+	
+	} // loadCentaur
+
+	void CSoundsResources::unloadCentaur(){
+
+		// Centaur Screeches
+		_soundServer->getSoundsPtr()->unloadSound("CentaurScreeches");
+
+	} // unloadCentaur
 
 } // namespace Application

@@ -32,9 +32,17 @@ namespace Logic
 
 	} // spawn
 
+	void CFSMEntity::tick(float msecs)
+	{
+		IComponent::tick(msecs);
+
+		_agent->update(msecs);
+
+	} // tick
+
 	void CFSMEntity::setAnimationNames(const Map::CEntity *entityInfo)
 	{
-		
+
 		if (entityInfo->hasAttribute("idle1Animation"))
 		{
 			setValue<std::string>("idle1Animation", entityInfo->getPairStringFloat("idle1Animation").first);
@@ -57,26 +65,26 @@ namespace Logic
 		{
 			setValue<std::string>("runAnimation", entityInfo->getPairStringFloat("runAnimation").first);
 			setValue<bool>("runAnimationFinish", false);
-		}	
+		}
 
 		if (entityInfo->hasAttribute("deathAnimation"))
 		{
 			setValue<std::string>("deathAnimation", entityInfo->getPairStringFloat("deathAnimation").first);
 			setValue<bool>("deathAnimationFinish", false);
 		}
-			
+
 		if (entityInfo->hasAttribute("jump1Animation"))
 		{
 			setValue<std::string>("jump1Animation", entityInfo->getPairStringFloat("jump1Animation").first);
 			setValue<bool>("jump1AnimationFinish", false);
 		}
-			
+
 		if (entityInfo->hasAttribute("fall1Animation"))
 		{
 			setValue<std::string>("fall1Animation", entityInfo->getPairStringFloat("fall1Animation").first);
 			setValue<bool>("fall1AnimationFinish", false);
 		}
-		
+
 		if (entityInfo->hasAttribute("land1Animation"))
 		{
 			setValue<std::string>("land1Animation", entityInfo->getPairStringFloat("land1Animation").first);
@@ -89,7 +97,7 @@ namespace Logic
 			setValue<std::string>("jump2Animation", entityInfo->getPairStringFloat("jump2Animation").first);
 			setValue<bool>("jump2AnimationFinish", false);
 		}
-			
+
 		if (entityInfo->hasAttribute("fall2Animation"))
 		{
 			setValue<std::string>("fall2Animation", entityInfo->getPairStringFloat("fall2Animation").first);
@@ -101,12 +109,12 @@ namespace Logic
 			setValue<std::string>("land2Animation", entityInfo->getPairStringFloat("land2Animation").first);
 			setValue<bool>("land2AnimationFinish", false);
 		}
-			
+
 		if (entityInfo->hasAttribute("pickObjectAnimation"))
 		{
 			setValue<std::string>("pickObjectAnimation", entityInfo->getPairStringFloat("pickObjectAnimation").first);
 			setValue<bool>("pickObjectAnimationFinish", false);
-		}	
+		}
 
 		if (entityInfo->hasAttribute("changeDirectionAnimation"))
 		{
@@ -119,7 +127,7 @@ namespace Logic
 			setValue<std::string>("startRunAnimation", entityInfo->getPairStringFloat("startRunAnimation").first);
 			setValue<bool>("startRunAnimationFinish", false);
 		}
-			
+
 		if (entityInfo->hasAttribute("preparationAnimation"))
 		{
 			setValue<std::string>("preparationAnimation", entityInfo->getPairStringFloat("preparationAnimation").first);
@@ -133,13 +141,5 @@ namespace Logic
 		}
 
 	} // setAnimationNames
-
-	void CFSMEntity::tick(float msecs)
-	{
-		IComponent::tick(msecs);
-
-		_agent->update(msecs);
-
-	} // tick
 
 } // namespace Logic

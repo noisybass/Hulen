@@ -13,7 +13,7 @@ namespace Sounds
 		
 		// Constructor and Destructor
 		CSoundsResources();
-		virtual ~CSoundsResources();
+		~CSoundsResources();
 
 		// Instances (For fmod studio audio "things exported from editor")
 		static void createInstance(std::string instanceName, std::string descriptionName, bool paused = true);
@@ -49,6 +49,10 @@ namespace Sounds
 		// Prisoner
 		static void loadPrisoner();
 		static void unloadPrisoner();
+
+		// Centaur
+		static void loadCentaur();
+		static void unloadCentaur();
 
 	protected:
 

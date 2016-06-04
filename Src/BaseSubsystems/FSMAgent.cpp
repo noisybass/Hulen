@@ -9,7 +9,7 @@
 namespace AI
 {
 
-	FSMAgent::FSMAgent(Logic::CEntity* entity, const std::string& initialState) : _seeingPlayer(false), _entity(entity)
+	FSMAgent::FSMAgent(Logic::CEntity* entity, const std::string& initialState) : _seeingPlayer(false), _entity(entity), _sounds(Sounds::CSoundsResources::getSingletonPtr())
 	{
 		_agentValues = new TValues();
 
@@ -30,6 +30,7 @@ namespace AI
 	{
 		delete _agentValues;
 		delete _FSM;
+		_sounds = nullptr;
 
 	} // ~Crawler
 
@@ -71,5 +72,66 @@ namespace AI
 		_entity->emitMessage(message);
 
 	} // setAnimation
+
+
+	void FSMAgent::createInstance(std::string instanceName, std::string descriptionName, bool paused)
+	{
+		_sounds->createInstance(instanceName, descriptionName, paused);
+	} // createInstance
+
+	void FSMAgent::deleteInstance(std::string instanceName)
+	{
+		_sounds->deleteInstance(instanceName);
+	} // deleteInstance
+
+	void FSMAgent::playInstance(std::string instanceName)
+	{
+		_sounds->playInstance(instanceName);
+	} // playInstance
+	
+	void FSMAgent::pauseInstance(std::string instanceName)
+	{
+		_sounds->pauseInstance(instanceName);
+	} // pauseInstance
+
+	void FSMAgent::setInstanceParameterValue(std::string instanceName, std::string parameterName, float parameterValue)
+	{
+		_sounds->setInstanceParameterValue(instanceName, parameterName, parameterValue);
+	} // setInstanceParameterValue
+
+	void FSMAgent::setInstanceVolume(std::string instanceName, float volume)
+	{
+		_sounds->setInstanceVolume(instanceName, volume);
+	} // setInstanceVolume
+
+	void FSMAgent::createSound(std::string channelName, std::string soundName, bool paused)
+	{
+		_sounds->createSound(channelName, soundName, paused);
+	} // createSound
+
+	void FSMAgent::deleteSound(std::string channelName)
+	{
+		_sounds->deleteSound(channelName);
+	} // deleteSound
+
+	void FSMAgent::playSound(std::string channelName)
+	{
+		_sounds->playSound(channelName);
+	} // playSound
+
+	void FSMAgent::pauseSound(std::string channelName)
+	{
+		_sounds->pauseSound(channelName);
+	} // pauseSound
+
+	void FSMAgent::setSoundVolume(std::string channelName, float volume)
+	{
+		_sounds->setSoundVolume(channelName, volume);
+	} // setSoundVolume
+
+	void FSMAgent::playAndDestroySound(std::string soundName, float volume)
+	{
+		_sounds->playAndDestroySound(soundName, volume);
+	} // playAndDestroySound
 
 } // namespace AI

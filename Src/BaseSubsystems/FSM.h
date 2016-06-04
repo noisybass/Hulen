@@ -27,7 +27,7 @@ namespace AI
 	public:
 
 		FSM(T* owner)
-			: _owner(owner) 
+			: _owner(owner)
 		{
 
 		} // FSM

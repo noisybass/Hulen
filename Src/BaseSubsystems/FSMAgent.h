@@ -12,7 +12,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include <iostream>
-#include <typeinfo>
+#include "Sounds\api\SoundsResources.h"
 namespace AI
 {
 
@@ -50,6 +50,7 @@ namespace AI
 	{
 		AI::FSM<FSMAgent>* _FSM;
 		Logic::CEntity* _entity;
+		Sounds::CSoundsResources* _sounds;
 
 		TValues* _agentValues;
 
@@ -76,6 +77,22 @@ namespace AI
 		void setValue(const std::string& id, const T& value){_agentValues->setValue<T>(id, value);};
 
 		void setAnimation(const std::string& animationName, bool loop, bool nextAnimation);
+
+		// Instances (For fmod studio audio "things exported from editor")
+		void createInstance(std::string instanceName, std::string descriptionName, bool paused);
+		void deleteInstance(std::string instanceName);
+		void playInstance(std::string instanceName);
+		void pauseInstance(std::string instanceName);
+		void setInstanceParameterValue(std::string instanceName, std::string parameterName, float parameterValue);
+		void setInstanceVolume(std::string instanceName, float volume);
+
+		// Sounds (For fmod low level ".mp3, .wav etc...")
+		void createSound(std::string channelName, std::string soundName, bool paused);
+		void deleteSound(std::string channelName);
+		void playSound(std::string channelName);
+		void pauseSound(std::string channelName);
+		void setSoundVolume(std::string channelName, float volume);
+		void playAndDestroySound(std::string soundName, float volume);
 
 	}; // class FSMAgent
 

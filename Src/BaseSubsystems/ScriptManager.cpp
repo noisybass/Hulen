@@ -505,7 +505,19 @@ bool CScriptManager::open() {
 			.def("GetBoolValue", &AI::FSMAgent::getValue<bool>)
 			.def("GetFloatValue", &AI::FSMAgent::getValue<float>)
 			.def("GetStringValue", &AI::FSMAgent::getValue<std::string>)
-			.def("SetAnimation", &AI::FSMAgent::setAnimation),
+			.def("SetAnimation", &AI::FSMAgent::setAnimation)
+			.def("CreateInstance", &AI::FSMAgent::createInstance)
+			.def("DeleteInstance", &AI::FSMAgent::deleteInstance)
+			.def("PlayInstance", &AI::FSMAgent::playInstance)
+			.def("PauseInstance", &AI::FSMAgent::pauseInstance)
+			.def("SetInstanceParameterValue", &AI::FSMAgent::setInstanceParameterValue)
+			.def("SetInstanceVolume", &AI::FSMAgent::setInstanceVolume)
+			.def("CreateSound", &AI::FSMAgent::createSound)
+			.def("DeleteSound", &AI::FSMAgent::deleteSound)
+			.def("PlaySound", &AI::FSMAgent::playSound)
+			.def("PauseSound", &AI::FSMAgent::pauseSound)
+			.def("SetSoundVolume", &AI::FSMAgent::setSoundVolume)
+			.def("PlayAndDestroySound", &AI::FSMAgent::playAndDestroySound),
 
 			luabind::class_<AI::FSM<AI::FSMAgent> >("FSM")
 			.def("ChangeState", &AI::FSM<AI::FSMAgent>::changeState)
