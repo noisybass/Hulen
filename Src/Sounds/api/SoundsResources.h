@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Sounds\Server.h"
+#include "BaseSubsystems/Math.h"
 
 namespace Sounds 
 {
@@ -28,8 +29,11 @@ namespace Sounds
 		static void deleteSound(std::string channelName);
 		static void playSound(std::string channelName);
 		static void pauseSound(std::string channelName);
+		static bool getPausedSound(std::string channelName);
+		static void setSoundPitch(std::string channelName, float pitch);
 		static void setSoundVolume(std::string channelName, float volume);
 		static void playAndDestroySound(std::string soundName, float volume);
+		static void setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity = Vector3::ZERO);
 
 		// Sounds Resources
 		static bool init();

@@ -44,7 +44,9 @@ namespace Logic
 		*/
 		CAvatarController() : IComponent(), _walkingLeft(false), _walkingRight(false), _jump(false),
 			_speed(0.05f), _walkRightAnimation(""), _idleAnimation(""), _blockedAnimationWithoutLoopStarted(false),
-			_initJumpTime(0.0f), _jumping (false), _delayinitJump(1.0f){}
+			_initJumpTime(0.0f), _jumping(false), _delayinitJump(1.0f), _walkSound(""), _channelWalkSound(""){}
+
+		virtual ~CAvatarController();
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -199,6 +201,12 @@ namespace Logic
 		std::string _landAnimation;
 		std::string _deathAnimation;
 		std::string _pickObjectAnimation;
+
+		/**
+		Sounds
+		*/
+		std::string _walkSound;
+		std::string _channelWalkSound;
 
 	private: 
 		float _currentHeight = 0.0f;

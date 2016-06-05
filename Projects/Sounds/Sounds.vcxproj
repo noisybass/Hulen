@@ -70,7 +70,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Src;..\..\dependencies\include;..\..\dependencies\include\fmod\lowlevel;..\..\dependencies\include\fmod\studio</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Src;..\..\dependencies\include;..\..\dependencies\include\fmod\lowlevel;..\..\dependencies\include\fmod\studio;../../dependencies/include/OGRE</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,7 +86,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Src;..\..\dependencies\include;..\..\dependencies\include\fmod\lowlevel;..\..\dependencies\include\fmod\studio</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Src;..\..\dependencies\include;..\..\dependencies\include\fmod\lowlevel;..\..\dependencies\include\fmod\studio;../../dependencies/include/OGRE</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -516,6 +516,7 @@ bool CScriptManager::open() {
 			.def("DeleteSound", &AI::FSMAgent::deleteSound)
 			.def("PlaySound", &AI::FSMAgent::playSound)
 			.def("PauseSound", &AI::FSMAgent::pauseSound)
+			.def("SetSoundPitch", &AI::FSMAgent::setSoundPitch)
 			.def("SetSoundVolume", &AI::FSMAgent::setSoundVolume)
 			.def("PlayAndDestroySound", &AI::FSMAgent::playAndDestroySound),
 

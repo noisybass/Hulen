@@ -43,6 +43,7 @@ namespace Logic
 		void deleteSound(std::string channelName){ _agent->deleteSound(channelName); }
 		void playSound(std::string channelName){ _agent->playSound(channelName); }
 		void pauseSound(std::string channelName){ _agent->pauseSound(channelName); }
+		void setSoundPitch(std::string channelName, float pitch){ _agent->setSoundPitch(channelName, pitch); }
 		void setSoundVolume(std::string channelName, float volume){ _agent->setSoundVolume(channelName, volume); }
 		void playAndDestroySound(std::string soundName, float volume){ _agent->playAndDestroySound(soundName, volume); }
 

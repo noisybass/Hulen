@@ -91,6 +91,7 @@ namespace AI
 		void deleteSound(std::string channelName);
 		void playSound(std::string channelName);
 		void pauseSound(std::string channelName);
+		void setSoundPitch(std::string channelName, float pitch);
 		void setSoundVolume(std::string channelName, float volume);
 		void playAndDestroySound(std::string soundName, float volume);
 

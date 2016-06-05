@@ -72,6 +72,14 @@ namespace Sounds {
 		_soundServer->getChannelsPtr()->setPaused(channelName, true);
 	} // playSound
 
+	bool CSoundsResources::getPausedSound(std::string channelName){
+		return _soundServer->getChannelsPtr()->getPaused(channelName);
+	} // getPausedSound
+
+	void CSoundsResources::setSoundPitch(std::string channelName, float pitch){
+		_soundServer->getChannelsPtr()->setPitch(channelName, pitch);
+	} // setSoundPitch
+
 	void CSoundsResources::setSoundVolume(std::string channelName, float volume){
 		_soundServer->getChannelsPtr()->setVolume(channelName, volume);
 	} // setSoundVolume
@@ -79,6 +87,13 @@ namespace Sounds {
 	void CSoundsResources::playAndDestroySound(std::string soundName, float volume){
 		_soundServer->getChannelsPtr()->loadChannelAndDestroy(soundName, volume);
 	} // playAndDestroy
+
+	void CSoundsResources::setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity){
+		FMOD_VECTOR fmod_position = { position.x/15, position.y/15, position.z/15 };
+		FMOD_VECTOR fmod_velocity = { velocity.x/8.5, velocity.y/8.5, velocity.z/8.5 };
+
+		_soundServer->getChannelsPtr()->set3DAttributes(channelName, fmod_position, fmod_velocity);
+	} // setPositionAndVelocity
 
 
 	//
@@ -136,10 +151,14 @@ namespace Sounds {
 	void CSoundsResources::loadPrisoner(){
 
 		// Shadow Song
-		_soundServer->getSoundsPtr()->loadSound("ShadowSong", "ShadowSong.mp3", Sounds::Loop_Normal && Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("ShadowSong", "ShadowSong.mp3", Sounds::Loop_Normal + Sounds::Sound_3D);
 
 		// Shadow deep
-		_soundServer->getSoundsPtr()->loadSound("DeepIntoShadow", "DeepIntoShadow.mp3", Sounds::Loop_Normal && Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("DeepIntoShadow", "DeepIntoShadow.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+
+		// Prisoner walk and shadow walk
+		_soundServer->getSoundsPtr()->loadSound("PrisonerWalk", "PrisonerWalk.mp3", Sounds::Loop_Normal + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("PrisonerShadowWalk", "PrisonerShadowWalk.mp3", Sounds::Loop_Normal + Sounds::Sound_3D);
 		
 	} // loadPrisoner
 
@@ -151,6 +170,10 @@ namespace Sounds {
 		// Shadow Deep
 		_soundServer->getSoundsPtr()->unloadSound("DeepIntoShadow");
 
+		// Prisoner walk and shadow walk
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerWalk");
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerShadowWalk");
+
 	} // unloadPrisoner
 
 
@@ -161,7 +184,7 @@ namespace Sounds {
 	void CSoundsResources::loadCentaur(){
 
 		// Centaur Screeches
-		_soundServer->getSoundsPtr()->loadSound("CentaurScreeches", "CentaurScreeches.wav", Sounds::Loop_Normal && Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("CentaurScreeches", "CentaurScreeches.wav", Sounds::Loop_Off + Sounds::Sound_3D);
 	
 	} // loadCentaur
 

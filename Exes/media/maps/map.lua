@@ -244,6 +244,10 @@ Map = {
 		guizmoSize = 10,
 		defaultVision = 5,
 
+		-- Sounds
+		walkSound = "PrisonerWalk",
+		walkVolume = 0.8,
+		walkPitch = 1.65,
 
 		-- Avatar controller
 		speed = 10,
@@ -305,6 +309,11 @@ Map = {
 		jump_speed = 20,
 		jump_height = 8,
 		gravity = 8,
+
+		-- Sounds
+		walkSound = "PrisonerShadowWalk",
+		walkVolume = 0.8,
+		walkPitch = 1.65,
 
 		--Animations
 		defaultAnimation = "idle_cycle_1",

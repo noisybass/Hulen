@@ -12,14 +12,14 @@ namespace Sounds{
 
 		// Inicializamos la estuctura de datos
 		_channels = new tChannels();
-	}
+	} // CChannel
 
 	CChannel::~CChannel()
 	{
 		_fmod_lowLevel_system = nullptr;
 
 		delete _channels;
-	}
+	} // ~CChannel
 
 	bool CChannel::loadChannel(std::string channelName, std::string soundName, bool sleep)
 	{
@@ -34,7 +34,7 @@ namespace Sounds{
 		_channels->insert({ channelName, channel });
 
 		return result == FMOD_OK;
-	}
+	} // loadChannel
 
 	bool CChannel::loadChannelAndDestroy(std::string soundName, float volume)
 	{
@@ -48,7 +48,7 @@ namespace Sounds{
 		assert(result == FMOD_OK && "Error al ajustar el volumen del canal. Sounds::CChannel::loadChannelAndDestroy");
 
 		return result == FMOD_OK && result1 == FMOD_OK;
-	}
+	} // loadChannelAndDestroy
 
 	bool CChannel::setVolume(std::string channelName, float volume)
 	{
@@ -59,7 +59,7 @@ namespace Sounds{
 		assert(result == FMOD_OK && "Error al ajustar el volumen del canal. Sounds::CChannel::setVolume");
 
 		return result == FMOD_OK;
-	}
+	} // setVolume
 
 	bool CChannel::stop(std::string channelName)
 	{
@@ -74,7 +74,7 @@ namespace Sounds{
 		}
 
 		return result == FMOD_OK;
-	}
+	} // stop
 
 	bool CChannel::setPaused(std::string channelName, bool paused)
 	{
@@ -85,6 +85,39 @@ namespace Sounds{
 		assert(result == FMOD_OK && "Error al pausar el canal. Sounds::CChannel::setPaused");
 
 		return result == FMOD_OK;
-	}
+	} // setPaused
 
+	bool CChannel::getPaused(std::string channelName)
+	{
+		FMOD::Channel* channel = _channels->at(channelName);
+		assert(channel && "No existe el canal para poder obtener el estado del canal. Sounds::CChannel::getPaused");
+
+		bool paused;
+		FMOD_RESULT result = channel->getPaused(&paused);
+		assert(result == FMOD_OK && "Error al obtener el estado del canal. Sounds::CChannel::getPaused");
+
+		return paused;
+	} // getPaused
+
+	bool CChannel::setPitch(std::string channelName, float pitch)
+	{
+		FMOD::Channel* channel = _channels->at(channelName);
+		assert(channel && "No existe el canal para poder cambiar el pitch del canal. Sounds::CChannel::setPitch");
+
+		FMOD_RESULT result = channel->setPitch(pitch);
+		assert(result == FMOD_OK && "Error al establecer el pitch. Sounds::CChannel::setPitch");
+
+		return result == FMOD_OK;
+	} // setPitch
+
+	bool CChannel::set3DAttributes(std::string channelName, FMOD_VECTOR &position, FMOD_VECTOR &velocity)
+	{
+		FMOD::Channel* channel = _channels->at(channelName);
+		assert(channel && "No existe el canal para poder cambiar los atributos 3d del canal. Sounds::CChannel::set3DAttributes");
+
+		FMOD_RESULT result = channel->set3DAttributes(&position, &velocity);
+		assert(result == FMOD_OK && "Error al establecer los atributos 3d del canal. Sounds::CChannel::set3DAttributes");
+
+		return result == FMOD_OK;
+	} // set3DAttributes
 };

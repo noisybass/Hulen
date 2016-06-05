@@ -17,6 +17,7 @@ de la entidad.
 #include "Map/MapEntity.h"
 
 #include "PhysicController.h"
+#include "Sounds\api\SoundsResources.h"
 
 
 namespace Logic 
@@ -24,6 +25,12 @@ namespace Logic
 	IMP_FACTORY(CAvatarController);
 	
 	//---------------------------------------------------------
+
+	CAvatarController::~CAvatarController()
+	{
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+		sounds->deleteSound(_channelWalkSound);
+	}
 
 	bool CAvatarController::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
 	{
@@ -68,6 +75,20 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("pickObjectAnimation"))
 			_pickObjectAnimation = entityInfo->getPairStringFloat("pickObjectAnimation").first;
+
+		/**
+		Sounds
+		*/
+		if (entityInfo->hasAttribute("walkSound") && entityInfo->hasAttribute("walkVolume") 
+			&& entityInfo->hasAttribute("walkPitch"))
+		{
+			_walkSound = entityInfo->getStringAttribute("walkSound");
+			_channelWalkSound = _entity->getName() + "Walk";
+			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			sounds->createSound(_channelWalkSound, _walkSound);
+			sounds->setSoundVolume(_channelWalkSound, entityInfo->getFloatAttribute("walkVolume"));
+			sounds->setSoundPitch(_channelWalkSound, entityInfo->getFloatAttribute("walkPitch"));
+		}
 
 		return true;
 
@@ -165,6 +186,13 @@ namespace Logic
 		receiver->_currentHeight = _currentHeight;
 		receiver->_blockedAnimationWithoutLoopStarted = _blockedAnimationWithoutLoopStarted;
 		
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+		if (!sounds->getPausedSound(_channelWalkSound))
+		{
+			sounds->pauseSound(_channelWalkSound);
+			sounds->playSound(receiver->_channelWalkSound);
+		}
+		
 		//_walkingRight = false;
 		//_walkingLeft = false;
 		//_jump = false;
@@ -180,7 +208,11 @@ namespace Logic
 			_walkingRight = false;
 
 			if (!_jumping)
+			{
 				walkAnimation();
+				Sounds::CSoundsResources::getSingletonPtr()->playSound(_channelWalkSound);
+			}
+				
 
 			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
 			{
@@ -197,7 +229,11 @@ namespace Logic
 			_walkingLeft = false;
 
 			if (!_jumping)
+			{
 				walkAnimation();
+				Sounds::CSoundsResources::getSingletonPtr()->playSound(_channelWalkSound);
+			}
+				
 
 			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
 			{
@@ -247,6 +283,8 @@ namespace Logic
 			message.setArg<bool>(std::string("loop"), true);
 
 			_entity->emitMessage(message, this);
+
+			Sounds::CSoundsResources::getSingletonPtr()->pauseSound(_channelWalkSound);
 		}
 	} // stopWalkingRight
 
@@ -265,6 +303,8 @@ namespace Logic
 			message.setArg<bool>(std::string("loop"), true);
 
 			_entity->emitMessage(message, this);
+
+			Sounds::CSoundsResources::getSingletonPtr()->pauseSound(_channelWalkSound);
 		}
 	} // stopWalkingLeft
 
@@ -370,6 +410,12 @@ namespace Logic
 		_entity->emitMessage(message);*/
 
 		static_cast<CPhysicController*>(_entity->getComponent(std::string("CPhysicController")))->setMovement(movement);
+
+
+		// Update music position
+		// It goes with one frame behind, but doesn't matter, not noticed at all.
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+		sounds->setPositionAndVelocity(_channelWalkSound, _entity->getPosition());
 
 	} // tick
 

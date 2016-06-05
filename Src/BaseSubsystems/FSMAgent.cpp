@@ -124,6 +124,11 @@ namespace AI
 		_sounds->pauseSound(channelName);
 	} // pauseSound
 
+	void FSMAgent::setSoundPitch(std::string channelName, float pitch)
+	{
+		_sounds->setSoundPitch(channelName, pitch);
+	} // setSoundPitch
+
 	void FSMAgent::setSoundVolume(std::string channelName, float volume)
 	{
 		_sounds->setSoundVolume(channelName, volume);

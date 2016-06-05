@@ -83,6 +83,36 @@ namespace Sounds{
 		@return Valor booleano indicando si todo fue bien
 		*/
 		bool setPaused(std::string channelName, bool paused);
+
+		/**
+		Devuelve si la reproducción esta en pausa o no.
+
+		@params channelName nombre del canal.
+
+		@return si la reproducción esta en pausa o no.
+		*/
+		bool getPaused(std::string channelName);
+
+		/**
+		Escala la frecuencia con el valor del pitch.
+
+		@params channelName nombre del canal.
+		@params pitch valor del pitch.
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool setPitch(std::string channelName, float pitch);
+
+		/**
+		Establece una posicion y una velocidad al canal
+
+		@params channelName nombre del canal.
+		@params position posición del canal.
+		@params velocity velocidad del canal.
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool set3DAttributes(std::string channelName, FMOD_VECTOR &position, FMOD_VECTOR &velocity);
 	
 	private:
 
