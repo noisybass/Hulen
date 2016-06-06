@@ -12,6 +12,8 @@ namespace Sounds{
 
 		// Inicializamos la estuctura de datos
 		_channels = new tChannels();
+		_channelSounds = new std::unordered_map<std::string, std::string>();
+
 	} // CChannel
 
 	CChannel::~CChannel()
@@ -19,6 +21,7 @@ namespace Sounds{
 		_fmod_lowLevel_system = nullptr;
 
 		delete _channels;
+		delete _channelSounds;
 	} // ~CChannel
 
 	bool CChannel::loadChannel(std::string channelName, std::string soundName, bool sleep)
@@ -27,6 +30,7 @@ namespace Sounds{
 
 		FMOD::Channel* channel;
 		FMOD::Sound* sound = CServer::getSingletonPtr()->_sounds->getSound(soundName);
+		_channelSounds->insert({channelName, soundName});
 
 		FMOD_RESULT result = _fmod_lowLevel_system->playSound(sound, 0, sleep, &channel);
 		assert(result == FMOD_OK && "Error al cargar el canal. Sounds::CChannel::loadChannel");
@@ -35,6 +39,19 @@ namespace Sounds{
 
 		return result == FMOD_OK;
 	} // loadChannel
+
+	bool CChannel::playChannel(std::string channelName)
+	{
+		assert(_channels->find(channelName) != _channels->end() && "No existe dicho canal. Sounds::CChannel::playChannel");
+		
+		FMOD::Channel* channel = _channels->at(channelName);
+		FMOD::Sound* sound = CServer::getSingletonPtr()->_sounds->getSound(_channelSounds->at(channelName));
+
+		FMOD_RESULT result = _fmod_lowLevel_system->playSound(sound, 0, false, &channel);
+		assert(result == FMOD_OK && "Error al reproducir el canal. Sounds::CChannel::playChannel");
+
+		return result == FMOD_OK;
+	} // playChannel
 
 	bool CChannel::loadChannelAndDestroy(std::string soundName, float volume)
 	{
@@ -120,4 +137,15 @@ namespace Sounds{
 
 		return result == FMOD_OK;
 	} // set3DAttributes
+
+	bool CChannel::isLoop(std::string channelName)
+	{
+		FMOD::Channel* channel = _channels->at(channelName);
+		assert(channel && "No existe el canal comprobar si es un loop. Sounds::CChannel::isLoop");
+
+		FMOD_MODE mode;
+		FMOD_RESULT result = channel->getMode(&mode);
+
+		return mode & SoundMode::Loop_Normal;
+	} // isLoop
 };

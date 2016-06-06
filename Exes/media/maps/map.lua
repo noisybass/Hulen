@@ -213,6 +213,13 @@ Map = {
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
+
+		--Sound
+		switchOnVolume = 0.5,
+		switchOnPitch = 1,
+
+		switchOffVolume = 0.5,
+		switchOffPitch = 1,
 	},
 
 	LightLever_Body = {

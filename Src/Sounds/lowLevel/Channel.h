@@ -41,6 +41,15 @@ namespace Sounds{
 		bool loadChannel(std::string channelName, std::string soundName, bool sleep = true);
 
 		/**
+		Reproducimos el canal que hemos creado previamente.
+
+		@params channelName nombre de canal.
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool playChannel(std::string channelName);
+
+		/**
 		Dejamos que FMOD se encargue de manejar los canales, por lo tanto creamos un 
 		canal y FMOD cuando el vea necesario lo borrara.
 
@@ -49,7 +58,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool loadChannelAndDestroy(std::string soundName, float volume);
+		bool loadChannelAndDestroy(std::string soundName, float volume);	
 
 		/**
 		Asigna un volumen al canal especificado.
@@ -113,6 +122,15 @@ namespace Sounds{
 		@return Valor booleano indicando si todo fue bien
 		*/
 		bool set3DAttributes(std::string channelName, FMOD_VECTOR &position, FMOD_VECTOR &velocity);
+
+		/**
+		Devuelve si el sonido es un loop o no.
+
+		@params channelName nombre del canal.
+
+		@return si el sonido es un loop o no.
+		*/
+		bool isLoop(std::string channelName);
 	
 	private:
 
@@ -121,6 +139,8 @@ namespace Sounds{
 
 		typedef std::unordered_map<std::string, FMOD::Channel*> tChannels;
 		tChannels *_channels;
+
+		std::unordered_map<std::string, std::string>* _channelSounds;
 
 	}; // class CChannel
 

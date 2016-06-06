@@ -57,6 +57,12 @@ namespace Logic
 		*/
 		CGraphics* _graphics;
 
+		/**
+		Sounds
+		*/	
+		std::string _channelSwitchOnSound;
+		std::string _channelSwitchOffSound;
+
 
 	}; // class CInteractuable
 

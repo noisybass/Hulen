@@ -65,7 +65,10 @@ namespace Sounds {
 	} // deleteSound
 
 	void CSoundsResources::playSound(std::string channelName){
-		_soundServer->getChannelsPtr()->setPaused(channelName, false);
+		if (_soundServer->getChannelsPtr()->isLoop(channelName))
+			_soundServer->getChannelsPtr()->setPaused(channelName, false);
+		else
+			_soundServer->getChannelsPtr()->playChannel(channelName);
 	} // playSound
 
 	void CSoundsResources::pauseSound(std::string channelName){
@@ -118,12 +121,14 @@ namespace Sounds {
 
 	void CSoundsResources::loadAll(){
 		loadMainMenu();
+		loadObjects();
 		loadPrisoner();
 		loadCentaur();
 	} // loadAll
 
 	void CSoundsResources::unloadAll(){
 		unloadMainMenu();
+		unloadObjects();
 		unloadPrisoner();
 		unloadCentaur();
 	} // unloadAll
@@ -146,6 +151,27 @@ namespace Sounds {
 		_soundServer->getBanksPtr()->unloadBank("Banco2");
 		_soundServer->getBanksPtr()->unloadBank("Banco1");
 	} // unloadMainMenu
+
+
+	//
+	// Objects Resources
+	//-----------
+
+	void CSoundsResources::loadObjects(){
+		
+		// Switch on/off
+		_soundServer->getSoundsPtr()->loadSound("SwitchOn", "SwitchOn.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("SwitchOff", "SwitchOff.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+
+	} // loadObjects
+
+	void CSoundsResources::unloadObjects(){
+	
+		// Switch on/off
+		_soundServer->getSoundsPtr()->unloadSound("SwitchOn");
+		_soundServer->getSoundsPtr()->unloadSound("SwitchOff");
+
+	} // unloadObjects
 
 
 	//

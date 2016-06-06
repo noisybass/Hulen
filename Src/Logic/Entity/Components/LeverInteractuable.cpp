@@ -5,6 +5,7 @@
 #include "Map/MapEntity.h"
 #include "Logic/Entity/Components/PhysicEntity.h"
 #include "GUI/Server.h"
+#include "Sounds\api\SoundsResources.h"
 
 namespace Logic
 {
@@ -19,6 +20,10 @@ namespace Logic
 	CLeverInteractuable::~CLeverInteractuable()
 	{
 		_target = nullptr;
+
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+		sounds->deleteSound(_channelSwitchOnSound);
+		sounds->deleteSound(_channelSwitchOffSound);
 	} // ~CInteractuable
 
 	bool CLeverInteractuable::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
@@ -33,6 +38,29 @@ namespace Logic
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
 		_graphics->setMaterial("Charge_off");
+
+		/**
+		Sounds
+		*/
+		if (entityInfo->hasAttribute("switchOnVolume") && entityInfo->hasAttribute("switchOnPitch"))
+		{
+			_channelSwitchOnSound = _entity->getName() + "SwitchOn";
+			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			sounds->createSound(_channelSwitchOnSound, "SwitchOn");
+			sounds->setSoundVolume(_channelSwitchOnSound, entityInfo->getFloatAttribute("switchOnVolume"));
+			sounds->setSoundPitch(_channelSwitchOnSound, entityInfo->getFloatAttribute("switchOnPitch"));
+			sounds->setPositionAndVelocity(_channelSwitchOnSound, _entity->getPosition());
+		}
+
+		if (entityInfo->hasAttribute("switchOffVolume") && entityInfo->hasAttribute("switchOffPitch"))
+		{
+			_channelSwitchOffSound = _entity->getName() + "SwitchOff";
+			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			sounds->createSound(_channelSwitchOffSound, "SwitchOff");
+			sounds->setSoundVolume(_channelSwitchOffSound, entityInfo->getFloatAttribute("switchOffVolume"));
+			sounds->setSoundPitch(_channelSwitchOffSound, entityInfo->getFloatAttribute("switchOffPitch"));
+			sounds->setPositionAndVelocity(_channelSwitchOffSound, _entity->getPosition());
+		}
 
 		return true;
 
@@ -64,8 +92,20 @@ namespace Logic
 			message.setArg("leverSwitch", _leverSwitch);
 			message._type = Message::LEVER_INTERACTUABLE;
 			_target->emitMessage(message);
-			if (_leverSwitch) _graphics->setMaterial("Charge_on");
-			else _graphics->setMaterial("Charge_off");
+			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			if (_leverSwitch) 
+			{
+				sounds->playSound(_channelSwitchOnSound);
+				sounds->pauseSound(_channelSwitchOffSound);
+				_graphics->setMaterial("Charge_on");
+			}
+			else 
+			{
+				sounds->playSound(_channelSwitchOffSound);
+				//sounds->pauseSound(_channelSwitchOnSound);
+				_graphics->setMaterial("Charge_off");
+			}
+
 			
 		}
 

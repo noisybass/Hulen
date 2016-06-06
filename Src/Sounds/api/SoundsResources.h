@@ -50,6 +50,10 @@ namespace Sounds
 		static void loadMainMenu();
 		static void unloadMainMenu();
 
+		// Objects
+		static void loadObjects();
+		static void unloadObjects();
+
 		// Prisoner
 		static void loadPrisoner();
 		static void unloadPrisoner();
