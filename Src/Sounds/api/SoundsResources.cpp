@@ -89,6 +89,10 @@ namespace Sounds {
 	} // playAndDestroy
 
 	void CSoundsResources::setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity){
+		/**
+		-2 to 2 X Sounds position
+		-2 to 2 Y Sounds position
+		*/
 		FMOD_VECTOR fmod_position = { position.x/15, position.y/15, position.z/15 };
 		FMOD_VECTOR fmod_velocity = { velocity.x/8.5, velocity.y/8.5, velocity.z/8.5 };
 
