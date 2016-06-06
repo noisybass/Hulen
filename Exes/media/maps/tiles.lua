@@ -293,7 +293,10 @@ Map = {
 		light_attenuation_quadratic = 0.05,
 		player = "Player_GO",
 		lighting_area_radius = 6.5,
+
+		-- Graphic Charge
 		graphicChargeVelocity = 5.5,
+		thrownChargeVelocity = 10,
 		graphicChargeRadius = 3,
 		graphicChargeRotationBar = 0.2,
 		graphicChargesDeltaSeparation = 0.15,
@@ -315,7 +318,7 @@ Map = {
 		type = "Body",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {0, 0, 0},
+		position = {-27.8, 0, 0.1},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -325,11 +328,19 @@ Map = {
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
+		defaultVision = 5,
+
+		-- Sounds
+		walkSound = "PrisonerWalk",
+		walkVolume = 0.8,
+		walkPitch = 1.65,
+
+		-- Avatar controller
 		speed = 10,
 		jump_speed = 20,
 		jump_height = 8,
 		gravity = 8,
-		defaultVision = 5,
+		
 
 		--Animations
 		defaultAnimation = "idle_cycle_1",
@@ -368,7 +379,7 @@ Map = {
 		type = "Shadow",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {0, 0, -3.5},
+		position = {-27.8, 0, -2.6},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -378,12 +389,19 @@ Map = {
 		physic_height = 1,
 		guizmo = false,
 		guizmoSize = 10,
-		speed = 10,
-		jump_speed = 30,
-		jump_height = 8.0,
-		gravity = 15,
 
-		---Animations
+		-- Avatar controller
+		speed = 10,
+		jump_speed = 20,
+		jump_height = 8,
+		gravity = 8,
+
+		-- Sounds
+		walkSound = "PrisonerShadowWalk",
+		walkVolume = 0.8,
+		walkPitch = 1.65,
+
+		--Animations
 		defaultAnimation = "idle_cycle_1",
 		defaultAnimationVelocity = 5,
 		idle1Animation = { "idle_cycle_1", 1, "null"},
@@ -391,9 +409,10 @@ Map = {
 		walkAnimation  = { "Walking_cycle", 1, "null"},
 		runAnimation   = { "Running_cycle", 1, "null"},
 		deathAnimation = { "death", 1, "null"},
-		jump1Animation = { "Jump_movement", 1, "null"},
-		fall1Animation = { "fall", 1, "null"},
-		land1Animation = { "landing", 1, "null"},
+		delayinitJump  = 0.3,
+		jump1Animation = { "Jump_movement", 2, "null"},
+		fall1Animation = { "fall", 2, "null"},
+		land1Animation = { "landing", 4.5 , "null"},
 		--jump2Animation = { "", 2, "null"},
 		--fall2Animation = { "", 2, "null"},
 		--land2Animation = { "", 2, "null"},
