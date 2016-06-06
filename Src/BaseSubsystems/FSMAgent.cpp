@@ -73,7 +73,9 @@ namespace AI
 
 	} // setAnimation
 
-
+	/**
+	Instances
+	*/
 	void FSMAgent::createInstance(std::string instanceName, std::string descriptionName, bool paused)
 	{
 		_sounds->createInstance(instanceName, descriptionName, paused);
@@ -104,6 +106,10 @@ namespace AI
 		_sounds->setInstanceVolume(instanceName, volume);
 	} // setInstanceVolume
 
+	/**
+	Sounds
+	*/
+
 	void FSMAgent::createSound(std::string channelName, std::string soundName, bool paused)
 	{
 		_sounds->createSound(channelName, soundName, paused);
@@ -124,6 +130,11 @@ namespace AI
 		_sounds->pauseSound(channelName);
 	} // pauseSound
 
+	bool FSMAgent::getPausedSound(std::string channelName)
+	{
+		return _sounds->getPausedSound(channelName);
+	} // getPausedSound
+
 	void FSMAgent::setSoundPitch(std::string channelName, float pitch)
 	{
 		_sounds->setSoundPitch(channelName, pitch);
@@ -138,5 +149,10 @@ namespace AI
 	{
 		_sounds->playAndDestroySound(soundName, volume);
 	} // playAndDestroySound
+
+	void FSMAgent::setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity)
+	{
+		_sounds->setPositionAndVelocity(channelName, position, velocity);
+	} // setPositionAndVelocity
 
 } // namespace AI
