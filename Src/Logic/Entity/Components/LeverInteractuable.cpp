@@ -46,20 +46,20 @@ namespace Logic
 		{
 			_channelSwitchOnSound = _entity->getName() + "SwitchOn";
 			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
-			sounds->createSound(_channelSwitchOnSound, "SwitchOn");
+			sounds->createSound(_channelSwitchOnSound, std::string("SwitchOn"));
 			sounds->setSoundVolume(_channelSwitchOnSound, entityInfo->getFloatAttribute("switchOnVolume"));
 			sounds->setSoundPitch(_channelSwitchOnSound, entityInfo->getFloatAttribute("switchOnPitch"));
-			sounds->setPositionAndVelocity(_channelSwitchOnSound, _entity->getPosition());
+			sounds->setPositionAndVelocity(_channelSwitchOnSound, _entity->getPosition(), Vector3(0,0,0));
 		}
 
 		if (entityInfo->hasAttribute("switchOffVolume") && entityInfo->hasAttribute("switchOffPitch"))
 		{
 			_channelSwitchOffSound = _entity->getName() + "SwitchOff";
 			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
-			sounds->createSound(_channelSwitchOffSound, "SwitchOff");
+			sounds->createSound(_channelSwitchOffSound, std::string("SwitchOff"));
 			sounds->setSoundVolume(_channelSwitchOffSound, entityInfo->getFloatAttribute("switchOffVolume"));
 			sounds->setSoundPitch(_channelSwitchOffSound, entityInfo->getFloatAttribute("switchOffPitch"));
-			sounds->setPositionAndVelocity(_channelSwitchOffSound, _entity->getPosition());
+			sounds->setPositionAndVelocity(_channelSwitchOffSound, _entity->getPosition(), Vector3(0, 0, 0));
 		}
 
 		return true;

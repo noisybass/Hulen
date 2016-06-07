@@ -145,12 +145,12 @@ namespace AI
 		_sounds->setSoundVolume(channelName, volume);
 	} // setSoundVolume
 
-	void FSMAgent::playAndDestroySound(std::string soundName, float volume)
+	void FSMAgent::playAndDestroySound(std::string soundName, float volume, float pitch, Vector3& position, Vector3& velocity)
 	{
-		_sounds->playAndDestroySound(soundName, volume);
+		_sounds->playAndDestroySound(soundName, volume, pitch, position, velocity);
 	} // playAndDestroySound
 
-	void FSMAgent::setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity)
+	void FSMAgent::setPositionAndVelocity(std::string channelName, Vector3 &position, Vector3 &velocity)
 	{
 		_sounds->setPositionAndVelocity(channelName, position, velocity);
 	} // setPositionAndVelocity

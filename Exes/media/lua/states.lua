@@ -354,7 +354,7 @@ Centaur_Idle["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
 		agent: SetAnimation("killScreamAnimation", false, false)
-		agent: PlayAndDestroySound("CentaurScreeches", 0.5)
+		agent: PlayAndDestroySound("CentaurScreeches", 0.5, 0, Vector3(0,0,0), Vector3(0,0,0))
 		agent: ChangeState(Centaur_Hold)
 	end
 

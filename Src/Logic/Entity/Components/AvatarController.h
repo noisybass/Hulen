@@ -207,6 +207,10 @@ namespace Logic
 		*/
 		std::string _walkSound;
 		std::string _channelWalkSound;
+		std::string _jumpSound;
+		std::string _channelJumpSound;
+		std::string _landSound;
+		std::string _channelLandSound;
 
 	private: 
 		float _currentHeight = 0.0f;

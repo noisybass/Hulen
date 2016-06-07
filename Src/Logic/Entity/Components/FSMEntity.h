@@ -31,7 +31,7 @@ namespace Logic
 		void setAnimation(const std::string& animationName, bool loop, bool nextAnimation) { _agent->setAnimation(animationName, loop, nextAnimation); }
 
 		// Instances (For fmod studio audio "things exported from editor")
-		void createInstance(std::string instanceName, std::string descriptionName, bool paused){ _agent->createInstance(instanceName, descriptionName, paused); }
+		void createInstance(std::string instanceName, std::string &descriptionName, bool paused){ _agent->createInstance(instanceName, descriptionName, paused); }
 		void deleteInstance(std::string instanceName){ _agent->deleteInstance(instanceName); }
 		void playInstance(std::string instanceName){ _agent->playInstance(instanceName); }
 		void pauseInstance(std::string instanceName){ _agent->pauseInstance(instanceName); }
@@ -46,8 +46,8 @@ namespace Logic
 		bool getPausedSound(std::string channelName){ _agent->getPausedSound(channelName); }
 		void setSoundPitch(std::string channelName, float pitch){ _agent->setSoundPitch(channelName, pitch); }
 		void setSoundVolume(std::string channelName, float volume){ _agent->setSoundVolume(channelName, volume); }
-		void playAndDestroySound(std::string soundName, float volume){ _agent->playAndDestroySound(soundName, volume); }
-		void setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity){ _agent->setPositionAndVelocity(channelName, position, velocity); }
+		void playAndDestroySound(std::string soundName, float volume, float pitch, Vector3 position, Vector3 velocity){ _agent->playAndDestroySound(soundName, volume, pitch, position, velocity); }
+		void setPositionAndVelocity(std::string channelName, Vector3 &position, Vector3 &velocity){ _agent->setPositionAndVelocity(channelName, position, velocity); }
 
 	private:
 		void setAnimationNames(const Map::CEntity *entityInfo);

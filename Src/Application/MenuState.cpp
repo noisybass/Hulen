@@ -53,7 +53,7 @@ namespace Application {
 			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
 
 		// Sonido en el menu principal
-		_soundResources->createInstance("MainMenuInstance", "MainMenuEvent");
+		_soundResources->createInstance(std::string("MainMenuInstance"), std::string("MainMenuEvent"));
 		
 		return true;
 
@@ -63,7 +63,7 @@ namespace Application {
 
 	void CMenuState::release() 
 	{
-		_soundResources->deleteInstance("MainMenuInstance");
+		_soundResources->deleteInstance(std::string("MainMenuInstance"));
 
 		CApplicationState::release();
 
@@ -81,7 +81,7 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		_soundResources->playInstance("MainMenuInstance");
+		_soundResources->playInstance(std::string("MainMenuInstance"));
 
 	} // activate
 

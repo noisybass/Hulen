@@ -24,7 +24,7 @@ namespace Logic
 		_pickObjectAnimation("")
 	{
 		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
-		_soundsResources->createSound("ShadowSongChannel", "ShadowSong");
+		_soundsResources->createSound(std::string("ShadowSongChannel"), std::string("ShadowSong"));
 	} // CPlayerManager
 
 	CPlayerManager::~CPlayerManager()
@@ -35,7 +35,7 @@ namespace Logic
 		}
 		if (_soundsResources)
 		{
-			_soundsResources->deleteSound("ShadowSongChannel");
+			_soundsResources->deleteSound(std::string("ShadowSongChannel"));
 			_soundsResources = nullptr;
 		}
 	}
@@ -229,8 +229,8 @@ namespace Logic
 				sendState(_gameObject->_shadow, _gameObject->_body);
 
 				// Sonido de inmersion
-				_soundsResources->pauseSound("ShadowSongChannel");
-				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
+				_soundsResources->pauseSound(std::string("ShadowSongChannel"));
+				_soundsResources->playAndDestroySound(std::string("DeepIntoShadow"), 0.5, 0, Vector3(0,0,0), Vector3(0,0,0));
 			}
 			// Cambio de cuerpo a sombra
 			else
@@ -242,8 +242,8 @@ namespace Logic
 				sendState(_gameObject->_body, _gameObject->_shadow);
 
 				// Sonido de inmersion
-				_soundsResources->pauseSound("ShadowSongChannel");
-				_soundsResources->playAndDestroySound("DeepIntoShadow", 0.5);
+				_soundsResources->pauseSound(std::string("ShadowSongChannel"));
+				_soundsResources->playAndDestroySound(std::string("DeepIntoShadow"), 0.5, 0, Vector3(0, 0, 0), Vector3(0, 0, 0));
 			}
 		}
 	} // changeState

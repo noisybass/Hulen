@@ -94,8 +94,8 @@ namespace AI
 		bool getPausedSound(std::string channelName);
 		void setSoundPitch(std::string channelName, float pitch);
 		void setSoundVolume(std::string channelName, float volume);
-		void playAndDestroySound(std::string soundName, float volume);
-		void setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity);
+		void playAndDestroySound(std::string soundName, float volume, float pitch, Vector3& position, Vector3& velocity);
+		void setPositionAndVelocity(std::string channelName, Vector3 &position, Vector3 &velocity);
 
 	}; // class FSMAgent
 

@@ -215,7 +215,7 @@ Map = {
 		lever_GO_target  = "LeverTarget_GO",
 
 		--Sound
-		switchOnVolume = 0.5,
+		switchOnVolume = 0.1,
 		switchOnPitch = 1,
 
 		switchOffVolume = 0.5,
@@ -255,6 +255,14 @@ Map = {
 		walkSound = "PrisonerWalk",
 		walkVolume = 0.8,
 		walkPitch = 1.65,
+
+		jumpSound = "PrisonerJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerLand",
+		landVolume = 0.3,
+		landPitch = 1,
 
 		-- Avatar controller
 		speed = 10,
@@ -321,6 +329,14 @@ Map = {
 		walkSound = "PrisonerShadowWalk",
 		walkVolume = 0.8,
 		walkPitch = 1.65,
+
+		jumpSound = "PrisonerShadowJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerShadowLand",
+		landVolume = 0.3,
+		landPitch = 1,
 
 		--Animations
 		defaultAnimation = "idle_cycle_1",
