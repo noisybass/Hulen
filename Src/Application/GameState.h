@@ -75,6 +75,12 @@ namespace Application
 			_scene(0), _time(0), _isMapLoaded(false), _mapName("map.lua") 
 		{
 			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
+
+			_levels.insert({ 1, "map.lua"});
+			_levels.insert({ 2, "hito.lua" });
+
+			_levelsNames.insert({"map.lua", 1});
+			_levelsNames.insert({"hito.lua", 2});
 		}
 
 		/** 
@@ -226,6 +232,14 @@ namespace Application
 		To play sounds
 		*/
 		Sounds::CSoundsResources* _soundResources;
+
+		/**
+		Game Levels
+		We have two to get O(1) searches, and I think that doesn't matter 
+		have another table wit these values, taht I don't think 
+		*/
+		std::unordered_map<int, std::string> _levels;
+		std::unordered_map<std::string, int> _levelsNames;
 
 	}; // CGameState
 

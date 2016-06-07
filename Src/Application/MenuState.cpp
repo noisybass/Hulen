@@ -134,14 +134,16 @@ namespace Application {
 			}
 
 			// Intenta cambiar el fichero del mapa a cargar
-			if (!_app->setGameStateMap(mapName))
-				return false;
+			//if (!_app->setGameStateMap(mapName))
+				//return false;
+			_app->addAction(new CSetGameStateMapAction(mapName));
 
 			// Pop MenuState
 			_app->addAction(new CPopAction(true));
 
 			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
-			_app->setLoadingNextState("game");
+			//_app->setLoadingNextState("game");
+			_app->addAction(new CSetLoadingNextState(std::string("game")));
 
 			// Push LoadingState
 			_app->addAction(new CPushAction(States::LoadingState, true));
@@ -194,14 +196,16 @@ namespace Application {
 		}
 
 		// Intenta cambiar el fichero del mapa a cargar
-		if (!_app->setGameStateMap(mapName))
-			return false;
+		//if (!_app->setGameStateMap(mapName))
+			//return false;
+		_app->addAction(new CSetGameStateMapAction(mapName));
 
 		// Pop MenuState
 		_app->addAction(new CPopAction(true));
 
 		// Le decimos al estado de loading que la siguiente escena a cargar es la de game
-		_app->setLoadingNextState("game");
+		//_app->setLoadingNextState("game");
+		_app->addAction(new CSetLoadingNextState(std::string("game")));
 
 		// Push LoadingState
 		_app->addAction(new CPushAction(States::LoadingState, true));

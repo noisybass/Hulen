@@ -140,6 +140,18 @@ namespace Logic
 			setValue<bool>("killScreamAnimationFinish", false);
 		}
 
+		if (entityInfo->hasAttribute("eatLightAnimation"))
+		{
+			setValue<std::string>("eatLightAnimation", entityInfo->getPairStringFloat("eatLightAnimation").first);
+			setValue<bool>("eatLightAnimationFinish", false);
+		}
+
+		if (entityInfo->hasAttribute("attackAnimation"))
+		{
+			setValue<std::string>("attackAnimation", entityInfo->getPairStringFloat("attackAnimation").first);
+			setValue<bool>("attackAnimationFinish", false);
+		}
+
 	} // setAnimationNames
 
 } // namespace Logic

@@ -16,7 +16,7 @@ namespace Application
 
 	enum StateAction
 	{
-		POP, PUSH
+		POP, PUSH, SET_GAME_STATE_MAP, SET_LOADING_NEXT_STATE
 	};
 
 
@@ -61,6 +61,28 @@ namespace Application
 
 		States state;
 		bool init;
+	};
+	
+
+
+	/// SetGameStateMap
+	class CSetGameStateMapAction : public CStateActions{
+	public:
+
+		CSetGameStateMapAction(const std::string& map) : CStateActions(StateAction::SET_GAME_STATE_MAP), map(map) {}
+
+		std::string map;
+	};
+
+
+
+
+	/// SetLoadingNextState
+	class CSetLoadingNextState : public CStateActions{
+	public:
+		CSetLoadingNextState(const std::string& nextState) : CStateActions(StateAction::SET_LOADING_NEXT_STATE), nextState(nextState) {}
+
+		std::string nextState;
 	};
 
 } // namespace Application

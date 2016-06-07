@@ -222,6 +222,8 @@ namespace Logic
 
 		void setNode(Ogre::SceneNode* node){ _node = node; }
 
+		void rollNode(float degrees);
+
 	protected:
 
 		/**

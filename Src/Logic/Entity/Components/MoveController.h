@@ -65,9 +65,7 @@ namespace Logic
 
 		bool destinationReached();
 
-		void walkLeft();
-
-		void walkRight();
+		void walk();
 
 		void stop();
 
@@ -87,6 +85,11 @@ namespace Logic
 
 		Vector3 _nextPositionToGo;
 
+		/**
+		Animations
+		*/
+		std::string _walkRightAnimation;
+		std::string _idleAnimation;
 
 	}; // class CAvatarController
 

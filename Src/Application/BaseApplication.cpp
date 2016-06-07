@@ -144,6 +144,14 @@ namespace Application {
 				CPushAction* push = (CPushAction*)temp;
 				pushState(push->state, push->init);
 			}
+			else if (temp->stateAction == StateAction::SET_GAME_STATE_MAP){
+				CSetGameStateMapAction* setGameState = (CSetGameStateMapAction*)temp;
+				setGameStateMap(setGameState->map);
+			}
+			else if (temp->stateAction == StateAction::SET_LOADING_NEXT_STATE){
+				CSetLoadingNextState* setLoadingState = (CSetLoadingNextState*)temp;
+				setLoadingNextState(setLoadingState->nextState);
+			}
 			delete temp;
 			_actions.pop();
 		}

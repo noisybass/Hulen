@@ -40,6 +40,11 @@ namespace Logic
 			_position = entityInfo->getVector3Attribute("position");
 		}
 
+		if (entityInfo->hasAttribute("rollRotate"))
+		{
+			rollNode(entityInfo->getFloatAttribute("rollRotate"));
+		}
+
 		if (entityInfo->hasAttribute("direction"))
 		{
 			std::string direction = entityInfo->getStringAttribute("direction");
@@ -71,6 +76,13 @@ namespace Logic
 	} // spawn
 
 	//---------------------------------------------------------
+
+	void CEntity::rollNode(float degrees){
+		TMessage msg;
+		msg._type = Message::ROLL_ENTITY_NODE;
+		msg.setArg<int>(("degrees"), degrees);
+		emitMessage(msg);
+	} // rotateNode
 
 	bool CEntity::activate() 
 	{	

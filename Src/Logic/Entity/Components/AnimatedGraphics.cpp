@@ -288,6 +288,18 @@ namespace Logic
 			animationValues.insert(entityInfo->getPairStringFloat("killScreamAnimation"));
 			_animationNames->insert({ entityInfo->getPairStringFloat("killScreamAnimation").first, std::string("killScreamAnimation") });
 		}
+
+		if (entityInfo->hasAttribute("eatLightAnimation"))
+		{
+			animationValues.insert(entityInfo->getPairStringFloat("eatLightAnimation"));
+			_animationNames->insert({ entityInfo->getPairStringFloat("eatLightAnimation").first, std::string("eatLightAnimation") });
+		}
+
+		if (entityInfo->hasAttribute("attackAnimation"))
+		{
+			animationValues.insert(entityInfo->getPairStringFloat("attackAnimation"));
+			_animationNames->insert({ entityInfo->getPairStringFloat("attackAnimation").first, std::string("attackAnimation") });
+		}
 			
 	} // setAnimationsValues
 
@@ -341,6 +353,12 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("killScreamBlending"))
 			blendingValues.insert(entityInfo->getPairStringFloat("killScreamBlending"));
+
+		if (entityInfo->hasAttribute("eatLightBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("eatLightBlending"));
+
+		if (entityInfo->hasAttribute("attackBlending"))
+			blendingValues.insert(entityInfo->getPairStringFloat("attackBlending"));
 
 	} // setAnimationsValues
 

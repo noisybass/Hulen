@@ -167,10 +167,12 @@ Lightbulb_Patrol["Execute"] = function(agent, msecs)
 	elseif agent: GetBoolValue("seeing_entity") then
 		if agent: GetStringValue("seen_entity_bp") == "Charge" then
 			print ("Chasing charge...")
+			agent: SetAnimation("walkAnimation", true, false)
 			agent: ChangeState(Lightbulb_Chase)
 
 		elseif agent: GetStringValue("seen_entity_bp") == "Player" then
 			print ("Chasing player...")
+			agent: SetAnimation("walkAnimation", true, false)
 			agent: ChangeState(Lightbulb_Chase)
 		end
 	end
@@ -207,6 +209,7 @@ Lightbulb_Chase["Execute"] = function(agent, msecs)
 
 	elseif agent: GetBoolValue("touching_entity") and agent: GetStringValue("touched_entity_bp") == "Charge" then
 		print ("Eating charge...")
+		--agent: SetAnimation("eatLightAnimation", true, false)
 		agent: ChangeState(Lightbulb_EatCharge)
 
 	elseif not agent:GetBoolValue("seeing_entity") then
