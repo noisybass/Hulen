@@ -433,6 +433,7 @@ Map = {
 		startRunAnimation =        {"start_run", 1, "null"},
 		preparationAnimation =     {"preparation", 1, "null"},
 		killScreamAnimation =      {"kill_scream", 1, "null"},
+		crashDeathAnimation =      {"crash_death", 1, "null"},
 
 		--Blending
 		defaultBlendingVelocity = 5,
@@ -443,6 +444,7 @@ Map = {
 		startRunBlending =        {"start_run", 2, "null"},
 		preparationBlending =     {"preparation", 2, "null"},
 		killScreamBlending =      {"kill_scream", 2, "null"},
+		crashDeathBlending =      {"crash_death", 2, "null"},
 	},
 
 	Kasai = {
@@ -498,10 +500,15 @@ Map = {
 
 	World0 = {
 		type = "Body",
+		blueprint = "Wall",
 		game_object = "World0_GO",
-		prefab = "World_Prefab",
 		position = {30, 0, 0},
 		scale = {1, 35, 10},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		material = "White",
 		physic_dimensions = { 1, 35, 10 },
 	},
 		
@@ -522,19 +529,29 @@ Map = {
 
 	World2 = {
 		type = "Body",
+		blueprint = "Wall",
 		game_object = "World2_GO",
-		prefab = "World_Prefab",
 		position = {0, 17, 0},
 		scale = {60, 1, 10},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		material = "White",
 		physic_dimensions = { 65, 1, 10 },
 	},
 
 	World3 = {
 		type = "Body",
+		blueprint = "Wall",
 		game_object = "World3_GO",
-		prefab = "World_Prefab",
 		position = {-30, 0, 0},
 		scale = {1, 35, 10},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		material = "White",
 		physic_dimensions = { 1, 35, 10 },
 	},
 
