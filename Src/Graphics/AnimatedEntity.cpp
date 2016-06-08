@@ -40,7 +40,7 @@ namespace Graphics
 			_currentAnimation->fadingOut = true;
 			
 		}
-
+		//std::cout << "animation: " << anim << std::endl;
 		assert(_animations.find(anim) != _animations.end() && "The animation that you want play don't exist. SetAnimation");
 		Animation* newAnimation = _animations.at(anim);
 		//std::cout << "[" << _entity->getName() << "] Set Animation: " << newAnimation->animationState->getAnimationName() << std::endl;

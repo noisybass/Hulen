@@ -4,7 +4,7 @@ Background CGraphics
 Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController CPlayerDeath
 Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack
-Lightbulb CGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
+Lightbulb CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
 Centaur CAnimatedGraphics CPhysicController CVision CFSMEntity CAttack CCharger
 Camera CCamera
 Kasai CGraphics CPointLight CMousePointerFollower CLightingArea CGraphicCharges CRibbonTrail

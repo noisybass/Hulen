@@ -31,6 +31,15 @@ namespace Logic
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");
 
+		/**
+		Animations
+		*/
+		if (entityInfo->hasAttribute("walkAnimation"))
+			_walkRightAnimation = (entityInfo->getPairStringFloat("walkAnimation")).first;
+
+		if (entityInfo->hasAttribute("idle1Animation"))
+			_idleAnimation = (entityInfo->getPairStringFloat("idle1Animation")).first;
+
 		return true;
 
 	} // spawn
@@ -58,9 +67,25 @@ namespace Logic
 	{
 		// Nos movemos hacia la derecha
 		if (_entity->getPosition().x < _positionToGo.x)
+		{
+			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
+			{
+				_entity->rollNode(180);
+			}
+				
 			_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::RIGHT);
+		}
+			
 		else if (_entity->getPosition().x > _positionToGo.x)
+		{
+			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
+			{
+				_entity->rollNode(180);
+			}
+
 			_entity->setDirection(Logic::CEntity::ENTITY_DIRECTION::LEFT);
+		}
+			
 	}
 
 	bool CMoveController::destinationReached()
@@ -85,8 +110,8 @@ namespace Logic
 			//if (_entity->getDirection() == 0){
 				calculateDirection();
 				// Change animations
-				if (_entity->getDirection() == 1) walkRight();
-				else if (_entity->getDirection() == -1) walkLeft();
+				//if (_entity->getDirection() == 1) _entity->rollNode(180);
+				//else if (_entity->getDirection() == -1) _entity->rollNode(180);
 			//}
 			movement += Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
 		}
@@ -96,7 +121,7 @@ namespace Logic
 			// nada mas llegar al destino.
 
 			// Idle animation
-			stop();
+			//stop();
 
 			// Notificamos que hemos llegado a
 			// la posición objetivo.
@@ -125,40 +150,28 @@ namespace Logic
 	Animations
 	*/
 
-	void CMoveController::walkLeft()
+	void CMoveController::walk()
 	{
 		// Cambiamos la animación
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("Walk"));
+		message.setArg<std::string>(std::string("animation"), std::string(_walkRightAnimation));
 		message.setArg<bool>(std::string("loop"), true);
 
 		_entity->emitMessage(message, this);
 
 	} // walk
 
-	void CMoveController::walkRight()
-	{
-		// Cambiamos la animación
-		TMessage message;
-		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("WalkBack"));
-		message.setArg<bool>(std::string("loop"), true);
-
-		_entity->emitMessage(message, this);
-
-	} // walkBack
-
 	void CMoveController::stop()
 	{
 		TMessage message;
 		message._type = Message::SET_ANIMATION;
-		message.setArg<std::string>(std::string("animation"), std::string("Idle"));
+		message.setArg<std::string>(std::string("animation"), std::string(_idleAnimation));
 		message.setArg<bool>(std::string("loop"), true);
 
 		_entity->emitMessage(message, this);
 
-	} // stopWalkingLeft
+	} // stop
 
 } // namespace Logic
 

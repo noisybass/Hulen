@@ -53,7 +53,7 @@ namespace Application {
 			CEGUI::SubscriberSlot(&CMenuState::optionsReleased, this));
 
 		// Sonido en el menu principal
-		_soundResources->createInstance("MainMenuInstance", "MainMenuEvent");
+		_soundResources->createInstance(std::string("MainMenuInstance"), std::string("MainMenuEvent"));
 		
 		return true;
 
@@ -63,7 +63,7 @@ namespace Application {
 
 	void CMenuState::release() 
 	{
-		_soundResources->deleteInstance("MainMenuInstance");
+		_soundResources->deleteInstance(std::string("MainMenuInstance"));
 
 		CApplicationState::release();
 
@@ -81,7 +81,7 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		_soundResources->playInstance("MainMenuInstance");
+		_soundResources->playInstance(std::string("MainMenuInstance"));
 
 	} // activate
 
@@ -134,14 +134,16 @@ namespace Application {
 			}
 
 			// Intenta cambiar el fichero del mapa a cargar
-			if (!_app->setGameStateMap(mapName))
-				return false;
+			//if (!_app->setGameStateMap(mapName))
+				//return false;
+			_app->addAction(new CSetGameStateMapAction(mapName));
 
 			// Pop MenuState
 			_app->addAction(new CPopAction(true));
 
 			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
-			_app->setLoadingNextState("game");
+			//_app->setLoadingNextState("game");
+			_app->addAction(new CSetLoadingNextState(std::string("game")));
 
 			// Push LoadingState
 			_app->addAction(new CPushAction(States::LoadingState, true));
@@ -194,14 +196,16 @@ namespace Application {
 		}
 
 		// Intenta cambiar el fichero del mapa a cargar
-		if (!_app->setGameStateMap(mapName))
-			return false;
+		//if (!_app->setGameStateMap(mapName))
+			//return false;
+		_app->addAction(new CSetGameStateMapAction(mapName));
 
 		// Pop MenuState
 		_app->addAction(new CPopAction(true));
 
 		// Le decimos al estado de loading que la siguiente escena a cargar es la de game
-		_app->setLoadingNextState("game");
+		//_app->setLoadingNextState("game");
+		_app->addAction(new CSetLoadingNextState(std::string("game")));
 
 		// Push LoadingState
 		_app->addAction(new CPushAction(States::LoadingState, true));

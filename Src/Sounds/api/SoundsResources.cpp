@@ -25,29 +25,29 @@ namespace Sounds {
 	// Instances
 	//-----------
 
-	void CSoundsResources::createInstance(std::string instanceName, std::string descriptionName, bool paused){
+	void CSoundsResources::createInstance(std::string &instanceName, std::string &descriptionName, bool paused){
 		_soundServer->getEventInstancesPtr()->loadInstance(instanceName, descriptionName);
 		_soundServer->getEventInstancesPtr()->setPaused(instanceName, paused);
 		_soundServer->getEventInstancesPtr()->start(instanceName);
 	} // createInstance
 
-	void CSoundsResources::deleteInstance(std::string instanceName){
+	void CSoundsResources::deleteInstance(std::string &instanceName){
 		_soundServer->getEventInstancesPtr()->stop(instanceName);
 	} // deleteInstance
 
-	void CSoundsResources::playInstance(std::string instanceName){
+	void CSoundsResources::playInstance(std::string &instanceName){
 		_soundServer->getEventInstancesPtr()->setPaused(instanceName, false);
 	} // playInstance
 
-	void CSoundsResources::pauseInstance(std::string instanceName){
+	void CSoundsResources::pauseInstance(std::string &instanceName){
 		_soundServer->getEventInstancesPtr()->setPaused(instanceName, true);
 	} // playInstance
 
-	void CSoundsResources::setInstanceParameterValue(std::string instanceName, std::string parameterName, float parameterValue){
+	void CSoundsResources::setInstanceParameterValue(std::string &instanceName, std::string &parameterName, float parameterValue){
 		_soundServer->getEventInstancesPtr()->setParameterValue(instanceName, parameterName, parameterValue);
 	} // setInstanceParameterValue
 
-	void CSoundsResources::setInstanceVolume(std::string instanceName, float volume){
+	void CSoundsResources::setInstanceVolume(std::string &instanceName, float volume){
 		_soundServer->getEventInstancesPtr()->setVolume(instanceName, volume);
 	} // setInstanceVolume
 
@@ -56,39 +56,68 @@ namespace Sounds {
 	// Sounds
 	//-----------
 
-	void CSoundsResources::createSound(std::string channelName, std::string soundName, bool paused){
+	void CSoundsResources::createSound(std::string &channelName, std::string &soundName, bool paused){
 		_soundServer->getChannelsPtr()->loadChannel(channelName, soundName, paused);
 	} // createSound
 
-	void CSoundsResources::deleteSound(std::string channelName){
+	void CSoundsResources::deleteSound(std::string &channelName){
 		_soundServer->getChannelsPtr()->stop(channelName);
 	} // deleteSound
 
-	void CSoundsResources::playSound(std::string channelName){
-		_soundServer->getChannelsPtr()->setPaused(channelName, false);
+	void CSoundsResources::playSound(std::string &channelName){
+		if (_soundServer->getChannelsPtr()->isLoop(channelName))
+			_soundServer->getChannelsPtr()->setPaused(channelName, false);
+		else
+			_soundServer->getChannelsPtr()->playChannelAndDestroy(channelName);
 	} // playSound
 
-	void CSoundsResources::pauseSound(std::string channelName){
+	void CSoundsResources::pauseSound(std::string &channelName){
 		_soundServer->getChannelsPtr()->setPaused(channelName, true);
 	} // playSound
 
-	bool CSoundsResources::getPausedSound(std::string channelName){
+	bool CSoundsResources::getPausedSound(std::string &channelName){
 		return _soundServer->getChannelsPtr()->getPaused(channelName);
 	} // getPausedSound
 
-	void CSoundsResources::setSoundPitch(std::string channelName, float pitch){
+	void CSoundsResources::setSoundPitch(std::string &channelName, float pitch){
 		_soundServer->getChannelsPtr()->setPitch(channelName, pitch);
 	} // setSoundPitch
 
-	void CSoundsResources::setSoundVolume(std::string channelName, float volume){
+	void CSoundsResources::setSoundVolume(std::string &channelName, float volume){
 		_soundServer->getChannelsPtr()->setVolume(channelName, volume);
 	} // setSoundVolume
 
-	void CSoundsResources::playAndDestroySound(std::string soundName, float volume){
-		_soundServer->getChannelsPtr()->loadChannelAndDestroy(soundName, volume);
+	void CSoundsResources::playAndDestroySound(std::string &soundName, float volume, float pitch, Vector3 &position, Vector3 &velocity){
+
+		FMOD_VECTOR* fmod_position = nullptr;
+		FMOD_VECTOR* fmod_velocity = nullptr;
+		float* fmod_volume = nullptr;
+		float* fmod_pitch = nullptr;
+
+		if (position != Vector3::ZERO)
+		{
+			fmod_position->x = position.x / 15;
+			fmod_position->y = position.y / 15;
+			fmod_position->z = position.z / 15;
+		}
+		
+		if (velocity != Vector3::ZERO)
+		{
+			fmod_velocity->x = velocity.x / 8.5;
+			fmod_velocity->y = velocity.y / 8.5;
+			fmod_velocity->z = velocity.z / 8.5;
+		}
+
+		if (volume != 0)
+			fmod_volume = &volume;
+		
+		if (pitch != 0)
+			fmod_pitch = &pitch;
+
+		_soundServer->getChannelsPtr()->loadChannelAndDestroy(soundName, fmod_volume, fmod_pitch, fmod_position, fmod_velocity);
 	} // playAndDestroy
 
-	void CSoundsResources::setPositionAndVelocity(std::string channelName, Vector3 position, Vector3 velocity){
+	void CSoundsResources::setPositionAndVelocity(std::string &channelName, Vector3 &position, Vector3 &velocity){
 		/**
 		-2 to 2 X Sounds position
 		-2 to 2 Y Sounds position
@@ -118,12 +147,14 @@ namespace Sounds {
 
 	void CSoundsResources::loadAll(){
 		loadMainMenu();
+		loadObjects();
 		loadPrisoner();
 		loadCentaur();
 	} // loadAll
 
 	void CSoundsResources::unloadAll(){
 		unloadMainMenu();
+		unloadObjects();
 		unloadPrisoner();
 		unloadCentaur();
 	} // unloadAll
@@ -149,6 +180,27 @@ namespace Sounds {
 
 
 	//
+	// Objects Resources
+	//-----------
+
+	void CSoundsResources::loadObjects(){
+		
+		// Switch on/off
+		_soundServer->getSoundsPtr()->loadSound("SwitchOn", "SwitchOn.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("SwitchOff", "SwitchOff.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+
+	} // loadObjects
+
+	void CSoundsResources::unloadObjects(){
+	
+		// Switch on/off
+		_soundServer->getSoundsPtr()->unloadSound("SwitchOn");
+		_soundServer->getSoundsPtr()->unloadSound("SwitchOff");
+
+	} // unloadObjects
+
+
+	//
 	// Prisoner Resources
 	//-----------
 
@@ -163,6 +215,12 @@ namespace Sounds {
 		// Prisoner walk and shadow walk
 		_soundServer->getSoundsPtr()->loadSound("PrisonerWalk", "PrisonerWalk.mp3", Sounds::Loop_Normal + Sounds::Sound_3D);
 		_soundServer->getSoundsPtr()->loadSound("PrisonerShadowWalk", "PrisonerShadowWalk.mp3", Sounds::Loop_Normal + Sounds::Sound_3D);
+
+		// Prisoner jump and land
+		_soundServer->getSoundsPtr()->loadSound("PrisonerJump", "PrisonerJump.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("PrisonerShadowJump", "PrisonerShadowJump.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("PrisonerLand", "PrisonerLand.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+		_soundServer->getSoundsPtr()->loadSound("PrisonerShadowLand", "PrisonerShadowLand.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
 		
 	} // loadPrisoner
 
@@ -177,6 +235,12 @@ namespace Sounds {
 		// Prisoner walk and shadow walk
 		_soundServer->getSoundsPtr()->unloadSound("PrisonerWalk");
 		_soundServer->getSoundsPtr()->unloadSound("PrisonerShadowWalk");
+
+		// Prisoner jump and land
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerJump");
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerShadowJump");
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerLand");
+		_soundServer->getSoundsPtr()->unloadSound("PrisonerShadowLand");
 
 	} // unloadPrisoner
 

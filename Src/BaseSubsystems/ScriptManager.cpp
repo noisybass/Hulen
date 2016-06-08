@@ -19,6 +19,7 @@
 #include <cassert>
 #include <iostream> // Mensajes de error
 
+#include "luabind/operator.hpp"
 #include "BaseSubsystems/FSM.h"
 #include "BaseSubsystems/FSMAgent.h"
 #include "Logic/Entity/Component.h"
@@ -522,6 +523,9 @@ bool CScriptManager::open() {
 			.def("SetSoundVolume", &AI::FSMAgent::setSoundVolume)
 			.def("PlayAndDestroySound", &AI::FSMAgent::playAndDestroySound)
 			.def("SetPositionAndVelocity", &AI::FSMAgent::setPositionAndVelocity),
+
+			luabind::class_<Vector3>("Vector3")
+			.def(luabind::constructor<float,float,float>()),
 
 			luabind::class_<AI::FSM<AI::FSMAgent> >("FSM")
 			.def("ChangeState", &AI::FSM<AI::FSMAgent>::changeState)

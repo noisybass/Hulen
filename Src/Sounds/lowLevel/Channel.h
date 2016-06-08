@@ -38,7 +38,16 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool loadChannel(std::string channelName, std::string soundName, bool sleep = true);
+		bool loadChannel(std::string &channelName, std::string &soundName, bool sleep = true);
+
+		/**
+		Reproducimos el canal que hemos creado previamente.
+
+		@params channelName nombre de canal.
+
+		@return Valor booleano indicando si todo fue bien
+		*/
+		bool playChannelAndDestroy(std::string &channelName);
 
 		/**
 		Dejamos que FMOD se encargue de manejar los canales, por lo tanto creamos un 
@@ -49,7 +58,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool loadChannelAndDestroy(std::string soundName, float volume);
+		bool loadChannelAndDestroy(std::string &soundName, float *volume, float *pitch, FMOD_VECTOR *position, FMOD_VECTOR *velocity);
 
 		/**
 		Asigna un volumen al canal especificado.
@@ -60,7 +69,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool setVolume(std::string channelName, float volume);
+		bool setVolume(std::string &channelName, float volume);
 
 		/**
 		Nos deshacemos del canal para que fmod pueda reutilizarlo para
@@ -71,7 +80,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool stop(std::string channelName);
+		bool stop(std::string &channelName);
 
 		/**
 		Detiene o continua la reproduccion del canal especificado.
@@ -82,7 +91,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool setPaused(std::string channelName, bool paused);
+		bool setPaused(std::string &channelName, bool paused);
 
 		/**
 		Devuelve si la reproducción esta en pausa o no.
@@ -91,7 +100,7 @@ namespace Sounds{
 
 		@return si la reproducción esta en pausa o no.
 		*/
-		bool getPaused(std::string channelName);
+		bool getPaused(std::string &channelName);
 
 		/**
 		Escala la frecuencia con el valor del pitch.
@@ -101,7 +110,7 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool setPitch(std::string channelName, float pitch);
+		bool setPitch(std::string &channelName, float pitch);
 
 		/**
 		Establece una posicion y una velocidad al canal
@@ -112,15 +121,28 @@ namespace Sounds{
 
 		@return Valor booleano indicando si todo fue bien
 		*/
-		bool set3DAttributes(std::string channelName, FMOD_VECTOR &position, FMOD_VECTOR &velocity);
+		bool set3DAttributes(std::string &channelName, FMOD_VECTOR &position, FMOD_VECTOR &velocity);
+
+		/**
+		Devuelve si el sonido es un loop o no.
+
+		@params channelName nombre del canal.
+
+		@return si el sonido es un loop o no.
+		*/
+		bool isLoop(std::string &channelName);
 	
 	private:
+
+		void copyChannelAttributes(FMOD::Channel* channelTo, FMOD::Channel* channelFrom);
 
 		// Instancia de low level
 		FMOD::System* _fmod_lowLevel_system;
 
 		typedef std::unordered_map<std::string, FMOD::Channel*> tChannels;
 		tChannels *_channels;
+
+		std::unordered_map<std::string, std::string>* _channelSounds;
 
 	}; // class CChannel
 

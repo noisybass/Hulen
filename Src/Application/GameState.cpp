@@ -60,8 +60,8 @@ namespace Application {
 		_isMapLoaded = true;
 
 		// Start the sound
-		_soundResources->createInstance("GameInstance", "MainMenuEvent");
-		_soundResources->setInstanceParameterValue("GameInstance", "Intensidad", 80);
+		_soundResources->createInstance(std::string("GameInstance"), std::string("MainMenuEvent"));
+		_soundResources->setInstanceParameterValue(std::string("GameInstance"), std::string("Intensidad"), 80);
 
 		return true;
 
@@ -79,7 +79,7 @@ namespace Application {
 		Physics::CServer::getSingletonPtr()->destroyScene();
 
 		// Erase the gameSound
-		_soundResources->deleteInstance("GameInstance");
+		_soundResources->deleteInstance(std::string("GameInstance"));
 
 		// Liberamos el evento
 		playerEvent.clearEvents();
@@ -115,7 +115,7 @@ namespace Application {
 		_timeWindow->setVisible(true);
 		_timeWindow->activate();
 
-		_soundResources->playInstance("GameInstance");
+		_soundResources->playInstance(std::string("GameInstance"));
 		
 
 	} // activate
@@ -124,7 +124,7 @@ namespace Application {
 
 	void CGameState::deactivate() 
 	{
-		_soundResources->pauseInstance("GameInstance");
+		_soundResources->pauseInstance(std::string("GameInstance"));
 		
 		// Desactivamos la ventana de tiempo.
 		_timeWindow->deactivate();
@@ -253,8 +253,17 @@ namespace Application {
 			// Pop GameState
 			_app->addAction(new CPopAction(true));
 
-			// Push MenuState
-			_app->addAction(new CPushAction(States::MenuState, true));
+			// Intenta cambiar el fichero del mapa a cargar
+			std::string newLevel = _levels.at(++_levelsNames.at(_mapName));
+			_app->addAction(new CSetGameStateMapAction(newLevel));
+
+			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+			//_app->setLoadingNextState("game");
+			_app->addAction(new CSetLoadingNextState(std::string("game")));
+
+			// Push LoadingState
+			_app->addAction(new CPushAction(States::LoadingState, true));
+
 		}
 
 	} // playerListener

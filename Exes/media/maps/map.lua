@@ -18,17 +18,17 @@ Map_GO = {
 		state = "Body",
 	},]]
 
-	--[[Lightbulb_GO = {
-		type = "GameObject",
-		blueprint = "Empty",
-		state = "Body",
-	},]]
-
-	Centaur_GO = {
+	Lightbulb_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
 	},
+
+	--[[Centaur_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},]]
 
 	Kasai_GO = {
 		type = "GameObject",
@@ -213,6 +213,13 @@ Map = {
 		interactuable_area_radius = 3,
 		player = "Player_GO",
 		lever_GO_target  = "LeverTarget_GO",
+
+		--Sound
+		switchOnVolume = 0.1,
+		switchOnPitch = 1,
+
+		switchOffVolume = 0.5,
+		switchOffPitch = 1,
 	},
 
 	LightLever_Body = {
@@ -248,6 +255,14 @@ Map = {
 		walkSound = "PrisonerWalk",
 		walkVolume = 0.8,
 		walkPitch = 1.65,
+
+		jumpSound = "PrisonerJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerLand",
+		landVolume = 0.3,
+		landPitch = 1,
 
 		-- Avatar controller
 		speed = 10,
@@ -315,6 +330,14 @@ Map = {
 		walkVolume = 0.8,
 		walkPitch = 1.65,
 
+		jumpSound = "PrisonerShadowJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerShadowLand",
+		landVolume = 0.3,
+		landPitch = 1,
+
 		--Animations
 		defaultAnimation = "idle_cycle_1",
 		defaultAnimationVelocity = 5,
@@ -371,15 +394,16 @@ Map = {
 		fsm_initial_state = "Crawler_Patrol",
 	},]]
 
-	--[[Lightbulb_Body = {
+	Lightbulb_Body = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
 		--position = {0, -14, 0},
+		rollRotate = 90,
 		position = {3, 0, 0},
 		direction = "left",
-		scale = {3, 3, 3},
-		model = "sphere.mesh",
+		scale = {0.2, 0.2, 0.2},
+		model = "LightBulb.mesh",
 		material = "Red",
 		physic_shape = "capsule",
 		physic_radius = 1,
@@ -393,9 +417,28 @@ Map = {
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
 		fsm_initial_state = "Lightbulb_Patrol",
-	},]]
 
-	Centaur_Body = {
+		--Animations
+		defaultAnimation = "idle_search",
+		defaultAnimationVelocity = 1,
+		idle1Animation =           {"idle_search", 1, "null"},
+		walkAnimation =            {"walking_cycle", 1, "null"},
+		runAnimation =             {"running_cycle", 1, "null"},
+		changeDirectionAnimation = {"change_direction", 1, "null"},
+		eatLightAnimation        = {"eat_light",1, "null"},
+		attackAnimation          = {"attack", 1, "null"},
+		
+		--Blending
+		defaultBlendingVelocity = 5,
+		idle1Blending =           {"idle_search", 2, "null"},
+		walkBlending =            {"walking_cycle", 2, "null"},
+		runBlending =             {"running_cycle", 2, "null"},
+		changeDirectionBlending = {"change_direction", 2, "null"},
+		eatLightBlending        = {"eat_light",2, "null"},
+		attackBlending          = {"attack", 2, "null"},
+	},
+
+	--[[Centaur_Body = {
 		type = "Body",
 		blueprint = "Centaur",
 		game_object = "Centaur_GO",
@@ -445,7 +488,7 @@ Map = {
 		preparationBlending =     {"preparation", 2, "null"},
 		killScreamBlending =      {"kill_scream", 2, "null"},
 		deathBlending =           {"crash_death", 2, "null"},
-	},
+	},]]
 
 	Kasai = {
 		type = "Body",

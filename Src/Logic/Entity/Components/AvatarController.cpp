@@ -30,6 +30,8 @@ namespace Logic
 	{
 		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
 		sounds->deleteSound(_channelWalkSound);
+		sounds->deleteSound(_channelLandSound);
+		sounds->deleteSound(_channelJumpSound);
 	}
 
 	bool CAvatarController::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
@@ -79,15 +81,37 @@ namespace Logic
 		/**
 		Sounds
 		*/
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+
 		if (entityInfo->hasAttribute("walkSound") && entityInfo->hasAttribute("walkVolume") 
 			&& entityInfo->hasAttribute("walkPitch"))
 		{
 			_walkSound = entityInfo->getStringAttribute("walkSound");
 			_channelWalkSound = _entity->getName() + "Walk";
-			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			
 			sounds->createSound(_channelWalkSound, _walkSound);
 			sounds->setSoundVolume(_channelWalkSound, entityInfo->getFloatAttribute("walkVolume"));
 			sounds->setSoundPitch(_channelWalkSound, entityInfo->getFloatAttribute("walkPitch"));
+		}
+
+		if (entityInfo->hasAttribute("jumpSound") && entityInfo->hasAttribute("jumpVolume")
+			&& entityInfo->hasAttribute("jumpPitch"))
+		{
+			_jumpSound = entityInfo->getStringAttribute("jumpSound");
+			_channelJumpSound = _entity->getName() + "Jump";
+			sounds->createSound(_channelJumpSound, _jumpSound);
+			sounds->setSoundVolume(_channelJumpSound, entityInfo->getFloatAttribute("jumpVolume"));
+			sounds->setSoundPitch(_channelJumpSound, entityInfo->getFloatAttribute("jumpPitch"));
+		}
+
+		if (entityInfo->hasAttribute("landSound") && entityInfo->hasAttribute("landVolume")
+			&& entityInfo->hasAttribute("landPitch"))
+		{
+			_landSound = entityInfo->getStringAttribute("landSound");
+			_channelLandSound = _entity->getName() + "Land";
+			sounds->createSound(_channelLandSound, _landSound);
+			sounds->setSoundVolume(_channelLandSound, entityInfo->getFloatAttribute("landVolume"));
+			sounds->setSoundPitch(_channelLandSound, entityInfo->getFloatAttribute("landPitch"));
 		}
 
 		return true;
@@ -324,6 +348,11 @@ namespace Logic
 			message.setArg<bool>(std::string("nextAnimation"), false); // Not play default animation 
 
 			_entity->emitMessage(message, this);
+
+			Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+			sounds->pauseSound(_channelWalkSound);
+			sounds->setPositionAndVelocity(_channelJumpSound, _entity->getPosition(), Vector3(0,0,0));
+			sounds->playSound(_channelJumpSound);
 		}
 			
 	}
@@ -396,6 +425,10 @@ namespace Logic
 				message.setArg<bool>(std::string("loop"), false);
 
 				_entity->emitMessage(message, this);
+
+				Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+				sounds->setPositionAndVelocity(_channelLandSound, _entity->getPosition(), Vector3(0,0,0));
+				sounds->playSound(_channelLandSound);
 			}
 			
 		}
@@ -415,7 +448,7 @@ namespace Logic
 		// Update music position
 		// It goes with one frame behind, but doesn't matter, not noticed at all.
 		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
-		sounds->setPositionAndVelocity(_channelWalkSound, _entity->getPosition());
+		sounds->setPositionAndVelocity(_channelWalkSound, _entity->getPosition(), Vector3(0, 0, 0));
 
 	} // tick
 
