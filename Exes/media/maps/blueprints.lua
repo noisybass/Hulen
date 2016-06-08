@@ -1,4 +1,5 @@
 World CGraphics CPhysicEntity
+Wall CGraphics CPhysicEntity
 Background CGraphics
 Player_GO CPlayerManager
 Player CAvatarController CAnimatedGraphics CPhysicController CPlayerDeath

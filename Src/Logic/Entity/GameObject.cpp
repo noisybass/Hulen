@@ -237,6 +237,11 @@ namespace Logic
 
 	bool CGameObject::emitMessage(const TMessage &message, IComponent* emitter)
 	{
+		if (message._type == Message::DESTROY)
+		{
+			Logic::CEntityFactory::getSingletonPtr()->deferredDeleteGameObject(this);
+			return false;
+		}
 		// Mandamos un mensaje a todos los componentes
 		TComponentMap::const_iterator it;
 		// Para saber si alguien quiso el mensaje.

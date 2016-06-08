@@ -6,6 +6,8 @@
 
 #include "Logic/Entity/Message.h"
 
+#include "Logic/Maps/EntityFactory.h"
+
 namespace AI
 {
 
@@ -61,6 +63,15 @@ namespace AI
 		stateComponent->exitState();
 
 	} // deactivate
+
+	void FSMAgent::destroy()
+	{
+		//Logic::CEntityFactory::getSingletonPtr()->deleteGameObject(_entity->getGameObject());
+		Logic::TMessage message;
+		message._type = Logic::Message::DESTROY;
+		_entity->getGameObject()->emitMessage(message);
+
+	} // destroy
 
 	void FSMAgent::setAnimation(const std::string& animationName, bool loop, bool nextAnimation)
 	{

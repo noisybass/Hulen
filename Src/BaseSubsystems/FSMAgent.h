@@ -76,6 +76,10 @@ namespace AI
 		template<typename T>
 		void setValue(const std::string& id, const T& value){_agentValues->setValue<T>(id, value);};
 
+		// Destroy
+		void destroy();
+
+		// Animation
 		void setAnimation(const std::string& animationName, bool loop, bool nextAnimation);
 
 		// Instances (For fmod studio audio "things exported from editor")

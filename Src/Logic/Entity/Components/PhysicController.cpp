@@ -198,14 +198,15 @@ void CPhysicController::onContact(IPhysics *otherComponent)
 void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 {
 	// Si chocamos contra una entidad estática no hacemos nada
-	PxRigidDynamic* actor = hit.shape->getActor()->isRigidDynamic();
+	//PxRigidDynamic* actor = hit.shape->getActor()->isRigidDynamic();
+	PxRigidActor* actor = hit.shape->getActor();
 
 	if(!actor)
 		return;
 
 	IPhysics *otherComponent = (IPhysics *)actor->userData;
 
-	if (_fsm)
+	if (_fsm && otherComponent->getEntity()->getBlueprint() != "World")
 	{
 		_fsm->setValue<bool>("touching_entity", true);
 		_fsm->setValue<std::string>("touched_entity_bp", otherComponent->getEntity()->getBlueprint());
@@ -216,7 +217,8 @@ void CPhysicController::onShapeHit (const PxControllerShapeHit &hit)
 	// Si chocamos contra una entidad cinemática mandamos
 	// un mensaje a la entidad contra la que nos hemos
 	// chocado
-	if (_server->isKinematic(actor)){
+	PxRigidDynamic* dynamicActor = actor->isRigidDynamic();
+	if (dynamicActor && _server->isKinematic(dynamicActor)){
 		TMessage msg;
 		msg._type = Message::SHAPE_HIT;
 		otherComponent->getEntity()->emitMessage(msg);

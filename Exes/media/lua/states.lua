@@ -447,6 +447,11 @@ Centaur_Charge["Execute"] = function(agent, msecs)
 		agent: ChangeState(Centaur_Attack)
 	end
 
+	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Wall") then
+		agent: SetAnimation("deathAnimation", false, true)
+		agent: ChangeState(Centaur_Die)
+	end
+
 	if agent: GetBoolValue("startRunAnimationFinish") then
 		agent: SetAnimation("runAnimation", true, false)
 		agent: SetBoolValue("startRunAnimationFinish", false)
@@ -484,5 +489,34 @@ Centaur_Attack["Exit"] = function(agent)
 
 	print ("[Centaur]: Exit State Attack")
 	agent: Deactivate(Centaur_Attack.component)
+
+end
+
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+
+Centaur_Die = {
+
+}
+
+Centaur_Die["Enter"] = function(agent)
+
+	print ("[Centaur]: Enter State Die")
+
+end
+
+Centaur_Die["Execute"] = function(agent, msecs)
+
+	if agent: GetBoolValue("deathAnimationFinish") then
+		agent: SetBoolValue("deathAnimationFinish", false)
+		print ("MATAR AL CENTAURO")
+		agent: Destroy()
+	end
+end
+
+Centaur_Die["Exit"] = function(agent)
+
+	print ("[Centaur]: Exit State Die")
 
 end
