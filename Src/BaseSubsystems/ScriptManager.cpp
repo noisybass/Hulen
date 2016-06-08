@@ -505,6 +505,7 @@ bool CScriptManager::open() {
 			.def("GetBoolValue", &AI::FSMAgent::getValue<bool>)
 			.def("GetFloatValue", &AI::FSMAgent::getValue<float>)
 			.def("GetStringValue", &AI::FSMAgent::getValue<std::string>)
+			.def("Destroy", &AI::FSMAgent::destroy)
 			.def("SetAnimation", &AI::FSMAgent::setAnimation)
 			.def("CreateInstance", &AI::FSMAgent::createInstance)
 			.def("DeleteInstance", &AI::FSMAgent::deleteInstance)

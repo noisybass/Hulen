@@ -433,7 +433,7 @@ Map = {
 		startRunAnimation =        {"start_run", 1, "null"},
 		preparationAnimation =     {"preparation", 1, "null"},
 		killScreamAnimation =      {"kill_scream", 1, "null"},
-		crashDeathAnimation =      {"crash_death", 1, "null"},
+		deathAnimation =           {"crash_death", 1, "null"},
 
 		--Blending
 		defaultBlendingVelocity = 5,
@@ -444,7 +444,7 @@ Map = {
 		startRunBlending =        {"start_run", 2, "null"},
 		preparationBlending =     {"preparation", 2, "null"},
 		killScreamBlending =      {"kill_scream", 2, "null"},
-		crashDeathBlending =      {"crash_death", 2, "null"},
+		deathBlending =           {"crash_death", 2, "null"},
 	},
 
 	Kasai = {

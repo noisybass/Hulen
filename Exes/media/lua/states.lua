@@ -445,7 +445,7 @@ Centaur_Charge["Execute"] = function(agent, msecs)
 	end
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Wall") then
-		--agent: SetAnimation("killScreamAnimation", false, true)
+		agent: SetAnimation("deathAnimation", false, true)
 		agent: ChangeState(Centaur_Die)
 	end
 
@@ -505,6 +505,11 @@ end
 
 Centaur_Die["Execute"] = function(agent, msecs)
 
+	if agent: GetBoolValue("deathAnimationFinish") then
+		agent: SetBoolValue("deathAnimationFinish", false)
+		print ("MATAR AL CENTAURO")
+		agent: Destroy()
+	end
 end
 
 Centaur_Die["Exit"] = function(agent)
