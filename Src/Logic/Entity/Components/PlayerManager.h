@@ -88,6 +88,12 @@ namespace Logic
 		std::string _chargePrefab;
 
 		/**
+		Contador de cargas, solo podremos tener 3, pero vamos a dejar un margen 
+		de 9 numeros para las cargas para evitar posibles sobreescribiento de nombres.
+		*/
+		unsigned int _chargesCount;
+
+		/**
 		Vector que guarda las referencias a las cargas que están puestas en el mapa.
 		*/
 		std::vector<CGameObject*> _chargesOnMap;

@@ -35,6 +35,12 @@ namespace Logic
 		*/
 		CGraphics* _graphics;
 
+		/**
+		Sounds
+		*/
+		std::string _sound;
+		float _volume;
+		float _pitch;
 
 	}; // class CInteractuable
 

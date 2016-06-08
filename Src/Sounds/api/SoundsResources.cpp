@@ -96,17 +96,16 @@ namespace Sounds {
 
 		if (position != Vector3::ZERO)
 		{
+			fmod_position = new FMOD_VECTOR();
 			fmod_position->x = position.x / 15;
-			fmod_position->y = position.y / 15;
-			fmod_position->z = position.z / 15;
+			fmod_position->y = position.y / 8.5;
+			fmod_position->z = position.z;
 		}
 		
-		if (velocity != Vector3::ZERO)
+		/*if (velocity != Vector3::ZERO)
 		{
-			fmod_velocity->x = velocity.x / 8.5;
-			fmod_velocity->y = velocity.y / 8.5;
-			fmod_velocity->z = velocity.z / 8.5;
-		}
+			// By the moment don't use the velocity
+		}*/
 
 		if (volume != 0)
 			fmod_volume = &volume;
@@ -115,6 +114,9 @@ namespace Sounds {
 			fmod_pitch = &pitch;
 
 		_soundServer->getChannelsPtr()->loadChannelAndDestroy(soundName, fmod_volume, fmod_pitch, fmod_position, fmod_velocity);
+
+
+		delete fmod_position;
 	} // playAndDestroy
 
 	void CSoundsResources::setPositionAndVelocity(std::string &channelName, Vector3 &position, Vector3 &velocity){
@@ -189,6 +191,9 @@ namespace Sounds {
 		_soundServer->getSoundsPtr()->loadSound("SwitchOn", "SwitchOn.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
 		_soundServer->getSoundsPtr()->loadSound("SwitchOff", "SwitchOff.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
 
+		// Charge impact
+		_soundServer->getSoundsPtr()->loadSound("ChargeImpact", "ChargeImpact.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+
 	} // loadObjects
 
 	void CSoundsResources::unloadObjects(){
@@ -196,6 +201,9 @@ namespace Sounds {
 		// Switch on/off
 		_soundServer->getSoundsPtr()->unloadSound("SwitchOn");
 		_soundServer->getSoundsPtr()->unloadSound("SwitchOff");
+
+		// Charge impact
+		_soundServer->getSoundsPtr()->unloadSound("ChargeImpact");
 
 	} // unloadObjects
 

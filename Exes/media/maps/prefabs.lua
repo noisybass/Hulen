@@ -95,6 +95,11 @@ Prefab = {
 		physic_group = 2,
 		physic_mass = 1,
 		physic_radius = 0.1,
+
+		-- Sounds
+		chargeImpactSound = "ChargeImpact",
+		chargeImpactVolume = 0.5,
+		chargeImpactPicth = 1,
 	},
 
 	GraphicCharge_Prefab = {

@@ -112,9 +112,10 @@ namespace Logic {
 
 			prefab->bodyEntity->setAttribute("position", bodyPosition);
 
+			std::cout << prefabToInstantiate << " " << nameToNewInstance << std::endl;
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->bodyEntity, _entitiesMap);
-			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+			assert(entity && "No se pudo crear una entidad perteneciente a un game object. Body.");
 
 			prefab->bodyEntity->setName(bodyName);
 			prefab->bodyEntity->setAttribute("game_object", gameObjectReferenceName);
@@ -130,7 +131,7 @@ namespace Logic {
 
 			// La propia factoría se encarga de añadir la entidad a su GameObject
 			CEntity* entity = entityFactory->createEntity(prefab->shadowEntity, _entitiesMap);
-			assert(entity && "No se pudo crear una entidad perteneciente a un game object");
+			assert(entity && "No se pudo crear una entidad perteneciente a un game object. Shadow.");
 
 			prefab->bodyEntity->setName(shadowName);
 			prefab->bodyEntity->setAttribute("game_object", gameObjectReferenceName);
@@ -185,7 +186,7 @@ namespace Logic {
 					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
 				}
 
-				assert(entity && "No se pudo crear una entidad perteneciente a un game object ");
+				assert(entity && "No se pudo crear una entidad perteneciente a un game object. Creacion. ");
 			}
 			else if (!type.compare("GameObject"))
 			{

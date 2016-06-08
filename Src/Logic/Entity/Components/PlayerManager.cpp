@@ -21,7 +21,7 @@ namespace Logic
 		: IComponent(), _onLight(false), _deathTimeElapsed(0.0),
 		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
 		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false), 
-		_pickObjectAnimation("")
+		_pickObjectAnimation(""), _chargesCount(0)
 	{
 		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
 		_soundsResources->createSound(std::string("ShadowSongChannel"), std::string("ShadowSong"));
@@ -153,7 +153,8 @@ namespace Logic
 					ss << pos.x << " " << pos.y << " " << 0;
 					std::string chargePosition = ss.str();
 					ss.str(std::string());
-					ss << "Charge" << _chargesOwned;
+					_chargesCount = (_chargesCount + 1) % 9;
+					ss << "Charge" << _chargesCount;
 					std::string chargeName = ss.str();
 					CGameObject* newCharge = Logic::CMap::instantiatePrefab(_chargePrefab, chargeName, chargePosition);
 

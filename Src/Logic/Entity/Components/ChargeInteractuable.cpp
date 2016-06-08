@@ -5,13 +5,14 @@
 #include "Map/MapEntity.h"
 #include "Logic/Entity/Components/PhysicEntity.h"
 #include "Logic/Server.h"
+#include "Sounds\api\SoundsResources.h"
 
 namespace Logic
 {
 	IMP_FACTORY(CChargeInteractuable);
 
 	CChargeInteractuable::CChargeInteractuable()
-		: IComponent(), _canInteract(false)
+		: IComponent(), _canInteract(false), _volume(0), _pitch(0)
 	{
 
 	} // Cinteractuable
@@ -27,6 +28,22 @@ namespace Logic
 			return false;
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
+
+		/**
+		Sounds
+		*/
+		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+
+		if (entityInfo->hasAttribute("chargeImpactSound"))
+			_sound = entityInfo->getStringAttribute("chargeImpactSound");
+
+		if (entityInfo->hasAttribute("chargeImpactVolume"))
+			_volume = entityInfo->getFloatAttribute("chargeImpactVolume");
+
+		if (entityInfo->hasAttribute("chargeImpactPitch"))
+			_pitch = entityInfo->getFloatAttribute("chargeImpactPitch");
+
+
 		return true;
 
 	} // spawn
@@ -52,6 +69,9 @@ namespace Logic
 			{
 				msg._type = Message::DISABLE_SIMULATION;
 				_entity->emitMessage(msg);
+				
+				Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
+				sounds->playAndDestroySound(_sound, _volume, _pitch, _entity->getPosition(), Vector3(0,0,0));
 			}
 			break;
 		case Message::INTERACTUABLE:

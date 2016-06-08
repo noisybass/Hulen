@@ -103,7 +103,7 @@ namespace Sounds{
 			assert(result2 == FMOD_OK && "Error al ajustar el pitch del canal. Sounds::CChannel::loadChannelAndDestroy");
 		}
 
-		if (position != nullptr && velocity != nullptr)
+		if (position != nullptr || velocity != nullptr)
 		{
 			result3 = channel->set3DAttributes(position, velocity);
 			assert(result3 == FMOD_OK && "Error al ajustar el pitch del canal. Sounds::CChannel::loadChannelAndDestroy");
