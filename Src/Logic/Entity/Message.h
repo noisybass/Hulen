@@ -68,6 +68,7 @@ namespace Logic
 			PLAYER_DEATH,
 			DISABLE_SIMULATION,
 			PLAYER_DEATH_BY_DEATH_PLANE,
+			CHANGE_MATERIAL,
 		};
 
 		/**

@@ -27,6 +27,41 @@ void apply_outline(
     uv0 = texCoord0;
 }
 
+void apply_blinking_outline(
+        uniform float outline,
+        
+        // Vertex Inputs
+        float4 position        : POSITION,    // Vertex position in model space
+        float2 texCoord0    : TEXCOORD0,    // Texture UV set 0
+        float3 normal : NORMAL,   // Normals of the model
+
+        // Outputs
+        out float4 oPosition    : POSITION,    // Transformed vertex position
+        out float2 uv0        : TEXCOORD0,    // UV0
+ 
+        // Model Level Inputs (projection matrix)
+        uniform float4x4 worldViewProj,
+        uniform float time,
+        uniform float frequency)
+{
+    // Calculate output position
+    oPosition = mul(worldViewProj, position);
+    // Calculate the normals
+    float3 norm = mul (float3x3(worldViewProj), normal);
+
+    float blink = sin(frequency * time);
+    if (blink > 0)
+    {
+        // Apply the increase of scale deppending of the outline
+        oPosition.xy += norm.xy * outline;
+    }
+
+    // Copy the input vertex UV to the output
+    uv0 = texCoord0;
+}
+
+
+
 // Second pass
 
 void displace_body(
