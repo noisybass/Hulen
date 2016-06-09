@@ -164,8 +164,12 @@ namespace Logic
 				normals = entityInfo->getBoolAttribute("graphic_normals");
 
 			float uTile = width / 5.0f;
+			if (entityInfo->hasAttribute("graphic_uTile"))
+				uTile = entityInfo->getFloatAttribute("graphic_uTile");
 
 			float vTile = height / 5.0f;
+			if (entityInfo->hasAttribute("graphic_vTile"))
+				vTile = entityInfo->getFloatAttribute("graphic_vTile");
 
 			Graphics::CServer::getSingletonPtr()->createPlane(upVector, parallelVector, _model, width, height, xSegments, ySegments, normals, uTile, vTile);
 			_graphicsEntity = new Graphics::CStaticEntity(_entity->getName(), _model);
