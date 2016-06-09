@@ -1,4 +1,4 @@
-void bulge_vs ( // IN
+void pulse_vs ( // IN
 				float4 position : POSITION,
 				float3 normal   : NORMAL,
 

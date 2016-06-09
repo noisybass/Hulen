@@ -1,7 +1,7 @@
-vertex_program bulge_vs cg
+vertex_program pulse_vs cg
 {
-	source bulge.cg
-	entry_point bulge_vs
+	source pulse.cg
+	entry_point pulse_vs
 	profiles vs_2_0 arbvp1
 
 	default_params
