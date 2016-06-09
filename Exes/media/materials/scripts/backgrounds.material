@@ -1,0 +1,136 @@
+material SimpleBackground
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "simpleBackground.png" 2d
+			}
+		}
+	}
+}
+
+material Sublevel1
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "sublevel1.png" 2d
+			}
+		}
+	}
+}
+
+material Sublevel3
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "sublevel3.png" 2d
+			}
+		}
+	}
+}
+
+material Sublevel4
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "sublevel4.png" 2d
+			}
+		}
+	}
+}
+

@@ -326,6 +326,12 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
+Background_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body"
+},
+
 
 }
 
@@ -1491,5 +1497,20 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX", 
 }, 
 
+Background = {
+		type = "Body",
+		blueprint = "Background",
+		game_object = "Background_GO",
+		position = {0, 0, -3.5},
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, 0, 1},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 72,
+		graphic_height = 40.8,
+		graphic_uTile = 1,
+		graphic_vTile = 1,
+		material = "Sublevel4",
+	},
 
 }
