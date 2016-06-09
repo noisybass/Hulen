@@ -52,7 +52,7 @@ namespace Logic
 			_chargePrefab = entityInfo->getStringAttribute("charge");
 
 		if (entityInfo->hasAttribute("playerDeathTime"))
-			_playerDeathTime = entityInfo->getFloatAttribute("playerDeathTime") * 1000;
+			_playerDeathTime = entityInfo->getFloatAttribute("playerDeathTime");
 
 		if (entityInfo->hasAttribute("playerCanDie"))
 			_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
