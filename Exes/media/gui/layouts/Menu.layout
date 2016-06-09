@@ -55,7 +55,7 @@
       
 		  <Window type="AlfiskoSkin/Editbox" name="MapName" >
             <Property name="Font" value="Jura-18" />
-            <Property name="Text" value="map.lua" />
+            <Property name="Text" value="sublevelOne.lua" />
             <Property name="AlwaysOnTop" value="True" />
             <Property name="Area" value="{{0.3,0},{0.8,0},{0.7,0},{0.9,0}}" />
       </Window>

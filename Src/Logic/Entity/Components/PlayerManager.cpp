@@ -58,7 +58,10 @@ namespace Logic
 			_playerCanDie = entityInfo->getBoolAttribute("playerCanDie");
 
 		if (entityInfo->hasAttribute("pickObjectAnimation"))
-			_pickObjectAnimation = entityInfo->getStringAttribute("pickObjectAnimation"); 
+			_pickObjectAnimation = entityInfo->getStringAttribute("pickObjectAnimation");
+
+		if (entityInfo->hasAttribute("chargesOwned"))
+			_chargesOwned = entityInfo->getIntAttribute("chargesOwned");
 
 		return true;
 

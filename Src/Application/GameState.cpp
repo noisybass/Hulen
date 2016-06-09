@@ -254,7 +254,7 @@ namespace Application {
 			_app->addAction(new CPopAction(true));
 
 			// Intenta cambiar el fichero del mapa a cargar
-			std::string newLevel = _levels.at(++_levelsNames.at(_mapName));
+			std::string newLevel = _levels.at(_levelsNames.at(_mapName) + 1);
 			_app->addAction(new CSetGameStateMapAction(newLevel));
 
 			// Le decimos al estado de loading que la siguiente escena a cargar es la de game

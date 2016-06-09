@@ -15,5 +15,6 @@ Lever CGraphics CInteractuable CLeverInteractuable
 LeverTarget CGraphics CLeverTargetDoor CPhysicEntity CSwitchPosition
 LightLever CGraphics CPhysicEntity CLightLever
 DeathPlane CGraphics CPhysicEntity CDeathPlane
-FinishLevel CGraphics CPhysicEntity CEndLevel
+FinishLevel CPhysicEntity CEndLevel
+InvisibleWorld CPhysicEntity
 Empty
