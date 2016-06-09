@@ -63,6 +63,7 @@ void CCollisionManager::onSleep(PxActor **actors, PxU32 count)
 
 void CCollisionManager::onContact(const PxContactPairHeader &pairHeader, const PxContactPair *pairs, PxU32 nbPairs) 
 {
+
 	// Obtener el componente lógico asociado al trigger físico
 	IPhysics *triggerComponent = (IPhysics *)pairHeader.actors[0]->userData;
 	assert(triggerComponent);

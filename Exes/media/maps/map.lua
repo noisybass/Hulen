@@ -150,6 +150,18 @@ Map_GO = {
 		state = "Body",
 	},
 
+	LightLeverEnd_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	LightLeverEndTarget_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	--[[Cosa_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -204,11 +216,27 @@ Map = {
 		physic_dimensions = { 1,3,2},
 	},
 
+	LightLeverEndTarget_Body = {
+		type = "Body",
+		blueprint = "LeverTarget",
+		game_object = "LightLeverEndTarget_GO",
+		position = {6, -12, 0},
+		scale = {1, 5, 1},
+		model = "Cube.mesh",
+		position2 = {6, -7, 0},
+		speed = 10,
+		physic_entity = "rigid",
+		physic_type = "kinematic",
+		physic_mass = 1,
+		physic_shape = "box",
+		physic_dimensions = { 1,3,2},
+	},
+
 	Lever_Body = {
 		type = "Body",
 		blueprint = "Lever",
 		game_object = "Lever_GO",
-		position = {0, -14, 0},
+		position = {0, -14, -0.5},
 		model = "Lever.mesh",
 		interactuable_area_radius = 3,
 		player = "Player_GO",
@@ -227,11 +255,25 @@ Map = {
 		blueprint = "LightLever",
 		game_object = "LightLever_GO",
 		light_lever_GO_target = "LightLeverTarget_GO",
-		position = {10, 0, 0},
+		position = {-8, -3.5, -1},
 		model = "LightSwitch.mesh",
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/LightSwitch.RepX",
+		physic_change_coords = true,
+	},
+
+
+	LightLeverEnd_Body = {
+		type = "Body",
+		blueprint = "LightLever",
+		game_object = "LightLeverEnd_GO",
+		light_lever_GO_target = "LightLeverEndTarget_GO",
+		position = {10, -3.5, -1},
+		model = "EndLevelLightSwitch.mesh",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/EndLevelLightSwitch.RepX",
 		physic_change_coords = true,
 	},
 	
