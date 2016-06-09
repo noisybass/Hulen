@@ -185,7 +185,8 @@ namespace Logic
 		return message._type == Message::SET_POSITION ||
 			   message._type == Message::AMBIENT_LIGHT_SET_FOR_DEBUG ||
 			   message._type == Message::AMBIENT_LIGHT_SET_REAL_MATERIAL ||
-			   message._type == Message::ROLL_ENTITY_NODE;
+			   message._type == Message::ROLL_ENTITY_NODE ||
+			   message._type == Message::CHANGE_MATERIAL;
 
 	} // accept
 	
@@ -210,6 +211,9 @@ namespace Logic
 			break;
 		case Message::ROLL_ENTITY_NODE:
 			_graphicsEntity->rollEntityNode(message.getArg<int>("degrees"));
+			break;
+		case Message::CHANGE_MATERIAL:
+			setMaterial(message.getArg<std::string>("materialName"));
 			break;
 		}
 

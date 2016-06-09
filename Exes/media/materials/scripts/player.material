@@ -15,6 +15,21 @@ vertex_program OutlineVertex cg
     }
 }
 
+vertex_program BlinkingOutlineVertex cg            
+{
+    source player.cg         
+    entry_point apply_blinking_outline     
+    profiles vs_1_1                    
+ 
+    default_params                    
+    {
+        // Ogre will put the worldviewproj into our 'worldViewProj' parameter for us.
+        param_named_auto worldViewProj worldviewproj_matrix
+        param_named_auto time time
+        param_named frequency float 10    
+    }
+}
+
 // Second pass definition
 
 // CG Vertex Shader definition
@@ -41,7 +56,7 @@ fragment_program PaintShader cg
  
 // Material
 
-material Player
+material PlayerLight
 {
     technique
     {
@@ -51,7 +66,7 @@ material Player
 		    // Make this pass use the vertex shader defined above
 			vertex_program_ref OutlineVertex  
 			{
-				param_named outline float 0.05
+				param_named outline float 0.03
 			}
             fragment_program_ref PaintShader
             {
@@ -80,6 +95,50 @@ material Player
             }
 
 			depth_check on
+        }
+
+    }
+}
+
+material Player
+{
+    technique
+    {
+        pass
+        {
+
+            // Make this pass use the vertex shader defined above
+            vertex_program_ref BlinkingOutlineVertex  
+            {
+                param_named outline float 0.03
+            }
+            fragment_program_ref PaintShader
+            {
+                param_named customColor float4 1.0 1.0 1.0 0.0
+            }
+            texture_unit
+            {
+            }
+
+            depth_check on
+        }
+
+        pass
+        {
+            // Make this pass use the vertex shader defined above
+            vertex_program_ref BodyVertex   
+            {
+            }
+
+            fragment_program_ref PaintShader
+            {
+                param_named customColor float4 0.0 0.0 0.0 0.0
+            }
+            texture_unit
+            {
+            }
+
+            depth_check on
         }
 
     }

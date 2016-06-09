@@ -285,14 +285,23 @@ namespace Logic
 
 		_onLight = playerOnLight();
 
+		Logic::TMessage m;
+
 		if (_onLight)
 		{
+			m._type = Logic::Message::CHANGE_MATERIAL;
+			m.setArg<std::string>("materialName", "PlayerLight");
+			_gameObject->getBody()->emitMessage(m);
 			// Reseteamos el contador para la muerte
 			_deathTimeElapsed = 0.0;
 			//std::cout << "Resetar tiempo de morir" << std::endl;
 		}
 		else
 		{
+			m._type = Logic::Message::CHANGE_MATERIAL;
+			m.setArg<std::string>("materialName", "Player");
+			_gameObject->getBody()->emitMessage(m);
+
 			// Si ya no estoy en la luz paso al estado body
 			if (_gameObject->_state == GameObject::SHADOW)
 				changeState(GameObject::BODY);
@@ -302,7 +311,6 @@ namespace Logic
 				_deathTimeElapsed += msecs;
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _playerDeathTime){
-					Logic::TMessage m;
 					m._type = Logic::Message::PLAYER_EVENT;
 					m.setArg<std::string>(std::string("playerEvent"), std::string("die"));
 					_gameObject->emitMessage(m);
