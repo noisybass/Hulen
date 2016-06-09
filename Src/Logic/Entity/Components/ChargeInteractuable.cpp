@@ -12,14 +12,21 @@ namespace Logic
 	IMP_FACTORY(CChargeInteractuable);
 
 	CChargeInteractuable::CChargeInteractuable()
-		: IComponent(), _canInteract(false), _volume(0), _pitch(0)
+		: IComponent(), _canInteract(false), _volume(0), _pitch(0), _lightLeverReference(nullptr)
 	{
 
 	} // Cinteractuable
 
 	CChargeInteractuable::~CChargeInteractuable()
 	{
-
+		if (_lightLeverReference)
+		{
+			TMessage m;
+			m._type = Message::PICK_CHARGE;
+			_lightLeverReference->emitMessage(m);
+			_lightLeverReference = nullptr;
+		}
+		
 	} // ~CInteractuable
 
 	bool CChargeInteractuable::spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
@@ -72,6 +79,12 @@ namespace Logic
 				
 				Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
 				sounds->playAndDestroySound(_sound, _volume, _pitch, _entity->getPosition(), Vector3(0,0,0));
+
+				if (contactEntity->getBlueprint() == "LightLever")
+				{
+					_lightLeverReference = message.getArg<CEntity*>("entity");
+				}
+
 			}
 			break;
 		case Message::INTERACTUABLE:

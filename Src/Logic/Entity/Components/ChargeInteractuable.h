@@ -35,6 +35,8 @@ namespace Logic
 		*/
 		CGraphics* _graphics;
 
+		CEntity* _lightLeverReference;
+
 		/**
 		Sounds
 		*/

@@ -57,6 +57,7 @@ namespace Logic
 		//std::cout << "_canInteract = " << _canInteract << std::endl;
 		//std::cout << "_pressLeverButton = " << _pressLeverButton << std::endl;
 
+		// If is a charge above and the lever isn't active
 		if (_chargeAbove && !_leverSwitch){
 
 			TMessage message;
@@ -65,7 +66,18 @@ namespace Logic
 			message._type = Message::LEVER_INTERACTUABLE;
 			_target->emitMessage(message);
 			_graphics->setMaterial("Charge_on");
-			_leverSwitch = true;
+			//_leverSwitch = true;
+		}
+		// If isn't a charge above and the lever is active
+		else if (!_chargeAbove && _leverSwitch)
+		{
+			TMessage message;
+			_leverSwitch = !_leverSwitch;
+			message.setArg("leverSwitch", _leverSwitch);
+			message._type = Message::LEVER_INTERACTUABLE;
+			_target->emitMessage(message);
+			_graphics->setMaterial("Charge_off");
+			//_leverSwitch = false;
 		}
 
 	} // tick
@@ -73,16 +85,21 @@ namespace Logic
 	bool CLightLever::accept(const TMessage &message)
 	{
 		//std::cout << "Message type: " << message._type << std::endl;
-		return message._type == Message::ON_CONTACT;
+		return message._type == Message::ON_CONTACT ||
+				message._type == Message::PICK_CHARGE;
 
 	} // accept
 
 	void CLightLever::process(const TMessage &message)
 	{
+		CEntity* entity;
 		switch (message._type)
 		{
 		case Message::ON_CONTACT:
 			_chargeAbove = true;
+			break;
+		case Message::PICK_CHARGE:
+			_chargeAbove = false;
 			break;
 		default:
 			break;
