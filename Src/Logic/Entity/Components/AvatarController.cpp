@@ -450,6 +450,8 @@ namespace Logic
 		Sounds::CSoundsResources* sounds = Sounds::CSoundsResources::getSingletonPtr();
 		sounds->setPositionAndVelocity(_channelWalkSound, _entity->getPosition(), Vector3(0, 0, 0));
 
+		//std::cout << "Position: X = " << _entity->getPosition().x << ", Y = " << _entity->getPosition().y << ", Z = " << _entity->getPosition().z << std::endl;
+
 	} // tick
 
 } // namespace Logic

@@ -76,11 +76,15 @@ namespace Application
 		{
 			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
 
-			_levels.insert({ 1, "sublevelOne.lua"});
+			_levels.insert({ 1, "sublevelOne.lua" });
 			_levels.insert({ 2, "sublevelTwo.lua" });
+			_levels.insert({ 3, "sublevelThree.lua" });
+			_levels.insert({ 4, "sublevelFour.lua" });
 
-			_levelsNames.insert({"sublevelOne.lua", 1});
-			_levelsNames.insert({"sublevelTwo.lua", 2});
+			_levelsNames.insert({ "sublevelOne.lua", 1 });
+			_levelsNames.insert({ "sublevelTwo.lua", 2 });
+			_levelsNames.insert({ "sublevelThree.lua", 3 });
+			_levelsNames.insert({ "sublevelFour.lua", 4 });
 		}
 
 		/** 

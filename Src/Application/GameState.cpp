@@ -254,16 +254,28 @@ namespace Application {
 			_app->addAction(new CPopAction(true));
 
 			// Intenta cambiar el fichero del mapa a cargar
-			std::string newLevel = _levels.at(_levelsNames.at(_mapName) + 1);
-			_app->addAction(new CSetGameStateMapAction(newLevel));
+			unsigned int levelNumber = _levelsNames.at(_mapName) + 1;
 
-			// Le decimos al estado de loading que la siguiente escena a cargar es la de game
-			//_app->setLoadingNextState("game");
-			_app->addAction(new CSetLoadingNextState(std::string("game")));
+			// There is more levels
+			if (_levels.find(levelNumber) != _levels.end())
+			{
+	
+				std::string newLevel = _levels.at(levelNumber);
+				_app->addAction(new CSetGameStateMapAction(newLevel));
 
-			// Push LoadingState
-			_app->addAction(new CPushAction(States::LoadingState, true));
+				// Le decimos al estado de loading que la siguiente escena a cargar es la de game
+				//_app->setLoadingNextState("game");
+				_app->addAction(new CSetLoadingNextState(std::string("game")));
 
+				// Push LoadingState
+				_app->addAction(new CPushAction(States::LoadingState, true));
+
+			}
+			else
+			{
+				// Push MenuState
+				_app->addAction(new CPushAction(States::MenuState, true));
+			}
 		}
 
 	} // playerListener
