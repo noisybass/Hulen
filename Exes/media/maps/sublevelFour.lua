@@ -1515,9 +1515,11 @@ Background = {
 		graphic_type = "plane",
 		graphic_up_vector = {0, 0, 1},
 		graphic_parallel_vector = {0, 1, 0},
-		graphic_width = 65,
-		graphic_height = 50,
-		material = "perPixel",
+		graphic_width = 72,
+		graphic_height = 40.8,
+		graphic_uTile = 1,
+		graphic_vTile = 1,
+		material = "Sublevel4",
 	},
 
 	DeathPlane = {
@@ -1533,9 +1535,7 @@ Background = {
 		scale = {60, 1, 10},
 		physic_dimensions = { 120, 1, 10 },
 	},
-
 	
-
 	InvisibleLeftWall_Body = {
 		type = "Body",
 		blueprint = "InvisibleWorld",
