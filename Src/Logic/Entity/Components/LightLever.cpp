@@ -28,7 +28,9 @@ namespace Logic
 
 		if (entityInfo->hasAttribute("light_lever_GO_target")){
 			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getBody();
+			_shadowTarget = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getShadow();
 		}
+
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
@@ -65,6 +67,8 @@ namespace Logic
 			message.setArg("leverSwitch", _leverSwitch);
 			message._type = Message::LEVER_INTERACTUABLE;
 			_target->emitMessage(message);
+			if (_shadowTarget)
+				_shadowTarget->emitMessage(message);
 			_graphics->setMaterial("Charge_on");
 			//_leverSwitch = true;
 		}
@@ -76,6 +80,8 @@ namespace Logic
 			message.setArg("leverSwitch", _leverSwitch);
 			message._type = Message::LEVER_INTERACTUABLE;
 			_target->emitMessage(message);
+			if (_shadowTarget)
+				_shadowTarget->emitMessage(message);
 			_graphics->setMaterial("Charge_off");
 			//_leverSwitch = false;
 		}

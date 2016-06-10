@@ -34,6 +34,8 @@ namespace Logic
 		void tick(float msecs) override;
 
 		unsigned int howManyCharges() const { return _chargesOwned; };
+
+		void addMapCharges(CGameObject* gameObject);
 	protected:
 
 		/**

@@ -41,6 +41,7 @@ namespace Logic
 		body entity in the spawn method.
 		*/
 		CEntity* _target;
+		CEntity* _shadowTarget;
 
 		/**
 		This boolean show the state of the lever, if it is on or off.

@@ -6,20 +6,21 @@
 #include "Logic/Entity/Components/PhysicEntity.h"
 #include "Logic/Server.h"
 #include "Sounds\api\SoundsResources.h"
+#include "PlayerManager.h"
 
 namespace Logic
 {
 	IMP_FACTORY(CChargeInteractuable);
 
 	CChargeInteractuable::CChargeInteractuable()
-		: IComponent(), _canInteract(false), _volume(0), _pitch(0), _lightLeverReference(nullptr)
+		: IComponent(), _canInteract(false), _volume(0), _pitch(0), _lightLeverReference(nullptr), _onMap(false)
 	{
 
 	} // Cinteractuable
 
 	CChargeInteractuable::~CChargeInteractuable()
 	{
-		if (_lightLeverReference)
+		if (_lightLeverReference && !_deactivate)
 		{
 			TMessage m;
 			m._type = Message::PICK_CHARGE;
@@ -50,6 +51,8 @@ namespace Logic
 		if (entityInfo->hasAttribute("chargeImpactPitch"))
 			_pitch = entityInfo->getFloatAttribute("chargeImpactPitch");
 
+		if (entityInfo->hasAttribute("onMap"))
+			_onMap = entityInfo->getBoolAttribute("onMap");
 
 		return true;
 
@@ -92,6 +95,15 @@ namespace Logic
 			if (message.getArg<bool>("canInteract")){
 				_canInteract = true;
 				_graphics->setMaterial("Charge_on");
+
+				// Lo tengo que hacer aquí porque parece que en el spawn parece que no ha inicializado todavia el player.
+				if (_onMap)
+				{
+					CPlayerManager* playerManager = (CPlayerManager*)Logic::CServer::getSingletonPtr()->getPlayer()->getComponent("CPlayerManager");
+					playerManager->addMapCharges(_entity->getGameObject());
+					_onMap = false;
+				}
+
 			}
 			else{
 				_canInteract = false;
@@ -108,5 +120,16 @@ namespace Logic
 		}
 
 	} // process
+
+	bool CChargeInteractuable::activate()
+	{
+		_deactivate = false;
+		return true;
+	} // activate
+
+	void CChargeInteractuable::deactivate()
+	{
+		_deactivate = true;
+	} // deactivate
 
 } // namespace Logic

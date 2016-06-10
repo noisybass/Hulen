@@ -6,7 +6,8 @@ Map_GO = {
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = false,
+		playerCanDie = true,
+		chargesOwned = 0,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 		pickObjectAnimation = "pick_object",
@@ -25,7 +26,12 @@ Map_GO = {
 		state = "Body",
 	},
 	
-	
+--[[nose_GO = {
+type = "GameObject", 
+blueprint  = "Empty", 
+state = "Body", 
+},]]
+
 World0_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
@@ -38,7 +44,7 @@ blueprint  = "Empty",
 state = "Shadow", 
 }, 
 
-World2_GO = { 
+Palanca_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
@@ -260,13 +266,13 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
-World39_GO = { 
+Charge_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
 }, 
 
-World40_GO = { 
+WallDesplazable_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
@@ -314,18 +320,41 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
-World48_GO = { 
+WallEndLevel_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
 }, 
 
-World49_GO = { 
+EndLightLever_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
 }, 
 
+Background_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body"
+},
+
+DeathPlane_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body"
+},
+
+InvisibleLeftWall_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body",
+},
+
+FinishLevel_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+},
 
 }
 
@@ -335,7 +364,7 @@ Map = {
 		type = "Body",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {-27.8, 0, 0.1},
+		position = {-27.8, -9, 0.1},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -543,29 +572,35 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor4.RepX", 
 }, 
 
-World2_Body = { 
-type = "Body", 
-blueprint  = "World", 
-game_object  = "World2_GO", 
-position = {25.71, -2.48, 0.013}, 
-model = "floor4.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor4.RepX", 
+Palanca_Body = { 
+type = "Body",
+blueprint = "Lever",
+game_object = "Palanca_GO",
+position = {25.71, -3.5, 0.013},
+model = "Lever.mesh",
+interactuable_area_radius = 3,
+player = "Player_GO",
+lever_GO_target  = "WallDesplazable_GO",
+
+--Sound
+switchOnVolume = 0.1,
+switchOnPitch = 1,
+
+switchOffVolume = 0.5,
+switchOffPitch = 1, 
 }, 
 
-World2_Shadow = { 
+--[[Palanca_Shadow = { 
 type = "Shadow", 
 blueprint  = "World", 
-game_object  = "World2_GO", 
+game_object  = "Palanca_GO", 
 position = {25.71, -2.48, -2.987}, 
 model = "floor4.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
 physic_file = "media/models/floor4.RepX", 
-}, 
+},]]
 
 World3_Body = { 
 type = "Body", 
@@ -939,18 +974,6 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor1.RepX", 
 }, 
 
-World25_Shadow = { 
-type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World25_GO", 
-position = {49.3, -13.01, -2.997}, 
-model = "floor1.mesh", 
-material = "Black", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
-}, 
-
 World26_Body = { 
 type = "Body", 
 blueprint  = "World", 
@@ -1239,31 +1262,30 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor3.RepX", 
 }, 
 
-World39_Body = { 
-type = "Body", 
-blueprint  = "World", 
-game_object  = "World39_GO", 
+Charge_Body = { 
+type = "Body",
+blueprint = "Charge",
+prefab = "Charge_Prefab",
+game_object = "Charge_GO",
+onMap = true,
 position = {25.71, -10.9, 0.013}, 
-model = "floor4.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor4.RepX", 
 }, 
 
-World40_Body = { 
+WallDesplazable_Body = { 
 type = "Body", 
-blueprint  = "World", 
-game_object  = "World40_GO", 
+blueprint  = "LeverTarget", 
+game_object  = "WallDesplazable_GO", 
 position = {12.89, -8.7, -0.236}, 
 model = "wall2.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
-physic_file = "media/models/wall2.RepX", 
+physic_file = "media/models/wall2.RepX",
+position2 = {12.89, 0, -0.236},
+speed = 10,
 }, 
 
-World40_Shadow = { 
+--[[World40_Shadow = { 
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World40_GO", 
@@ -1273,13 +1295,13 @@ material = "Black",
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
 physic_file = "media/models/wall2.RepX", 
-}, 
+},]]
 
 World41_Body = { 
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World41_GO", 
-position = {35.58, 10.96, -0.003}, 
+position = {35.58, 6.96, -0.003}, 
 model = "floor3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1291,7 +1313,7 @@ World41_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World41_GO", 
-position = {35.58, 10.96, -3.003}, 
+position = {35.58, 6.96, -3.003}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1303,7 +1325,7 @@ World42_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World42_GO", 
-position = {39.17, 10.96, -0.003}, 
+position = {39.17, 6.96, -0.003}, 
 model = "floor3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1315,7 +1337,7 @@ World42_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World42_GO", 
-position = {39.17, 10.96, -3.003}, 
+position = {39.17, 6.96, -3.003}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1327,7 +1349,7 @@ World43_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World43_GO", 
-position = {24.8, 11.1, 0.01}, 
+position = {24.8, 7.1, 0.01}, 
 model = "floor4.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1339,7 +1361,7 @@ World43_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World43_GO", 
-position = {24.8, 11.1, -2.99}, 
+position = {24.8, 7.1, -2.99}, 
 model = "floor4.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1351,7 +1373,7 @@ World44_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World44_GO", 
-position = {21.21, 10.96, 0}, 
+position = {21.21, 6.96, 0}, 
 model = "floor3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1363,7 +1385,7 @@ World44_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World44_GO", 
-position = {21.21, 10.96, -3}, 
+position = {21.21, 6.96, -3}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1375,7 +1397,7 @@ World45_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World45_GO", 
-position = {28.39, 10.96, 0}, 
+position = {28.39, 6.96, 0}, 
 model = "floor3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1387,7 +1409,7 @@ World45_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World45_GO", 
-position = {28.39, 10.96, -3}, 
+position = {28.39, 6.96, -3}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1399,7 +1421,7 @@ World46_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World46_GO", 
-position = {31.99, 11.1, 0.01}, 
+position = {31.99, 7.1, 0.01}, 
 model = "floor4.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1411,7 +1433,7 @@ World46_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World46_GO", 
-position = {31.99, 11.1, -2.99}, 
+position = {31.99, 7.1, -2.99}, 
 model = "floor4.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1423,7 +1445,7 @@ World47_Body = {
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World47_GO", 
-position = {17.62, 10.96, 0}, 
+position = {17.62, 6.96, 0}, 
 model = "floor3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
@@ -1435,7 +1457,7 @@ World47_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World47_GO", 
-position = {17.62, 10.96, -3}, 
+position = {17.62, 6.96, -3}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1443,53 +1465,124 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor3.RepX", 
 }, 
 
-World48_Body = { 
+WallEndLevel_Body = { 
 type = "Body", 
-blueprint  = "World", 
-game_object  = "World48_GO", 
-position = {28.64, 15.17, -0.236}, 
+blueprint  = "LeverTarget", 
+game_object  = "WallEndLevel_GO", 
+position = {28.64, 11.17, -0.236}, 
 model = "wall2.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
-physic_file = "media/models/wall2.RepX", 
+physic_file = "media/models/wall2.RepX",
+position2 = {28.64, 21, -0.236},
+speed = 10,
 }, 
 
-World48_Shadow = { 
+WallEndLevel_Shadow = { 
 type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World48_GO", 
-position = {28.64, 15.17, -3.236}, 
+blueprint  = "LeverTarget", 
+game_object  = "WallEndLevel_GO", 
+position = {28.64, 11.17, -3.236}, 
 model = "wall2.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
-physic_file = "media/models/wall2.RepX", 
+physic_file = "media/models/wall2.RepX",
+position2 = {28.64, 21, -3.236},
+speed = 10,
 }, 
 
-World49_Body = { 
+EndLightLever_Body = { 
 type = "Body", 
-blueprint  = "World", 
-game_object  = "World49_GO", 
-position = {23.25, 15.17, -0.236}, 
-model = "wall2.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/wall2.RepX", 
+blueprint  = "LightLever", 
+game_object  = "EndLightLever_GO", 
+position = {23.25, 8.17, -1}, 
+light_lever_GO_target = "WallEndLevel_GO",
+model = "EndLevelLightSwitch.mesh",
+static = true,
+physic_entity = "fromFile",
+physic_file = "media/models/EndLevelLightSwitch.RepX",
+physic_change_coords = true,
 }, 
 
-World49_Shadow = { 
-type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World49_GO", 
-position = {23.25, 15.17, -3.236}, 
-model = "wall2.mesh", 
-material = "Black", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/wall2.RepX", 
-}, 
+Background = {
+		type = "Body",
+		blueprint = "Background",
+		game_object = "Background_GO",
+		position = {0, 0, -3.5},
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, 0, 1},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 65,
+		graphic_height = 50,
+		material = "perPixel",
+	},
 
+	DeathPlane = {
+		type = "Body",
+		blueprint = "DeathPlane",
+		game_object = "DeathPlane_GO",
+		position = {0, -25, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		scale = {60, 1, 10},
+		physic_dimensions = { 120, 1, 10 },
+	},
+
+	
+
+	InvisibleLeftWall_Body = {
+		type = "Body",
+		blueprint = "InvisibleWorld",
+		game_object = "InvisibleLeftWall_GO",
+		position = {-30, -6, 0},
+		--model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	InvisibleLeftWall_Shadow = {
+		type = "Shadow",
+		blueprint = "InvisibleWorld",
+		game_object = "InvisibleLeftWall_GO",
+		position = {-30, -6, -3},
+		--model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	FinishLevel_Body = {
+		type = "Body",
+		blueprint = "FinishLevel",
+		game_object = "FinishLevel_GO",
+		position = {31, 12, 0},
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	--[[nose = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "nose_GO",
+		position = {17.62, 10.96, -3},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},]]
 
 }

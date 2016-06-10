@@ -21,6 +21,10 @@ namespace Logic
 
 		void process(const TMessage &message) override;
 
+		bool activate() override;
+
+		void deactivate() override;
+
 	protected:
 
 		friend class CPlayerManager;
@@ -43,6 +47,8 @@ namespace Logic
 		std::string _sound;
 		float _volume;
 		float _pitch;
+		bool _onMap;
+		bool _deactivate;
 
 	}; // class CInteractuable
 

@@ -359,4 +359,9 @@ namespace Logic
 
 	} // canPickAnyCharge
 
+	void CPlayerManager::addMapCharges(CGameObject* gameObject)
+	{
+		_chargesOnMap.push_back(gameObject);
+	} // addMapCharges
+
 } // namespace Logic
