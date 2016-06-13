@@ -5,6 +5,8 @@
 #include "Logic/Events/Event.h"
 #include "Logic/Maps/EntityFactory.h"
 #include "Map/MapEntity.h"
+#include "BaseSubsystems/Math.h"
+#include "Physics/Server.h"
 
 #include "Logic/Entity/Components/LightingArea.h"
 #include "Logic/Entity/Components/ChargeInteractuable.h"
@@ -224,7 +226,7 @@ namespace Logic
 			//message._type = Message::SEND_STATE;
 
 			// Cambio de sombra a cuerpo
-			if (state == GameObject::BODY)
+			if (state == GameObject::BODY && canChangeState(_gameObject->getShadow(), false))
 			{
 				// Establecemos el estado nuevo del game object
 				_gameObject->_state = GameObject::BODY;
@@ -237,7 +239,7 @@ namespace Logic
 				_soundsResources->playAndDestroySound(std::string("DeepIntoShadow"), 0.5, 0, Vector3(0,0,0), Vector3(0,0,0));
 			}
 			// Cambio de cuerpo a sombra
-			else
+			else if (state == GameObject::SHADOW && canChangeState(_gameObject->getBody(), true))
 			{
 				// Establecemos el estado nuevo del game object
 				_gameObject->_state = GameObject::SHADOW;
@@ -251,6 +253,26 @@ namespace Logic
 			}
 		}
 	} // changeState
+
+	bool CPlayerManager::canChangeState(CEntity* entity, bool toShadow) const
+	{
+		Vector3 origin = entity->getPosition();
+		Vector3 direction;
+		if (toShadow) direction = Vector3(0, 0, -1);
+		else          direction = Vector3(0, 0, 1);
+		Ogre::Ray ray(origin, direction);
+
+		CEntity* obstacle = Physics::CServer::getSingletonPtr()->raycastClosest(ray, 10);
+
+		if (obstacle)
+		{
+			std::cout << obstacle->getName() << std::endl;
+			return false;
+		}
+			
+		return true;
+
+	} // canChangeState
 
 	void CPlayerManager::sendState(Logic::CEntity* emitter, Logic::CEntity* receiver)
 	{
