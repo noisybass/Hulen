@@ -57,6 +57,8 @@ namespace Logic
 
 	private:
 
+		bool canChangeState(CEntity* entity, bool toShadow) const;
+
 		/**
 		Opcion de depuracion, si lo ponemos a true el jugador puede morir,
 		si no por defecto no morira.
