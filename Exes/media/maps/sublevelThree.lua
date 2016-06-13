@@ -224,6 +224,18 @@ FinishLevel_GO = {
 		state = "Body",
 },
 
+LightSave_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body",
+},
+
+ChargeSave_GO = { 
+type = "GameObject", 
+blueprint  = "Empty", 
+state = "Body", 
+},
+
 }
 
 Map = {
@@ -971,5 +983,28 @@ Background = {
 		physic_shape = "box",
 		physic_dimensions = { 1,5,1 },
 	},
+
+	LightSave = {
+	type = "Body", 
+	blueprint  = "LightLever", 
+	game_object  = "LightSave_GO", 
+	position = {-28, -13.3, -1.5}, 
+	model = "EndLevelLightSwitch.mesh",
+	static = true,
+	physic_entity = "fromFile",
+	physic_file = "media/models/EndLevelLightSwitch.RepX",
+	physic_change_coords = true,
+	saverLight = true,
+
+	},
+
+	ChargeSave = { 
+	type = "Body",
+	blueprint = "Charge",
+	prefab = "Charge_Prefab",
+	game_object = "ChargeSave_GO",
+	onMap = true,
+	position = {-28, -10, -1.5}, 
+	}, 
 
 }

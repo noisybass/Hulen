@@ -47,6 +47,7 @@ namespace Logic
 		This boolean show the state of the lever, if it is on or off.
 		*/
 		bool _leverSwitch;
+		bool _saverLight;
 
 		/**
 		Change the lever color.

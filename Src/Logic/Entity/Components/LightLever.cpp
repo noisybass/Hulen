@@ -11,7 +11,7 @@ namespace Logic
 	IMP_FACTORY(CLightLever);
 
 	CLightLever::CLightLever()
-		: IComponent(), _leverSwitch(false), _chargeAbove(false)
+		: IComponent(), _leverSwitch(false), _chargeAbove(false), _saverLight(false)
 	{
 
 	} // Cinteractuable
@@ -30,6 +30,9 @@ namespace Logic
 			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getBody();
 			_shadowTarget = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getShadow();
 		}
+
+		if (entityInfo->hasAttribute("saverLight"))
+			_saverLight = entityInfo->getBoolAttribute("saverLight");
 
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
@@ -60,7 +63,7 @@ namespace Logic
 		//std::cout << "_pressLeverButton = " << _pressLeverButton << std::endl;
 
 		// If is a charge above and the lever isn't active
-		if (_chargeAbove && !_leverSwitch){
+		if (_chargeAbove && !_leverSwitch && !_saverLight){
 
 			TMessage message;
 			_leverSwitch = !_leverSwitch;
@@ -73,7 +76,7 @@ namespace Logic
 			//_leverSwitch = true;
 		}
 		// If isn't a charge above and the lever is active
-		else if (!_chargeAbove && _leverSwitch)
+		else if (!_chargeAbove && _leverSwitch && !_saverLight)
 		{
 			TMessage message;
 			_leverSwitch = !_leverSwitch;

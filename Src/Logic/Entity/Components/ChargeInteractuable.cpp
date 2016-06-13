@@ -88,14 +88,6 @@ namespace Logic
 					_lightLeverReference = message.getArg<CEntity*>("entity");
 				}
 
-			}
-			break;
-		case Message::INTERACTUABLE:
-			
-			if (message.getArg<bool>("canInteract")){
-				_canInteract = true;
-				_graphics->setMaterial("Charge_on");
-
 				// Lo tengo que hacer aquí porque parece que en el spawn parece que no ha inicializado todavia el player.
 				if (_onMap)
 				{
@@ -103,6 +95,14 @@ namespace Logic
 					playerManager->addMapCharges(_entity->getGameObject());
 					_onMap = false;
 				}
+
+			}
+			break;
+		case Message::INTERACTUABLE:
+			
+			if (message.getArg<bool>("canInteract")){
+				_canInteract = true;
+				_graphics->setMaterial("Charge_on");
 
 			}
 			else{
