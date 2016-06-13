@@ -84,7 +84,7 @@ World8_GO = {
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
-}, 
+},
 
 World9_GO = { 
 type = "GameObject", 
@@ -134,7 +134,7 @@ blueprint  = "Empty",
 state = "Shadow", 
 }, 
 
-World17_GO = { 
+--[[World17_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
@@ -144,7 +144,7 @@ World18_GO = {
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
-}, 
+}, ]]
 
 World19_GO = { 
 type = "GameObject", 
@@ -500,22 +500,17 @@ Map = {
 		type = "Body",
 		blueprint = "Kasai",
 		game_object = "Kasai_GO",
-		position = {0,0,0},
-		light_position = {0,0,0},
-		specular_colour = {1,1,1},
-		diffuse_colour = {1,1,1},
+		position = {0, 0, 0},
+		diffuse_colour = {0.75, 0.6, 0.25},
 		model = "Sphere.mesh",
 		scale = {0.75, 0.75, 0.75},
 		material = "Charge_on",
-		--flare_material = "Flare",
-		--flare_colour = {1,1,1},
-		--flare_size = 10,
-		light_attenuation_range = 6.5,
-		light_attenuation_constant = 1.0,
-		light_attenuation_linear = 0.2,
-		light_attenuation_quadratic = 0.05,
+		light_attenuation_range = 9,
+		light_attenuation_constant = 0,
+		light_attenuation_linear = 0,
+		light_attenuation_quadratic = 0,
 		player = "Player_GO",
-		lighting_area_radius = 6.5,
+		lighting_area_radius = 9,
 
 		-- Graphic Charge
 		graphicChargeVelocity = 5.5,
@@ -684,7 +679,7 @@ material = "Floor",
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
 physic_file = "media/models/floor4.RepX", 
-}, 
+},
 
 World9_Shadow = { 
 type = "Shadow", 
@@ -806,7 +801,7 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor3.RepX", 
 }, 
 
-World17_Body = { 
+--[[World17_Body = { 
 type = "Body", 
 blueprint  = "World", 
 game_object  = "World17_GO", 
@@ -828,7 +823,7 @@ material = "Floor",
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
 physic_file = "media/models/floor4.RepX", 
-}, 
+}, ]]
 
 World19_Shadow = { 
 type = "Shadow", 
@@ -1510,7 +1505,7 @@ Background = {
 		type = "Body",
 		blueprint = "Background",
 		game_object = "Background_GO",
-		position = {0, 0, -3.5},
+		position = {0, 0, -4},
 		graphic_file = false,
 		graphic_type = "plane",
 		graphic_up_vector = {0, 0, 1},

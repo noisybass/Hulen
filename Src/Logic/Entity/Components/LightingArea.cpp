@@ -53,7 +53,7 @@ namespace Logic
 		if (dist < _radius*_radius)
 		{
 			_playerInside = true;
-			light->setColor(Vector3(0.0, 0.0, 0.0));
+			light->setColor(Vector3(0.75, 0.6, 0.25));
 		}
 		else
 		{

@@ -14,6 +14,9 @@ material SimpleBackground
 			iteration once_per_light
 			scene_blend add
 
+			diffuse 0.25 0.25 0.25
+			specular 0.25 0.25 0.25
+
 			vertex_program_ref perFragmentLighting_vs
 			{
 
@@ -47,6 +50,9 @@ material Sublevel1
 		{
 			iteration once_per_light
 			scene_blend add
+
+			diffuse 0.25 0.25 0.25
+			specular 0.25 0.25 0.25
 
 			vertex_program_ref perFragmentLighting_vs
 			{
@@ -82,6 +88,9 @@ material Sublevel3
 			iteration once_per_light
 			scene_blend add
 
+			diffuse 0.25 0.25 0.25
+			specular 0.25 0.25 0.25
+
 			vertex_program_ref perFragmentLighting_vs
 			{
 
@@ -115,6 +124,9 @@ material Sublevel4
 		{
 			iteration once_per_light
 			scene_blend add
+
+			diffuse 0.25 0.25 0.25
+			specular 0.25 0.25 0.25
 
 			vertex_program_ref perFragmentLighting_vs
 			{
