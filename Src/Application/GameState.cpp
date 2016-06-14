@@ -52,7 +52,7 @@ namespace Application {
 			return false;
 
 		// Cargamos la ventana que muestra el tiempo de juego transcurrido.
-		_timeWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Time.layout");
+		//_timeWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Time.layout");
 
 		// Init the events
 		playerEvent.initEvent(this, &Application::CGameState::playerListener);
@@ -111,9 +111,9 @@ namespace Application {
 		GUI::CServer::getSingletonPtr()->getObjectsController()->activate();
 
 		// Activamos la ventana que nos muestra el tiempo transcurrido.
-		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
+		/*CEGUI::System::getSingletonPtr()->getDefaultGUIContext().setRootWindow(_timeWindow);
 		_timeWindow->setVisible(true);
-		_timeWindow->activate();
+		_timeWindow->activate();*/
 
 		_soundResources->playInstance(std::string("GameInstance"));
 		
@@ -127,8 +127,8 @@ namespace Application {
 		_soundResources->pauseInstance(std::string("GameInstance"));
 		
 		// Desactivamos la ventana de tiempo.
-		_timeWindow->deactivate();
-		_timeWindow->setVisible(false);
+		//_timeWindow->deactivate();
+		//_timeWindow->setVisible(false);
 
 		// Desactivamos la clase que procesa eventos de entrada para 
 		// controlar al jugador.
@@ -159,11 +159,11 @@ namespace Application {
 		// Actualizamos la lógica de juego.
 		Logic::CServer::getSingletonPtr()->tick(msecs);
 
-		_time += msecs;
+		/*_time += msecs;
 		
 		std::stringstream text;
 		text << "Time: " << (int)_time;
-		_timeWindow->setText(text.str());
+		_timeWindow->setText(text.str());*/
 
 	} // tick
 
