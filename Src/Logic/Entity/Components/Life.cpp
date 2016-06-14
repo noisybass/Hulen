@@ -1,15 +1,3 @@
-/**
-@file Life.cpp
-
-Contiene la implementación del componente que controla la vida de una entidad.
- 
-@see Logic::CLife
-@see Logic::IComponent
-
-@author David Llansó
-@date Octubre, 2010
-*/
-
 #include "Life.h"
 
 #include "Logic/Entity/Entity.h"
@@ -23,48 +11,72 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	bool CLife::spawn(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	CLife::~CLife()
 	{
-		if(!IComponent::spawn(name, entity,map,entityInfo))
+		_scene->removeBillboard(_billboard);
+		_scene = nullptr;
+		delete _billboard;
+		_billboard = nullptr;
+	}
+
+
+	bool CLife::spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
+	{
+		if(!IComponent::spawn(name, gameObject,map,entityInfo))
 			return false;
 
-		if(entityInfo->hasAttribute("life"))
-			_life = entityInfo->getFloatAttribute("life");
+		
+
+		_scene = _gameObject->getMap()->getScene();
+
+		_billboard = new Graphics::CBillBoard(_gameObject->getName());
+		_scene->addBillboard(_billboard);
+
+		assert(entityInfo->hasAttribute("billboard_position") &&
+			entityInfo->hasAttribute("billboard_color") &&
+			entityInfo->hasAttribute("billboard_width") &&
+			entityInfo->hasAttribute("billboard_height") &&
+			entityInfo->hasAttribute("billboard_material") && "Tienes que poner todos los atributos, revisa el map.lua");
+
+		if (entityInfo->hasAttribute("billboard_position") &&
+			entityInfo->hasAttribute("billboard_color") &&
+			entityInfo->hasAttribute("billboard_width") &&
+			entityInfo->hasAttribute("billboard_height") &&
+			entityInfo->hasAttribute("billboard_material"))
+		{
+			_position = entityInfo->getVector3Attribute("billboard_position");
+			_color = entityInfo->getVector3Attribute("billboard_color");
+			_width = entityInfo->getFloatAttribute("billboard_width");
+			_height = entityInfo->getFloatAttribute("billboard_height");
+			_materialName = entityInfo->getStringAttribute("billboard_material");
+
+			_billboard->init(_position, Ogre::ColourValue(_color.x, _color.y, _color.z), _width, _height, _materialName);
+		}
+
+		if (entityInfo->hasAttribute("playerDeathTime"))
+			_deathTime = entityInfo->getFloatAttribute("playerDeathTime");
+		
 
 		return true;
 
 	} // spawn
+
+	void CLife::setDeathTime(float time)
+	{
+		_billboard->setDimensions( _width - ((time * _width) / _deathTime) , _height);
+	}
 	
 	//---------------------------------------------------------
 
 	bool CLife::accept(const TMessage &message)
 	{
-		return message._type == Message::DAMAGED;
-
+		return false;
 	} // accept
 	
 	//---------------------------------------------------------
 
 	void CLife::process(const TMessage &message)
 	{
-		//switch(message._type)
-		//{
-		//case Message::DAMAGED:
-		//	{
-		//		// Disminuir la vida de la entidad
-		//		_life -= message._float;
-		//		printf("Herido\n");
-
-		//		// Si han matado al jugador salir de la partida
-		//		if ((_life <= 0) && (_entity->isPlayer())) {
-		//			Application::CBaseApplication::getSingletonPtr()->setState("menu");
-		//		}
-		//		// @todo Poner la animación de herido.
-		//		// @todo Si la vida es menor que 0 poner animación de morir.
-
-		//	}
-		//	break;
-		//}
 
 	} // process
 

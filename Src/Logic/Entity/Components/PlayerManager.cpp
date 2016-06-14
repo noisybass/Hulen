@@ -13,6 +13,7 @@
 #include "Logic/Entity/Components/PhysicController.h"
 #include "Logic/Entity/Components/AvatarController.h"
 #include "Logic/Entity/Components/AnimatedGraphics.h"
+#include "Logic/Entity/Components/Life.h"
 
 
 namespace Logic
@@ -319,6 +320,7 @@ namespace Logic
 			_gameObject->getBody()->emitMessage(m);
 			// Reseteamos el contador para la muerte
 			_deathTimeElapsed = 0.0;
+			static_cast<CLife*>(_gameObject->getComponent("CLife"))->setDeathTime(_deathTimeElapsed);
 			//std::cout << "Resetar tiempo de morir" << std::endl;
 		}
 		else
@@ -334,6 +336,7 @@ namespace Logic
 			// Y empezamos a morirnos
 			if (!_onLight && _playerCanDie){
 				_deathTimeElapsed += msecs;
+				static_cast<CLife*>(_gameObject->getComponent("CLife"))->setDeathTime(_deathTimeElapsed);
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _playerDeathTime){
 					m._type = Logic::Message::PLAYER_EVENT;

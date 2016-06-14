@@ -24,6 +24,7 @@ namespace Graphics
 	class CLight;
 	class CDebugDrawing;
 	class CRibbonTrail;
+	class CBillBoard;
 }
 
 namespace Graphics 
@@ -108,6 +109,8 @@ namespace Graphics
 
 		void addRibbonTrail(CRibbonTrail* ribbonTrail);
 
+		void addBillboard(CBillBoard* billboard);
+
 		/**
 		Elimina una entidad gráfica de la escena. 
 		<p>
@@ -132,6 +135,8 @@ namespace Graphics
 		void removeLight(CLight* light);
 
 		void removeRibbonTrail(CRibbonTrail* ribbonTrail);
+
+		void removeBillboard(CBillBoard* billboard);
 
 		/**
 		cambia la luz ambiental de un estado a otro dependiendo en el
@@ -197,6 +202,7 @@ namespace Graphics
 		friend class CRibbonTrail; // To can access to _sceneMgr
 		friend class CCamera;
 		friend class CLight;
+		friend class CBillBoard;
 
 		/**
 		Devuelve el gestor de la escena de Ogre
@@ -278,6 +284,11 @@ namespace Graphics
 		typedef std::list<CRibbonTrail*> TRibbonTrail;
 
 		/**
+		Tipo para la lista de billboards
+		*/
+		typedef std::list<CBillBoard*> TBillBoard;
+
+		/**
 		Lista de entidades estáticas.
 		*/
 		TStaticEntityList _staticEntities;
@@ -296,6 +307,11 @@ namespace Graphics
 		Lista de movable Objects.
 		*/
 		TRibbonTrail _ribbonTrails;
+
+		/**
+		Lista de billboards
+		*/
+		TBillBoard _billboards;
 		
 		/**
 		Geometría estática de la escena.

@@ -5,6 +5,7 @@
 #include "Graphics/Light.h"
 #include "Graphics/PointLight.h"
 #include "Graphics/RibbonTrail.h"
+#include "Graphics/Billboard.h"
 #include "BaseSubsystems/Server.h"
 #include "Logic/Entity/Entity.h"
 
@@ -90,6 +91,15 @@ namespace Graphics
 
 	//--------------------------------------------------------
 
+	void CScene::addBillboard(CBillBoard* billboard)
+	{
+		billboard->attachToScene(this);
+		_billboards.push_back(billboard);
+
+	} // addRibbonTrail
+
+	//--------------------------------------------------------
+
 	void CScene::removeEntity(CEntity* entity)
 	{
 		entity->deattachFromScene();
@@ -119,6 +129,12 @@ namespace Graphics
 	{
 		ribbonTrail->deattachFromScene();
 		_ribbonTrails.remove(ribbonTrail);
+	} // removeRibbonTrail
+
+	void CScene::removeBillboard(CBillBoard* billboard)
+	{
+		billboard->deattachFromScene();
+		_billboards.remove(billboard);
 	} // removeRibbonTrail
 
 	//--------------------------------------------------------

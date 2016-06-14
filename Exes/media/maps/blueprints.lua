@@ -1,7 +1,7 @@
 World CGraphics CPhysicEntity
 Wall CGraphics CPhysicEntity
 Background CGraphics
-Player_GO CPlayerManager
+Player_GO CPlayerManager CLife
 Player CAvatarController CAnimatedGraphics CPhysicController CPlayerDeath
 Crawler CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack
 Lightbulb CAnimatedGraphics CMoveController CPhysicController CVision CFSMEntity CPatrol CChase CAttack CEater
