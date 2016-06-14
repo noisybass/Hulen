@@ -926,6 +926,7 @@ DeathPlane = {
 	physic_entity = "fromFile",
 	physic_file = "media/models/EndLevelLightSwitch.RepX",
 	physic_change_coords = true,
+	--physic_group = 4,
 	saverLight = true,
 
 	},

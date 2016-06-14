@@ -282,7 +282,9 @@ void CServer::createScene ()
 
 	//Disable collision between differnt groups
 	PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	//PxSetGroupCollisionFlag(CONTROLLERS_COLLISION_GROUP, LIGHTSAVE_COLLISION_GROUP, false);
 	PxSetGroupCollisionFlag(CHARGES_COLLISION_GROUP, CHARGES_COLLISION_GROUP, false);
+	PxSetGroupCollisionFlag(WORLD_COLLISION_GROUP, WORLD_COLLISION_GROUP, false);
 	
 }
 
