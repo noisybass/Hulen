@@ -149,6 +149,8 @@ namespace Physics {
 		static const unsigned int DEFAULT_COLLISION_GROUP = 0;
 		static const unsigned int CONTROLLERS_COLLISION_GROUP = 1;
 		static const unsigned int CHARGES_COLLISION_GROUP = 2;
+		static const unsigned int WORLD_COLLISION_GROUP = 3;
+		//static const unsigned int LIGHTSAVE_COLLISION_GROUP = 4;
 
 
 		//------------------------------

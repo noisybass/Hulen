@@ -257,15 +257,15 @@ namespace Logic
 
 	bool CPlayerManager::canChangeState(CEntity* entity, bool toShadow) const
 	{
-		Vector3 origin = entity->getPosition();
+		Vector3 origin = entity->getPosition() + Vector3(0, 1, 0);
 		Vector3 direction;
 		if (toShadow) direction = Vector3(0, 0, -1);
 		else          direction = Vector3(0, 0, 1);
-		Ogre::Ray ray(origin, direction);
+		Ogre::Ray ray(origin + direction, direction);
 
 		CEntity* obstacle = Physics::CServer::getSingletonPtr()->raycastClosest(ray, 10);
 
-		if (obstacle)
+		if (obstacle && obstacle->getBlueprint() != "Player")
 		{
 			std::cout << obstacle->getName() << std::endl;
 			return false;
