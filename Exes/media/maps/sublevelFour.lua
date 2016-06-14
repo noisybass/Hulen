@@ -11,6 +11,13 @@ Map_GO = {
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 		pickObjectAnimation = "pick_object",
+
+		-- Life Bar
+		billboard_position = {-25,16,0},
+		billboard_color    = {1,1,1},
+		billboard_width    = 10,
+		billboard_height   = 1,
+		billboard_material = "LifeBar",
 	},
 
 	Kasai_GO = {
