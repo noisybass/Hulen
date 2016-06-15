@@ -40,6 +40,9 @@ namespace Logic
 		if (entityInfo->hasAttribute("idle1Animation"))
 			_idleAnimation = (entityInfo->getPairStringFloat("idle1Animation")).first;
 
+		if (entityInfo->hasAttribute("changeDirectionAnimation"))
+			_changeDirectionAnimation = (entityInfo->getPairStringFloat("changeDirectionAnimation")).first;
+
 		return true;
 
 	} // spawn
@@ -49,7 +52,7 @@ namespace Logic
 
 	bool CMoveController::accept(const TMessage &message)
 	{
-		return false;
+		return message._type == Message::ANIMATION_WITHOUT_LOOP_FINISHED;
 
 	} // accept
 	
@@ -57,7 +60,23 @@ namespace Logic
 
 	void CMoveController::process(const TMessage &message)
 	{
-		
+		switch (message._type)
+		{
+		case Message::ANIMATION_WITHOUT_LOOP_FINISHED:
+
+			if (message.getArg<std::string>("name") == _changeDirectionAnimation)
+			{
+				if (_changingDirection)
+				{
+					_entity->rollNode(180);
+					_changingDirection = false;
+				}
+				
+			}
+				
+
+			break;
+		}
 
 	} // process
 	
@@ -70,6 +89,14 @@ namespace Logic
 		{
 			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::LEFT)
 			{
+				/*TMessage message;
+				message._type = Message::SET_ANIMATION;
+				message.setArg<std::string>(std::string("animation"), std::string(_changeDirectionAnimation));
+				message.setArg<bool>(std::string("loop"), false);
+				message.setArg<bool>(std::string("nextAnimation"), false);
+				_entity->emitMessage(message, this);
+				_changingDirection = true;*/
+
 				_entity->rollNode(180);
 			}
 				
@@ -80,6 +107,14 @@ namespace Logic
 		{
 			if (_entity->getDirection() == Logic::CEntity::ENTITY_DIRECTION::RIGHT)
 			{
+				/*TMessage message;
+				message._type = Message::SET_ANIMATION; 
+				message.setArg<std::string>(std::string("animation"), std::string(_changeDirectionAnimation));
+				message.setArg<bool>(std::string("loop"), false);
+				message.setArg<bool>(std::string("nextAnimation"), false);
+				_entity->emitMessage(message, this);
+				_changingDirection = true;*/
+
 				_entity->rollNode(180);
 			}
 
@@ -101,48 +136,44 @@ namespace Logic
 	void CMoveController::tick(float msecs)
 	{
 		IComponent::tick(msecs);
-
 		Vector3 movement(Vector3::ZERO);
 
-		// Nos movemos porque no hemos llegado a nuestro destino.
-		if (!destinationReached())
+		// Si no estamos giramos, nos movemos
+		if (!_changingDirection)
 		{
-			//if (_entity->getDirection() == 0){
+
+			// Nos movemos porque no hemos llegado a nuestro destino.
+			if (!destinationReached())
+			{
 				calculateDirection();
-				// Change animations
-				//if (_entity->getDirection() == 1) _entity->rollNode(180);
-				//else if (_entity->getDirection() == -1) _entity->rollNode(180);
-			//}
-			movement += Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
+				movement += Vector3(_entity->getDirection(), 0, 0) * _speed * msecs;
+			}
+			else
+			{
+
+				// Notificamos que hemos llegado a
+				// la posición objetivo.
+				TMessage msg;
+				msg._type = Message::ARRIVED_TO_DESTINATION;
+				msg.setArg<Vector3>(std::string("arrivedDestination"), _positionToGo);
+
+				_entity->emitMessage(msg);
+
+				// Esperamos a recibir una posicion a la que movernos
+				_positionToGo = _nextPositionToGo;
+			}
+
+			// Acción de la gravedad
+			movement += msecs * Vector3(0.0f, -_gravity, 0.0f);
+
+			TMessage message;
+			message._type = Message::AVATAR_WALK;
+			message.setArg<Vector3>(std::string("movement"), movement);
+
+			_entity->emitMessage(message);
+
 		}
-		else
-		{	
-			// Hemos llegado al destino, solo lo ejecutamos
-			// nada mas llegar al destino.
-
-			// Idle animation
-			//stop();
-
-			// Notificamos que hemos llegado a
-			// la posición objetivo.
-			TMessage msg;
-			msg._type = Message::ARRIVED_TO_DESTINATION;
-			msg.setArg<Vector3>(std::string("arrivedDestination"), _positionToGo);
-
-			_entity->emitMessage(msg);
-
-			// Esperamos a recibir una posicion a la que movernos
-			_positionToGo = _nextPositionToGo;
-		}
-
-		// Acción de la gravedad
-		movement += msecs * Vector3(0.0f, -_gravity, 0.0f);
-
-		TMessage message;
-		message._type = Message::AVATAR_WALK;
-		message.setArg<Vector3>(std::string("movement"), movement);
-
-		_entity->emitMessage(message);
+		
 
 	} // tick
 

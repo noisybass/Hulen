@@ -169,6 +169,7 @@ namespace Logic
 		if (_entity->getName() != "Player_Body" && _entity->getName() != "Player_Shadow")
 		{
 			Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+			fsm->setValue<bool>(_animationNames->at(animation) + "Started", false);
 			fsm->setValue<bool>(_animationNames->at(animation) + "Finish", true);
 		}
 		
@@ -184,6 +185,15 @@ namespace Logic
 
 	void CAnimatedGraphics::animationWithoutLoopStarted(const std::string &animation)
 	{
+
+		// Send value to LUA FSM if isn't the player.
+		if (_entity->getName() != "Player_Body" && _entity->getName() != "Player_Shadow")
+		{
+			Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+			fsm->setValue<bool>(_animationNames->at(animation) + "Finish", false);
+			fsm->setValue<bool>(_animationNames->at(animation) + "Started", true);
+		}
+
 		Logic::TMessage m;
 		m._type = Logic::Message::ANIMATION_WITHOUT_LOOP_STARTED;
 		m.setArg<std::string>("name", animation);

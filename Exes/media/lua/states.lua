@@ -161,19 +161,26 @@ end
 
 Lightbulb_Patrol["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
-		agent: ChangeState(Lightbulb_Attack)
+	if not agent: GetBoolValue("changeDirectionAnimationStarted") then 
+		-- If lightbulb touch player, kill the player.
+		if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+			agent: ChangeState(Lightbulb_Attack)
 
-	elseif agent: GetBoolValue("seeing_entity") then
-		if agent: GetStringValue("seen_entity_bp") == "Charge" then
-			print ("Chasing charge...")
-			agent: SetAnimation("walkAnimation", true, false)
-			agent: ChangeState(Lightbulb_Chase)
-
-		elseif agent: GetStringValue("seen_entity_bp") == "Player" then
-			print ("Chasing player...")
-			agent: SetAnimation("walkAnimation", true, false)
-			agent: ChangeState(Lightbulb_Chase)
+		elseif agent: GetBoolValue("seeing_entity") then
+			-- If see a charge, it will eat it.
+			if agent: GetStringValue("seen_entity_bp") == "Charge" then
+				print ("Chasing charge...")
+				--agent: SetAnimation("walkAnimation", true, false)
+				agent: ChangeState(Lightbulb_Chase)
+			-- If see the player, go to kill them. Eat a charge has more priority.
+			elseif agent: GetStringValue("seen_entity_bp") == "Player" then
+				print ("Chasing player...")
+				--agent: SetAnimation("walkAnimation", true, false)
+				agent: ChangeState(Lightbulb_Chase)
+			end
+		-- Lightbulb in patrol, then set the walk animation.
+		else
+			agent: SetAnimation("walkAnimation", true, false);
 		end
 	end
 
@@ -205,21 +212,29 @@ Lightbulb_Chase["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
 		print ("Touching player...")
+		agent: SetAnimation("attackAnimation", false, false)
 		agent: ChangeState(Lightbulb_Attack)
 
 	elseif agent: GetBoolValue("touching_entity") and agent: GetStringValue("touched_entity_bp") == "Charge" then
 		print ("Eating charge...")
-		--agent: SetAnimation("eatLightAnimation", true, false)
+		agent: SetAnimation("eatLightAnimation", false, false)
 		agent: ChangeState(Lightbulb_EatCharge)
 
-	elseif not agent:GetBoolValue("seeing_entity") then
-		agent: ChangeState(Lightbulb_Alert)
+	--elseif agent:GetBoolValue("seeing_entity") then
+	--	agent: ChangeState(Lightbulb_Alert)
 
 	elseif agent:GetBoolValue("seeing_entity") then
+		agent: SetAnimation("runAnimation", true, false)
 		if not (agent: GetStringValue("seen_entity_bp") == "Player" or agent: GetStringValue("seen_entity_bp") == "Charge") then
 			agent: ChangeState(Lightbulb_Alert)
 		end
+
+	else
+		agent: SetAnimation("runAnimation", true, false)
 	end
+	
+	
+	
 
 end
 
@@ -235,20 +250,19 @@ end
 ------------------------------------------------
 
 Lightbulb_Alert = {
-	wait_time = 5,
-	accum_time = 0
+	
 }
 
 Lightbulb_Alert["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Alert")
-	Lightbulb_Alert.accum_time = 0
 
 end
 
 Lightbulb_Alert["Execute"] = function(agent, msecs)
 
 	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+		agent: SetAnimation("attackAnimation", false, false)
 		agent: ChangeState(Lightbulb_Attack)
 
 	elseif agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Player") then
@@ -257,13 +271,10 @@ Lightbulb_Alert["Execute"] = function(agent, msecs)
 	elseif agent: GetBoolValue("seeing_entity") and (agent: GetStringValue("seen_entity_bp") == "Charge") then
 		agent: ChangeState(Lightbulb_Chase)
 
-	else
-		Lightbulb_Alert.accum_time = Lightbulb_Alert.accum_time + msecs
-
-		if Lightbulb_Alert.accum_time >= Lightbulb_Alert.wait_time then
-			Lightbulb_Alert.accum_time = 0
-			agent: ChangeState(Lightbulb_Patrol)
-		end
+	elseif agent: GetBoolValue("idle1AnimationFinish") then
+		print ("[Lua]: idle1AnimationFinish")
+		agent: SetBoolValue("idle1AnimationFinish", false)
+		agent: ChangeState(Lightbulb_Patrol)
 	end
 
 end
@@ -292,6 +303,10 @@ end
 Lightbulb_Attack["Execute"] = function(agent, msecs)
 
 	--print ("[Lua]: Executing State Attack")
+	if agent: GetBoolValue("attackAnimationFinish") then
+		agent: SetBoolValue("attackAnimationFinish", false)
+		agent: SetAnimation("eatLightAnimation", true, false)
+	end
 
 end
 
@@ -319,7 +334,11 @@ end
 
 Lightbulb_EatCharge["Execute"] = function(agent, msecs)
 
-	agent: ChangeState(Lightbulb_Patrol)
+	if agent: GetBoolValue("eatLightAnimationFinish") then
+		agent: SetBoolValue("eatLightAnimationFinish", false)
+		agent: SetAnimation("idle1Animation", false, false)
+		agent: ChangeState(Lightbulb_Alert)
+	end
 
 end
 

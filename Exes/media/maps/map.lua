@@ -10,6 +10,13 @@ Map_GO = {
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 		pickObjectAnimation = "pick_object",
+
+		-- Life Bar
+		billboard_position = {-25,16,0},
+		billboard_color    = {1,1,1},
+		billboard_width    = 10,
+		billboard_height   = 1,
+		billboard_material = "LifeBar",
 	},
 
 	--[[Crawler_GO = {
@@ -138,11 +145,11 @@ Map_GO = {
 		state = "Body",
 	},
 
-	LightLever_GO = {
+	--[[LightLever_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
-	},
+	},]]
 
 	LightLeverTarget_GO = {
 		type = "GameObject",
@@ -250,18 +257,18 @@ Map = {
 		switchOffPitch = 1,
 	},
 
-	LightLever_Body = {
+	--[[LightLever_Body = {
 		type = "Body",
 		blueprint = "LightLever",
 		game_object = "LightLever_GO",
 		light_lever_GO_target = "LightLeverTarget_GO",
-		position = {-8, -3.5, -1},
+		position = {-8, -3.5, -2},
 		model = "LightSwitch.mesh",
 		static = true,
 		physic_entity = "fromFile",
 		physic_file = "media/models/LightSwitch.RepX",
 		physic_change_coords = true,
-	},
+	},]]
 
 
 	LightLeverEnd_Body = {
@@ -440,7 +447,6 @@ Map = {
 		type = "Body",
 		blueprint = "Lightbulb",
 		game_object = "Lightbulb_GO",
-		--position = {0, -14, 0},
 		rollRotate = 90,
 		position = {3, 0, 0},
 		direction = "left",
@@ -458,10 +464,11 @@ Map = {
 		--patrolPosition2 = {10, -14, 0},
 		patrolPosition1 = {0, 0, 0},
 		patrolPosition2 = {5, 0, 0},
+		positionToGo = {0,0,0},
 		fsm_initial_state = "Lightbulb_Patrol",
 
 		--Animations
-		defaultAnimation = "idle_search",
+		defaultAnimation = "walking_cycle",
 		defaultAnimationVelocity = 1,
 		idle1Animation =           {"idle_search", 1, "null"},
 		walkAnimation =            {"walking_cycle", 1, "null"},
