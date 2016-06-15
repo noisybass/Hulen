@@ -55,7 +55,7 @@ namespace Logic
 		return true;
 	}
 
-	void CVision::deactivate()
+	void CVision::deactivate(bool isDeletingMap)
 	{
 
 	}

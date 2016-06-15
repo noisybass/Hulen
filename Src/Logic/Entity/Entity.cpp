@@ -75,6 +75,17 @@ namespace Logic
 
 	} // spawn
 
+	void CEntity::init(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
+	{
+		// Entity components spawn
+		TComponentMap::const_iterator it;
+
+		for (it = _components.begin(); it != _components.end(); ++it){
+			it->second->init(it->first, this, map, entityInfo);
+		}
+
+	}
+
 	//---------------------------------------------------------
 
 	void CEntity::rollNode(float degrees){
@@ -104,14 +115,14 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CEntity::deactivate() 
+	void CEntity::deactivate(bool isDeletingMap)
 	{
 		TComponentMap::const_iterator it;
 
 		// Desactivamos los componentes
 		for (it = _components.begin(); it != _components.end(); ++it)
 		{
-				it->second->deactivate();
+			it->second->deactivate(isDeletingMap);
 		}
 
 		_activated = false;

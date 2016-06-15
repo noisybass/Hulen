@@ -98,7 +98,7 @@ namespace Logic
 
 	//---------------------------------------------------------
 
-	void CAnimatedGraphics::deactivate()
+	void CAnimatedGraphics::deactivate(bool isDeletingMap)
 	{
 		_graphicsEntity->setVisible(false);
 

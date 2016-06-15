@@ -72,7 +72,7 @@ namespace Logic
 		return true;
 	} // activate
 
-	void CLeverInteractuable::deactivate(){
+	void CLeverInteractuable::deactivate(bool isDeletingMap){
 		
 		GUI::CServer::getSingletonPtr()->getObjectsController()->removeControllerObject(_entity->getName());
 	} // deactivate

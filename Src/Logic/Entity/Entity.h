@@ -84,6 +84,8 @@ namespace Logic
 		*/
 		bool spawn(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
 
+		void init(CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
+
 	public:
 
 		/**
@@ -102,7 +104,7 @@ namespace Logic
 		El método llama al deactivate() de todos los componentes para que
 		se den por enterados y hagan lo que necesiten.
 		*/
-		void deactivate();
+		void deactivate(bool isDeletingMap);
 
 		/**
 		Función llamada en cada frame para que se realicen las funciones

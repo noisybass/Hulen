@@ -17,11 +17,13 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
+		virtual bool init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+
 		void tick(float msecs) override;
 
 		virtual bool activate() override;
 
-		virtual void deactivate() override;
+		virtual void deactivate(bool isDeletingMap) override;
 
 		bool accept(const TMessage &message) override;
 

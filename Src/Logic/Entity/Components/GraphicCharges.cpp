@@ -58,7 +58,7 @@ namespace Logic
 		return true;
 	} // activate
 
-	void CGraphicCharges::deactivate()
+	void CGraphicCharges::deactivate(bool isDeletingMap)
 	{
 		//_graphicCharges.clear();
 	} // deactivate

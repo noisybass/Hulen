@@ -94,6 +94,8 @@ namespace Logic
 		*/
 		CEntity* createEntity(Map::CEntity *entityInfo, CMap *map);
 
+		void initEntity(Logic::CEntity* entity ,CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
+
 		/**
 		*/
 		CGameObject* createGameObject(Map::CEntity *entityInfo, CMap *map);

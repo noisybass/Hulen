@@ -127,9 +127,10 @@ namespace Logic
 		return true;
 	} // activate
 
-	void CChargeInteractuable::deactivate()
+	void CChargeInteractuable::deactivate(bool isDeletingMap)
 	{
-		_deactivate = true;
+		if (isDeletingMap)
+			_deactivate = true;
 	} // deactivate
 
 } // namespace Logic

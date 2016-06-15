@@ -26,6 +26,11 @@ namespace Logic
 
 	} // spawn
 
+	bool IComponent::init(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+		return true;
+	}
+
 	bool IComponent::spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
 	{
 		_name = name;

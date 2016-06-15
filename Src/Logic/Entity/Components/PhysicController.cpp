@@ -75,7 +75,7 @@ bool CPhysicController::activate()
 	return true;
 }
 
-void CPhysicController::deactivate()
+void CPhysicController::deactivate(bool isDeletingMap)
 {
 
 }

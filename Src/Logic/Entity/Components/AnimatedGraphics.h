@@ -76,7 +76,7 @@ namespace Logic
 		se deregistra así mismo en el controlador del GUI para dejar de
 		recibir las ordenes dadas a partir de los eventos de teclado y ratón.
 		*/
-		virtual void deactivate();
+		virtual void deactivate(bool isDeletingMap);
 
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
@@ -93,6 +93,7 @@ namespace Logic
 		@param message Mensaje a procesar.
 		*/
 		virtual void process(const TMessage &message);
+
 		
 		////////////////////////////////////////
 		// Métodos de CAnimatedEntityListener //

@@ -39,7 +39,7 @@ namespace Logic
 
 		bool activate();
 
-		void deactivate();
+		void deactivate(bool isDeletingMap);
 
 		bool isActivated();
 

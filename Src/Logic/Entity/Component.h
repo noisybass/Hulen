@@ -88,6 +88,8 @@ namespace Logic
 		*/
 		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
+		virtual bool init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+
 		virtual bool spawn(const std::string& name, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo);
 
 		/**
@@ -111,7 +113,7 @@ namespace Logic
 		La implementación eliminará al componente de algunos observers en los 
 		que pueda estar registrado (como el cronómetro del sistema, etc.).
 		*/
-		virtual void deactivate() {}
+		virtual void deactivate(bool isDeletingMap) {}
 
 		/**
 		Método llamado en cada frame que actualiza el estado del componente.

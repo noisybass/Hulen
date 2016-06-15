@@ -55,7 +55,7 @@ namespace Logic
 		/**
 		Método que se invoca al desactivar el componente.
 		*/
-		virtual void deactivate();
+		virtual void deactivate(bool isDeletingMap);
 
 		/**
 		Este componente sólo acepta mensaje de tipos TOUCHED y UNTOUCHED.

@@ -274,6 +274,11 @@ namespace Logic
 
 	} // createEntity
 
+	void CEntityFactory::initEntity(Logic::CEntity* entity, CGameObject* gameObject, CMap *map, const Map::CEntity *entityInfo)
+	{
+		entity->init(gameObject, map, entityInfo);
+	}
+
 	Logic::CGameObject *CEntityFactory::createGameObject(Map::CEntity *entityInfo, Logic::CMap *map)
 	{
 		//std::cout << "Creando game object " << entityInfo->getName() << std::endl;

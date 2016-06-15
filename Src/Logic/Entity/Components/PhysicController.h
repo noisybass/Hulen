@@ -85,7 +85,7 @@ namespace Logic
 
 		bool activate() override;
 
-		void deactivate() override;
+		void deactivate(bool isDeletingMap) override;
 
 		/**
 		Este método se invoca en cada ciclo de la simulación y hace lo siguiente:

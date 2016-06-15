@@ -53,7 +53,7 @@ namespace Logic
 	
 	//---------------------------------------------------------
 
-	void CSwitchTrigger::deactivate()
+	void CSwitchTrigger::deactivate(bool isDeletingMap)
 	{
 		_target = 0;
 

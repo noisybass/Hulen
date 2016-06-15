@@ -159,6 +159,9 @@ namespace Logic {
 		// Extraemos las entidades del parseo.
 		Map::CMapParser::TEntityList* entityList =
 			Map::CMapParser::getSingletonPtr()->getEntityList();
+		
+		std::vector<std::pair<Logic::CEntity*, Map::CEntity*>> logicEntities;
+		std::vector<std::pair<Logic::CGameObject*, Map::CEntity*>> logicGameObjects;
 
 		CEntityFactory* entityFactory = CEntityFactory::getSingletonPtr();
 
@@ -187,6 +190,8 @@ namespace Logic {
 				}
 
 				assert(entity && "No se pudo crear una entidad perteneciente a un game object. Creacion. ");
+
+				logicEntities.push_back(std::pair<Logic::CEntity*, Map::CEntity*>(entity, (*it)));
 			}
 			else if (!type.compare("GameObject"))
 			{
@@ -197,7 +202,17 @@ namespace Logic {
 				{
 					std::cout << ">> ERROR AL CREAR: " << (*it)->getName() << std::endl;
 				}
+				logicGameObjects.push_back(std::pair<Logic::CGameObject*, Map::CEntity*>(gameObject, (*it)));
 			}
+		}
+
+		// Call again to init entities
+		for (std::pair<Logic::CEntity*, Map::CEntity*> pair : logicEntities)
+		{
+	
+			std::string name = pair.second->getStringAttribute("game_object");
+			CGameObject* gameObject = _entitiesMap->getGameObjectByName(name);
+			entityFactory->initEntity(pair.first, gameObject, _entitiesMap, pair.second);
 		}
 
 		return _entitiesMap;
@@ -294,7 +309,7 @@ namespace Logic {
 		// Desactivamos todas las entidades activas registradas en el mapa.
 		for(; it != end; it++)
 			if((*it).second->isActivated())
-				(*it).second->deactivate();
+				(*it).second->deactivate(true);
 
 		Graphics::CServer::getSingletonPtr()->setScene(0);
 
@@ -333,7 +348,7 @@ namespace Logic {
 		if (_gameObjectMap.count(gameObject->getGameObjectID()) != 0)
 		{
 			if (gameObject->isActivated())
-				gameObject->deactivate();
+				gameObject->deactivate(false);
 			gameObject->_map = nullptr;
 			_gameObjectMap.erase(gameObject->getGameObjectID());
 		}

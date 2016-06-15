@@ -298,7 +298,7 @@ namespace Logic
 		emitterAnimatedGraphics->sendState(receiverAnimatedGraphics);
 
 		// Desactivamos el emitter
-		emitter->deactivate();
+		emitter->deactivate(false);
 
 		// Activamos el receiver
 		receiver->activate();

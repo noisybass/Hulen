@@ -21,7 +21,7 @@ namespace Logic
 
 		virtual bool activate() override;
 
-		virtual void deactivate() override;
+		virtual void deactivate(bool isDeletingMap) override;
 
 		bool accept(const TMessage &message) override;
 

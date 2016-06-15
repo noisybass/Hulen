@@ -74,6 +74,11 @@ namespace Logic
 		return true;
 
 	} // spawn
+
+	/*void CCamera::init(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+
+	} // init*/
 	
 	//---------------------------------------------------------
 

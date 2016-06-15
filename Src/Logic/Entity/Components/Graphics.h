@@ -69,6 +69,8 @@ namespace Logic
 		*/
 		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
+		//virtual void init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
+
 		/**
 		Método virtual que elige que mensajes son aceptados. Son válidos
 		SET_TRANSFORM.

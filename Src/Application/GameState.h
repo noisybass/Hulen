@@ -80,11 +80,13 @@ namespace Application
 			_levels.insert({ 2, "sublevelTwo.lua" });
 			_levels.insert({ 3, "sublevelThree.lua" });
 			_levels.insert({ 4, "sublevelFour.lua" });
+			_levels.insert({ 5, "twoSublevelOne.lua" });
 
 			_levelsNames.insert({ "sublevelOne.lua", 1 });
 			_levelsNames.insert({ "sublevelTwo.lua", 2 });
 			_levelsNames.insert({ "sublevelThree.lua", 3 });
 			_levelsNames.insert({ "sublevelFour.lua", 4 });
+			_levelsNames.insert({ "twoSublevelOne.lua", 5 });
 		}
 
 		/** 

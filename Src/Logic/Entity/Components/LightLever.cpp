@@ -11,7 +11,7 @@ namespace Logic
 	IMP_FACTORY(CLightLever);
 
 	CLightLever::CLightLever()
-		: IComponent(), _leverSwitch(false), _chargeAbove(false), _saverLight(false)
+		: IComponent(), _leverSwitch(false), _chargeAbove(false), _saverLight(false), _shadowTarget(nullptr)
 	{
 
 	} // Cinteractuable
@@ -26,11 +26,6 @@ namespace Logic
 		if (!IComponent::spawn(name, entity, map, entityInfo))
 			return false;
 
-		if (entityInfo->hasAttribute("light_lever_GO_target")){
-			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getBody();
-			_shadowTarget = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getShadow();
-		}
-
 		if (entityInfo->hasAttribute("saverLight"))
 			_saverLight = entityInfo->getBoolAttribute("saverLight");
 
@@ -43,13 +38,23 @@ namespace Logic
 
 	} // spawn
 
+	bool CLightLever::init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+		if (entityInfo->hasAttribute("light_lever_GO_target")){
+			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getBody();
+			_shadowTarget = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("light_lever_GO_target"))->getShadow();
+		}
+
+		return true;
+	} // init
+
 	bool CLightLever::activate(){
 	
 		//GUI::CServer::getSingletonPtr()->getObjectsController()->addControllerObject(_entity);
 		return true;
 	} // activate
 
-	void CLightLever::deactivate(){
+	void CLightLever::deactivate(bool isDeletingMap){
 		
 		//GUI::CServer::getSingletonPtr()->getObjectsController()->removeControllerObject(_entity->getName());
 	} // deactivate

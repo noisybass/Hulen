@@ -68,6 +68,8 @@ namespace Logic
 		*/
 		virtual bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo);
 
+		//void init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+
 		/**
 		Método que activa el componente; invocado cuando se activa
 		el mapa donde está la entidad a la que pertenece el componente.

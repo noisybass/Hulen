@@ -94,7 +94,12 @@ namespace Logic
 		return true;
 
 	} // spawn
+
 	
+	/*void CGraphics::init(const std::string& name, CEntity *entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+
+	} // init*/
 	//---------------------------------------------------------
 
 	Graphics::CEntity* CGraphics::createGraphicsEntityFromFile(const Map::CEntity *entityInfo)

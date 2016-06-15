@@ -120,12 +120,12 @@ namespace Logic
 		case GameObject::TState::BODY:
 			_activated = _body->activate() && _activated;
 			if (_shadow)
-				_shadow->deactivate();
+				_shadow->deactivate(false);
 			break;
 		case GameObject::TState::SHADOW:
 			_activated = _shadow->activate() && _activated;
 			if (_body)
-				_body->deactivate();
+				_body->deactivate(false);
 			break;
 		case GameObject::TState::BOTH:
 			_activated = _body->activate() && _activated;
@@ -137,7 +137,7 @@ namespace Logic
 
 	} // activate
 
-	void CGameObject::deactivate()
+	void CGameObject::deactivate(bool isDeletingMap)
 	{
 		// Si éramos el jugador, le decimos al servidor que ya no hay.
 		// y evitamos que se nos siga informando de los movimientos que 
@@ -158,19 +158,19 @@ namespace Logic
 
 		// Desactivamos los componentes
 		for (it = _components.begin(); it != _components.end(); ++it)
-			it->second->deactivate();
+			it->second->deactivate(isDeletingMap);
 
 		switch (_state)
 		{
 		case GameObject::TState::BODY:
-			_body->deactivate();
+			_body->deactivate(isDeletingMap);
 			break;
 		case GameObject::TState::SHADOW:
-			_shadow->deactivate();
+			_shadow->deactivate(isDeletingMap);
 			break;
 		case GameObject::TState::BOTH:
-			_body->deactivate();
-			_shadow->deactivate();
+			_body->deactivate(isDeletingMap);
+			_shadow->deactivate(isDeletingMap);
 			break;
 		}
 
