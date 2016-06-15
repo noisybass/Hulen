@@ -278,7 +278,7 @@ Map = {
 
 	Spike1 = {
 		type = "Body",
-		blueprint = "World",
+		blueprint = "Spike",
 		game_object = "Spike1_GO",
 		position = {-2.77, -5.1, -0.01},
 		model = "spike1.mesh",
@@ -290,7 +290,7 @@ Map = {
 
 	Spike2 = {
 		type = "Body",
-		blueprint = "World",
+		blueprint = "Spike",
 		game_object = "Spike2_GO",
 		position = {-5.77, -5.1, -0.01},
 		model = "spike2.mesh",
