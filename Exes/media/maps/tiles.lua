@@ -63,6 +63,18 @@ Map_GO = {
 		state = "Body"
 	},
 
+	Spike1_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
+	Spike2_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+	},
+
 	Kasai_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
@@ -76,10 +88,18 @@ Map_GO = {
 		isPlayer = true,
 		state = "Body",
 		playerDeathTime = 3,
-		playerCanDie = false,
+		playerCanDie = true,
+		chargesOwned = 0,
 		kasai = "Kasai_GO",
 		charge = "Charge_Prefab",
 		pickObjectAnimation = "pick_object",
+
+		-- Life Bar
+		billboard_position = {-25,16,0},
+		billboard_color    = {1,1,1},
+		billboard_width    = 10,
+		billboard_height   = 1,
+		billboard_material = "LifeBar",
 	},
 }
 
@@ -154,23 +174,18 @@ Map = {
 
 	World3 = {
 		type = "Body",
-		game_object = "World3_GO",
-		--prefab = "World_Prefab",
-		--position = {-30, 0, 0},
-		--scale = {1, 35, 10},
-		--physic_dimensions = { 1, 35, 10 },
-
 		blueprint = "Background",
-		position = {-30, 0, 0},
-		-- Graphic Entity
-		--model = "Plane.mesh",
+		game_object = "World3_GO",
+		position = {0, 0, -4},
 		graphic_file = false,
 		graphic_type = "plane",
-		graphic_up_vector = {1, 0, 0},
+		graphic_up_vector = {0, 0, 1},
 		graphic_parallel_vector = {0, 1, 0},
-		graphic_width = 10,
-		graphic_height = 50,
-		material = "Wall",
+		graphic_width = 72,
+		graphic_height = 40.8,
+		graphic_uTile = 1,
+		graphic_vTile = 1,
+		material = "Sublevel1",
 	},
 
 	World4 = {
@@ -261,26 +276,45 @@ Map = {
 		physic_file = "media/models/floor6.RepX",
 	},
 
+	Spike1 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Spike1_GO",
+		position = {-2.77, -5.1, -0.01},
+		model = "spike1.mesh",
+		material = "Floor",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/spike1.RepX",
+	},
+
+	Spike2 = {
+		type = "Body",
+		blueprint = "World",
+		game_object = "Spike2_GO",
+		position = {-5.77, -5.1, -0.01},
+		model = "spike2.mesh",
+		material = "Floor",
+		static = true,
+		physic_entity = "fromFile",
+		physic_file = "media/models/spike2.RepX",
+	},
+
 	Kasai = {
 		type = "Body",
 		blueprint = "Kasai",
 		game_object = "Kasai_GO",
-		position = {0,0,0},
-		light_position = {0,0,0},
-		specular_colour = {1,1,1},
-		diffuse_colour = {1,1,1},
+		position = {0, 0, 0},
+		diffuse_colour = {0.75, 0.6, 0.25},
 		model = "Sphere.mesh",
 		scale = {0.75, 0.75, 0.75},
 		material = "Charge_on",
-		--flare_material = "Flare",
-		--flare_colour = {1,1,1},
-		--flare_size = 10,
-		light_attenuation_range = 6.5,
-		light_attenuation_constant = 1.0,
-		light_attenuation_linear = 0.2,
-		light_attenuation_quadratic = 0.05,
+		light_attenuation_range = 9,
+		light_attenuation_constant = 0,
+		light_attenuation_linear = 0,
+		light_attenuation_quadratic = 0,
 		player = "Player_GO",
-		lighting_area_radius = 6.5,
+		lighting_area_radius = 9,
 
 		-- Graphic Charge
 		graphicChargeVelocity = 5.5,
@@ -322,6 +356,14 @@ Map = {
 		walkSound = "PrisonerWalk",
 		walkVolume = 0.8,
 		walkPitch = 1.65,
+
+		jumpSound = "PrisonerJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerLand",
+		landVolume = 0.3,
+		landPitch = 1,
 
 		-- Avatar controller
 		speed = 10,
@@ -367,7 +409,7 @@ Map = {
 		type = "Shadow",
 		blueprint = "Player",
 		game_object = "Player_GO",
-		position = {0, 0, -2.6},
+		position = {-27.8, -13.5, -3.5},
 		scale = {4, 4, 4},
 		--model = "marine.mesh",
 		model = "Main_character.mesh",
@@ -388,6 +430,14 @@ Map = {
 		walkSound = "PrisonerShadowWalk",
 		walkVolume = 0.8,
 		walkPitch = 1.65,
+
+		jumpSound = "PrisonerShadowJump",
+		jumpVolume = 0.3, 
+		jumpPitch = 1,
+
+		landSound = "PrisonerShadowLand",
+		landVolume = 0.3,
+		landPitch = 1,
 
 		--Animations
 		defaultAnimation = "idle_cycle_1",
