@@ -13,6 +13,8 @@ Map_GO = {
 		pickObjectAnimation = "pick_object",
 
 		-- Life Bar
+		-- By the moment the position not used, the billboard
+		-- is set to Ogre::BillboardOrigin::BBO_TOP_LEFT.
 		billboard_position = {-25,16,0},
 		billboard_color    = {1,1,1},
 		billboard_width    = 10,
