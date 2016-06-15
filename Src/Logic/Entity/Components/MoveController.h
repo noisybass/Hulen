@@ -17,7 +17,7 @@ namespace Logic
 		Constructor por defecto; inicializa los atributos a su valor por 
 		defecto.
 		*/
-		CMoveController() : IComponent(), _speed(0.01f), _gravity(0.015f) {}
+		CMoveController() : IComponent(), _speed(0.01f), _gravity(0.015f), _changingDirection(false) {}
 	
 		/**
 		Inicialización del componente, utilizando la información extraída de
@@ -90,6 +90,8 @@ namespace Logic
 		*/
 		std::string _walkRightAnimation;
 		std::string _idleAnimation;
+		std::string _changeDirectionAnimation;
+		bool _changingDirection;
 
 	}; // class CAvatarController
 
