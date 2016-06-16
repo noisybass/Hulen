@@ -146,3 +146,40 @@ material Sublevel4
 	}
 }
 
+material 2Sublevel1
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			diffuse 0.25 0.25 0.25
+			specular 0.25 0.25 0.25
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "2sublevel1.png" 2d
+			}
+		}
+	}
+}
+
