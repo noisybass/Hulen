@@ -23,6 +23,10 @@ namespace Logic
 		std::string targetName = fsm->getValue<std::string>("seen_go_name");
 		_target = _entity->getGameObject()->getMap()->getGameObjectByName(targetName)->getBody();
 
+		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+		float speed = fsm->getValue<float>("chase_speed");
+		moveController->setSpeed(speed);
+
 	} // enterState
 
 	void CChase::exitState()

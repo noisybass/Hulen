@@ -4,6 +4,8 @@
 #include "Physics/Server.h"
 #include "Map/MapEntity.h"
 #include "Logic/Entity/Components/MoveController.h"
+#include "Logic/Entity/Components/FSMEntity.h"
+
 #include <iostream>
 
 
@@ -45,7 +47,12 @@ namespace Logic
 
 		CState::enterState();
 
+		// Obtenemos el valor de la velocidad
+		Logic::CFSMEntity* fsm = (Logic::CFSMEntity*)(_entity->getComponent("CFSMEntity"));
+		float speed = fsm->getValue<float>("patrol_speed");
+
 		CMoveController* moveController = (CMoveController*)_entity->getComponent("CMoveController");
+		moveController->setSpeed(speed);
 		moveController->nextPosition(_patrolPosition1);
 
 	} // enterState

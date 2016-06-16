@@ -25,8 +25,8 @@ namespace Logic
 			_nextPositionToGo = entityInfo->getVector3Attribute("positionToGo");
 		}
 			
-		if (entityInfo->hasAttribute("speed"))
-			_speed = entityInfo->getFloatAttribute("speed");
+		//if (entityInfo->hasAttribute("speed"))
+		//	_speed = entityInfo->getFloatAttribute("speed");
 
 		if (entityInfo->hasAttribute("gravity"))
 			_gravity = entityInfo->getFloatAttribute("gravity");

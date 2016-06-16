@@ -58,9 +58,11 @@ namespace AI
 
 	public:
 
-		FSMAgent(Logic::CEntity* entity, const std::string& initialState);
+		FSMAgent(Logic::CEntity* entity);
 
 		~FSMAgent();
+
+		void init(const std::string& initialState);
 
 		void update(float msecs);
 

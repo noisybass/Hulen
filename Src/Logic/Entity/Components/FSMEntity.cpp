@@ -25,7 +25,8 @@ namespace Logic
 			return false;
 
 		assert(entityInfo->hasAttribute("fsm_initial_state"));
-		_agent = new AI::FSMAgent(_entity, entityInfo->getStringAttribute("fsm_initial_state"));
+		_agent = new AI::FSMAgent(_entity);
+		_agent->init(entityInfo->getStringAttribute("fsm_initial_state"));
 		setAnimationNames(entityInfo);
 
 		return true;

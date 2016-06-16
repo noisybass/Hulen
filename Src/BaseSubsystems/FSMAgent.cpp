@@ -11,20 +11,11 @@
 namespace AI
 {
 
-	FSMAgent::FSMAgent(Logic::CEntity* entity, const std::string& initialState) : _seeingPlayer(false), _entity(entity), _sounds(Sounds::CSoundsResources::getSingletonPtr())
+	FSMAgent::FSMAgent(Logic::CEntity* entity) : _seeingPlayer(false), _entity(entity), _sounds(Sounds::CSoundsResources::getSingletonPtr())
 	{
 		_agentValues = new TValues();
 
 		_FSM = new AI::FSM<FSMAgent>(this);
-
-		lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
-
-		luabind::object states = luabind::globals(lua);
-
-		if (luabind::type(states) == LUA_TTABLE)
-		{
-			_FSM->setCurrentState(states[initialState]);
-		}
 
 	} // Crawler
 
@@ -35,6 +26,18 @@ namespace AI
 		_sounds = nullptr;
 
 	} // ~Crawler
+
+	void FSMAgent::init(const std::string& initialState)
+	{
+		lua_State* lua = ScriptManager::CScriptManager::GetPtrSingleton()->getNativeInterpreter();
+
+		luabind::object states = luabind::globals(lua);
+
+		if (luabind::type(states) == LUA_TTABLE)
+		{
+			_FSM->setCurrentState(states[initialState]);
+		}
+	}
 
 	void FSMAgent::update(float msecs)
 	{

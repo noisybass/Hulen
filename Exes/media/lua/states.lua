@@ -149,12 +149,14 @@ end
 ------------------------------------------------
 
 Lightbulb_Patrol = {
-	component = "CPatrol"
+	component = "CPatrol",
+	speed = 1,
 }
 
 Lightbulb_Patrol["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Patrol")
+	agent: SetFloatValue("patrol_speed", Lightbulb_Patrol.speed)
 	agent: Activate(Lightbulb_Patrol.component)
 
 end
@@ -198,12 +200,14 @@ end
 ------------------------------------------------
 
 Lightbulb_Chase = {
-	component = "CChase"
+	component = "CChase",
+	speed = 10
 }
 
 Lightbulb_Chase["Enter"] = function(agent)
 
 	print ("[Lua]: Enter State Chase")
+	agent: SetFloatValue("chase_speed", Lightbulb_Chase.speed)
 	agent: Activate(Lightbulb_Chase.component)
 
 end

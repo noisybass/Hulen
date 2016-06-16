@@ -60,6 +60,8 @@ namespace Logic
 
 		void nextPosition(const Vector3 &position);
 
+		void setSpeed(float speed) { _speed = speed;  }
+
 	private:
 		void calculateDirection();
 
