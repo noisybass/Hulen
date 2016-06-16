@@ -3319,6 +3319,7 @@ patrolPosition1 = {-10, 0, 0},
 patrolPosition2 = {10, 0, 0},
 positionToGo = {10,0,0},
 fsm_initial_state = "Lightbulb_Patrol",
+defaultVision = 10,
 
 --Animations
 defaultAnimation = "walking_cycle",

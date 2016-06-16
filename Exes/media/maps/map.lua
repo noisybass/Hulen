@@ -466,6 +466,7 @@ Map = {
 		patrolPosition2 = {5, 0, 0},
 		positionToGo = {0,0,0},
 		fsm_initial_state = "Lightbulb_Patrol",
+		defaultVision = 10,
 
 		--Animations
 		defaultAnimation = "walking_cycle",
