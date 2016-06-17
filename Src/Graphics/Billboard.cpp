@@ -20,11 +20,10 @@ namespace Graphics
 	{
 
 		_billboardSet = _scene->getSceneMgr()->createBillboardSet(1);
-		_billboardSet->setBillboardOrigin(Ogre::BillboardOrigin::BBO_TOP_LEFT);
 		_billboard = _billboardSet->createBillboard(position, color);
 		_billboard->setDimensions(width, height);
 		_billboardSet->setMaterialName(materialName);
-		
+		//_billboardSet->setBillboardOrigin(Ogre::BillboardOrigin::BBO_TOP_CENTER);
 		_node->attachObject(_billboardSet);
 
 	} // init
