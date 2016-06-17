@@ -194,6 +194,9 @@ namespace Sounds {
 		// Charge impact
 		_soundServer->getSoundsPtr()->loadSound("ChargeImpact", "ChargeImpact.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
 
+		// Move Wall (Rocks Sound)
+		_soundServer->getSoundsPtr()->loadSound("MoveWall", "MoveWall.mp3", Sounds::Loop_Off + Sounds::Sound_3D);
+
 	} // loadObjects
 
 	void CSoundsResources::unloadObjects(){
@@ -204,6 +207,9 @@ namespace Sounds {
 
 		// Charge impact
 		_soundServer->getSoundsPtr()->unloadSound("ChargeImpact");
+
+		// Move Wall (Rocks Sound)
+		_soundServer->getSoundsPtr()->unloadSound("MoveWall");
 
 	} // unloadObjects
 

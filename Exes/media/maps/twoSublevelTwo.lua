@@ -3372,6 +3372,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall3.RepX", 
 position2 = {23.639, -5.323, -0.321},
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Wall0_Shadow = {
@@ -3386,6 +3391,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall3.RepX", 
 position2 = {23.639, -5.323, -3.321},
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Wall1_Body = { 
@@ -3401,6 +3411,10 @@ physic_file = "media/models/wall3.RepX",
 position2 = {27.235, -5.28, -0.322}, 
 speed = 10,
 
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Wall1_Shadow = { 
@@ -3415,6 +3429,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall3.RepX", 
 position2 = {27.235, -5.28, -3.322}, 
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Background = {

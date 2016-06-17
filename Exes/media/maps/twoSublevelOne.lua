@@ -1180,6 +1180,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {-4.229, -10.11, -0.321}, 
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Background = {

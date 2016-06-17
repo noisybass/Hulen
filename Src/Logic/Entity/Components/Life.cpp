@@ -25,8 +25,6 @@ namespace Logic
 		if(!IComponent::spawn(name, gameObject,map,entityInfo))
 			return false;
 
-		
-
 		_scene = _gameObject->getMap()->getScene();
 
 		_billboard = new Graphics::CBillBoard(_gameObject->getName());

@@ -1297,6 +1297,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {12.89, 0, -0.236},
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 --[[World40_Shadow = { 
@@ -1491,6 +1496,8 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {28.64, 21, -0.236},
 speed = 10,
+
+
 }, 
 
 WallEndLevel_Shadow = { 
@@ -1505,6 +1512,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {28.64, 21, -3.236},
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 EndLightLever_Body = { 
@@ -1518,6 +1530,11 @@ static = true,
 physic_entity = "fromFile",
 physic_file = "media/models/EndLevelLightSwitch.RepX",
 physic_change_coords = true,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Background = {

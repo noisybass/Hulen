@@ -31,6 +31,11 @@ namespace Logic
 		*/
 		CGraphics* _graphics;
 
+		// Sounds
+		std::string _soundName;
+		float _soundVolume;
+		float _soundPitch;
+
 
 	}; // class CLeverTargetDoor
 
