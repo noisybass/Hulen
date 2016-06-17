@@ -28,6 +28,11 @@ namespace Graphics
 
 	} // init
 
+	void CBillBoard::setVisible(bool visible)
+	{
+		_billboardSet->setVisible(visible);
+	} // setVisible
+
 	bool CBillBoard::load()
 	{
 		_node = _scene->getSceneMgr()->getRootSceneNode()->createChildSceneNode();

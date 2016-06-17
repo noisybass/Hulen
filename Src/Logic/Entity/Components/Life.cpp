@@ -64,7 +64,12 @@ namespace Logic
 	void CLife::setDeathTime(float time)
 	{
 		_billboard->setDimensions( _width - ((time * _width) / _deathTime) , _height);
-	}
+	} // setDeathTime
+
+	void CLife::setVisible(bool visible)
+	{
+		_billboard->setVisible(visible);
+	} // setVisible
 	
 	//---------------------------------------------------------
 

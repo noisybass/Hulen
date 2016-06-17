@@ -26,6 +26,7 @@ namespace Graphics
 
 		void init(Vector3& position, Ogre::ColourValue& color, float width, float height, std::string& materialName);
 		void setDimensions(float width, float height);
+		void setVisible(bool visible) override;
 
 		bool load() override;
 		void unload() override;

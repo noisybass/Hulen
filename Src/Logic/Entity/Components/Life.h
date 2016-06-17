@@ -48,6 +48,8 @@ namespace Logic
 
 		void setDeathTime(float time);
 
+		void setVisible(bool visible);
+
 	protected:
 		Graphics::CScene* _scene;
 		Graphics::CBillBoard* _billboard;

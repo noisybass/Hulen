@@ -101,7 +101,7 @@ namespace Graphics
 
 		 @param visible Nuevo valor de la propiedad visible.
 		 */
-		void setVisible(bool visible);
+		virtual void setVisible(bool visible);
 
 		/**
 		 Devuelve el valor de la propiedad visible.

@@ -321,6 +321,7 @@ namespace Logic
 			// Reseteamos el contador para la muerte
 			_deathTimeElapsed = 0.0;
 			static_cast<CLife*>(_gameObject->getComponent("CLife"))->setDeathTime(_deathTimeElapsed);
+			static_cast<CLife*>(_gameObject->getComponent("CLife"))->setVisible(false);
 			//std::cout << "Resetar tiempo de morir" << std::endl;
 		}
 		else
@@ -337,6 +338,7 @@ namespace Logic
 			if (!_onLight && _playerCanDie){
 				_deathTimeElapsed += msecs;
 				static_cast<CLife*>(_gameObject->getComponent("CLife"))->setDeathTime(_deathTimeElapsed);
+				static_cast<CLife*>(_gameObject->getComponent("CLife"))->setVisible(true);
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _playerDeathTime){
 					m._type = Logic::Message::PLAYER_EVENT;
