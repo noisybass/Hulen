@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\Src\Application\AsyncTask.cpp" />
     <ClCompile Include="..\..\Src\Application\BaseApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\Clock.cpp" />
+    <ClCompile Include="..\..\Src\Application\ControlsState.cpp" />
     <ClCompile Include="..\..\Src\Application\Galeon.cpp" />
     <ClCompile Include="..\..\Src\Application\GaleonApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\GameState.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\..\Src\Application\AsyncTask.h" />
     <ClInclude Include="..\..\Src\Application\BaseApplication.h" />
     <ClInclude Include="..\..\Src\Application\Clock.h" />
+    <ClInclude Include="..\..\Src\Application\ControlsState.h" />
     <ClInclude Include="..\..\Src\Application\Documentation.h" />
     <ClInclude Include="..\..\Src\Application\ExitState.h" />
     <ClInclude Include="..\..\Src\Application\GaleonApplication.h" />

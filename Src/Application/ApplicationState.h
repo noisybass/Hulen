@@ -45,7 +45,7 @@ namespace Application
 
 		@param app Aplicacion a la que pertenece el estado.
 		*/
-		CApplicationState(CBaseApplication *app) : _app(app) {};
+		CApplicationState(CBaseApplication *app) : _app(app), _previousState(nullptr) {};
 
 		/** 
 		Destructor 
@@ -59,6 +59,8 @@ namespace Application
 		@return true si todo fue bien.
 		*/
 		virtual bool init() {return true;}
+
+		virtual void passInstance(CApplicationState* state){ _previousState = state; }
 
 		/**
 		Función llamada cuando se elimina ("desengancha") el
@@ -160,7 +162,9 @@ namespace Application
 		/**
 		Puntero a la aplicación a la que pertenece el estado
 		*/
-		CBaseApplication *_app;
+		CBaseApplication* _app;
+
+		CApplicationState* _previousState;
 
 	}; // CApplicationState
 

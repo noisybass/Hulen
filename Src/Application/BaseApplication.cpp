@@ -142,7 +142,7 @@ namespace Application {
 			}
 			else if (temp->stateAction == StateAction::PUSH){
 				CPushAction* push = (CPushAction*)temp;
-				pushState(push->state, push->init);
+				pushState(push->state, push->passInstance, push->init);
 			}
 			else if (temp->stateAction == StateAction::SET_GAME_STATE_MAP){
 				CSetGameStateMapAction* setGameState = (CSetGameStateMapAction*)temp;
@@ -159,11 +159,10 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool CBaseApplication::pushState(const States &name, bool init)
+	bool CBaseApplication::pushState(const States &name, bool passInstance, bool init)
 	{
 		// Buscamos el estado.
 		TStateTable::const_iterator it;
-
 		it = _stateTable.find(name);
 
 		// Si no hay ningún estado con ese nombre, no hacemos nada
@@ -177,6 +176,10 @@ namespace Application {
 		// Inicializamos el estado a cargar si se indica
 		if (init)
 			it->second->init();
+
+		// Marcamos en el nuevo estado cual fue el estado anterior.
+		if (passInstance)
+			it->second->passInstance(_currentState);
 
 		// Activamos el estado que vamos a meter en la pila
 		it->second->activate();

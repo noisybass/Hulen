@@ -1,31 +1,24 @@
-#include "OptionsState.h"
-
-#include "MenuState.h"
-#include <regex>
+#include "ControlsState.h"
 
 namespace Application {
 
-	COptionsState::~COptionsState()
+	CControlsState::~CControlsState()
 	{
 	} // ~CMenuState
 
 	//--------------------------------------------------------
 
-	bool COptionsState::init()
+	bool CControlsState::init()
 	{
 		CApplicationState::init();
 
 		// Cargamos la ventana que muestra el menú
-		_menuWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Options.layout");
-		
-		// Asociamos los botones del menú con las funciones que se deben ejecutar.
-		_menuWindow->getChildElement("Controls")->
-			subscribeEvent(CEGUI::PushButton::EventClicked, 
-			CEGUI::SubscriberSlot(&COptionsState::controlReleased, this));
+		_menuWindow = CEGUI::WindowManager::getSingletonPtr()->loadLayoutFromFile("Controls.layout");
 
+		// Asociamos los botones del menú con las funciones que se deben ejecutar.
 		_menuWindow->getChildElement("Back")->
 			subscribeEvent(CEGUI::PushButton::EventClicked,
-			CEGUI::SubscriberSlot(&COptionsState::backReleased, this));
+			CEGUI::SubscriberSlot(&CControlsState::backReleased, this));
 
 		return true;
 
@@ -33,7 +26,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void COptionsState::release()
+	void CControlsState::release()
 	{
 
 		CApplicationState::release();
@@ -42,7 +35,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	void COptionsState::activate()
+	void CControlsState::activate()
 	{
 		CApplicationState::activate();
 
@@ -52,28 +45,23 @@ namespace Application {
 		_menuWindow->activate();
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().show();
 
-		if (_previousState)
-		{
-			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText(static_cast<CMenuState*>(_previousState)->getMapName());
-		}
-
 	} // activate
 
 	//--------------------------------------------------------
 
-	void COptionsState::deactivate()
-	{		
+	void CControlsState::deactivate()
+	{
 		// Desactivamos la ventana GUI con el menú y el ratón.
 		CEGUI::System::getSingletonPtr()->getDefaultGUIContext().getMouseCursor().hide();
 		_menuWindow->deactivate();
 		_menuWindow->setVisible(false);
-		
+
 		CApplicationState::deactivate();
 	} // deactivate
 
 	//--------------------------------------------------------
 
-	void COptionsState::tick(float msecs)
+	void CControlsState::tick(float msecs)
 	{
 		CApplicationState::tick(msecs);
 
@@ -81,7 +69,7 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool COptionsState::keyPressed(GUI::TKey key)
+	bool CControlsState::keyPressed(GUI::TKey key)
 	{
 		return false;
 
@@ -89,9 +77,9 @@ namespace Application {
 
 	//--------------------------------------------------------
 
-	bool COptionsState::keyReleased(GUI::TKey key)
+	bool CControlsState::keyReleased(GUI::TKey key)
 	{
-		switch(key.keyId)
+		switch (key.keyId)
 		{
 		case GUI::Key::ESCAPE:
 			_app->addAction(new CPopAction(true));
@@ -104,16 +92,16 @@ namespace Application {
 	} // keyReleased
 
 	//--------------------------------------------------------
-	
-	bool COptionsState::mouseMoved(const GUI::CMouseState &mouseState)
+
+	bool CControlsState::mouseMoved(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseMoved
 
 	//--------------------------------------------------------
-		
-	bool COptionsState::mousePressed(const GUI::CMouseState &mouseState)
+
+	bool CControlsState::mousePressed(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
@@ -122,36 +110,22 @@ namespace Application {
 	//--------------------------------------------------------
 
 
-	bool COptionsState::mouseReleased(const GUI::CMouseState &mouseState)
+	bool CControlsState::mouseReleased(const GUI::CMouseState &mouseState)
 	{
 		return false;
 
 	} // mouseReleased
 
-	bool COptionsState::controlReleased(const CEGUI::EventArgs& e)
-	{
-		std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
-
-		if (_previousState)
-			static_cast<CMenuState*>(_previousState)->setMapName(mapName);
-
-		_app->addAction(new CPushAction(States::ControlsState, true));
-
-		return true;
-	} // controlReleased
-
-	bool COptionsState::backReleased(const CEGUI::EventArgs& e)
-	{
-
-		std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
-
-		if (_previousState)
-			static_cast<CMenuState*>(_previousState)->setMapName(mapName);
-
-		_app->addAction(new CPopAction());
+	bool CControlsState::backReleased(const CEGUI::EventArgs& e){
+		_app->addAction(new CPopAction(true));
 
 		return true;
 	} // backReleased
-	
+
+	bool CControlsState::controlsMenu(const CEGUI::EventArgs& e){
+
+		return true;
+	} // controlsMenu
+
 
 } // namespace Application

@@ -57,7 +57,7 @@ namespace Application
 		/** 
 		Constructor de la clase 
 		*/
-		CMenuState(CBaseApplication *app) : CApplicationState(app)
+		CMenuState(CBaseApplication *app) : CApplicationState(app), _mapName("sublevelOne.lua")
 		{
 			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
 		}
@@ -164,6 +164,10 @@ namespace Application
 		*/
 		virtual bool mouseReleased(const GUI::CMouseState &mouseState);
 
+		void setMapName(const std::string& mapName){ _mapName = mapName; }
+
+		std::string& getMapName() { return _mapName; }
+
 	private:
 
 		/**
@@ -193,6 +197,8 @@ namespace Application
 		To play sounds
 		*/
 		Sounds::CSoundsResources* _soundResources;
+
+		std::string _mapName;
 
 	}; // CMenuState
 

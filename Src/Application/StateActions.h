@@ -12,6 +12,7 @@ namespace Application
 		PauseState,
 		LoadingState,
 		ExitState,
+		ControlsState,
 	};
 
 	enum StateAction
@@ -55,12 +56,13 @@ namespace Application
 
 		CPushAction(const States &state) : CStateActions(StateAction::PUSH), state(state), init(false) {}
 
-		CPushAction(const States &state, const bool init) : CStateActions(StateAction::PUSH), state(state), init(init) {}
+		CPushAction(const States &state, const bool init, const bool passInstance = false) : CStateActions(StateAction::PUSH), state(state), init(init), passInstance(passInstance) {}
 
 		~CPushAction() = default;
 
 		States state;
 		bool init;
+		bool passInstance;
 	};
 	
 

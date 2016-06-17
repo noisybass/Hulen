@@ -257,7 +257,7 @@ namespace Application
 		estado no existe, <em>no</em> hay un cambio efectivo del estado.
 		Activa el estado a insertar. Inicializa el estado si init es true.
 		*/
-		bool pushState(const States &name, bool init = false);
+		bool pushState(const States &name, bool passInstance, bool init = false);
 
 		/**
 		Elimina de la pila el estado que esta en la cima.La

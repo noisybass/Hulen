@@ -22,6 +22,7 @@ basadas en Ogre. Esta clase maneja la ejecución de todo el juego.
 #include "OptionsState.h"
 #include "LoadingState.h"
 #include "ExitState.h"
+#include "ControlsState.h"
 #include "Logic\Events\Event.h"
 #include "Sounds\api\SoundsResources.h"
 
@@ -63,11 +64,13 @@ namespace Application {
 
 		addState(States::OptionsState, new COptionsState(this));
 
+		addState(States::ControlsState, new CControlsState(this));
+
 		addState(States::LoadingState, new CLoadingState(this));
 
 		addState(States::ExitState, new CExitState(this));
 
-		if (!pushState(States::MenuState, true))
+		if (!pushState(States::MenuState, false, true))
 			return false;
 
 		return true;

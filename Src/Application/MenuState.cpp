@@ -126,9 +126,9 @@ namespace Application {
 			break;
 		case GUI::Key::RETURN:
 
-			mapName = _menuWindow->getChild("MapName")->getText().c_str();
+			//mapName = _menuWindow->getChild("MapName")->getText().c_str();
 
-			if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+			if (!std::regex_match(_mapName, std::regex("[a-zA-Z]+.lua"))){
 				std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
 				return false;
 			}
@@ -136,7 +136,7 @@ namespace Application {
 			// Intenta cambiar el fichero del mapa a cargar
 			//if (!_app->setGameStateMap(mapName))
 				//return false;
-			_app->addAction(new CSetGameStateMapAction(mapName));
+			_app->addAction(new CSetGameStateMapAction(_mapName));
 
 			// Pop MenuState
 			_app->addAction(new CPopAction(true));
@@ -188,9 +188,9 @@ namespace Application {
 	bool CMenuState::startReleased(const CEGUI::EventArgs& e)
 	{
 
-		std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
+		//std::string mapName = _menuWindow->getChild("MapName")->getText().c_str();
 
-		if (!std::regex_match(mapName, std::regex("[a-zA-Z]+.lua"))){
+		if (!std::regex_match(_mapName, std::regex("[a-zA-Z]+.lua"))){
 			std::cout << "ERROR!! The entered name does not match the .lua format" << std::endl;
 			return false;
 		}
@@ -198,7 +198,7 @@ namespace Application {
 		// Intenta cambiar el fichero del mapa a cargar
 		//if (!_app->setGameStateMap(mapName))
 			//return false;
-		_app->addAction(new CSetGameStateMapAction(mapName));
+		_app->addAction(new CSetGameStateMapAction(_mapName));
 
 		// Pop MenuState
 		_app->addAction(new CPopAction(true));
@@ -225,7 +225,7 @@ namespace Application {
 
 	bool CMenuState::optionsReleased(const CEGUI::EventArgs& e)
 	{
-		_app->addAction(new CPushAction(States::OptionsState, true));
+		_app->addAction(new CPushAction(States::OptionsState, true, true));
 		return true;
 
 	} // exitReleased
