@@ -94,7 +94,11 @@ namespace Application {
 		switch(key.keyId)
 		{
 		case GUI::Key::ESCAPE:
-			_app->addAction(new CPopAction(true));
+
+			if (_previousState)
+				static_cast<CMenuState*>(_previousState)->setMapName(_menuWindow->getChild("MapName")->getText().c_str());
+
+			_app->addAction(new CPopAction());
 			break;
 		default:
 			return false;
