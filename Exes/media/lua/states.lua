@@ -150,7 +150,7 @@ end
 
 Lightbulb_Patrol = {
 	component = "CPatrol",
-	speed = 1,
+	speed = 2.5,
 }
 
 Lightbulb_Patrol["Enter"] = function(agent)
