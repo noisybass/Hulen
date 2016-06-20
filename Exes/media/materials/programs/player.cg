@@ -5,26 +5,26 @@ void apply_outline(
 		
         // Vertex Inputs
         float4 position        : POSITION,    // Vertex position in model space
-        float2 texCoord0    : TEXCOORD0,    // Texture UV set 0
-		float3 normal : NORMAL,   // Normals of the model
+		float3 normal          : NORMAL,   // Normals of the model
 
         // Outputs
-        out float4 oPosition    : POSITION,    // Transformed vertex position
-        out float2 uv0        : TEXCOORD0,    // UV0
+        out float4 oPosition         : POSITION,    // Transformed vertex position
+        out float4 newPosition       : TEXCOORD1,   // Modified point
+        out float4 originalPosition  : TEXCOORD2,   // Original point
  
         // Model Level Inputs (projection matrix)
         uniform float4x4 worldViewProj)
 {
     // Calculate output position
     oPosition = mul(worldViewProj, position);
+    originalPosition = oPosition;
+
 	// Calculate the normals
 	float3 norm = mul (float3x3(worldViewProj), normal);
 
 	// Apply the increase of scale deppending of the outline
 	oPosition.xy += norm.xy * outline;
-
-    // Copy the input vertex UV to the output
-    uv0 = texCoord0;
+    newPosition = oPosition;
 }
 
 void apply_blinking_outline(
@@ -87,10 +87,28 @@ void displace_body(
     uv0 = texCoord0;
 }
 
+
 // The object is colored in a custom color
  
 float4 paint(uniform float4 customColor : COLOR) : COLOR
 {
     return customColor;
+}
+
+float4 paint_outline(uniform float4 customColor : COLOR,
+                     float4 newPos    : TEXCOORD1,
+                     float4 oldPos    : TEXCOORD2
+                     ) : COLOR
+{
+    float4 outColor = customColor;
+
+    float4 k = lerp(customColor, 
+               float4(1.0, 1.0, 1.0, 0), 
+               distance(newPos, oldPos));
+
+    outColor = k;
+    //outColor[4] *= 0.7;
+
+    return outColor;
 }
 

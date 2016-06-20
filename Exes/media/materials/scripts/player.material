@@ -51,7 +51,14 @@ fragment_program PaintShader cg
 {
      source player.cg
      entry_point paint
-     profiles ps_1_1 arbfp1
+     profiles ps_2_0 arbfp1
+}
+
+fragment_program PaintOutline cg
+{
+     source player.cg
+     entry_point paint_outline
+     profiles ps_2_0 arbfp1
 }
  
 // Material
@@ -66,32 +73,28 @@ material PlayerLight
 		    // Make this pass use the vertex shader defined above
 			vertex_program_ref OutlineVertex  
 			{
-				param_named outline float 0.03
+				param_named outline float 0.05
 			}
-            fragment_program_ref PaintShader
+            fragment_program_ref PaintOutline
             {
-				param_named customColor float4 1.0 1.0 1.0 0.0
-            }
-            texture_unit
-            {
+				param_named customColor float4 1.0 1.0 1.0 1.0
             }
 
+            scene_blend alpha_blend
+            depth_write off
 			depth_check on
         }
 
 		pass
         {
 		    // Make this pass use the vertex shader defined above
-			vertex_program_ref BodyVertex   
-			{
-			}
+			//vertex_program_ref BodyVertex   
+			//{
+			//}
 
             fragment_program_ref PaintShader
             {
-				param_named customColor float4 0.0 0.0 0.0 0.0
-            }
-            texture_unit
-            {
+				param_named customColor float4 0.0 0.0 0.0 1.0
             }
 
 			depth_check on
