@@ -3,6 +3,7 @@
 #include "Logic/Entity/Entity.h"
 #include "Logic/Entity/GameObject.h"
 #include "Logic/Maps/EntityFactory.h"
+#include "Logic/Server.h"
 #include "Map/MapParser.h"
 #include "Graphics/Server.h"
 #include "GUI/Server.h"
@@ -288,8 +289,18 @@ namespace Logic {
 		bool correct = true;
 
 		// Activamos todas las entidades registradas en el mapa.
-		for(; it != end; it++)
-			correct = (*it).second->activate() && correct;
+		CGameObject* player = getGameObjectByName("Player_GO");
+		assert(player && "Comprueba que en el .lua que el gameObject del player sea 'Player_GO', esta hardcodeado aquí.");
+		player->activate();
+		
+		//correct = Logic::CServer::getSingletonPtr()->getPlayer()->activate() & correct;
+
+		for (; it != end; it++)
+		{
+			if (it->second->getName() != getGameObjectByName("Player_GO")->getName())
+				correct = (*it).second->activate() && correct;
+		}
+			
 
 		GUI::CServer::getSingletonPtr()->getSceneController()->setControlledScene(this);
 		GUI::CServer::getSingletonPtr()->getSceneController()->activate();

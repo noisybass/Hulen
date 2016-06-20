@@ -49,7 +49,6 @@ namespace Logic
 				_state = GameObject::TState::BOTH;
 		}
 
-
 		// Inicializamos los componentes
 		TComponentMap::const_iterator it;
 
@@ -88,6 +87,7 @@ namespace Logic
 
 	bool CGameObject::activate()
 	{
+
 		// Si somos jugador, se lo decimos al servidor
 		// y nos registramos para que nos informen
 		// de los movimientos que debemos realizar
@@ -99,7 +99,6 @@ namespace Logic
 
 		if (isLight()){
 			GUI::CServer::getSingletonPtr()->getLightController()->setControlledLight(this);
-			
 		}
 
 		// Solo si se activan todos los componentes y las entidades de cuerpo

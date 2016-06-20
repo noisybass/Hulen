@@ -7,7 +7,7 @@ Player_GO = {
 	state = "Body",
 	playerDeathTime = 3,
 	playerCanDie = true,
-	chargesOwned = 0,
+	chargesOwned = 1,
 	kasai = "Kasai_GO",
 	charge = "Charge_Prefab",
 	pickObjectAnimation = "pick_object",
@@ -34,7 +34,7 @@ Kasai_GO = {
 },
 
 
-Spike0_GO = { 
+--[[Spike0_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Shadow", 
@@ -56,7 +56,7 @@ Spike3_GO = {
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Shadow", 
-}, 
+}, ]]
 
 World0_GO = { 
 type = "GameObject", 
@@ -379,6 +379,41 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
+Background_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body"
+},
+
+DeathPlane_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body"
+},
+
+InvisibleLeftWall_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body",
+},
+
+FinishLevel_GO = {
+		type = "GameObject",
+		blueprint = "Empty",
+		state = "Body",
+},
+
+LightSave_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body",
+},
+
+ChargeSave_GO = { 
+type = "GameObject", 
+blueprint  = "Empty", 
+state = "Body", 
+}, 
 
 }
 
@@ -567,7 +602,7 @@ Map = {
 	},
 	
 	
-Spike0_Shadow = { 
+--[[Spike0_Shadow = { 
 type = "Shadow", 
 blueprint  = "Spike", 
 game_object  = "Spike0_GO", 
@@ -621,7 +656,7 @@ scale = { 1, 1, 1 },
 physic_entity = "fromFile", 
 physic_file = "media/models/spike1.RepX", 
 physic_group = 1, 
-}, 
+},]]
 
 World0_Body = { 
 type = "Body", 
@@ -1167,7 +1202,7 @@ World40_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World40_GO", 
-position = {28.6, -12.8, -3.04}, 
+position = {23.6, -12.8, -3.04}, 
 model = "floor3.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1179,7 +1214,7 @@ World41_Shadow = {
 type = "Shadow", 
 blueprint  = "World", 
 game_object  = "World41_GO", 
-position = {25, -12.6, -3.027}, 
+position = {20, -12.6, -3.027}, 
 model = "floor4.mesh", 
 material = "Black", 
 scale = { 1, 1, 1 }, 
@@ -1297,104 +1332,161 @@ physic_file = "media/models/floor3.RepX",
 
 -- CENTAUR
 World48_Body = { 
-type = "Body", 
-blueprint  = "World", 
+type = "Body",
+blueprint = "Centaur",
 game_object  = "World48_GO", 
-position = {-20.73, 0.55, 0}, 
-model = "floor1.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
+position = {-20.73, 0, 0}, 
+direction = "right",
+--model = "marine.mesh",
+--material = "Red",
+--defaultAnimation = "Idle",
+--walkRightAnimation = "WalkBack",
+--idleAnimation = "Idle",
+
+model = "Centaur_animations_v2.mesh",
+material = "blinn1",
+defaultAnimation = "idle",
+walkRightAnimation = "walking_cycle",
+idleAnimation = "idle",
+
+physic_shape = "capsule",
+physic_radius = 2,
+physic_height = 3,
+gravity = 15,
+guizmo = false,
+guizmoSize = 10,
+speed = 12,
+defaultVision = 10,
+fsm_initial_state = "Centaur_Idle",
+
+--Animations
+defaultAnimation = "idle",
+defaultAnimationVelocity = 1,
+idle1Animation =           {"idle", 1, "null"},
+walkAnimation =            {"walking_cycle", 1, "null"},
+runAnimation =             {"running_cycle", 1, "null"},
+changeDirectionAnimation = {"change_direction", 1, "null"},
+startRunAnimation =        {"start_run", 1, "null"},
+preparationAnimation =     {"preparation", 1, "null"},
+killScreamAnimation =      {"kill_scream", 1, "null"},
+deathAnimation =           {"crash_death", 1, "null"},
+
+--Blending
+defaultBlendingVelocity = 5,
+idle1Blending =           {"idle", 2, "null"},
+walkBlending =            {"walking_cycle", 2, "null"},
+runBlending =             {"running_cycle", 2, "null"},
+changeDirectionBlending = {"change_direction", 2, "null"},
+startRunBlending =        {"start_run", 2, "null"},
+preparationBlending =     {"preparation", 2, "null"},
+killScreamBlending =      {"kill_scream", 2, "null"},
+deathBlending =           {"crash_death", 2, "null"},
+
 }, 
 
--- CENTAUR
-World48_Shadow = { 
-type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World48_GO", 
-position = {-20.73, 0.55, -3}, 
-model = "floor1.mesh", 
-material = "Black", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
-}, 
 
 -- LEVER
 World49_Body = { 
-type = "Body", 
-blueprint  = "World", 
-game_object  = "World49_GO", 
+type = "Body",
+blueprint = "Lever",
+game_object  = "World49_GO",  
 position = {-16.09, -14.19, 0}, 
-model = "floor1.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
-}, 
+model = "Lever.mesh",
+interactuable_area_radius = 3,
+player = "Player_GO",
+lever_GO_target  = "Wall0_GO",
 
--- LEVER
-World49_Shadow = { 
-type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World49_GO", 
-position = {-16.09, -14.19, -3}, 
-model = "floor1.mesh", 
-material = "Black", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
+--Sound
+switchOnVolume = 0.1,
+switchOnPitch = 1,
+
+switchOffVolume = 0.5,
+switchOffPitch = 1,
+
 }, 
 
 -- LIGHTBULB
 World50_Body = { 
-type = "Body", 
-blueprint  = "World", 
+type = "Body",
+blueprint = "Lightbulb",
 game_object  = "World50_GO", 
-position = {0.85, -14.19, 0}, 
-model = "floor1.mesh", 
-material = "Floor", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
-}, 
+rollRotate = 90,
+position = {1, -14.19, 0}, 
+direction = "left",
+scale = {0.2, 0.2, 0.2},
+model = "LightBulb.mesh",
+material = "Red",
+physic_shape = "capsule",
+physic_radius = 1,
+physic_height = 0.1,
+gravity = 15,
+guizmo = false,
+guizmoSize = 10,
+speed = 2.5,
+--patrolPosition1 = {4, -14, 0},
+--patrolPosition2 = {10, -14, 0},
+patrolPosition1 = {-4.5, 0, 0},
+patrolPosition2 = {6, 0, 0},
+positionToGo = {6,0,0},
+fsm_initial_state = "Lightbulb_Patrol",
+defaultVision = 10,
 
--- LIGHTBULB
-World50_Shadow = { 
-type = "Shadow", 
-blueprint  = "World", 
-game_object  = "World50_GO", 
-position = {0.85, -14.19, -3}, 
-model = "floor1.mesh", 
-material = "Black", 
-scale = { 1, 1, 1 }, 
-physic_entity = "fromFile", 
-physic_file = "media/models/floor1.RepX", 
+--Animations
+defaultAnimation = "walking_cycle",
+defaultAnimationVelocity = 1,
+idle1Animation =           {"idle_search", 1, "null"},
+walkAnimation =            {"walking_cycle", 1, "null"},
+runAnimation =             {"running_cycle", 1, "null"},
+changeDirectionAnimation = {"change_direction", 1, "null"},
+eatLightAnimation        = {"eat_light",1, "null"},
+attackAnimation          = {"attack", 1, "null"},
+
+--Blending
+defaultBlendingVelocity = 5,
+idle1Blending =           {"idle_search", 2, "null"},
+walkBlending =            {"walking_cycle", 2, "null"},
+runBlending =             {"running_cycle", 2, "null"},
+changeDirectionBlending = {"change_direction", 2, "null"},
+eatLightBlending        = {"eat_light",2, "null"},
+attackBlending          = {"attack", 2, "null"},
 }, 
 
 Wall0_Body = { 
-type = "Body", 
-blueprint  = "Wall", 
-game_object  = "Wall0_GO", 
-position = {-5.74, -11.48, 0}, 
-model = "wall4.mesh", 
+type = "Body",
+blueprint = "LeverTarget",
+game_object  = "Wall0_GO",
+position = {-5.74, -17.9, 0}, 
+model = "wall3.mesh", 
 material = "Floor", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
-physic_file = "media/models/wall4.RepX", 
+physic_file = "media/models/wall3.RepX", 
+position2 = {-5.74, -11.48, 0},
+speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Wall0_Shadow = { 
-type = "Shadow", 
-blueprint  = "Wall", 
-game_object  = "Wall0_GO", 
+type = "Shadow",
+blueprint = "LeverTarget",
+game_object  = "Wall0_GO",
 position = {-5.74, -11.48, -3}, 
-model = "wall4.mesh", 
-material = "Black", 
+model = "wall3.mesh", 
+material = "Floor", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
-physic_file = "media/models/wall4.RepX", 
+physic_file = "media/models/wall3.RepX", 
+position2 = {-5.74, -11.48, -3},
+speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 Wall1_Body = { 
@@ -1409,5 +1501,94 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall3.RepX", 
 }, 
 
+Background = {
+		type = "Body",
+		blueprint = "Background",
+		game_object = "Background_GO",
+		position = {0, 0, -3.5},
+		graphic_file = false,
+		graphic_type = "plane",
+		graphic_up_vector = {0, 0, 1},
+		graphic_parallel_vector = {0, 1, 0},
+		graphic_width = 65,
+		graphic_height = 50,
+		material = "perPixel",
+	},
+
+	DeathPlane = {
+		type = "Body",
+		blueprint = "DeathPlane",
+		game_object = "DeathPlane_GO",
+		position = {0, -25, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		scale = {60, 1, 10},
+		physic_dimensions = { 120, 1, 10 },
+	},
+
+	
+
+	InvisibleLeftWall_Body = {
+		type = "Body",
+		blueprint = "InvisibleWorld",
+		game_object = "InvisibleLeftWall_GO",
+		position = {-30, -10, 0},
+		--model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	InvisibleLeftWall_Shadow = {
+		type = "Shadow",
+		blueprint = "InvisibleWorld",
+		game_object = "InvisibleLeftWall_GO",
+		position = {-30, -10, -3},
+		--model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	FinishLevel_Body = {
+		type = "Body",
+		blueprint = "FinishLevel",
+		game_object = "FinishLevel_GO",
+		position = {29, 4, 0},
+		model = "Cube.mesh",
+		physic_entity = "rigid",
+		physic_type = "static",
+		physic_trigger = true,
+		physic_shape = "box",
+		physic_dimensions = { 1,5,1 },
+	},
+
+	LightSave = {
+	type = "Body", 
+	blueprint  = "LightLever", 
+	game_object  = "LightSave_GO", 
+	position = {-28, -14.9, -1.5}, 
+	model = "EndLevelLightSwitch.mesh",
+	static = true,
+	physic_entity = "fromFile",
+	physic_file = "media/models/EndLevelLightSwitch.RepX",
+	physic_change_coords = true,
+	--physic_group = 4,
+	saverLight = true,
+
+	},
+	ChargeSave = { 
+	type = "Body",
+	blueprint = "Charge",
+	prefab = "Charge_Prefab",
+	game_object = "ChargeSave_GO",
+	onMap = true,
+	position = {-28, -12, -1.5}, 
+	}, 
 
 }
