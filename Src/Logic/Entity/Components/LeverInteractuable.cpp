@@ -31,10 +31,6 @@ namespace Logic
 		if (!IComponent::spawn(name, entity, map, entityInfo))
 			return false;
 
-		if (entityInfo->hasAttribute("lever_GO_target")){
-			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("lever_GO_target"))->getBody();
-		}
-
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
 		_graphics->setMaterial("Charge_off");
@@ -65,6 +61,15 @@ namespace Logic
 		return true;
 
 	} // spawn
+
+	bool CLeverInteractuable::init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo)
+	{
+		if (entityInfo->hasAttribute("lever_GO_target")){
+			_target = _entity->getGameObject()->getMap()->getGameObjectByName(entityInfo->getStringAttribute("lever_GO_target"))->getBody();
+		}
+
+		return true;
+	} // init
 
 	bool CLeverInteractuable::activate(){
 	

@@ -57,7 +57,7 @@ namespace Application
 		/** 
 		Constructor de la clase 
 		*/
-		CMenuState(CBaseApplication *app) : CApplicationState(app), _mapName("twoSublevelFour.lua")
+		CMenuState(CBaseApplication *app) : CApplicationState(app), _mapName("twoSublevelFive.lua")
 		{
 			_soundResources = Sounds::CSoundsResources::getSingletonPtr();
 		}

@@ -17,6 +17,8 @@ namespace Logic
 
 		bool spawn(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
 
+		bool init(const std::string& name, CEntity* entity, CMap *map, const Map::CEntity *entityInfo) override;
+
 		void tick(float msecs) override;
 
 		virtual bool activate() override;

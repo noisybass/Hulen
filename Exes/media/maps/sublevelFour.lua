@@ -1496,8 +1496,6 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {28.64, 21, -0.236},
 speed = 10,
-
-
 }, 
 
 WallEndLevel_Shadow = { 
