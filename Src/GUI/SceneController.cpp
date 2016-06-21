@@ -48,6 +48,7 @@ namespace GUI {
 
 	bool CSceneController::keyPressed(TKey key)
 	{
+#ifdef _DEBUG
 		switch (key.keyId){
 		case GUI::Key::L:
 			
@@ -74,7 +75,7 @@ namespace GUI {
 
 			break;
 		}
-
+#endif
 		return false;
 
 	} // keyPressed
