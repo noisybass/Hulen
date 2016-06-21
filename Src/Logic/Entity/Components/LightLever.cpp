@@ -32,7 +32,7 @@ namespace Logic
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
-		_graphics->setMaterial("Charge_off");
+		//_graphics->setMaterial("Charge_off");
 
 		return true;
 
@@ -77,7 +77,7 @@ namespace Logic
 			_target->emitMessage(message);
 			if (_shadowTarget)
 				_shadowTarget->emitMessage(message);
-			_graphics->setMaterial("Charge_on");
+			//_graphics->setMaterial("Charge_on");
 			//_leverSwitch = true;
 		}
 		// If isn't a charge above and the lever is active
@@ -90,7 +90,7 @@ namespace Logic
 			_target->emitMessage(message);
 			if (_shadowTarget)
 				_shadowTarget->emitMessage(message);
-			_graphics->setMaterial("Charge_off");
+			//_graphics->setMaterial("Charge_off");
 			//_leverSwitch = false;
 		}
 

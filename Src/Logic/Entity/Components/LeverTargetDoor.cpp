@@ -42,7 +42,7 @@ namespace Logic
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
-		_graphics->setMaterial("Green");
+		//_graphics->setMaterial("Green");
 
 		return true;
 
@@ -74,7 +74,7 @@ namespace Logic
 	} // process
 
 	void CLeverTargetDoor::switchOn(){
-		_graphics->setMaterial("Purple");
+		//_graphics->setMaterial("Purple");
 		TMessage message;
 		message._type = Message::SWITCH;
 		message.setArg("switch", 1);
@@ -84,7 +84,7 @@ namespace Logic
 	} // switchOn
 
 	void CLeverTargetDoor::switchOff(){
-		_graphics->setMaterial("Green");
+		//_graphics->setMaterial("Green");
 		TMessage message;
 		message._type = Message::SWITCH;
 		message.setArg("switch", 0);

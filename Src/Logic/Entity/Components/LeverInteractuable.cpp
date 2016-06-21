@@ -33,7 +33,7 @@ namespace Logic
 
 		_graphics = (CGraphics*)(_entity->getComponent("CGraphics"));
 
-		_graphics->setMaterial("Charge_off");
+		//_graphics->setMaterial("Charge_off");
 
 		/**
 		Sounds
@@ -102,13 +102,12 @@ namespace Logic
 			{
 				sounds->playSound(_channelSwitchOnSound);
 				sounds->pauseSound(_channelSwitchOffSound);
-				_graphics->setMaterial("Charge_on");
+				//_graphics->setMaterial("Charge_on");
 			}
 			else 
 			{
 				sounds->playSound(_channelSwitchOffSound);
-				//sounds->pauseSound(_channelSwitchOnSound);
-				_graphics->setMaterial("Charge_off");
+				//_graphics->setMaterial("Charge_off");
 			}
 
 			
