@@ -1,6 +1,8 @@
 #include "OptionsState.h"
 
 #include "MenuState.h"
+#include <CEGUI\EventArgs.h>
+#include <CEGUI\Window.h>
 #include <regex>
 
 namespace Application {
@@ -26,6 +28,46 @@ namespace Application {
 		_menuWindow->getChildElement("Back")->
 			subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::SubscriberSlot(&COptionsState::backReleased, this));
+
+		_menuWindow->getChildElement("Level1")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level1")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level2")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level3")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level4")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level5")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level6")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level7")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level8")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
+
+		_menuWindow->getChildElement("Level9")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&COptionsState::levelButtonReleased, this));
 
 		return true;
 
@@ -156,6 +198,34 @@ namespace Application {
 
 		return true;
 	} // backReleased
+
+	bool COptionsState::levelButtonReleased(const CEGUI::EventArgs& e)
+	{
+		
+		const CEGUI::WindowEventArgs* args = static_cast<const CEGUI::WindowEventArgs*>(&e);
+		std::string name = args->window->getName().c_str();
+
+		if (name == "Level1")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("sublevelOne.lua");
+		else if (name == "Level2")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("sublevelTwo.lua");
+		else if (name == "Level3")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("sublevelThree.lua");
+		else if (name == "Level4")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("sublevelFour.lua");
+		else if (name == "Level5")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("twoSublevelOne.lua");
+		else if (name == "Level6")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("twoSublevelTwo.lua");
+		else if (name == "Level7")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("twoSublevelThree.lua");
+		else if (name == "Level8")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("twoSublevelFour.lua");
+		else if (name == "Level9")
+			static_cast<CEGUI::Editbox*>(_menuWindow->getChild("MapName"))->setText("twoSublevelFive.lua");
+
+		return true;
+	} // levelButtonReleased
 	
 
 } // namespace Application

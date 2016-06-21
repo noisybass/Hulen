@@ -133,6 +133,8 @@ namespace Application
 
 		bool backReleased(const CEGUI::EventArgs& e);
 
+		bool levelButtonReleased(const CEGUI::EventArgs& e);
+
 	}; // CMenuState
 
 } // namespace Application
