@@ -9,22 +9,22 @@ void apply_outline(
 
         // Outputs
         out float4 oPosition         : POSITION,    // Transformed vertex position
-        out float4 newPosition       : TEXCOORD1,   // Modified point
-        out float4 originalPosition  : TEXCOORD2,   // Original point
+        out float outlineDist : TEXCOORD1,
  
         // Model Level Inputs (projection matrix)
         uniform float4x4 worldViewProj)
 {
     // Calculate output position
-    oPosition = mul(worldViewProj, position);
-    originalPosition = oPosition;
+    float4 objectPosition = mul(worldViewProj, position);
 
 	// Calculate the normals
 	float3 norm = mul (float3x3(worldViewProj), normal);
 
 	// Apply the increase of scale deppending of the outline
-	oPosition.xy += norm.xy * outline;
-    newPosition = oPosition;
+    oPosition = objectPosition;
+    oPosition.xy += norm.xy * outline;
+
+    outlineDist = distance(objectPosition, oPosition);
 }
 
 void apply_blinking_outline(
@@ -96,19 +96,14 @@ float4 paint(uniform float4 customColor : COLOR) : COLOR
 }
 
 float4 paint_outline(uniform float4 customColor : COLOR,
-                     float4 newPos    : TEXCOORD1,
-                     float4 oldPos    : TEXCOORD2
+                     float outlineDist : TEXCOORD1
                      ) : COLOR
 {
-    float4 outColor = customColor;
 
-    float4 k = lerp(customColor, 
-               float4(1.0, 1.0, 1.0, 0), 
-               distance(newPos, oldPos));
-
-    outColor = k;
-    //outColor[4] *= 0.7;
-
-    return outColor;
+    float factor = 1.0/(1.0 + 0.09 * outlineDist + 1.0 * outlineDist * outlineDist);
+    //float factor = outlineDist;
+    return lerp(float4(1, 1, 1, 1), 
+               float4(1, 1, 1, 0), 
+               factor);
 }
 
