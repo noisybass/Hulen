@@ -5113,7 +5113,7 @@ gravity = 15,
 guizmo = false,
 guizmoSize = 10,
 speed = 12,
-defaultVision = 10,
+defaultVision = 40,
 fsm_initial_state = "Centaur_Idle",
 
 --Animations

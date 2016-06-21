@@ -1496,6 +1496,11 @@ physic_entity = "fromFile",
 physic_file = "media/models/wall2.RepX",
 position2 = {28.64, 21, -0.236},
 speed = 10,
+
+-- Sound
+sound_name = "MoveWall",
+sound_volume = 0.7,
+sound_pitch = 1,
 }, 
 
 WallEndLevel_Shadow = { 
@@ -1521,18 +1526,13 @@ EndLightLever_Body = {
 type = "Body", 
 blueprint  = "LightLever", 
 game_object  = "EndLightLever_GO", 
-position = {23.25, 8.17, -1}, 
+position = {23.25, 8.17, -0.5}, 
 light_lever_GO_target = "WallEndLevel_GO",
 model = "EndLevelLightSwitch.mesh",
 static = true,
 physic_entity = "fromFile",
 physic_file = "media/models/EndLevelLightSwitch.RepX",
 physic_change_coords = true,
-
--- Sound
-sound_name = "MoveWall",
-sound_volume = 0.7,
-sound_pitch = 1,
 }, 
 
 Background = {
