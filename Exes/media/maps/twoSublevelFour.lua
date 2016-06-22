@@ -286,6 +286,12 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
+World37Aux_GO = { 
+type = "GameObject", 
+blueprint  = "Empty", 
+state = "Body", 
+}, 
+
 World38_GO = { 
 type = "GameObject", 
 blueprint  = "Empty", 
@@ -1174,6 +1180,18 @@ physic_entity = "fromFile",
 physic_file = "media/models/floor3.RepX", 
 }, 
 
+World37Aux_Body = { 
+type = "Body", 
+blueprint  = "World", 
+game_object  = "World37Aux_GO", 
+position = {23.05, -15.88364, -0.03999996}, 
+model = "floor3.mesh", 
+material = "Floor", 
+scale = { 1, 1, 1 }, 
+physic_entity = "fromFile", 
+physic_file = "media/models/floor3.RepX", 
+}, 
+
 World38_Body = { 
 type = "Body", 
 blueprint  = "World", 
@@ -1476,7 +1494,7 @@ blueprint = "LeverTarget",
 game_object  = "Wall0_GO",
 position = {-5.74, -11.48, -3}, 
 model = "wall3.mesh", 
-material = "Floor", 
+material = "Black", 
 scale = { 1, 1, 1 }, 
 physic_entity = "fromFile", 
 physic_file = "media/models/wall3.RepX", 

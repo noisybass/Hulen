@@ -1132,13 +1132,19 @@ DeathPlane_GO = {
 InvisibleLeftWall_GO = {
 	type = "GameObject",
 	blueprint = "Empty",
-	state = "Body",
+	state = "Shadow",
 },
 
 FinishLevel_GO = {
 		type = "GameObject",
 		blueprint = "Empty",
 		state = "Body",
+},
+
+Wall_GO = {
+	type = "GameObject",
+	blueprint = "Empty",
+	state = "Body",	
 },
 
 LightSave_GO = {
@@ -1153,11 +1159,11 @@ blueprint  = "Empty",
 state = "Body", 
 }, 
 
-nose_GO = {
+--[[nose_GO = {
 type = "GameObject", 
 blueprint  = "Empty", 
 state = "Body", 
-},
+},]]
 
 }
 
@@ -5092,7 +5098,7 @@ World80_Body = {
 type = "Body",
 blueprint = "Centaur",
 game_object = "World80_GO",
-position = {18.14, 6.58, -0.02999973}, 
+position = {18.14, 6.58, 0}, 
 direction = "left",
 --model = "marine.mesh",
 --material = "Red",
@@ -5193,7 +5199,7 @@ Background = {
 		physic_dimensions = { 120, 1, 10 },
 	},
 
-	InvisibleLeftWall_Body = {
+	--[[InvisibleLeftWall_Body = {
 		type = "Body",
 		blueprint = "InvisibleWorld",
 		game_object = "InvisibleLeftWall_GO",
@@ -5203,7 +5209,7 @@ Background = {
 		physic_type = "static",
 		physic_shape = "box",
 		physic_dimensions = { 1,5,1 },
-	},
+	},]]
 
 	InvisibleLeftWall_Shadow = {
 		type = "Shadow",
@@ -5215,6 +5221,18 @@ Background = {
 		physic_type = "static",
 		physic_shape = "box",
 		physic_dimensions = { 1,5,1 },
+	},
+
+	Wall_Body = {
+		type = "Body", 
+		blueprint  = "Wall", 
+		game_object  = "Wall_GO", 
+		position = {-30, 9.65, 0},
+		model = "wall1.mesh", 
+		material = "Floor", 
+		scale = { 1, 1, 1 }, 
+		physic_entity = "fromFile", 
+		physic_file = "media/models/wall1.RepX", 
 	},
 
 	FinishLevel_Body = {
@@ -5254,7 +5272,7 @@ Background = {
 	position = {-28, 10, -1.5}, 
 	}, 
 
-	nose = {
+	--[[nose = {
 		type = "Body",
 		blueprint = "World",
 		game_object = "nose_GO",
@@ -5265,6 +5283,6 @@ Background = {
 		physic_trigger = true,
 		physic_shape = "box",
 		physic_dimensions = { 1,5,1 },
-	},
+	},]]
 
 }
