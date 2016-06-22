@@ -187,11 +187,11 @@ namespace Application {
 
 			_app->addAction(new CPushAction(States::PauseState));
 			break;
-#ifdef _DEBUG
+//#ifdef _DEBUG
 		case GUI::Key::R:
 			_app->reloadState();
 			break;
-#endif
+//#endif
 		default:
 			return false;
 		}

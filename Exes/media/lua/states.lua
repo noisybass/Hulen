@@ -224,15 +224,16 @@ Lightbulb_Chase["Execute"] = function(agent, msecs)
 		agent: SetAnimation("eatLightAnimation", false, false)
 		agent: ChangeState(Lightbulb_EatCharge)
 
-	--elseif agent:GetBoolValue("seeing_entity") then
-	--	agent: ChangeState(Lightbulb_Alert)
+	--elseif not agent:GetBoolValue("seeing_entity") then
+		--agent: ChangeState(Lightbulb_Alert)
 
 	elseif agent:GetBoolValue("seeing_entity") then
 		agent: SetAnimation("runAnimation", true, false)
+		print("seeing entity")
 		if not (agent: GetStringValue("seen_entity_bp") == "Player" or agent: GetStringValue("seen_entity_bp") == "Charge") then
+			print("ChangeState pls!!!!!")
 			agent: ChangeState(Lightbulb_Alert)
 		end
-
 	else
 		agent: SetAnimation("runAnimation", true, false)
 	end
@@ -265,7 +266,11 @@ end
 
 Lightbulb_Alert["Execute"] = function(agent, msecs)
 
-	if agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
+	if not agent: GetBoolValue("seeing_entity") then
+		print ("iddddddleeeeeee")
+		agent: SetAnimation("idle1Animation", false, false)
+
+	elseif agent: GetBoolValue("touching_entity") and (agent: GetStringValue("touched_entity_bp") == "Player") then
 		agent: SetAnimation("attackAnimation", false, false)
 		agent: ChangeState(Lightbulb_Attack)
 
@@ -280,6 +285,7 @@ Lightbulb_Alert["Execute"] = function(agent, msecs)
 		agent: SetBoolValue("idle1AnimationFinish", false)
 		agent: ChangeState(Lightbulb_Patrol)
 	end
+
 
 end
 
