@@ -138,10 +138,10 @@
     <ClInclude Include="..\..\Src\Application\OptionsState.h" />
     <ClInclude Include="..\..\Src\Application\PauseState.h" />
     <ClInclude Include="..\..\Src\Application\StateActions.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Galeon.ico" />
-    <None Include="small.ico" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource2.h" />
+    <ClInclude Include="resource3.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSubsystems\BaseSubsystems.vcxproj">
@@ -171,6 +171,9 @@
     <ProjectReference Include="..\Sounds\Sounds.vcxproj">
       <Project>{20258022-d342-47f6-a2dc-3b0ed51c135d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Application.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
