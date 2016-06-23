@@ -36,6 +36,8 @@ namespace Logic
 		unsigned int howManyCharges() const { return _chargesOwned; };
 
 		void addMapCharges(CGameObject* gameObject);
+
+		void playerDying(bool dying) { _dying = dying; }
 	protected:
 
 		/**
@@ -58,6 +60,8 @@ namespace Logic
 	private:
 
 		bool canChangeState(CEntity* entity, bool toShadow) const;
+
+		bool seeLightSwitch(Vector3 positionToPutCharge);
 
 		/**
 		Opcion de depuracion, si lo ponemos a true el jugador puede morir,
@@ -106,6 +110,9 @@ namespace Logic
 		Número de cargas que puede poner el jugador.
 		*/
 		unsigned int _chargesOwned;
+
+		// Show if the player is dying
+		bool _dying;
 
 		/**
 		To play sounds

@@ -24,7 +24,7 @@ namespace Logic
 		: IComponent(), _onLight(false), _deathTimeElapsed(0.0),
 		_playerDeathTime(3.0), _kasaiName(""), _kasai(nullptr),
 		_chargePrefab(""), _chargesOwned(3), _playerCanDie(false), 
-		_pickObjectAnimation(""), _chargesCount(0)
+		_pickObjectAnimation(""), _chargesCount(0), _dying(false)
 	{
 		_soundsResources = Sounds::CSoundsResources::getSingletonPtr();
 		_soundsResources->createSound(std::string("ShadowSongChannel"), std::string("ShadowSong"));
@@ -156,7 +156,12 @@ namespace Logic
 					// Instanciamos la carga en el mapa
 					Vector3 pos = message.getArg<Vector3>("instancePosition");
 					std::stringstream ss;
-					ss << pos.x << " " << pos.y << " " << 0;
+
+					if (seeLightSwitch(pos))
+						ss << pos.x << " " << pos.y << " " << -1.5;
+					else
+						ss << pos.x << " " << pos.y << " " << 0;
+
 					std::string chargePosition = ss.str();
 					ss.str(std::string());
 					_chargesCount = (_chargesCount + 1) % 9;
@@ -184,7 +189,7 @@ namespace Logic
 			}
 			break;
 		case Message::PLAYER_CHANGE_STATE:
-			if (_onLight)
+			if (_onLight && !_dying)
 			{
 				if (_gameObject->_state == GameObject::SHADOW)
 					changeState(GameObject::BODY);
@@ -275,6 +280,28 @@ namespace Logic
 
 	} // canChangeState
 
+	bool CPlayerManager::seeLightSwitch(Vector3 positionToPutCharge)
+	{
+		//Vector3 origin = _entity->getPosition();
+		//if (_entity->getDirection() == 1) origin.x += _xRaySeparation;
+		//else if (_entity->getDirection() == -1) origin.x -= _xRaySeparation;
+		//origin.y += _yRaySeparation;
+		positionToPutCharge.z = -1.5;
+		Ogre::Ray ray;
+		ray.setOrigin(positionToPutCharge);
+		ray.setDirection(Vector3(0, -1, 0));
+
+		Logic::CEntity* entity =  Physics::CServer::getSingletonPtr()->raycastClosest(ray, 40);
+		
+		if (!entity)
+			return false;
+
+		if (entity->getBlueprint() != "LightLever")
+			return false;
+
+		return true;
+	} // seeLightSwitch
+
 	void CPlayerManager::sendState(Logic::CEntity* emitter, Logic::CEntity* receiver)
 	{
 		// Mandamos la posición de la entidad
@@ -341,9 +368,12 @@ namespace Logic
 				static_cast<CLife*>(_gameObject->getComponent("CLife"))->setVisible(true);
 				//std::cout << "Tiempo que llevo fuera de la luz " << _deathTimeElapsed << std::endl;
 				if (_deathTimeElapsed >= _playerDeathTime){
-					m._type = Logic::Message::PLAYER_EVENT;
+					/*m._type = Logic::Message::PLAYER_EVENT;
 					m.setArg<std::string>(std::string("playerEvent"), std::string("die"));
-					_gameObject->emitMessage(m);
+					_gameObject->emitMessage(m);*/
+					TMessage msg;
+					msg._type = Message::PLAYER_DEATH;
+					_gameObject->emitMessage(msg);
 				}
 			}
 		}

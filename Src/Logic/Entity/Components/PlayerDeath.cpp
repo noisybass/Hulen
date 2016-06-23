@@ -1,5 +1,6 @@
 #include "PlayerDeath.h"
 #include "Logic/Server.h"
+#include "PlayerManager.h"
 
 namespace Logic
 {
@@ -25,6 +26,7 @@ namespace Logic
 	void CPlayerDeath::process(const TMessage &message)
 	{
 		TMessage msg;
+		CPlayerManager* playerManager;
 		switch (message._type)
 		{
 		case Message::PLAYER_DEATH_BY_DEATH_PLANE:
@@ -36,6 +38,8 @@ namespace Logic
 			break;
 		case Message::PLAYER_DEATH:
 
+			playerManager = (CPlayerManager*)Logic::CServer::getSingletonPtr()->getPlayer()->getComponent("CPlayerManager");
+			playerManager->playerDying(true);
 			// death animation
 			msg._type = Message::SET_ANIMATION;
 			msg.setArg<std::string>(std::string("animation"), std::string(_deathAnimation));
