@@ -468,14 +468,22 @@ namespace BaseSubsystems
 		// OGRE         //
 		//////////////////
 
-		// Carga los ajustes de configudación desde ogre.cfg
+		/*// Carga los ajustes de configudación desde ogre.cfg
 		if(force || !_root->restoreConfig()) {
 			// Si no hay archivo de configuración se lanza la ventana de configuración
 			if(!_root->showConfigDialog()) {
 				// Si el juego no se puede configurar se finaliza
 				return false;
 			}
-		}
+		}*/
+
+		// Do not add this to your project
+		Ogre::RenderSystem* rs = _root->getRenderSystemByName("Direct3D9 Rendering Subsystem");
+
+		_root->setRenderSystem(rs);
+		rs->setConfigOption("Full Screen", "No");
+		rs->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
+
 		return true;
 
 	} // configure

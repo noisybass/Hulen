@@ -57,7 +57,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 		Ogre::Root *root = new Ogre::Root("plugins.cfg");
 #endif
 		// Lanzamos la ventana de depuración
-		root->showConfigDialog();
+		//root->showConfigDialog();
 			
 		delete root;
 	}

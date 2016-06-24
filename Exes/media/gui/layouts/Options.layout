@@ -12,9 +12,9 @@
       <Window type="Hulen/ImageButton" name="Controls" >
         <Property name="Area" value="{{0.38,0},{0.1,0},{0.6,0},{0.3,0}}" />
         <Property name="AlwaysOnTop" value="True" />
-        <Property name="NormalImage" value="HulenMenuAssets/optionsButton" />
-        <Property name="HoverImage" value="HulenMenuAssets/optionsButtonMouseOver" />
-        <Property name="PushedImage" value="HulenMenuAssets/optionsButtonMouseClick" />
+        <Property name="NormalImage" value="HulenMenuAssets/controlsButton" />
+        <Property name="HoverImage" value="HulenMenuAssets/controlsButtonMouseOver" />
+        <Property name="PushedImage" value="HulenMenuAssets/controlsButtonMouseClick" />
       </Window>
 
       <Window type="AlfiskoSkin/Button" name="Level1" >
