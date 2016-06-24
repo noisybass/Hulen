@@ -110,6 +110,7 @@
     <ClCompile Include="..\..\Src\Application\BaseApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\Clock.cpp" />
     <ClCompile Include="..\..\Src\Application\ControlsState.cpp" />
+    <ClCompile Include="..\..\Src\Application\CreditsState.cpp" />
     <ClCompile Include="..\..\Src\Application\Galeon.cpp" />
     <ClCompile Include="..\..\Src\Application\GaleonApplication.cpp" />
     <ClCompile Include="..\..\Src\Application\GameState.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="..\..\Src\Application\BaseApplication.h" />
     <ClInclude Include="..\..\Src\Application\Clock.h" />
     <ClInclude Include="..\..\Src\Application\ControlsState.h" />
+    <ClInclude Include="..\..\Src\Application\CreditsState.h" />
     <ClInclude Include="..\..\Src\Application\Documentation.h" />
     <ClInclude Include="..\..\Src\Application\ExitState.h" />
     <ClInclude Include="..\..\Src\Application\GaleonApplication.h" />
@@ -138,10 +140,6 @@
     <ClInclude Include="..\..\Src\Application\OptionsState.h" />
     <ClInclude Include="..\..\Src\Application\PauseState.h" />
     <ClInclude Include="..\..\Src\Application\StateActions.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="resource2.h" />
-    <ClInclude Include="resource3.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSubsystems\BaseSubsystems.vcxproj">

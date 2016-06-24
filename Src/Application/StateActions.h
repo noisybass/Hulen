@@ -13,6 +13,7 @@ namespace Application
 		LoadingState,
 		ExitState,
 		ControlsState,
+		CreditsState,
 	};
 
 	enum StateAction

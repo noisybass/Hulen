@@ -43,6 +43,10 @@ namespace Application {
 		_menuWindow->getChildElement("Start")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
 				CEGUI::SubscriberSlot(&CMenuState::startReleased, this));
+
+		_menuWindow->getChildElement("Credits")->
+			subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::SubscriberSlot(&CMenuState::creditsReleased, this));
 		
 		_menuWindow->getChildElement("Exit")->
 			subscribeEvent(CEGUI::PushButton::EventClicked, 
@@ -229,5 +233,11 @@ namespace Application {
 		return true;
 
 	} // exitReleased
+
+	bool CMenuState::creditsReleased(const CEGUI::EventArgs& e)
+	{
+		_app->addAction(new CPushAction(States::CreditsState, true, false));
+		return true;
+	} // creditsReleased
 
 } // namespace Application

@@ -181,6 +181,8 @@ namespace Application
 		*/
 		bool startReleased(const CEGUI::EventArgs& e);
 
+		bool creditsReleased(const CEGUI::EventArgs& e);
+
 		/**
 		Función que se quiere realizar cuando se pulse el botón exit.
 		Simplemente termina la aplicación.

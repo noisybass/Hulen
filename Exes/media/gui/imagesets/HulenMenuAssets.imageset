@@ -16,6 +16,7 @@
     <Image name="pauseButton" xPos="2326" yPos="260" width="430" height="219" />
     <Image name="resumeButton" xPos="2810" yPos="260" width="540" height="219" />
     <Image name="menuButton" xPos="3417" yPos="260" width="460" height="219" />
+    <Image name="loadingButton" xPos="3930" yPos="260" width="650" height="219" />
 
     <Image name="creditsButtonMouseOver" xPos="0" yPos="475" width="457" height="220" />
     <Image name="exitButtonMouseOver" xPos="460" yPos="460" width="305" height="220" />
@@ -25,6 +26,7 @@
     <Image name="pauseButtonMouseOver" xPos="2326" yPos="460" width="430" height="219" />
     <Image name="resumeButtonMouseOver" xPos="2810" yPos="460" width="540" height="219" />
     <Image name="menuButtonMouseOver" xPos="3417" yPos="460" width="460" height="219" />
+    <Image name="loadingButtonMouseOver" xPos="3930" yPos="460" width="650" height="219" />
 
     <Image name="creditsButtonMouseClick" xPos="0" yPos="465" width="453" height="224" />
     <Image name="exitButtonMouseClick" xPos="460" yPos="450" width="305" height="224" />
@@ -34,4 +36,5 @@
     <Image name="pauseButtonMouseClick" xPos="2326" yPos="680" width="430" height="219" />
     <Image name="resumeButtonMouseClick" xPos="2810" yPos="680" width="540" height="219" />
     <Image name="menuButtonMouseClick" xPos="3417" yPos="680" width="460" height="219" />
+    <Image name="loadingButtonMouseClick" xPos="3930" yPos="680" width="650" height="219" />
 </Imageset>

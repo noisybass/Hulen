@@ -4,6 +4,7 @@
     <Imageset filename="HulenBackground.imageset" />
     <Imageset filename="HulenMenuAssets.imageset" />
     <Imageset filename="HulenKeyboardControls.imageset" />
+    <Imageset filename="HulenCredits.imageset" />
     <Font filename="DejaVuSans-12.font" />
     <LookNFeel filename="Hulen.looknfeel" />
     <WindowRendererSet filename="CEGUICoreWindowRendererSet" />
