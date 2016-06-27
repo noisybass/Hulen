@@ -10,7 +10,6 @@ void apply_outline(
 
         // Outputs
         out float4 oPosition    : POSITION,    // Transformed vertex position
-        out float2 uv0        : TEXCOORD0,    // UV0
  
         // Model Level Inputs (projection matrix)
         uniform float4x4 worldViewProj)
@@ -22,9 +21,6 @@ void apply_outline(
 
 	// Apply the increase of scale deppending of the outline
 	oPosition.xy += norm.xy * outline;
-
-    // Copy the input vertex UV to the output
-    uv0 = texCoord0;
 }
 
 void apply_blinking_outline(
@@ -37,7 +33,6 @@ void apply_blinking_outline(
 
         // Outputs
         out float4 oPosition    : POSITION,    // Transformed vertex position
-        out float2 uv0        : TEXCOORD0,    // UV0
  
         // Model Level Inputs (projection matrix)
         uniform float4x4 worldViewProj,
@@ -55,9 +50,6 @@ void apply_blinking_outline(
         // Apply the increase of scale deppending of the outline
         oPosition.xy += norm.xy * outline;
     }
-
-    // Copy the input vertex UV to the output
-    uv0 = texCoord0;
 }
 
 
@@ -94,3 +86,23 @@ float4 paint(uniform float4 customColor : COLOR) : COLOR
     return customColor;
 }
 
+
+float4 paint_only_light(float4 position : TEXCOORD0,
+                        uniform float4 customColor : COLOR,
+                        uniform float3 lightPosition0,
+                        uniform float4 lightAttenuation0,
+                        uniform float time,
+                        uniform float scaleFactor,
+                        uniform float frequency) : COLOR
+{
+    float3 P = position.xyz;
+    float range = lightAttenuation0.x + scaleFactor * (sin(frequency * time) + 1);
+
+
+    if (distance(P, lightPosition0) >= range)
+    {
+        customColor.w = 0.0;
+    }
+
+    return customColor;
+}

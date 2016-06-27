@@ -999,6 +999,7 @@ Background = {
 	game_object  = "LightSave_GO", 
 	position = {-28, -13.5, -1.5}, 
 	model = "EndLevelLightSwitch.mesh",
+	material = "FloorInteractuable",
 	static = true,
 	physic_entity = "fromFile",
 	physic_file = "media/models/EndLevelLightSwitch.RepX",

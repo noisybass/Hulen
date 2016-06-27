@@ -41,6 +41,9 @@ namespace Logic
 	{
 		_player = _entity->getGameObject()->getMap()->getGameObjectByName(_playerName);
 
+		CPointLight* light = (CPointLight*)(_entity->getComponent("CPointLight"));
+		light->setColor(Vector3(0.75, 0.6, 0.25));
+
 		return true;
 
 	} // activate
@@ -53,12 +56,12 @@ namespace Logic
 		if (dist < _radius*_radius)
 		{
 			_playerInside = true;
-			light->setColor(Vector3(0.75, 0.6, 0.25));
+			//light->setColor(Vector3(0.75, 0.6, 0.25));
 		}
 		else
 		{
 			_playerInside = false;
-			light->setColor(Vector3(0.5, 0, 0));
+			//light->setColor(Vector3(0.5, 0, 0));
 		}
 	} // tick
 

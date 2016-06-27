@@ -107,7 +107,8 @@ namespace Logic
 			}
 			else{
 				_canInteract = false;
-				_graphics->setMaterial("Charge_off");
+				//_graphics->setMaterial("Charge_off");
+				_graphics->setMaterial("Charge_on");
 			}
 			break;
 		case Message::DEATH_PLANE:

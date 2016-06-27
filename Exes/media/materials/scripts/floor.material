@@ -31,3 +31,37 @@ material Floor
 		}
 	}
 }
+
+material FloorInteractuable
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ambient_vs
+			{
+			
+			}
+		}
+		pass
+		{
+			iteration once_per_light
+			scene_blend add
+
+			vertex_program_ref perFragmentLighting_vs
+			{
+
+			}
+
+			fragment_program_ref perFragmentLighting_ps
+			{
+
+			}
+
+			texture_unit
+			{
+				texture "rock.png" 2d
+			}
+		}
+	}
+}
