@@ -1362,7 +1362,7 @@ direction = "right",
 --idleAnimation = "Idle",
 
 model = "Centaur_animations_v2.mesh",
-material = "Enemy",
+material = "Enemy2",
 defaultAnimation = "idle",
 walkRightAnimation = "walking_cycle",
 idleAnimation = "idle",

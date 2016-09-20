@@ -99,3 +99,49 @@ material Enemy
 
     }
 }
+
+material Enemy2
+{
+    technique
+    {
+        pass
+        {
+            iteration once_per_light
+            //scene_blend add
+
+            // Make this pass use the vertex shader defined above
+            vertex_program_ref OutlineVertex  
+            {
+                param_named outline float 0.1
+            }
+            fragment_program_ref PaintShaderOnlyLight
+            {
+                param_named customColor float4 0.5 0.5 0.5 0.0
+            }
+            texture_unit
+            {
+            }
+
+            depth_check on
+        }
+
+        pass
+        {
+            // Make this pass use the vertex shader defined above
+            vertex_program_ref BodyVertex   
+            {
+            }
+
+            fragment_program_ref PaintShader
+            {
+                param_named customColor float4 0.025 0.025 0.025 0.0
+            }
+            texture_unit
+            {
+            }
+
+            depth_check on
+        }
+
+    }
+}
